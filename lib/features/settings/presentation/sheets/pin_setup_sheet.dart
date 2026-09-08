@@ -1,11 +1,11 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/keypad.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/keypad.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 Future<String?> showPinSetupSheet(BuildContext context) async {
-  return showPokaSheet<String>(
+  return showDompetSheet<String>(
     context: context,
     fitContent: true,
     builder: (context) => const PinSetupSheet(),
@@ -87,7 +87,7 @@ class _PinSetupSheetState extends State<PinSetupSheet> {
   Widget build(BuildContext context) {
     final currentPin = _isConfirmStep ? _confirmPin : _pin;
 
-    return PokaSheet(
+    return DompetSheet(
       title: _isConfirmStep ? context.t.lock.confirmPin : context.t.lock.createPin,
       child: Column(
         mainAxisSize: MainAxisSize.min,

@@ -1,8 +1,8 @@
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/tables/budgets_table.dart';
+import 'package:dompet/database/tables/categories_table.dart';
+import 'package:dompet/database/tables/transactions_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/tables/budgets_table.dart';
-import 'package:poka_ce/database/tables/categories_table.dart';
-import 'package:poka_ce/database/tables/transactions_table.dart';
 
 part 'budgets_dao.g.dart';
 

@@ -1,18 +1,18 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_detail_notifier.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_form_sheet.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_status_badge.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_status_badge.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class GoalCard extends ConsumerWidget {
   const GoalCard({
@@ -39,7 +39,7 @@ class GoalCard extends ConsumerWidget {
           children: [
             Row(
               children: [
-                PokaIcon(
+                DompetIcon(
                   icon: (state.isCompleted || state.isTargetReached)
                       ? FPhosphorIcons.checkCircle
                       : FPhosphorIcons.target,
@@ -72,7 +72,7 @@ class GoalCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    PokaAmountText(
+                    DompetAmountText(
                       amount: state.saved,
                       type: TransactionType.income,
                       style: theme.typography.amountCard,
@@ -102,7 +102,7 @@ class GoalCard extends ConsumerWidget {
                     children: [
                       Icon(FPhosphorIcons.checkCircle, size: 11, color: completedColor),
                       const SizedBox(width: 3),
-                      PokaAmountText(
+                      DompetAmountText(
                         amount: state.goal.targetAmount,
                         type: TransactionType.income,
                         style: theme.typography.amountTile.copyWith(
@@ -118,7 +118,7 @@ class GoalCard extends ConsumerWidget {
                         t.goals.needs,
                         style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                       ),
-                      PokaAmountText(
+                      DompetAmountText(
                         amount: state.remaining,
                         type: TransactionType.expense,
                         style: theme.typography.amountTile.copyWith(
@@ -148,7 +148,7 @@ class GoalCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.trash,
             color: theme.colors.destructive,
             isDestructive: true,
@@ -161,7 +161,7 @@ class GoalCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {

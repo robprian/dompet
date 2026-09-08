@@ -8,14 +8,24 @@ part of 'debt_detail_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Watches transactions linked to the specified [debt] (disbursements and repayments).
 
 @ProviderFor(debtTransactions)
 final debtTransactionsProvider = DebtTransactionsFamily._();
 
+/// Watches transactions linked to the specified [debt] (disbursements and repayments).
+
 final class DebtTransactionsProvider
     extends
-        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
-    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<
+          AsyncValue<List<TransactionModel>>,
+          List<TransactionModel>,
+          Stream<List<TransactionModel>>
+        >
+    with
+        $FutureModifier<List<TransactionModel>>,
+        $StreamProvider<List<TransactionModel>> {
+  /// Watches transactions linked to the specified [debt] (disbursements and repayments).
   DebtTransactionsProvider._({
     required DebtTransactionsFamily super.from,
     required DebtModel super.argument,
@@ -62,6 +72,8 @@ final class DebtTransactionsProvider
 
 String _$debtTransactionsHash() => r'c7a343ff8ab18e30fdda8263ba69aff33d656dff';
 
+/// Watches transactions linked to the specified [debt] (disbursements and repayments).
+
 final class DebtTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, DebtModel> {
   DebtTransactionsFamily._()
@@ -73,16 +85,24 @@ final class DebtTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
-  DebtTransactionsProvider call(DebtModel debt) => DebtTransactionsProvider._(argument: debt, from: this);
+  /// Watches transactions linked to the specified [debt] (disbursements and repayments).
+
+  DebtTransactionsProvider call(DebtModel debt) =>
+      DebtTransactionsProvider._(argument: debt, from: this);
 
   @override
   String toString() => r'debtTransactionsProvider';
 }
 
+/// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
+
 @ProviderFor(DebtDetailNotifier)
 final debtDetailProvider = DebtDetailNotifierProvider._();
 
-final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotifier, void> {
+/// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
+final class DebtDetailNotifierProvider
+    extends $NotifierProvider<DebtDetailNotifier, void> {
+  /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
   DebtDetailNotifierProvider._()
     : super(
         from: null,
@@ -110,7 +130,10 @@ final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotif
   }
 }
 
-String _$debtDetailNotifierHash() => r'9e3931f8b264b601ec485cc38cbb85e67d49d47c';
+String _$debtDetailNotifierHash() =>
+    r'888fd9d54dcfcec5bd67bcdb660ac52a5157c494';
+
+/// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
 
 abstract class _$DebtDetailNotifier extends $Notifier<void> {
   void build();
@@ -118,7 +141,14 @@ abstract class _$DebtDetailNotifier extends $Notifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<void, void>;
-    final element = ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<void, void>,
+              void,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

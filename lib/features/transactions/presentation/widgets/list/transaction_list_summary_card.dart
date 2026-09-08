@@ -1,12 +1,12 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Hero card showing the period's net balance, income, and expense totals.
 /// Uses the primary gradient background following the budget summary card pattern.
@@ -22,13 +22,13 @@ class TransactionListSummaryCard extends ConsumerWidget {
     final net = state.periodNet;
     final isPositive = net >= 0;
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.receipt,
           label: t.transactions.transactionsCount(count: state.transactions.length),
         ),
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: switch (state.viewMode) {
             TransactionViewMode.day => FPhosphorIcons.calendarDot,
             TransactionViewMode.week => FPhosphorIcons.calendarDots,
@@ -37,7 +37,7 @@ class TransactionListSummaryCard extends ConsumerWidget {
           label: state.periodShortLabel,
         ),
         if (state.filter.isActive)
-          PokaHeroCardPill(
+          DompetHeroCardPill(
             icon: FPhosphorIcons.funnelSimple,
             label: t.transactions.filtered,
           ),
@@ -51,7 +51,7 @@ class TransactionListSummaryCard extends ConsumerWidget {
         ),
       ),
       title: t.transactions.netBalance,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: net.abs(),
         type: isPositive ? TransactionType.income : TransactionType.expense,
         style: theme.typography.amountSection.copyWith(
@@ -59,13 +59,13 @@ class TransactionListSummaryCard extends ConsumerWidget {
         ),
       ),
       // No progress bar
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.transactions.income,
         amount: state.periodIncome,
         icon: FPhosphorIcons.arrowCircleUp,
         type: TransactionType.income,
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.transactions.expense,
         amount: state.periodExpense,
         icon: FPhosphorIcons.arrowCircleDown,

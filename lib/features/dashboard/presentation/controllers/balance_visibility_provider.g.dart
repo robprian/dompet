@@ -8,11 +8,15 @@ part of 'balance_visibility_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier tracking the UI visibility toggle for sensitive financial figures.
 
 @ProviderFor(BalanceVisibility)
 final balanceVisibilityProvider = BalanceVisibilityProvider._();
 
-final class BalanceVisibilityProvider extends $NotifierProvider<BalanceVisibility, bool> {
+/// Notifier tracking the UI visibility toggle for sensitive financial figures.
+final class BalanceVisibilityProvider
+    extends $NotifierProvider<BalanceVisibility, bool> {
+  /// Notifier tracking the UI visibility toggle for sensitive financial figures.
   BalanceVisibilityProvider._()
     : super(
         from: null,
@@ -42,13 +46,22 @@ final class BalanceVisibilityProvider extends $NotifierProvider<BalanceVisibilit
 
 String _$balanceVisibilityHash() => r'a9cae6c66cd91856f32de714adf8f1f397fcb7f9';
 
+/// Notifier tracking the UI visibility toggle for sensitive financial figures.
+
 abstract class _$BalanceVisibility extends $Notifier<bool> {
   bool build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<bool, bool>;
-    final element = ref.element as $ClassProviderElement<AnyNotifier<bool, bool>, bool, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

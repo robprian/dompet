@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'robot_base.dart';
 
-import 'package:poka_ce/features/settings/presentation/widgets/sections/data_management_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/preferences_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/security_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/support_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/data_management_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/preferences_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/security_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/support_section.dart';
 
 class SettingsRobot extends RobotBase {
   const SettingsRobot(super.tester);

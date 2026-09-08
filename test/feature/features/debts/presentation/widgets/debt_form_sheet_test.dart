@@ -4,20 +4,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_form_notifier.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_form_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockDebtRepository extends Mock implements IDebtRepository {}
 

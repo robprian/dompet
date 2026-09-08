@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/currency_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/language_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/number_format_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/theme_picker_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/currency_search_list.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/presentation/sheets/currency_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/language_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/number_format_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/theme_picker_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:dompet/features/settings/presentation/widgets/currency_search_list.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

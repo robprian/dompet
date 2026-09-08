@@ -1,6 +1,6 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtStatusChip extends StatelessWidget {
   const DebtStatusChip({required this.status, super.key});

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/screens/dashboard_page.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/screens/dashboard_page.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

@@ -1,16 +1,16 @@
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_networth_card.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_header_provider.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_header_provider.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Home dashboard screen presenting net worth, cashflow carousel, daily spending velocity, quick actions, and recent activity.
 class DashboardPage extends HookConsumerWidget {
@@ -23,7 +23,7 @@ class DashboardPage extends HookConsumerWidget {
 
     final header = customHeaderBuilder != null
         ? customHeaderBuilder(context)
-        : PokaHeader(
+        : DompetHeader(
             subtitle: context.t.dashboard.overview,
             title: context.t.dashboard.myFinances,
           );

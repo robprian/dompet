@@ -1,10 +1,10 @@
+import 'package:dompet/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class DashboardBudgetSheet extends HookConsumerWidget {
   const DashboardBudgetSheet({
@@ -15,7 +15,7 @@ class DashboardBudgetSheet extends HookConsumerWidget {
   final double currentBudget;
 
   static void show(BuildContext context, {required double currentBudget}) {
-    showPokaSheet<void>(
+    showDompetSheet<void>(
       context: context,
       fitContent: true,
       builder: (context) => DashboardBudgetSheet(currentBudget: currentBudget),
@@ -28,7 +28,7 @@ class DashboardBudgetSheet extends HookConsumerWidget {
       text: currentBudget > 0 ? currentBudget.toInt().toString() : '',
     );
 
-    return PokaSheet(
+    return DompetSheet(
       title: context.t.dashboard.setDailyBudget,
       isScrollable: false,
       child: Column(

@@ -1,7 +1,7 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtDueDateChip extends StatelessWidget {
   const DebtDueDateChip({required this.dueDate, super.key});

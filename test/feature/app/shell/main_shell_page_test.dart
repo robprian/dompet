@@ -4,15 +4,15 @@ import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/shell/main_shell_page.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_runner_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/shell/main_shell_page.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_runner_notifier.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class _FakeRecurringRunner extends RecurringRunnerNotifier {
   @override

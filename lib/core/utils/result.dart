@@ -1,4 +1,4 @@
-/// Result type contract for Poka CE.
+/// Result type contract for Dompet CE.
 ///
 /// All Repository methods MUST return [Result<T>] — never throw exceptions.
 /// Riverpod Notifiers MUST use Dart 3 switch exhaustive pattern matching:

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_summary_card.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_summary_card.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

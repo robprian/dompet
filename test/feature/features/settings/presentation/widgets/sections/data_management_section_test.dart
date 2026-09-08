@@ -4,15 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/daos/transactions_dao.dart';
-import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/data_management_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/daos/transactions_dao.dart';
+import 'package:dompet/features/backup/presentation/controllers/backup_controller.dart';
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/data_management_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 import 'dart:typed_data';
 

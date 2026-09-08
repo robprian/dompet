@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/services/notification_service.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:dompet/core/services/notification_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MockNotificationService extends Mock implements NotificationService {}

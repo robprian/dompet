@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'robot_base.dart';
 
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_networth_card.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
 
 class DashboardRobot extends RobotBase {
   const DashboardRobot(super.tester);

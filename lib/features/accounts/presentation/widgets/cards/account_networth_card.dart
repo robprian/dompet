@@ -1,12 +1,12 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/shared/widgets/dompet_sparkline.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/shared/widgets/poka_sparkline.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AccountNetworthCard extends ConsumerWidget {
   const AccountNetworthCard({
@@ -34,13 +34,13 @@ class AccountNetworthCard extends ConsumerWidget {
     final precision = baseCurrency?.precision ?? 0;
     final localeFormat = settingsState.settings?.numberFormat ?? 'system';
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       background: sparklineData != null && sparklineData!.isNotEmpty
           ? Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: 90,
-                child: PokaSparkline(
+                child: DompetSparkline(
                   points: sparklineData!,
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
@@ -48,11 +48,11 @@ class AccountNetworthCard extends ConsumerWidget {
             )
           : null,
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.wallet,
           label: context.t.dashboard.netWorth,
         ),
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.bank,
           label: context.t.dashboard.accountsCount(count: activeAccountCount),
         ),
@@ -78,7 +78,7 @@ class AccountNetworthCard extends ConsumerWidget {
         ),
       ),
       // No progress bar
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: context.t.dashboard.assets,
         icon: FPhosphorIcons.trendUp,
         customAmountWidget: Text(
@@ -93,7 +93,7 @@ class AccountNetworthCard extends ConsumerWidget {
           ),
         ),
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: context.t.dashboard.liabilities,
         icon: FPhosphorIcons.trendDown,
         customAmountWidget: Text(

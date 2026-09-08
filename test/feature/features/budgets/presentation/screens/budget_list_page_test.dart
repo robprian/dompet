@@ -5,19 +5,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/screens/budget_list_page.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/domain/i_budget_repository.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/screens/budget_list_page.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
 

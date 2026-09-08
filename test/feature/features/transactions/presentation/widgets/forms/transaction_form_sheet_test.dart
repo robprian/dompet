@@ -4,27 +4,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/create_transaction_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/update_transaction_use_case.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_form_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/domain/use_cases/create_transaction_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/update_transaction_use_case.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_form_notifier.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockCreateTransactionUseCase extends Mock implements CreateTransactionUseCase {}
 
@@ -240,7 +240,7 @@ void main() {
       await tester.tap(find.text('0'));
       await tester.pump();
 
-      // Amount display should show expression (at least via PokaAmountText)
+      // Amount display should show expression (at least via DompetAmountText)
       // The numpad's _expression is synced to amountExpression via onValueChanged
       // We just verify that tapping does not crash and display exists
       expect(find.text('7'), findsOneWidget); // still present
@@ -434,7 +434,7 @@ void main() {
       expect(find.text('No categories found'), findsOneWidget);
     });
 
-    testWidgets('show static helper creates PokaSheet with title', (tester) async {
+    testWidgets('show static helper creates DompetSheet with title', (tester) async {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [

@@ -1,9 +1,9 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Generic Markdown viewer screen that loads content from a Flutter asset file.
 class MarkdownPage extends StatelessWidget {
@@ -22,7 +22,7 @@ class MarkdownPage extends StatelessWidget {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: title,
         showBack: true,
       ),
@@ -30,7 +30,7 @@ class MarkdownPage extends StatelessWidget {
         future: rootBundle
             .loadString(assetPath)
             .catchError(
-              (_) => rootBundle.loadString('packages/poka_ce/$assetPath'),
+              (_) => rootBundle.loadString('packages/dompet/$assetPath'),
             ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

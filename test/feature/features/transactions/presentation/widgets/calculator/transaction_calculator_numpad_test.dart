@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
 
 void main() {
   Widget wrapNumpad(Widget child) {

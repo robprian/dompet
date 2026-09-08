@@ -1,15 +1,15 @@
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/filter/transaction_filter_account_group.dart';
+import 'package:dompet/features/transactions/presentation/widgets/filter/transaction_filter_category_group.dart';
+import 'package:dompet/features/transactions/presentation/widgets/filter/transaction_type_chip.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_account_group.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_category_group.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_type_chip.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for advanced transaction filtering.
 ///
@@ -30,7 +30,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
   static Future<TransactionFilter?> show(
     BuildContext context, {
     required TransactionFilter current,
-  }) => showPokaSheet<TransactionFilter>(
+  }) => showDompetSheet<TransactionFilter>(
     context: context,
     fitContent: true,
     persistent: false,
@@ -58,7 +58,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
     final hasAnySelection =
         selectedTypes.value.isNotEmpty || selectedAccountIds.value.isNotEmpty || selectedCategoryIds.value.isNotEmpty;
 
-    return PokaSheet(
+    return DompetSheet(
       title: t.transactions.filter,
       // Reset all on the LEFT so it doesn't compete with the close button.
       leading: hasAnySelection

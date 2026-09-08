@@ -1,22 +1,22 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_form_notifier.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_date_picker.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_scope_tile.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_type_selector.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_category_selector.dart';
+import 'package:dompet/shared/widgets/dompet_form_label.dart';
+import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_date_picker.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_scope_tile.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_type_selector.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
-import 'package:poka_ce/shared/widgets/poka_form_label.dart';
-import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtFormSheet extends HookConsumerWidget {
   const DebtFormSheet({
@@ -51,7 +51,7 @@ class DebtFormSheet extends HookConsumerWidget {
     String? initialAccountId,
     String? initialCategoryId,
   }) {
-    return showPokaSheet(
+    return showDompetSheet(
       context: context,
       builder: (context) => DebtFormSheet(
         initialDebt: initialDebt,
@@ -159,7 +159,7 @@ class DebtFormSheet extends HookConsumerWidget {
     final isEditing = initialDebt != null;
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
-    return PokaSheet(
+    return DompetSheet(
       title: isEditing ? t.debts.editRecord : t.debts.newRecord,
       trailing: isEditing
           ? GestureDetector(
@@ -227,7 +227,7 @@ class DebtFormSheet extends HookConsumerWidget {
                           value: selectedCategory?.name ?? t.debts.selectCategoryPrompt,
                           hasValue: selectedCategory != null,
                           onTap: () async {
-                            final cat = await PokaCategorySelector.show(context, categories: categories);
+                            final cat = await DompetCategorySelector.show(context, categories: categories);
                             if (cat != null) {
                               notifier.setCategoryId(cat.id);
                               fieldState.didChange(cat.id);
@@ -242,7 +242,7 @@ class DebtFormSheet extends HookConsumerWidget {
                           value: selectedAccount?.name ?? t.debts.selectAccountPrompt,
                           hasValue: selectedAccount != null,
                           onTap: () async {
-                            final acc = await PokaPocketSelector.show(context, accounts: accounts);
+                            final acc = await DompetPocketSelector.show(context, accounts: accounts);
                             if (acc != null) notifier.setAccountId(acc.id);
                           },
                         ),
@@ -283,7 +283,7 @@ class DebtFormSheet extends HookConsumerWidget {
             const SizedBox(height: 12),
             FTextFormField(
               control: FTextFieldControl.managed(controller: noteController),
-              label: PokaFormLabel(t.debts.noteLabel, isOptional: true),
+              label: DompetFormLabel(t.debts.noteLabel, isOptional: true),
               hint: t.debts.egDinnerLastFriday,
               maxLines: 3,
             ),

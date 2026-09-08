@@ -1,12 +1,12 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_list_content.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_list_content.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Overview page listing all active and settled debts (borrowed) and loans (lent).
 class DebtListPage extends ConsumerWidget {
@@ -17,7 +17,7 @@ class DebtListPage extends ConsumerWidget {
     final debtsAsync = ref.watch(debtListProvider);
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.debts.debtsLoans,
         showBack: true,
       ),

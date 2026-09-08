@@ -1,8 +1,8 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Aligned Tile Content
@@ -97,7 +97,7 @@ class TransactionTileContent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            PokaAmountText(
+            DompetAmountText(
               amount: amount,
               type: type,
               isObscured: !isBalanceVisible,

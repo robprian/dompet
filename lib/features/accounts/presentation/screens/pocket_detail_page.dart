@@ -1,20 +1,20 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/account_transaction_list.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_hero_card.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/account_transaction_list.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_hero_card.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -35,7 +35,7 @@ class PocketDetailPage extends HookConsumerWidget {
     final pocketTransactions = ref.watch(accountTransactionsProvider({pocket.id}));
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: pocket.name,
         showBack: true,
         suffixes: [
@@ -66,7 +66,7 @@ class PocketDetailPage extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      PokaSectionLabel(
+                      DompetSectionLabel(
                         title: pocketTransactions.isEmpty
                             ? t.accounts.recentTransactions
                             : t.accounts.recentTransactionsCount(count: pocketTransactions.length),
@@ -98,7 +98,7 @@ class PocketDetailPage extends HookConsumerWidget {
           ),
           if (pocketTransactions.isEmpty)
             SliverToBoxAdapter(
-              child: PokaEmptyView(
+              child: DompetEmptyView(
                 icon: FPhosphorIcons.receipt,
                 title: t.accounts.noTransactionsYet,
                 hasBorder: true,

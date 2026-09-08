@@ -1,9 +1,9 @@
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_form_notifier.freezed.dart';

@@ -1,28 +1,30 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/database/connection.dart';
+import 'package:dompet/database/daos/accounts_dao.dart';
+import 'package:dompet/database/daos/budgets_dao.dart';
+import 'package:dompet/database/daos/categories_dao.dart';
+import 'package:dompet/database/daos/debts_dao.dart';
+import 'package:dompet/database/daos/detection_dao.dart';
+import 'package:dompet/database/daos/goals_dao.dart';
+import 'package:dompet/database/daos/recurring_dao.dart';
+import 'package:dompet/database/daos/settings_dao.dart';
+import 'package:dompet/database/daos/transactions_dao.dart';
+import 'package:dompet/database/seeder.dart';
+import 'package:dompet/database/tables/accounts_table.dart';
+import 'package:dompet/database/tables/budgets_table.dart';
+import 'package:dompet/database/tables/categories_table.dart';
+import 'package:dompet/database/tables/debts_table.dart';
+import 'package:dompet/database/tables/detection_table.dart';
+import 'package:dompet/database/tables/goals_table.dart';
+import 'package:dompet/database/tables/recurring_table.dart';
+import 'package:dompet/database/tables/settings_table.dart';
+import 'package:dompet/database/tables/transactions_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/database/connection.dart';
-import 'package:poka_ce/database/daos/accounts_dao.dart';
-import 'package:poka_ce/database/daos/budgets_dao.dart';
-import 'package:poka_ce/database/daos/categories_dao.dart';
-import 'package:poka_ce/database/daos/debts_dao.dart';
-import 'package:poka_ce/database/daos/goals_dao.dart';
-import 'package:poka_ce/database/daos/recurring_dao.dart';
-import 'package:poka_ce/database/daos/settings_dao.dart';
-import 'package:poka_ce/database/daos/transactions_dao.dart';
-import 'package:poka_ce/database/seeder.dart';
-import 'package:poka_ce/database/tables/accounts_table.dart';
-import 'package:poka_ce/database/tables/budgets_table.dart';
-import 'package:poka_ce/database/tables/categories_table.dart';
-import 'package:poka_ce/database/tables/debts_table.dart';
-import 'package:poka_ce/database/tables/goals_table.dart';
-import 'package:poka_ce/database/tables/recurring_table.dart';
-import 'package:poka_ce/database/tables/settings_table.dart';
-import 'package:poka_ce/database/tables/transactions_table.dart';
 import 'package:uuid/uuid.dart';
 
 part 'database.g.dart';
 
-/// The main Drift database class for Poka CE.
+/// The main Drift database class for Dompet CE.
 ///
 /// This class configures all tables, DAOs, and handles schema versioning
 /// and migrations for the SQLite database.
@@ -40,12 +42,15 @@ part 'database.g.dart';
     Goals,
     RecurringTransactions,
     Debts,
+    TransactionDetections,
+    MerchantCategoryRules,
+    SalaryProfiles,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   /// Initializes the database with an optional [connection].
-  /// If no connection is provided, it opens the default 'poka' database file.
-  AppDatabase({QueryExecutor? connection}) : super(connection ?? openConnection('poka'));
+  /// If no connection is provided, it opens the local database file.
+  AppDatabase({QueryExecutor? connection}) : super(connection ?? openConnection('dompet'));
 
   /// Data Access Object for settings.
   late final SettingsDao settingsDao = SettingsDao(this);
@@ -71,8 +76,11 @@ class AppDatabase extends _$AppDatabase {
   /// Data Access Object for transaction headers and items.
   late final TransactionsDao transactionsDao = TransactionsDao(this);
 
+  /// Data Access Object for the local transaction-detection pipeline.
+  late final DetectionDao detectionDao = DetectionDao(this);
+
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
@@ -80,6 +88,13 @@ class AppDatabase extends _$AppDatabase {
       onCreate: (m) async {
         await m.createAll();
         await DatabaseSeeder.seed(this);
+      },
+      onUpgrade: (m, from, to) async {
+        if (from < 2) {
+          await m.createTable(transactionDetections);
+          await m.createTable(merchantCategoryRules);
+          await m.createTable(salaryProfiles);
+        }
       },
       beforeOpen: (details) async {
         // Enforce foreign key constraints in SQLite.

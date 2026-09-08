@@ -8,12 +8,17 @@ part of 'backup_service.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Provider that exposes an instance of [BackupService].
 
 @ProviderFor(backupService)
 final backupServiceProvider = BackupServiceProvider._();
 
-final class BackupServiceProvider extends $FunctionalProvider<BackupService, BackupService, BackupService>
+/// Provider that exposes an instance of [BackupService].
+
+final class BackupServiceProvider
+    extends $FunctionalProvider<BackupService, BackupService, BackupService>
     with $Provider<BackupService> {
+  /// Provider that exposes an instance of [BackupService].
   BackupServiceProvider._()
     : super(
         from: null,
@@ -30,7 +35,8 @@ final class BackupServiceProvider extends $FunctionalProvider<BackupService, Bac
 
   @$internal
   @override
-  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   BackupService create(Ref ref) {

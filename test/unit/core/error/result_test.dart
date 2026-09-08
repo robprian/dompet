@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

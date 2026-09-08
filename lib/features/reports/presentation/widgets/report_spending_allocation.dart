@@ -1,11 +1,11 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/allocation_row_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/allocation_row_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// 50/30/20 rule spending allocation (Need / Want / Save).
 /// Section label lives OUTSIDE this card on the parent page.
@@ -25,7 +25,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
     final savingColor = theme.colors.app.success;
 
     if (!hasData) {
-      return PokaEmptyView(
+      return DompetEmptyView(
         icon: FPhosphorIcons.chartPieSlice,
         title: t.noData,
         hasBorder: true,

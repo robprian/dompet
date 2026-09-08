@@ -1,7 +1,7 @@
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/tables/accounts_table.dart';
+import 'package:dompet/database/tables/categories_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/tables/accounts_table.dart';
-import 'package:poka_ce/database/tables/categories_table.dart';
 
 part 'accounts_dao.g.dart';
 

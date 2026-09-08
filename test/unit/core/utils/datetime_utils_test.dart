@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

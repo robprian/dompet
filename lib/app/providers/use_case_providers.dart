@@ -1,10 +1,10 @@
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/features/accounts/domain/use_cases/create_account_use_case.dart';
+import 'package:dompet/features/accounts/domain/use_cases/update_account_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/create_transaction_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/update_transaction_use_case.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/features/accounts/domain/use_cases/create_account_use_case.dart';
-import 'package:poka_ce/features/accounts/domain/use_cases/update_account_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/create_transaction_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/update_transaction_use_case.dart';
 
 /// Provides an instance of [CreateAccountUseCase].
 final createAccountUseCaseProvider = Provider<CreateAccountUseCase>((ref) {

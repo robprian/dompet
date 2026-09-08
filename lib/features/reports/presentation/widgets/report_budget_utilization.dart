@@ -1,13 +1,13 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_progress_provider.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/budget_item_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/budget_item_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/theme/theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'report_budget_utilization.g.dart';
@@ -37,7 +37,7 @@ class ReportBudgetUtilization extends ConsumerWidget {
     final t = context.t.reports;
 
     if (budgets.isEmpty) {
-      return PokaEmptyView(
+      return DompetEmptyView(
         icon: FPhosphorIcons.chartPieSlice,
         title: t.noBudgets,
         subtitle: t.noBudgetsDesc,
@@ -132,7 +132,7 @@ class _OverallBar extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  PokaAmountText(
+                  DompetAmountText(
                     amount: (totalLimit - totalSpent).abs(),
                     type: totalLimit >= totalSpent ? TransactionType.income : TransactionType.expense,
                     style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.w700),

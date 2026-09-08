@@ -1,19 +1,19 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_hero_card.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/features/accounts/presentation/widgets/sections/account_pockets_section.dart';
+import 'package:dompet/features/accounts/presentation/widgets/sections/recent_transactions_section.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/goals/presentation/screens/goal_detail_page.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_hero_card.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/sections/account_pockets_section.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/sections/recent_transactions_section.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/screens/goal_detail_page.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Detail page presenting the balance overview, child pockets, and transaction activity for a single account.
 class AccountDetailPage extends HookConsumerWidget {
@@ -28,7 +28,7 @@ class AccountDetailPage extends HookConsumerWidget {
     final aggregate = ref.watch(accountAggregateProvider(accountId));
     if (aggregate == null) {
       return FScaffold(
-        header: PokaHeader(title: t.accounts.account),
+        header: DompetHeader(title: t.accounts.account),
         child: const Center(child: FCircularProgress()),
       );
     }
@@ -46,7 +46,7 @@ class AccountDetailPage extends HookConsumerWidget {
     final linkedGoal = goals.where((g) => g.accountId == accountId).firstOrNull;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: account.name,
         showBack: true,
         suffixes: [

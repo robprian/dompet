@@ -1,16 +1,16 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Renders the list of split items with swipe-to-delete and tap-to-edit.
 class TransactionSplitItemList extends ConsumerWidget {
@@ -94,7 +94,7 @@ class _SplitItemCard extends ConsumerWidget {
             motion: const BehindMotion(),
             extentRatio: 0.22,
             children: [
-              PokaSlidableAction(
+              DompetSlidableAction(
                 icon: FPhosphorIcons.trash,
                 color: theme.colors.destructive,
                 isDestructive: true,
@@ -108,7 +108,7 @@ class _SplitItemCard extends ConsumerWidget {
             motion: const BehindMotion(),
             extentRatio: 0.22,
             children: [
-              PokaSlidableAction(
+              DompetSlidableAction(
                 icon: FPhosphorIcons.pencilSimple,
                 color: theme.colors.primary,
                 onPressed: () {
@@ -179,7 +179,7 @@ class _SplitItemCard extends ConsumerWidget {
                         ),
 
                         // Amount
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: item.amount,
                           type: transactionType,
                           style: typography.titleCard,

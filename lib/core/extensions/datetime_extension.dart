@@ -1,5 +1,5 @@
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:intl/intl.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 /// Convenience formatting helpers on [DateTime].
 extension DateTimeExtension on DateTime {

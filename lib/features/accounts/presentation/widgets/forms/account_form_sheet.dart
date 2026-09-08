@@ -1,18 +1,18 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/fields/active_account_toggle.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/fields/category_selection_field.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/pickers/dompet_color_picker.dart';
+import 'package:dompet/shared/widgets/pickers/dompet_icon_picker.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/active_account_toggle.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/category_selection_field.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
-import 'package:poka_ce/shared/widgets/pickers/poka_icon_picker.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AccountFormSheet extends HookConsumerWidget {
   const AccountFormSheet({
@@ -29,7 +29,7 @@ class AccountFormSheet extends HookConsumerWidget {
     AccountModel? initialAccount,
     String? parentAccountId,
   }) {
-    return showPokaSheet(
+    return showDompetSheet(
       context: context,
       builder: (context) => AccountFormSheet(
         initialAccount: initialAccount,
@@ -125,11 +125,11 @@ class AccountFormSheet extends HookConsumerWidget {
                 label: Text(t.accounts.icon),
                 child: GestureDetector(
                   onTap: () {
-                    showPokaSheet<void>(
+                    showDompetSheet<void>(
                       context: context,
-                      builder: (context) => PokaSheet(
+                      builder: (context) => DompetSheet(
                         title: t.accounts.selectIcon,
-                        child: PokaIconPicker(
+                        child: DompetIconPicker(
                           selectedIcon: state.icon,
                           onIconSelected: (icon) {
                             notifier.setIcon(icon);
@@ -186,7 +186,7 @@ class AccountFormSheet extends HookConsumerWidget {
                 child: FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.accounts.color),
-                  child: PokaColorPicker(
+                  child: DompetColorPicker(
                     selectedColor: state.color,
                     onColorSelected: notifier.setColor,
                   ),
@@ -223,7 +223,7 @@ class AccountFormSheet extends HookConsumerWidget {
       ),
     );
 
-    return PokaSheet(
+    return DompetSheet(
       title: initialAccount == null ? t.accounts.addAccount : t.accounts.editAccount,
       child: FTabs(
         control: FTabControl.lifted(

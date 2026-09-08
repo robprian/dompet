@@ -1,9 +1,9 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Data holder for a single Frequently Asked Question and its answer.
 class FaqItem {
@@ -26,7 +26,7 @@ class FaqPage extends StatelessWidget {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.settings.faq,
         showBack: true,
       ),
@@ -34,7 +34,7 @@ class FaqPage extends StatelessWidget {
         future: rootBundle
             .loadString('assets/data/faq.md')
             .catchError(
-              (_) => rootBundle.loadString('packages/poka_ce/assets/data/faq.md'),
+              (_) => rootBundle.loadString('packages/dompet/assets/data/faq.md'),
             ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

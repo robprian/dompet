@@ -1,9 +1,9 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// A summary card for a transaction that has split items.
 class TransactionSplitSummaryCard extends StatelessWidget {
@@ -33,7 +33,7 @@ class TransactionSplitSummaryCard extends StatelessWidget {
             t.transactions.splitItems(count: splits.length),
             style: theme.typography.titleCard,
           ),
-          subtitle: PokaAmountText(
+          subtitle: DompetAmountText(
             amount: total,
             type: transactionType,
             style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),

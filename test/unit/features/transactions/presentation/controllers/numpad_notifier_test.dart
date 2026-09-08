@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/numpad_notifier.dart';
+import 'package:dompet/features/transactions/presentation/controllers/numpad_notifier.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,6 @@
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/tables/settings_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/tables/settings_table.dart';
 
 part 'settings_dao.g.dart';
 

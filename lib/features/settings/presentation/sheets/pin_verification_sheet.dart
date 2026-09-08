@@ -1,19 +1,19 @@
 import 'dart:async';
 
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/widgets/pin_dots.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/keypad.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/pin_dots.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/keypad.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Shows a sheet asking the user to verify their PIN or biometric.
 /// Returns true if verified, false if cancelled.
 Future<bool> showPinVerificationSheet(BuildContext context) async {
-  final result = await showPokaSheet<bool>(
+  final result = await showDompetSheet<bool>(
     context: context,
     fitContent: true,
     builder: (context) => const PinVerificationSheet(),
@@ -152,7 +152,7 @@ class _PinVerificationSheetState extends ConsumerState<PinVerificationSheet> {
       (false, false) => context.t.lock.verifyIdentity,
     };
 
-    return PokaSheet(
+    return DompetSheet(
       title: context.t.shared.authRequired,
       child: Column(
         mainAxisSize: MainAxisSize.min,

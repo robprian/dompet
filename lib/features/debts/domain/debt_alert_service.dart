@@ -1,11 +1,11 @@
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/services/notification_service.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/services/notification_service.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/i18n/strings.g.dart';
 
 /// Domain service that monitors unsettled debts/loans approaching due dates and schedules reminders.
 class DebtAlertService {

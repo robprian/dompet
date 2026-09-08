@@ -1,13 +1,13 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/stat_row_tile.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_donut_chart.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/stat_row_tile.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Cashflow summary hero card — donut chart + income/expense/net rows.
 /// Section label lives OUTSIDE this card on the parent page.
@@ -88,10 +88,10 @@ class ReportSummaryCard extends ConsumerWidget {
             Row(
               children: [
                 // Donut (fl_chart PieChart)
-                PokaDonutChart(
+                DompetDonutChart(
                   sections: [
-                    PokaDonutSection(value: incomeVal, color: incomeColor),
-                    PokaDonutSection(value: expenseVal, color: expenseColor),
+                    DompetDonutSection(value: incomeVal, color: incomeColor),
+                    DompetDonutSection(value: expenseVal, color: expenseColor),
                   ],
                   center: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

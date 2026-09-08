@@ -2,21 +2,21 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/domain/i_category_repository.dart';
+import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:excel/excel.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
-import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:share_plus/share_plus.dart';
 
 /// Provider for [ExcelExportService].
@@ -191,7 +191,7 @@ class ExcelExportService {
       }
 
       final fileFormatter = DateFormat('yyyyMMdd-HHmmss');
-      final filePath = p.join(exportDir.path, 'poka-export-${fileFormatter.format(DateTime.now())}.xlsx');
+      final filePath = p.join(exportDir.path, 'dompet-export-${fileFormatter.format(DateTime.now())}.xlsx');
       final file = File(filePath);
       await file.writeAsBytes(bytes);
 

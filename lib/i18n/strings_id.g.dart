@@ -668,7 +668,7 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get support => 'Bantuan';
 	@override String get faq => 'FAQ';
 	@override String get faqDesc => 'Pertanyaan yang Sering Diajukan';
-	@override String get about => 'Tentang Poka CE';
+	@override String get about => 'Tentang Dompet';
 	@override String get aboutDesc => 'Versi dan informasi legal';
 	@override String get selectTheme => 'Pilih Tema';
 	@override String get themeLight => 'Terang';
@@ -695,10 +695,9 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get search => 'Cari...';
 	@override String get errorLoadingContent => 'Gagal memuat konten';
 	@override String get noLicensesFound => 'Lisensi tidak ditemukan';
-	@override String get pokaCe => 'Poka CE';
 	@override String get communityEdition => 'Edisi Komunitas';
-	@override String get aboutDescription => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.';
-	@override String get copyright => '© 2026 POKA. All rights reserved.';
+	@override String get aboutDescription => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda. Dibangun di atas basis kode open-source Poka CE.';
+	@override String get copyright => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID';
 	@override String get noResultsFound => 'Tidak Ada Hasil';
 	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".';
 	@override String get notSet => 'Belum Diatur';
@@ -706,6 +705,7 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get exportExcelDesc => 'Ekspor transaksi, akun, dan kategori ke file .xlsx';
 	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
 	@override String get exportExcelError => 'Gagal mengekspor file Excel';
+	@override String get brandName => 'Dompet';
 }
 
 // Path: shared
@@ -1358,7 +1358,7 @@ extension on TranslationsId {
 			'settings.support' => 'Bantuan',
 			'settings.faq' => 'FAQ',
 			'settings.faqDesc' => 'Pertanyaan yang Sering Diajukan',
-			'settings.about' => 'Tentang Poka CE',
+			'settings.about' => 'Tentang Dompet',
 			'settings.aboutDesc' => 'Versi dan informasi legal',
 			'settings.selectTheme' => 'Pilih Tema',
 			'settings.themeLight' => 'Terang',
@@ -1387,10 +1387,9 @@ extension on TranslationsId {
 			'settings.search' => 'Cari...',
 			'settings.errorLoadingContent' => 'Gagal memuat konten',
 			'settings.noLicensesFound' => 'Lisensi tidak ditemukan',
-			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Edisi Komunitas',
-			'settings.aboutDescription' => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.',
-			'settings.copyright' => '© 2026 POKA. All rights reserved.',
+			'settings.aboutDescription' => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda. Dibangun di atas basis kode open-source Poka CE.',
+			'settings.copyright' => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID',
 			'settings.noResultsFound' => 'Tidak Ada Hasil',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".',
 			'settings.notSet' => 'Belum Diatur',
@@ -1398,6 +1397,7 @@ extension on TranslationsId {
 			'settings.exportExcelDesc' => 'Ekspor transaksi, akun, dan kategori ke file .xlsx',
 			'settings.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
 			'settings.exportExcelError' => 'Gagal mengekspor file Excel',
+			'settings.brandName' => 'Dompet',
 			'shared.authRequired' => 'Dibutuhkan Autentikasi',
 			'shared.hexColorCode' => 'Kode Warna Hex',
 			'shared.apply' => 'Terapkan',

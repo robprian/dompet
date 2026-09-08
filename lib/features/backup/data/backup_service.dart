@@ -18,7 +18,7 @@ BackupService backupService(Ref ref) => BackupService();
 /// and restoring encrypted backups back to the active SQLite file.
 class BackupService {
   /// The default SQLite database file name.
-  final String dbName = 'poka.sqlite';
+  final String dbName = 'dompet.sqlite';
   final _cipher = AesGcm.with256bits();
   final _kdf = Pbkdf2(
     macAlgorithm: Hmac.sha256(),
@@ -30,7 +30,7 @@ class BackupService {
   String _generateBackupFilename() {
     final now = DateTime.now();
     final formatter = DateFormat('yyyyMMdd-HHmmss');
-    return 'poka-${formatter.format(now)}.sqlite';
+    return 'dompet-${formatter.format(now)}.sqlite';
   }
 
   /// Derives a SecretKey from the given password and salt

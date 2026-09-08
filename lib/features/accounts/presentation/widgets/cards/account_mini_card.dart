@@ -1,14 +1,14 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -54,10 +54,10 @@ class AccountMiniCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      PokaIcon(
+                      DompetIcon(
                         icon: accountIcon,
                         color: accentColor,
-                        size: PokaIconSize.small,
+                        size: DompetIconSize.small,
                       ),
                       const SizedBox(width: 8),
                       Container(
@@ -92,16 +92,16 @@ class AccountMiniCard extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         HapticFeedback.lightImpact();
-                        showPokaSheet<void>(
+                        showDompetSheet<void>(
                           context: context,
                           fitContent: true,
-                          builder: (ctx) => PokaSheet(
+                          builder: (ctx) => DompetSheet(
                             title: account.name,
                             isScrollable: false,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                PokaSheetActionItem(
+                                DompetSheetActionItem(
                                   icon: FPhosphorIcons.pencilSimple,
                                   title: t.accounts.editAccount,
                                   subtitle: t.accounts.updateNameIconOrColor,
@@ -110,7 +110,7 @@ class AccountMiniCard extends StatelessWidget {
                                     onEdit!();
                                   },
                                 ),
-                                PokaSheetActionItem(
+                                DompetSheetActionItem(
                                   icon: FPhosphorIcons.trash,
                                   title: t.accounts.deleteAccount,
                                   subtitle: t.accounts.permanentlyRemoveThisAccount,
@@ -145,7 +145,7 @@ class AccountMiniCard extends StatelessWidget {
                 style: theme.typography.body.sm.copyWith(fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 2),
-              PokaAmountText(
+              DompetAmountText(
                 amount: balance,
                 type: balance >= 0 ? TransactionType.income : TransactionType.expense,
                 style: theme.typography.amountCard,

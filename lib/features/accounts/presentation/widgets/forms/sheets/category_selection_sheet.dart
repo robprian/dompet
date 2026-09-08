@@ -1,14 +1,14 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class CategorySelectionSheet extends ConsumerWidget {
   const CategorySelectionSheet({required this.notifier, super.key});
@@ -23,7 +23,7 @@ class CategorySelectionSheet extends ConsumerWidget {
     final selected = formState.restrictedCategoryIds.toSet();
 
     if (categoryState.isLoading) {
-      return PokaSheet(
+      return DompetSheet(
         title: t.accounts.allowedCategories,
         child: const Center(child: FCircularProgress()),
       );
@@ -146,7 +146,7 @@ class CategorySelectionSheet extends ConsumerWidget {
       );
     }
 
-    return PokaSheet(
+    return DompetSheet(
       title: t.accounts.allowedCategories,
       child: FTabs(
         children: [

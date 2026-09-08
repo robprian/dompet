@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart' hide isNotNull, isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/features/budgets/data/budget_repository_impl.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/database/database.dart';
+import 'package:dompet/features/budgets/data/budget_repository_impl.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,6 @@
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'budget_list_notifier.g.dart';

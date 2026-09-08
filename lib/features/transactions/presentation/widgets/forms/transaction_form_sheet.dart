@@ -1,30 +1,30 @@
 import 'dart:async';
 
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_form_notifier.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_amount_display.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_calculator_body.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_insufficient_balance_dialog.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_form_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_amount_display.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_body.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_insufficient_balance_dialog.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for creating a new transaction (simple or split) or editing an existing one.
 class TransactionFormSheet extends HookConsumerWidget {
@@ -60,10 +60,10 @@ class TransactionFormSheet extends HookConsumerWidget {
     String? initialCategoryId,
     DateTime? initialDate,
   }) {
-    return showPokaSheet<bool>(
+    return showDompetSheet<bool>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => PokaSheet(
+      builder: (context) => DompetSheet(
         title: initialTransaction != null ? t.transactions.editTransaction : t.transactions.newTransaction,
         padding: EdgeInsets.zero,
         child: TransactionFormSheet(
@@ -263,7 +263,7 @@ class TransactionFormSheet extends HookConsumerWidget {
               locale: localeFormat,
             );
 
-            final proceed = await showPokaInsufficientBalanceDialog(
+            final proceed = await showDompetInsufficientBalanceDialog(
               context,
               accountName: selectedAccount.name,
               formattedAmount: formattedAmount,

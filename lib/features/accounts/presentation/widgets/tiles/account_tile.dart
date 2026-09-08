@@ -1,10 +1,10 @@
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AccountTile extends StatelessWidget with FTileMixin {
   const AccountTile({
@@ -39,7 +39,7 @@ class AccountTile extends StatelessWidget with FTileMixin {
           ),
         ),
         child: FTile(
-          prefix: PokaIcon(
+          prefix: DompetIcon(
             icon: IconUtil.getIcon(account.icon),
             color: accountColor,
           ),

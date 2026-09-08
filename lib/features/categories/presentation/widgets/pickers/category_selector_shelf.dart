@@ -1,9 +1,9 @@
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_pill.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_pill.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// A shelf widget displaying a horizontal list of selectable categories.
 class CategorySelectorShelf extends StatelessWidget {
@@ -45,11 +45,11 @@ class CategorySelectorShelf extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        PokaPillScrollRow(
+        DompetPillScrollRow(
           children: parents.map((cat) {
             final isSel = activeParentId == cat.id;
             final catColor = Color(int.parse(cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
-            return PokaPill(
+            return DompetPill(
               icon: IconUtil.getIcon(cat.icon),
               label: cat.name,
               color: catColor,
@@ -66,11 +66,11 @@ class CategorySelectorShelf extends StatelessWidget {
         ),
         if (subs.isNotEmpty) ...[
           const SizedBox(height: 6),
-          PokaPillScrollRow(
+          DompetPillScrollRow(
             children: subs.map((sub) {
               final isSel = selectedCategoryId == sub.id;
               final subColor = Color(int.parse(sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
-              return PokaPill(
+              return DompetPill(
                 icon: IconUtil.getIcon(sub.icon),
                 label: sub.name,
                 color: subColor,

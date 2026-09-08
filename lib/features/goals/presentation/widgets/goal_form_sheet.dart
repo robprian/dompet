@@ -1,12 +1,12 @@
+import 'package:dompet/features/goals/domain/goal_model.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_form_notifier.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_date_picker_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_form_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_date_picker_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for creating or editing a savings goal.
 /// When creating, the system automatically generates a linked Pocket account.
@@ -32,7 +32,7 @@ class GoalFormSheet extends HookConsumerWidget {
     int? initialTargetAmount,
     DateTime? initialTargetDate,
   }) {
-    return showPokaSheet(
+    return showDompetSheet(
       context: context,
       builder: (context) => GoalFormSheet(
         initialGoal: initialGoal,
@@ -106,7 +106,7 @@ class GoalFormSheet extends HookConsumerWidget {
     final isEditing = initialGoal != null;
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
-    return PokaSheet(
+    return DompetSheet(
       title: isEditing ? t.goals.editGoal : t.goals.newGoal,
       child: Form(
         key: formKey,

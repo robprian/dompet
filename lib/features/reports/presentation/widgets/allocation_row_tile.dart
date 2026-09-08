@@ -1,6 +1,6 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AllocationRowTile extends StatelessWidget {
   const AllocationRowTile({

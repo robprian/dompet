@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 Widget _wrapWithProviders(Widget child) {
   return TranslationProvider(

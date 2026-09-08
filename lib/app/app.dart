@@ -1,19 +1,19 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/services/quick_actions_service.dart';
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/features/debts/domain/debt_alert_service_provider.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/data/excel_export_service.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_ui/material_ui.dart' hide GlobalMaterialLocalizations;
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/services/quick_actions_service.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
-import 'package:poka_ce/features/debts/domain/debt_alert_service_provider.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
-/// Root widget for Poka CE.
-class PokaApp extends HookConsumerWidget {
-  const PokaApp({super.key});
+/// Root widget for Dompet CE.
+class DompetApp extends HookConsumerWidget {
+  const DompetApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

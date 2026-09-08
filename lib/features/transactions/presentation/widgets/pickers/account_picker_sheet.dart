@@ -1,10 +1,10 @@
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 
-/// A convenience wrapper around [PokaPocketSelector] that reads the
+/// A convenience wrapper around [DompetPocketSelector] that reads the
 /// account list from the dashboard provider and resolves to the selected account.
 ///
 /// Used outside the transaction form (e.g., goal/debt flows) where the caller
@@ -17,7 +17,7 @@ class AccountPickerSheet extends ConsumerWidget {
   static Future<AccountModel?> show(BuildContext context) async {
     final accounts = ProviderScope.containerOf(context).read(dashboardProvider).accounts;
 
-    return PokaPocketSelector.show(
+    return DompetPocketSelector.show(
       context,
       accounts: accounts,
     );

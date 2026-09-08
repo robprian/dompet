@@ -1,16 +1,16 @@
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/widgets/cards/budget_card.dart';
+import 'package:dompet/features/budgets/presentation/widgets/cards/budget_summary_card.dart';
+import 'package:dompet/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_card.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_summary_card.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Budget list page — displays all user budgets with spending progress.
 /// Intentionally budget-only; goals have their own dedicated page.
@@ -22,7 +22,7 @@ class BudgetListPage extends ConsumerWidget {
     final state = ref.watch(budgetListProvider);
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.budgets.budgets,
         showBack: true,
       ),
@@ -48,7 +48,7 @@ class _BudgetContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (budgets.isEmpty) {
       return Builder(
-        builder: (context) => PokaEmptyViewCentered(
+        builder: (context) => DompetEmptyViewCentered(
           icon: FPhosphorIcons.chartPieSlice,
           title: t.budgets.noBudgetsYet,
           subtitle: t.budgets.setSpendingLimitsToTrackWhereYourMoneyGoesEachPeriod,
@@ -72,7 +72,7 @@ class _BudgetContent extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PokaSectionLabel(title: t.budgets.allBudgets),
+                DompetSectionLabel(title: t.budgets.allBudgets),
                 Builder(
                   builder: (context) => GestureDetector(
                     key: const Key('budget-add-button'),

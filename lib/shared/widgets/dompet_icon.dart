@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
+
+/// Geometric shape of the icon background container.
+enum DompetIconShape { circle, square }
+
+/// Sizing scale for DompetIcon based on modern UI touch target guidelines.
+enum DompetIconSize {
+  /// Size: 36, Icon: 18. Best for dense lists (Settings/Menu Items).
+  small,
+
+  /// Size: 44, Icon: 22. Best for standard data rows (Transaction Categories).
+  medium,
+
+  /// Size: 52, Icon: 26. Best for primary touch targets (Quick Actions).
+  large,
+
+  /// Size: 64, Icon: 32. Best for large decorative focal points (Dialogs/Hero).
+  hero,
+}
+
+/// Standardized icon container with tint background and optional border.
+/// Replaces raw Icon or manual Container+Icon combinations across the application.
+class DompetIcon extends StatelessWidget {
+  const DompetIcon({
+    required this.icon,
+    super.key,
+    this.shape = DompetIconShape.square,
+    this.size = DompetIconSize.medium,
+    this.color,
+    this.hasBorder = false,
+    this.useThemeBorderColor = false,
+  });
+
+  final IconData icon;
+  final DompetIconShape shape;
+  final DompetIconSize size;
+  final Color? color;
+  final bool hasBorder;
+  final bool useThemeBorderColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final effectiveColor = color ?? theme.colors.primary;
+
+    // Determine dimensions based on semantic size scale
+    double boxSize;
+    double iconSize;
+
+    switch (size) {
+      case DompetIconSize.small:
+        boxSize = 36;
+        iconSize = 18;
+      case DompetIconSize.medium:
+        boxSize = 44;
+        iconSize = 22;
+      case DompetIconSize.large:
+        boxSize = 52;
+        iconSize = 26;
+      case DompetIconSize.hero:
+        boxSize = 64;
+        iconSize = 32;
+    }
+
+    // Background alpha
+    final bgColor = effectiveColor.withValues(alpha: 0.15);
+
+    // Border color logic
+    Color borderColor;
+    if (useThemeBorderColor) {
+      borderColor = theme.colors.border;
+    } else {
+      borderColor = effectiveColor.withValues(alpha: 0.25);
+    }
+
+    return Container(
+      width: boxSize,
+      height: boxSize,
+      decoration: BoxDecoration(
+        color: bgColor,
+        shape: shape == DompetIconShape.circle ? BoxShape.circle : BoxShape.rectangle,
+        borderRadius: shape == DompetIconShape.square ? BorderRadius.circular(10) : null,
+        border: hasBorder ? Border.all(color: borderColor) : null,
+      ),
+      child: Center(
+        child: Icon(
+          icon,
+          color: effectiveColor,
+          size: iconSize,
+        ),
+      ),
+    );
+  }
+}

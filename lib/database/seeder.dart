@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:dompet/core/config.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/database/database.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:poka_ce/core/config.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/database/database.dart';
 import 'package:uuid/uuid.dart';
 
 /// Utility responsible for seeding default currencies, settings, categories,
@@ -763,7 +763,7 @@ class DatabaseSeeder {
     try {
       final raw = await rootBundle
           .loadString('assets/data/categories.json')
-          .catchError((_) => rootBundle.loadString('packages/poka_ce/assets/data/categories.json'));
+          .catchError((_) => rootBundle.loadString('packages/dompet/assets/data/categories.json'));
       final decoded = jsonDecode(raw) as List<dynamic>;
       final rows = decoded.cast<Map<String, dynamic>>();
 

@@ -1,5 +1,5 @@
+import 'package:dompet/core/logger/dompet_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/logger/poka_logger.dart';
 
 base class TalkerRiverpodObserver extends ProviderObserver {
   @override

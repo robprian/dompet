@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_sparkline.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_networth_card.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_sparkline.dart';
+import 'package:dompet/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -188,7 +188,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.byType(PokaSparkline), findsOneWidget);
+      expect(find.byType(DompetSparkline), findsOneWidget);
     });
   });
 }

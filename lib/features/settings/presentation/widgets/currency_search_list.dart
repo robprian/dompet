@@ -1,9 +1,9 @@
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_menu_group_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_menu_group_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class CurrencySearchList extends HookWidget {
   const CurrencySearchList({
@@ -83,7 +83,7 @@ class CurrencySearchList extends HookWidget {
                 );
               }
 
-              return PokaMenuGroupCard(
+              return DompetMenuGroupCard(
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: filteredCurrencies.length,

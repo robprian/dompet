@@ -1,9 +1,9 @@
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_quick_actions_provider.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_quick_actions_provider.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DashboardQuickActions extends ConsumerWidget {
   const DashboardQuickActions({super.key});
@@ -65,10 +65,10 @@ class _QuickActionItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          PokaIcon(
+          DompetIcon(
             icon: icon,
-            shape: PokaIconShape.circle,
-            size: PokaIconSize.large,
+            shape: DompetIconShape.circle,
+            size: DompetIconSize.large,
             useThemeBorderColor: true, // As requested by user
           ),
           const SizedBox(height: 6),

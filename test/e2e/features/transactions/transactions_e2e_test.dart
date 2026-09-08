@@ -5,7 +5,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 
 import '../../test_setup.dart';
 
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 
 void main() {
   testWidgets('Transaction CRUD operations', (tester) async {

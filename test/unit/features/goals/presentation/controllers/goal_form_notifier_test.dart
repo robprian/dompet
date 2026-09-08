@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
-import 'package:poka_ce/features/goals/domain/i_goal_repository.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_form_notifier.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/goals/domain/goal_model.dart';
+import 'package:dompet/features/goals/domain/i_goal_repository.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_form_notifier.dart';
 
 class MockGoalRepository extends Mock implements IGoalRepository {}
 

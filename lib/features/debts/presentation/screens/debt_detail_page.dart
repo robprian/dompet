@@ -1,23 +1,23 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_detail_notifier.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_card.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_form_sheet.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_repayment_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_detail_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_repayment_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Detail screen showing debt/loan terms, remaining balance, settlement progress, and installment history.
 class DebtDetailPage extends ConsumerWidget {
@@ -37,7 +37,7 @@ class DebtDetailPage extends ConsumerWidget {
 
     if (activeDebt == null) {
       return FScaffold(
-        header: PokaHeader(title: t.debts.debtDetails, showBack: true),
+        header: DompetHeader(title: t.debts.debtDetails, showBack: true),
         child: const Center(child: FCircularProgress()),
       );
     }
@@ -69,7 +69,7 @@ class DebtDetailPage extends ConsumerWidget {
     final isPayable = activeDebt.type == DebtType.debt;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.debts.debtDetailsTitle(type: isPayable ? t.debts.debtTypeDebt : t.debts.debtTypeLoan),
         showBack: true,
         suffixes: [
@@ -113,14 +113,14 @@ class DebtDetailPage extends ConsumerWidget {
             ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.debts.repaymentHistory),
+            child: DompetSectionLabel(title: t.debts.repaymentHistory),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: DompetEmptyViewCentered(
                     icon: FPhosphorIcons.receipt,
                     title: t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
                   ),

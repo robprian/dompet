@@ -1,9 +1,9 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 class SupportSection extends StatelessWidget {
   const SupportSection({super.key});

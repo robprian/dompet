@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_form_notifier.dart';
 
 class MockDebtRepository extends Mock implements IDebtRepository {}
 

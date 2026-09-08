@@ -1,7 +1,7 @@
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recurring_detail_notifier.g.dart';

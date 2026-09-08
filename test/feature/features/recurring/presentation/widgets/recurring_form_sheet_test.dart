@@ -3,19 +3,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
-import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/domain/i_category_repository.dart';
+import 'package:dompet/features/recurring/domain/i_recurring_repository.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_form_notifier.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_form_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockRecurringRepository extends Mock implements IRecurringRepository {}
 

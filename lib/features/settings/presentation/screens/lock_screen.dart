@@ -1,14 +1,14 @@
 import 'dart:async';
 
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/widgets/pin_dots.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/keypad.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/pin_dots.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/keypad.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Dedicated screen for unlocking the app via PIN or Biometrics.
 /// Shows automatically if the user has a valid session but the app is locked.

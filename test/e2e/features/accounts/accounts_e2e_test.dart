@@ -5,7 +5,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 
 import '../../test_setup.dart';
 
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_mini_card.dart';
 
 void main() {
   testWidgets('Account CRUD operations', (tester) async {

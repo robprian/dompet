@@ -1,6 +1,6 @@
+import 'package:dompet/core/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/core/enums.dart';
 
 class TransactionTypeSwitcher extends StatelessWidget {
   const TransactionTypeSwitcher({

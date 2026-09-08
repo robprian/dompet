@@ -2,9 +2,9 @@ import 'package:drift/drift.dart' hide isNotNull, isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/features/settings/data/settings_repository.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/database/database.dart';
+import 'package:dompet/features/settings/data/settings_repository.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

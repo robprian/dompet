@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
-import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/budgets/domain/i_budget_repository.dart';
+import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/transactions/data/excel_export_service.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
 

@@ -1,7 +1,7 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class RecurringPeriodChip extends StatelessWidget {
   const RecurringPeriodChip({required this.period, super.key});

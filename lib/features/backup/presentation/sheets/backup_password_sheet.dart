@@ -1,10 +1,10 @@
+import 'package:dompet/features/backup/presentation/controllers/backup_form_notifier.dart';
+import 'package:dompet/features/backup/presentation/widgets/forms/backup_password_form.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/backup/presentation/controllers/backup_form_notifier.dart';
-import 'package:poka_ce/features/backup/presentation/widgets/forms/backup_password_form.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 Future<String?> showBackupPasswordSheet(
   BuildContext context, {
@@ -12,7 +12,7 @@ Future<String?> showBackupPasswordSheet(
   Future<bool> Function(String)? onValidateRestore,
   String? filePath,
 }) async {
-  return showPokaSheet<String>(
+  return showDompetSheet<String>(
     context: context,
     builder: (context) => _BackupPasswordSheet(
       isBackup: isBackup,
@@ -57,7 +57,7 @@ class _BackupPasswordSheet extends HookConsumerWidget {
       }
     }
 
-    return PokaSheet(
+    return DompetSheet(
       title: isBackup ? context.t.backup.enterPasswordToEncrypt : context.t.backup.enterPasswordToDecrypt,
       child: BackupPasswordForm(
         isBackup: isBackup,

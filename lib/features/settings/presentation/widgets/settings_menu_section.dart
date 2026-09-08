@@ -1,6 +1,6 @@
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 
 class SettingsMenuSection extends StatelessWidget {
   const SettingsMenuSection({
@@ -17,7 +17,7 @@ class SettingsMenuSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PokaSectionLabel(title: title),
+        DompetSectionLabel(title: title),
         const SizedBox(height: 8),
         FItemGroup(
           children: items,

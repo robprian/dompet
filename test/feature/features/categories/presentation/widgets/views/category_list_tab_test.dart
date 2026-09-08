@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/views/category_list_tab.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/categories/presentation/widgets/tiles/category_tile.dart';
+import 'package:dompet/features/categories/presentation/widgets/views/category_list_tab.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class _FakeCategoryListNotifier extends CategoryListNotifier {
   @override
@@ -64,7 +64,7 @@ void main() {
       await tester.pumpWidget(buildApp(const []));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PokaEmptyViewCentered), findsOneWidget);
+      expect(find.byType(DompetEmptyViewCentered), findsOneWidget);
       expect(find.text('No categories found.'), findsOneWidget);
     });
 

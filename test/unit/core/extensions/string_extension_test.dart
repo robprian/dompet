@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

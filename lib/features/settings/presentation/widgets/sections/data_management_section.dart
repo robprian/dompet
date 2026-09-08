@@ -1,30 +1,30 @@
 import 'dart:async';
 
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/features/backup/presentation/controllers/backup_controller.dart';
+import 'package:dompet/features/backup/presentation/sheets/backup_password_sheet.dart';
+import 'package:dompet/features/backup/presentation/sheets/backup_reminder_sheet.dart';
+import 'package:dompet/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/settings/presentation/sheets/pin_setup_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/pin_verification_sheet.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
-import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
-import 'package:poka_ce/features/backup/presentation/sheets/backup_password_sheet.dart';
-import 'package:poka_ce/features/backup/presentation/sheets/backup_reminder_sheet.dart';
-import 'package:poka_ce/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/pin_setup_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/pin_verification_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 
 class DataManagementSection extends ConsumerWidget {
   const DataManagementSection({super.key});
@@ -100,7 +100,7 @@ class DataManagementSection extends ConsumerWidget {
                 title: Text(context.t.backup.backupSuccess),
               );
             } else if (action == BackupAction.restore) {
-              final confirmed = await showPokaConfirmDialog(
+              final confirmed = await showDompetConfirmDialog(
                 context,
                 title: context.t.backup.restoreAction,
                 body: context.t.settings.resetDataDesc,
@@ -195,7 +195,7 @@ class DataManagementSection extends ConsumerWidget {
           subtitle: context.t.settings.clearOldDesc,
           icon: FPhosphorIcons.trashSimple,
           onTap: () async {
-            final confirmed = await showPokaConfirmDialog(
+            final confirmed = await showDompetConfirmDialog(
               context,
               title: context.t.settings.clearOld,
               body: context.t.settings.clearOldDesc,
@@ -221,7 +221,7 @@ class DataManagementSection extends ConsumerWidget {
           subtitle: context.t.settings.resetDataDesc,
           icon: FPhosphorIcons.warning,
           onTap: () async {
-            final confirmed = await showPokaConfirmDialog(
+            final confirmed = await showDompetConfirmDialog(
               context,
               title: context.t.settings.resetData,
               body: context.t.settings.resetDataDesc,

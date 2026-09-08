@@ -2,14 +2,14 @@
 // its DAO to throw, covering every defensive catch branch.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/database/daos/categories_dao.dart';
-import 'package:poka_ce/database/database.dart' as db;
-import 'package:poka_ce/features/categories/data/category_repository_impl.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/database/daos/categories_dao.dart';
+import 'package:dompet/database/database.dart' as db;
+import 'package:dompet/features/categories/data/category_repository_impl.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
 
 class MockCategoriesDao extends Mock implements CategoriesDao {
   @override

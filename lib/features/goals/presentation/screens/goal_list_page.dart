@@ -1,17 +1,17 @@
+import 'package:dompet/features/goals/presentation/controllers/goal_list_view_notifier.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_card.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_form_sheet.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_summary_card.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_list_view_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_summary_card.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Goal list page — displays all user savings goals with progress.
 /// Each goal is linked to a dedicated Pocket account whose balance reflects
@@ -28,7 +28,7 @@ class GoalListPage extends HookConsumerWidget {
     final asyncGoals = ref.watch(goalProvider);
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: context.t.dashboard.goals,
         showBack: true,
         suffixes: [
@@ -51,7 +51,7 @@ class GoalListPage extends HookConsumerWidget {
         data: (_) {
           if (goalStates.isEmpty) {
             return Builder(
-              builder: (context) => PokaEmptyViewCentered(
+              builder: (context) => DompetEmptyViewCentered(
                 icon: FPhosphorIcons.piggyBank,
                 title: t.goals.noGoalsYet,
                 subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,
@@ -136,7 +136,7 @@ class _GoalContent extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PokaSectionLabel(title: context.t.dashboard.goals),
+              DompetSectionLabel(title: context.t.dashboard.goals),
               Builder(
                 builder: (context) => GestureDetector(
                   key: const Key('goal-add-button'),
@@ -163,7 +163,7 @@ class _GoalContent extends ConsumerWidget {
           if (displayedGoals.isEmpty)
             Builder(
               builder: (context) => filterIndex == 0
-                  ? PokaEmptyView(
+                  ? DompetEmptyView(
                       icon: FPhosphorIcons.piggyBank,
                       title: t.goals.noGoalsYet,
                       subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,
@@ -171,7 +171,7 @@ class _GoalContent extends ConsumerWidget {
                       actionKey: const Key('goal-add-button'),
                       onAction: () => GoalFormSheet.show(context),
                     )
-                  : PokaEmptyView(
+                  : DompetEmptyView(
                       icon: FPhosphorIcons.checkCircle,
                       title: t.goals.noCompletedGoalsYet,
                       subtitle: t.goals.completedGoalsWillAppearHere,

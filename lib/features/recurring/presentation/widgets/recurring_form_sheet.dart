@@ -4,29 +4,29 @@
 /// schedule and generate real transactions automatically on due dates.
 library;
 
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_form_notifier.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_create_meta_bar.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_category_selector.dart';
+import 'package:dompet/shared/widgets/dompet_form_label.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_create_meta_bar.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
-import 'package:poka_ce/shared/widgets/poka_form_label.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for creating or editing a [RecurringTransactionModel].
 class RecurringFormSheet extends HookConsumerWidget {
@@ -42,7 +42,7 @@ class RecurringFormSheet extends HookConsumerWidget {
     BuildContext context, {
     RecurringTransactionModel? initialRecurring,
   }) {
-    return showPokaSheet(
+    return showDompetSheet(
       context: context,
       builder: (context) => RecurringFormSheet(initialRecurring: initialRecurring),
     );
@@ -97,7 +97,7 @@ class RecurringFormSheet extends HookConsumerWidget {
     final isTransfer = state.type == TransactionType.transfer;
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
-    return PokaSheet(
+    return DompetSheet(
       title: isEditing ? t.recurring.editRecurring : t.recurring.newRecurring,
       trailing: isEditing
           ? GestureDetector(
@@ -165,10 +165,10 @@ class RecurringFormSheet extends HookConsumerWidget {
                         key: const Key('recurring-account-selector'),
                         icon: FPhosphorIcons.wallet,
                         customIcon: selectedAccount != null
-                            ? PokaIcon(
+                            ? DompetIcon(
                                 icon: IconUtil.getIcon(selectedAccount.icon),
                                 color: selectedAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
-                                size: PokaIconSize.small,
+                                size: DompetIconSize.small,
                                 useThemeBorderColor: true,
                               )
                             : null,
@@ -176,7 +176,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                         value: selectedAccount?.name ?? t.recurring.selectAccountPrompt,
                         hasValue: selectedAccount != null,
                         onTap: () async {
-                          final acc = await PokaPocketSelector.show(
+                          final acc = await DompetPocketSelector.show(
                             context,
                             accounts: accounts,
                           );
@@ -191,10 +191,10 @@ class RecurringFormSheet extends HookConsumerWidget {
                         _ScopeTile(
                           icon: FPhosphorIcons.arrowRight,
                           customIcon: selectedDestAccount != null
-                              ? PokaIcon(
+                              ? DompetIcon(
                                   icon: IconUtil.getIcon(selectedDestAccount.icon),
                                   color: selectedDestAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
-                                  size: PokaIconSize.small,
+                                  size: DompetIconSize.small,
                                   useThemeBorderColor: true,
                                 )
                               : null,
@@ -202,7 +202,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                           value: selectedDestAccount?.name ?? t.recurring.selectDestinationPrompt,
                           hasValue: selectedDestAccount != null,
                           onTap: () async {
-                            final acc = await PokaPocketSelector.show(
+                            final acc = await DompetPocketSelector.show(
                               context,
                               accounts: accounts,
                             );
@@ -217,10 +217,10 @@ class RecurringFormSheet extends HookConsumerWidget {
                           key: const Key('recurring-category-selector'),
                           icon: FPhosphorIcons.tag,
                           customIcon: selectedCategory != null
-                              ? PokaIcon(
+                              ? DompetIcon(
                                   icon: IconUtil.getIcon(selectedCategory.icon),
                                   color: selectedCategory.color?.toColor() ?? context.theme.colors.mutedForeground,
-                                  size: PokaIconSize.small,
+                                  size: DompetIconSize.small,
                                   useThemeBorderColor: true,
                                 )
                               : null,
@@ -233,7 +233,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                               categories,
                               state.type,
                             );
-                            final cat = await PokaCategorySelector.show(
+                            final cat = await DompetCategorySelector.show(
                               context,
                               categories: filtered,
                             );
@@ -295,7 +295,7 @@ class RecurringFormSheet extends HookConsumerWidget {
             // ── Note ─────────────────────────────────────────────
             FTextFormField(
               control: FTextFieldControl.managed(controller: noteController),
-              label: PokaFormLabel(t.recurring.noteLabel, isOptional: true),
+              label: DompetFormLabel(t.recurring.noteLabel, isOptional: true),
               hint: t.recurring.egNetflixSubscription,
               maxLines: 2,
             ),
@@ -658,7 +658,7 @@ class _ActiveToggle extends StatelessWidget {
                 ],
               ),
             ),
-            PokaSwitch(value: isActive, onChange: onChanged),
+            DompetSwitch(value: isActive, onChange: onChanged),
           ],
         ),
       ),

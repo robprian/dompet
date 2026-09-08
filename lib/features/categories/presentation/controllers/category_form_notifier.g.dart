@@ -16,7 +16,8 @@ final categoryFormProvider = CategoryFormNotifierProvider._();
 
 /// Notifier for the category creation and editing form.
 /// Manages form state, validation (e.g., empty name), and orchestrates save operations.
-final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormNotifier, CategoryFormState> {
+final class CategoryFormNotifierProvider
+    extends $NotifierProvider<CategoryFormNotifier, CategoryFormState> {
   /// Notifier for the category creation and editing form.
   /// Manages form state, validation (e.g., empty name), and orchestrates save operations.
   CategoryFormNotifierProvider._()
@@ -46,7 +47,8 @@ final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormN
   }
 }
 
-String _$categoryFormNotifierHash() => r'ae20726264e8047db540260b8791cc45ddbba8f8';
+String _$categoryFormNotifierHash() =>
+    r'ae20726264e8047db540260b8791cc45ddbba8f8';
 
 /// Notifier for the category creation and editing form.
 /// Manages form state, validation (e.g., empty name), and orchestrates save operations.

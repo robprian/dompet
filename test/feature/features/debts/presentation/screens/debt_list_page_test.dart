@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/screens/debt_list_page.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:dompet/features/debts/presentation/screens/debt_list_page.dart';
+import 'package:dompet/theme/theme.dart';
 
 // Create a mocked Notifier to simulate state.
 class MockDebtListNotifier extends DebtList {

@@ -1,6 +1,6 @@
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class PinDots extends StatelessWidget {
   const PinDots({

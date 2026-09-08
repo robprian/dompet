@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'robot_base.dart';
 
-import 'package:poka_ce/features/onboarding/presentation/screens/onboarding_page.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/currency_search_list.dart';
+import 'package:dompet/features/onboarding/presentation/screens/onboarding_page.dart';
+import 'package:dompet/features/settings/presentation/widgets/currency_search_list.dart';
 
 class OnboardingRobot extends RobotBase {
   const OnboardingRobot(super.tester);

@@ -1,5 +1,5 @@
+import 'package:dompet/core/utils/logger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:poka_ce/core/utils/logger.dart';
 
 /// Service managing native local notification initialization and dispatching.
 class NotificationService {
@@ -44,7 +44,7 @@ class NotificationService {
   }) async {
     try {
       const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'poka_ce_budget_alerts',
+        'dompet_alerts',
         'Budget Alerts',
         channelDescription: 'Notifications for when you exceed your budget thresholds',
         importance: Importance.high,
@@ -77,7 +77,7 @@ class NotificationService {
   }) async {
     try {
       const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'poka_ce_backup_reminders',
+        'dompet_reminders',
         'Backup Reminders',
         channelDescription: 'Reminders to periodically back up your financial data',
       );

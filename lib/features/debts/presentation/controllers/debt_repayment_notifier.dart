@@ -1,8 +1,8 @@
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/shared/utils/math_evaluator.dart';
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/shared/utils/math_evaluator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'debt_repayment_notifier.g.dart';

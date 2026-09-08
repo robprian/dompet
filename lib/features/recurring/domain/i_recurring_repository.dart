@@ -1,6 +1,6 @@
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
 
 abstract class IRecurringRepository {
   Future<Result<List<RecurringTransactionModel>, Failure>> getRecurringTransactions();

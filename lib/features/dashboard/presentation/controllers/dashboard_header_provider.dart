@@ -9,7 +9,7 @@ typedef DashboardHeaderBuilder = Widget Function(BuildContext context);
 /// Provides a custom header builder for the Dashboard.
 ///
 /// By default (in CE), this returns null, meaning the default CE header is used.
-/// Poka PE overrides this to inject a custom header (e.g., with avatar and greeting).
+/// Dompet PE overrides this to inject a custom header (e.g., with avatar and greeting).
 @riverpod
 DashboardHeaderBuilder? dashboardHeaderBuilder(Ref ref) {
   return null;

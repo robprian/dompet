@@ -1,6 +1,6 @@
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 part 'account_aggregate.freezed.dart';
 

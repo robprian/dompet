@@ -1,12 +1,12 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -35,7 +35,7 @@ class AccountHeroCard extends ConsumerWidget {
     final theme = context.theme;
     final isVisible = ref.watch(balanceVisibilityProvider);
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       cardColor: accentColor,
       pills: [
         // Icon pill
@@ -72,7 +72,7 @@ class AccountHeroCard extends ConsumerWidget {
         ),
       ),
       title: account.name,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: balance,
         type: balance >= 0 ? TransactionType.income : TransactionType.expense,
         isObscured: !isVisible,
@@ -80,7 +80,7 @@ class AccountHeroCard extends ConsumerWidget {
           color: Colors.white,
         ),
       ),
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.accounts.pockets,
         icon: FPhosphorIcons.wallet,
         customAmountWidget: Text(
@@ -91,7 +91,7 @@ class AccountHeroCard extends ConsumerWidget {
           ),
         ),
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.accounts.transactions,
         icon: FPhosphorIcons.receipt,
         customAmountWidget: Text(

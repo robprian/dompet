@@ -1,8 +1,8 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Compact section header showing the date and daily income/expense totals.
 class TransactionDateHeader extends StatelessWidget {
@@ -88,7 +88,7 @@ class TransactionDateHeader extends StatelessWidget {
                             color: theme.colors.app.income,
                           ),
                         ),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: income,
                           type: TransactionType.income,
                           style: theme.typography.amountTile,
@@ -102,7 +102,7 @@ class TransactionDateHeader extends StatelessWidget {
                             color: theme.colors.app.expense,
                           ),
                         ),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: expense,
                           type: TransactionType.expense,
                           style: theme.typography.amountTile,
@@ -116,7 +116,7 @@ class TransactionDateHeader extends StatelessWidget {
                           color: theme.colors.mutedForeground,
                         ),
                         const SizedBox(width: 4),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: total.abs(),
                           type: totalType,
                           style: theme.typography.amountTile,

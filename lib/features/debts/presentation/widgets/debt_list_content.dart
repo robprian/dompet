@@ -1,12 +1,12 @@
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_card.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_form_sheet.dart';
+import 'package:dompet/features/debts/presentation/widgets/debt_summary_card.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/debt_summary_card.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtListContent extends StatelessWidget {
   const DebtListContent({
@@ -22,7 +22,7 @@ class DebtListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     if (debts.isEmpty) {
       return Builder(
-        builder: (context) => PokaEmptyViewCentered(
+        builder: (context) => DompetEmptyViewCentered(
           icon: isPayable ? FPhosphorIcons.arrowUpRight : FPhosphorIcons.arrowDownLeft,
           title: isPayable ? t.debts.noDebtsRecorded : t.debts.noLoansRecorded,
           subtitle: isPayable
@@ -43,7 +43,7 @@ class DebtListContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PokaSectionLabel(
+            DompetSectionLabel(
               title: isPayable ? t.debts.payable : t.debts.receivable,
             ),
             Builder(

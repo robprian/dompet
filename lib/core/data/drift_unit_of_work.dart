@@ -1,5 +1,5 @@
-import 'package:poka_ce/core/domain/i_unit_of_work.dart';
-import 'package:poka_ce/database/database.dart';
+import 'package:dompet/core/domain/i_unit_of_work.dart';
+import 'package:dompet/database/database.dart';
 
 /// Implementation of [IUnitOfWork] using Drift's transaction block.
 class DriftUnitOfWork implements IUnitOfWork {

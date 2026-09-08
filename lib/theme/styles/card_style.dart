@@ -1,7 +1,7 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:dompet/theme/typography_roles.dart';
 import 'package:forui/forui.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:poka_ce/theme/typography_roles.dart';
 
 // Auto-generated Forui ignores
 // ignore_for_file: unnecessary_ignore

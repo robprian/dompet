@@ -1,6 +1,6 @@
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/tables/recurring_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/tables/recurring_table.dart';
 
 part 'recurring_dao.g.dart';
 

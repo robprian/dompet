@@ -1,18 +1,18 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_repayment_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_amount_display.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_repayment_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_amount_display.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtRepaymentSheet extends HookConsumerWidget {
   const DebtRepaymentSheet({
@@ -23,10 +23,10 @@ class DebtRepaymentSheet extends HookConsumerWidget {
   final DebtModel debt;
 
   static Future<bool?> show(BuildContext context, DebtModel debt) {
-    return showPokaSheet<bool>(
+    return showDompetSheet<bool>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => PokaSheet(
+      builder: (context) => DompetSheet(
         title: t.debts.addRepayment,
         padding: EdgeInsets.zero,
         child: DebtRepaymentSheet(debt: debt),

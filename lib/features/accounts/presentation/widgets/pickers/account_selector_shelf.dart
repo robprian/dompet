@@ -1,9 +1,9 @@
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_pill.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_pill.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AccountSelectorShelf extends StatelessWidget {
   const AccountSelectorShelf({
@@ -44,11 +44,11 @@ class AccountSelectorShelf extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        PokaPillScrollRow(
+        DompetPillScrollRow(
           children: parents.map((acc) {
             final isSel = activeParentId == acc.id;
             final accColor = Color(int.parse(acc.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
-            return PokaPill(
+            return DompetPill(
               icon: IconUtil.getIcon(acc.icon),
               label: acc.name,
               color: accColor,
@@ -59,11 +59,11 @@ class AccountSelectorShelf extends StatelessWidget {
         ),
         if (pockets.isNotEmpty) ...[
           const SizedBox(height: 6),
-          PokaPillScrollRow(
+          DompetPillScrollRow(
             children: pockets.map((pocket) {
               final isSel = selectedAccountId == pocket.id;
               final pocketColor = Color(int.parse(pocket.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
-              return PokaPill(
+              return DompetPill(
                 icon: IconUtil.getIcon(pocket.icon),
                 label: pocket.name,
                 color: pocketColor,

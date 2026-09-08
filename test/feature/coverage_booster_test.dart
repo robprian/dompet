@@ -5,22 +5,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/database/daos/accounts_dao.dart';
-import 'package:poka_ce/database/daos/categories_dao.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/features/accounts/data/account_repository_impl.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/data/category_repository_impl.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/dashboard/domain/services/dashboard_analytics_service.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/database/daos/accounts_dao.dart';
+import 'package:dompet/database/daos/categories_dao.dart';
+import 'package:dompet/database/database.dart';
+import 'package:dompet/features/accounts/data/account_repository_impl.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/categories/data/category_repository_impl.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/dashboard/domain/services/dashboard_analytics_service.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockAccountsDao extends Mock implements AccountsDao {}
 
@@ -234,18 +234,18 @@ void main() {
     });
   });
 
-  group('PokaHeader back pop', () {
+  group('DompetHeader back pop', () {
     testWidgets('back tap pops when canPop true', (tester) async {
       final router = GoRouter(
         initialLocation: '/',
         routes: [
           GoRoute(
             path: '/',
-            builder: (_, __) => const Scaffold(body: PokaHeader(title: 'Home')),
+            builder: (_, __) => const Scaffold(body: DompetHeader(title: 'Home')),
           ),
           GoRoute(
             path: '/next',
-            builder: (_, __) => const Scaffold(body: PokaHeader(title: 'Next', showBack: true)),
+            builder: (_, __) => const Scaffold(body: DompetHeader(title: 'Next', showBack: true)),
           ),
         ],
       );
@@ -266,12 +266,12 @@ void main() {
       expect(find.text('Home'), findsOneWidget);
     });
 
-    testWidgets('PokaHeader suffixes displayed in nested header', (tester) async {
+    testWidgets('DompetHeader suffixes displayed in nested header', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const Scaffold(
-            body: PokaHeader(title: 'T', showBack: true, suffixes: [Text('Suf')]),
+            body: DompetHeader(title: 'T', showBack: true, suffixes: [Text('Suf')]),
           ),
         ),
       );

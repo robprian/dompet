@@ -1,7 +1,7 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class ActiveAccountToggle extends StatelessWidget {
   const ActiveAccountToggle({
@@ -60,7 +60,7 @@ class ActiveAccountToggle extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          PokaSwitch(
+          DompetSwitch(
             value: isActive,
             onChange: onChanged,
           ),

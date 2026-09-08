@@ -1,8 +1,8 @@
-name: poka_ce
-description: "Poka CE — Community Edition core package for the Poka financial app."
+name: dompet
+description: "Dompet — Personal finance, private by design."
 publish_to: 'none'
 
-version: 0.1.0-beta.5
+version: 0.1.0
 
 environment:
   sdk: ^3.13.1

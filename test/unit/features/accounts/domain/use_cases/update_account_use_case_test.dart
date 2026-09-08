@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/accounts/domain/use_cases/update_account_use_case.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/accounts/domain/use_cases/update_account_use_case.dart';
 
 class MockAccountRepository extends Mock implements IAccountRepository {}
 

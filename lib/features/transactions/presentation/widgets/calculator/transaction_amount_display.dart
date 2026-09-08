@@ -1,8 +1,8 @@
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class TransactionAmountDisplay extends ConsumerWidget {
   const TransactionAmountDisplay({

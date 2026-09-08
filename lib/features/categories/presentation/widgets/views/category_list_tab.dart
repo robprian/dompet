@@ -1,16 +1,16 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/categories/presentation/screens/category_detail_page.dart';
+import 'package:dompet/features/categories/presentation/widgets/forms/category_form_sheet.dart';
+import 'package:dompet/features/categories/presentation/widgets/tiles/category_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/screens/category_detail_page.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 
 /// A tab view displaying a list of categories (e.g., Expense or Income).
 /// Handles reordering functionality and navigation to category details.
@@ -29,7 +29,7 @@ class CategoryListTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (categories.isEmpty) {
-      return PokaEmptyViewCentered(
+      return DompetEmptyViewCentered(
         icon: FPhosphorIcons.tag,
         title: t.categories.noCategoriesFound,
         subtitle: t.categories.emptyCategorySubtitle,

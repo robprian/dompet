@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:poka_ce/features/backup/data/backup_service.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/features/backup/data/backup_service.dart';
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 

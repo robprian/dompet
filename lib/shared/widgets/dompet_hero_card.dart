@@ -1,0 +1,256 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:flutter/material.dart';
+
+/// Standardized hero summary card used across the app (Budgets, Goals, Debts, Accounts, Transactions).
+/// Ensures consistent height, padding, and layout structure.
+class DompetHeroCard extends StatelessWidget {
+  const DompetHeroCard({
+    required this.pills,
+    required this.title,
+    required this.amount,
+    required this.leftSubAmount,
+    required this.rightSubAmount,
+    this.trailing,
+    this.progress,
+    this.cardColor,
+    this.background,
+    super.key,
+  });
+
+  /// The pills to display at the top left (e.g., number of items, status).
+  final List<Widget> pills;
+
+  /// Optional trailing widget at the top right (e.g., eye icon for balance visibility).
+  final Widget? trailing;
+
+  /// The main title of the card (e.g., 'Remaining', 'Net Balance').
+  final String title;
+
+  /// The main large amount widget.
+  final Widget amount;
+
+  /// The progress value between 0.0 and 1.0. If null, a blank space of the same height is used to maintain consistent card height.
+  final double? progress;
+
+  /// The left sub-amount widget.
+  final Widget leftSubAmount;
+
+  /// The right sub-amount widget.
+  final Widget rightSubAmount;
+
+  /// The primary color of the card gradient. Defaults to theme primary color.
+  final Color? cardColor;
+
+  /// Optional background widget layered behind the card content (e.g., sparkline chart).
+  final Widget? background;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final primaryColor = cardColor ?? theme.colors.primary;
+
+    return FCard(
+      style: FCardStyle(
+        padding: theme.cardStyle.padding,
+        decoration: ShapeDecoration(
+          shape: ((theme.cardStyle.decoration as ShapeDecoration).shape as OutlinedBorder).copyWith(
+            side: BorderSide.none,
+          ),
+          gradient: DompetGradients.hero(primaryColor),
+        ),
+        titleTextStyle: theme.cardStyle.titleTextStyle,
+        subtitleTextStyle: theme.cardStyle.subtitleTextStyle,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          children: [
+            if (background != null)
+              Positioned.fill(
+                child: background!,
+              ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // ── Top Row (Pills & Trailing) ───────────────────────────────
+                  Row(
+                    children: [
+                      ...pills,
+                      const Spacer(),
+                      ?trailing,
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // ── Middle Section (Label & Amount) ──────────────────────────
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.typography.bodySecondary.copyWith(
+                          color: theme.colors.primaryForeground.withValues(alpha: 0.7),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      amount,
+                    ],
+                  ),
+
+                  // ── Progress & Spacing ───────────────────────────────────────
+                  if (progress != null) ...[
+                    const SizedBox(height: 12),
+                    _HeroCardProgressBar(progress: progress!),
+                    const SizedBox(height: 12),
+                  ] else ...[
+                    // Maintain the exact height of (12 + 6 + 12 = 30) for cards without progress
+                    const SizedBox(height: 30),
+                  ],
+
+                  // ── Bottom Row (Sub Amounts) ─────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(child: leftSubAmount),
+                      const SizedBox(width: 24),
+                      Expanded(child: rightSubAmount),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A standard pill used in the top row of the hero card.
+class DompetHeroCardPill extends StatelessWidget {
+  const DompetHeroCardPill({required this.icon, required this.label, super.key});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Container(
+      margin: const EdgeInsets.only(right: 8), // Gap between pills
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: theme.colors.primaryForeground.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 13, color: theme.colors.primaryForeground),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: theme.typography.bodySecondary.copyWith(
+              color: theme.colors.primaryForeground,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// A standard sub-amount used in the bottom row of the hero card.
+class DompetHeroCardSubAmount extends StatelessWidget {
+  const DompetHeroCardSubAmount({
+    required this.label,
+    required this.icon,
+    this.amount,
+    this.type,
+    this.customAmountWidget,
+    this.isObscured = false,
+    super.key,
+  }) : assert(amount != null || customAmountWidget != null, 'Provide amount or customAmountWidget');
+
+  final String label;
+  final int? amount;
+  final TransactionType? type;
+  final IconData icon;
+  final Widget? customAmountWidget;
+  final bool isObscured;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(icon, size: 13, color: theme.colors.primaryForeground.withValues(alpha: 0.7)),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                label,
+                style: theme.typography.bodySecondary.copyWith(
+                  color: theme.colors.primaryForeground.withValues(alpha: 0.7),
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 3),
+        if (customAmountWidget != null)
+          customAmountWidget!
+        else
+          DompetAmountText(
+            amount: amount!,
+            type: type ?? TransactionType.income,
+            isObscured: isObscured,
+            style: theme.typography.amountCard.copyWith(
+              color: theme.colors.primaryForeground,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _HeroCardProgressBar extends StatelessWidget {
+  const _HeroCardProgressBar({required this.progress});
+
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        height: 6,
+        width: constraints.maxWidth,
+        decoration: BoxDecoration(
+          color: theme.colors.primaryForeground.withValues(alpha: 0.25),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: FractionallySizedBox(
+            widthFactor: progress,
+            child: Container(
+              decoration: BoxDecoration(
+                color: theme.colors.primaryForeground,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

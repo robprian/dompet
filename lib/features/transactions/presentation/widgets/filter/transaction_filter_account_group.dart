@@ -1,10 +1,10 @@
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_pill.dart';
 
 /// A group of selectable pills for filtering by account.
 class TransactionFilterAccountGroup extends HookWidget {
@@ -37,7 +37,7 @@ class TransactionFilterAccountGroup extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Parent pills
-          PokaPillScrollRow(
+          DompetPillScrollRow(
             children: topAccounts.map((account) {
               final isSelected = selectedIds.contains(account.id);
               final isExpanded = activeParentId.value == account.id;
@@ -46,7 +46,7 @@ class TransactionFilterAccountGroup extends HookWidget {
                   account.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
                 ),
               );
-              return PokaPill(
+              return DompetPill(
                 icon: IconUtil.getIcon(account.icon),
                 label: account.name,
                 color: color,
@@ -76,7 +76,7 @@ class TransactionFilterAccountGroup extends HookWidget {
           // Child pills (pockets)
           if (accountChildren.isNotEmpty) ...[
             const SizedBox(height: 6),
-            PokaPillScrollRow(
+            DompetPillScrollRow(
               children: accountChildren.map((pocket) {
                 final isSelected = selectedIds.contains(pocket.id);
                 final color = Color(
@@ -84,7 +84,7 @@ class TransactionFilterAccountGroup extends HookWidget {
                     pocket.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
                   ),
                 );
-                return PokaPill(
+                return DompetPill(
                   icon: IconUtil.getIcon(pocket.icon),
                   label: pocket.name,
                   color: color,

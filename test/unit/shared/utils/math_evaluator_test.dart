@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/shared/utils/math_evaluator.dart';
+import 'package:dompet/shared/utils/math_evaluator.dart';
 
 void main() {
   group('MathEvaluator.evaluate', () {

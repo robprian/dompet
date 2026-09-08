@@ -1,5 +1,5 @@
+import 'package:dompet/core/enums.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/core/enums.dart';
 
 part 'goal_model.freezed.dart';
 part 'goal_model.g.dart';

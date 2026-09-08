@@ -3,18 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 // ── Fakes ───────────────────────────────────────────────────────────────────
 
@@ -161,7 +161,7 @@ void main() {
       final items = [const SplitItem(amount: 500, categoryId: 'c_exp_1', categoryName: 'Food')];
       await tester.pumpWidget(wrapSplitSheet(type: TransactionType.expense, initial: items));
       await tester.pumpAndSettle();
-      // total badge should show (PokaAmountText inside trailing)
+      // total badge should show (DompetAmountText inside trailing)
       expect(find.textContaining('500'), findsWidgets);
       expect(find.text('Add at least one more item to save.'), findsOneWidget);
       // Done button exists but disabled (onPress null)
@@ -210,7 +210,7 @@ void main() {
       // Should show TransactionSplitItemFormSheet with New Item title
       expect(find.text('New Item'), findsOneWidget);
       // close sheet via X to avoid hanging
-      // Find close button? PokaSheetHeader has close X icon
+      // Find close button? DompetSheetHeader has close X icon
       if (find.byIcon(FPhosphorIcons.x).evaluate().isNotEmpty) {
         await tester.tap(find.byIcon(FPhosphorIcons.x).first);
         await tester.pumpAndSettle();

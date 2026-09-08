@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
+import 'package:dompet/core/utils/icon_util.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

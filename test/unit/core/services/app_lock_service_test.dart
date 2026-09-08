@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/services/app_lock_service.dart';
+import 'package:dompet/core/services/app_lock_service.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:flutter/services.dart';
 

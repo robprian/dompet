@@ -1,9 +1,9 @@
+import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/sheets/category_selection_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/sheets/category_selection_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class CategorySelectionField extends StatelessWidget {
   const CategorySelectionField({
@@ -19,7 +19,7 @@ class CategorySelectionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showPokaSheet<void>(
+        showDompetSheet<void>(
           context: context,
           builder: (context) => CategorySelectionSheet(
             notifier: notifier,

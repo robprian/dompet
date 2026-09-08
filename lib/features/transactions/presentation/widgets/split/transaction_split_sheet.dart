@@ -1,13 +1,13 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_item_list.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_list.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom-up split transaction sheet.
 ///
@@ -30,7 +30,7 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
     required TransactionType transactionType,
     List<SplitItem>? initialSplits,
   }) {
-    return showPokaSheet<List<SplitItem>>(
+    return showDompetSheet<List<SplitItem>>(
       context: context,
       persistent: false,
       isScrollControlled: true,
@@ -91,7 +91,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
     final typography = theme.typography;
     final canSave = _splits.length >= 2;
 
-    return PokaSheet(
+    return DompetSheet(
       title: t.transactions.splitTransaction,
       isScrollable: false,
       showCloseButton: false,
@@ -103,7 +103,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
                 borderRadius: theme.style.borderRadius.sm,
                 border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
               ),
-              child: PokaAmountText(
+              child: DompetAmountText(
                 amount: _totalAmount,
                 type: widget.transactionType,
                 style: typography.bodySecondary.copyWith(

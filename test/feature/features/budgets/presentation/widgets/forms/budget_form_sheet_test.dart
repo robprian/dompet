@@ -4,22 +4,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_form_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/domain/i_budget_repository.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_form_notifier.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
 

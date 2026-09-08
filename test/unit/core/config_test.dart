@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/config.dart';
+import 'package:dompet/core/config.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

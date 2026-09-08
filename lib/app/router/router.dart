@@ -1,36 +1,36 @@
+import 'package:dompet/app/shell/main_shell_page.dart';
+import 'package:dompet/core/logger/dompet_logger.dart';
+import 'package:dompet/features/accounts/presentation/screens/account_detail_page.dart';
+import 'package:dompet/features/accounts/presentation/screens/account_list_page.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/presentation/screens/budget_detail_page.dart';
+import 'package:dompet/features/budgets/presentation/screens/budget_list_page.dart';
+import 'package:dompet/features/categories/presentation/screens/category_list_page.dart';
+import 'package:dompet/features/dashboard/presentation/screens/dashboard_page.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/features/debts/presentation/screens/debt_detail_page.dart';
+import 'package:dompet/features/debts/presentation/screens/debt_list_page.dart';
+import 'package:dompet/features/goals/domain/goal_model.dart';
+import 'package:dompet/features/goals/presentation/screens/goal_detail_page.dart';
+import 'package:dompet/features/goals/presentation/screens/goal_list_page.dart';
+import 'package:dompet/features/onboarding/presentation/screens/onboarding_page.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/recurring/presentation/screens/recurring_detail_page.dart';
+import 'package:dompet/features/recurring/presentation/screens/recurring_list_page.dart';
+import 'package:dompet/features/reports/presentation/screens/report_list_page.dart';
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/settings/presentation/screens/about_page.dart';
+import 'package:dompet/features/settings/presentation/screens/faq_page.dart';
+import 'package:dompet/features/settings/presentation/screens/licenses_page.dart';
+import 'package:dompet/features/settings/presentation/screens/lock_screen.dart';
+import 'package:dompet/features/settings/presentation/screens/markdown_page.dart';
+import 'package:dompet/features/settings/presentation/screens/settings_page.dart';
+import 'package:dompet/features/transactions/presentation/screens/transaction_list_page.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/shell/main_shell_page.dart';
-import 'package:poka_ce/core/logger/poka_logger.dart';
-import 'package:poka_ce/features/accounts/presentation/screens/account_detail_page.dart';
-import 'package:poka_ce/features/accounts/presentation/screens/account_list_page.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/presentation/screens/budget_detail_page.dart';
-import 'package:poka_ce/features/budgets/presentation/screens/budget_list_page.dart';
-import 'package:poka_ce/features/categories/presentation/screens/category_list_page.dart';
-import 'package:poka_ce/features/dashboard/presentation/screens/dashboard_page.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/features/debts/presentation/screens/debt_detail_page.dart';
-import 'package:poka_ce/features/debts/presentation/screens/debt_list_page.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
-import 'package:poka_ce/features/goals/presentation/screens/goal_detail_page.dart';
-import 'package:poka_ce/features/goals/presentation/screens/goal_list_page.dart';
-import 'package:poka_ce/features/onboarding/presentation/screens/onboarding_page.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/recurring/presentation/screens/recurring_detail_page.dart';
-import 'package:poka_ce/features/recurring/presentation/screens/recurring_list_page.dart';
-import 'package:poka_ce/features/reports/presentation/screens/report_list_page.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/screens/about_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/faq_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/licenses_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/lock_screen.dart';
-import 'package:poka_ce/features/settings/presentation/screens/markdown_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/settings_page.dart';
-import 'package:poka_ce/features/transactions/presentation/screens/transaction_list_page.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 part 'router.g.dart';
@@ -359,7 +359,7 @@ class LockRoute extends GoRouteData with $LockRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    // import 'package:poka_ce/features/settings/presentation/screens/lock_screen.dart';
+    // import 'package:dompet/features/settings/presentation/screens/lock_screen.dart';
     // but we have to make sure it's imported at top
     return const LockScreen();
   }

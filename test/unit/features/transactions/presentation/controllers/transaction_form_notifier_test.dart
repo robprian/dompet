@@ -1,19 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/create_transaction_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
-import 'package:poka_ce/features/transactions/domain/use_cases/update_transaction_use_case.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_form_notifier.dart';
-import 'package:poka_ce/features/budgets/domain/budget_alert_service.dart';
-import 'package:poka_ce/features/budgets/domain/budget_alert_service_provider.dart';
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/domain/use_cases/create_transaction_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
+import 'package:dompet/features/transactions/domain/use_cases/update_transaction_use_case.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_form_notifier.dart';
+import 'package:dompet/features/budgets/domain/budget_alert_service.dart';
+import 'package:dompet/features/budgets/domain/budget_alert_service_provider.dart';
 
 class MockCreateTransactionUseCase extends Mock implements CreateTransactionUseCase {}
 

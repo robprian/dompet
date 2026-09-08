@@ -1,13 +1,13 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/utils/log_exporter.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/features/settings/presentation/widgets/easter_egg_icon.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/utils/log_exporter.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/easter_egg_icon.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// About screen displaying app version, credits, and links to source code and legal documents.
@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.settings.about,
         showBack: true,
       ),
@@ -36,7 +36,7 @@ class AboutPage extends StatelessWidget {
                   const EasterEggIcon(),
                   const SizedBox(height: 12),
                   Text(
-                    t.settings.pokaCe,
+                    t.settings.brandName,
                     style: theme.typography.display.lg.copyWith(
                       color: theme.colors.foreground,
                       fontWeight: FontWeight.w800,
@@ -77,7 +77,7 @@ class AboutPage extends StatelessWidget {
                       title: t.settings.helpIssues,
                       subtitle: t.settings.reportBugsOrRequestFeatures,
                       icon: FPhosphorIcons.question,
-                      onTap: () => _launchUrl('https://github.com/getpoka/poka-ce/issues'),
+                      onTap: () => _launchUrl('https://github.com/robprian/dompet/issues'),
                     ),
                   ],
                 ),

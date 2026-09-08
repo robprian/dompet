@@ -6,7 +6,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 import '../../test_setup.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_card.dart';
+import 'package:dompet/features/budgets/presentation/widgets/cards/budget_card.dart';
 
 void main() {
   testWidgets('Budget CRUD operations', (tester) async {

@@ -1,16 +1,16 @@
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/features/accounts/presentation/widgets/lists/account_grid.dart';
+import 'package:dompet/features/accounts/presentation/widgets/lists/account_list_header.dart';
+import 'package:dompet/features/accounts/presentation/widgets/sections/goal_account_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_grid.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_list_header.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/sections/goal_account_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Top-level screen displaying all accounts categorized into regular accounts and goal pockets.
 class AccountListPage extends HookConsumerWidget {
@@ -28,7 +28,7 @@ class AccountListPage extends HookConsumerWidget {
     final hasGoalAccounts = goalAggregates.isNotEmpty;
 
     return FScaffold(
-      header: PokaHeader(title: t.accounts.accounts),
+      header: DompetHeader(title: t.accounts.accounts),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -38,7 +38,7 @@ class AccountListPage extends HookConsumerWidget {
           if (!hasRegularAccounts && !hasGoalAccounts)
             SliverFillRemaining(
               hasScrollBody: false,
-              child: PokaEmptyViewCentered(
+              child: DompetEmptyViewCentered(
                 icon: FPhosphorIcons.wallet,
                 title: t.accounts.noAccountsYet,
                 subtitle: t.accounts.tapTheButtonBelowToAddYourFirstAccount,
@@ -54,7 +54,7 @@ class AccountListPage extends HookConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    PokaSectionLabel(title: t.accounts.mainAccounts),
+                    DompetSectionLabel(title: t.accounts.mainAccounts),
                     GestureDetector(
                       key: const Key('account-add-button'),
                       onTap: () => AccountFormSheet.show(context),

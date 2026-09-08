@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_aggregate.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/sections/goal_account_section.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/domain/account_aggregate.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/widgets/sections/goal_account_section.dart';
+import 'package:dompet/features/goals/domain/goal_model.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class _FakeGoalNotifier extends GoalNotifier {
   final List<GoalModel> goals;

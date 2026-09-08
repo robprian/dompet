@@ -5,19 +5,19 @@
 /// real transactions whenever `nextDate` <= today.
 library;
 
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_card.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_form_sheet.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_summary_card.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_card.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_summary_card.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Main page that lists all recurring transactions.
 class RecurringListPage extends ConsumerWidget {
@@ -28,7 +28,7 @@ class RecurringListPage extends ConsumerWidget {
     final state = ref.watch(recurringListProvider);
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.recurring.recurring,
         showBack: true,
       ),
@@ -36,7 +36,7 @@ class RecurringListPage extends ConsumerWidget {
           ? const Center(child: FCircularProgress())
           : state.recurrings.isEmpty
           ? Builder(
-              builder: (context) => PokaEmptyViewCentered(
+              builder: (context) => DompetEmptyViewCentered(
                 icon: FPhosphorIcons.repeat,
                 title: t.recurring.noRecurringTransactions,
                 subtitle: t.recurring.automateBillsLikeSubscriptionsOrSalary,
@@ -84,7 +84,7 @@ class _RecurringContent extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PokaSectionLabel(title: t.recurring.schedules),
+                DompetSectionLabel(title: t.recurring.schedules),
                 Builder(
                   builder: (context) => GestureDetector(
                     key: const Key('recurring-add-button'),

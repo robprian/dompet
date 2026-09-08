@@ -3,8 +3,8 @@ import 'dart:ui' show FontFeature;
 import 'package:flutter/material.dart' show FontWeight;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:poka_ce/theme/tailwind.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/theme/tailwind.dart';
+import 'package:dompet/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -104,7 +104,7 @@ void main() {
     });
   });
 
-  group('PokaTypographyRoles', () {
+  group('DompetTypographyRoles', () {
     final typography = lightTheme.typography;
 
     test('font families are configured for display (Plus Jakarta Sans) and body (Inter)', () {

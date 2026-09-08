@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:dompet/i18n/strings.g.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -63,14 +63,14 @@ void main() {
       expect(scrollView.scrollDirection, Axis.horizontal);
     });
 
-    testWidgets('renders PokaIcon for each action', (tester) async {
+    testWidgets('renders DompetIcon for each action', (tester) async {
       await tester.pumpWidget(createWidget());
       await tester.pumpAndSettle();
 
-      // PokaIcon is used for each action - check at least 5 containers with decorations
+      // DompetIcon is used for each action - check at least 5 containers with decorations
       expect(find.text('Budgets'), findsOneWidget);
       // Ensure the widget tree contains 5 quick action items via Row children count implicit
-      // Check that each label has a corresponding PokaIcon widget type
+      // Check that each label has a corresponding DompetIcon widget type
       expect(find.byType(DashboardQuickActions), findsOneWidget);
     });
   });

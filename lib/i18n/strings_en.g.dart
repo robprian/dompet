@@ -1627,8 +1627,8 @@ class Translations$settings$en {
 	/// en: 'Frequently Asked Questions'
 	String get faqDesc => 'Frequently Asked Questions';
 
-	/// en: 'About Poka CE'
-	String get about => 'About Poka CE';
+	/// en: 'About Dompet'
+	String get about => 'About Dompet';
 
 	/// en: 'Version and legal information'
 	String get aboutDesc => 'Version and legal information';
@@ -1708,17 +1708,14 @@ class Translations$settings$en {
 	/// en: 'No licenses found'
 	String get noLicensesFound => 'No licenses found';
 
-	/// en: 'Poka CE'
-	String get pokaCe => 'Poka CE';
-
 	/// en: 'Community Edition'
 	String get communityEdition => 'Community Edition';
 
-	/// en: 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.'
-	String get aboutDescription => 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.';
+	/// en: 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.'
+	String get aboutDescription => 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.';
 
-	/// en: '© 2026 POKA. All rights reserved.'
-	String get copyright => '© 2026 POKA. All rights reserved.';
+	/// en: '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID'
+	String get copyright => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID';
 
 	/// en: 'No Results Found'
 	String get noResultsFound => 'No Results Found';
@@ -1740,6 +1737,9 @@ class Translations$settings$en {
 
 	/// en: 'Failed to export Excel file'
 	String get exportExcelError => 'Failed to export Excel file';
+
+	/// en: 'Dompet'
+	String get brandName => 'Dompet';
 }
 
 // Path: shared
@@ -2590,7 +2590,7 @@ extension on Translations {
 			'settings.support' => 'Support',
 			'settings.faq' => 'FAQ',
 			'settings.faqDesc' => 'Frequently Asked Questions',
-			'settings.about' => 'About Poka CE',
+			'settings.about' => 'About Dompet',
 			'settings.aboutDesc' => 'Version and legal information',
 			'settings.selectTheme' => 'Select Theme',
 			'settings.themeLight' => 'Light',
@@ -2619,10 +2619,9 @@ extension on Translations {
 			'settings.search' => 'Search...',
 			'settings.errorLoadingContent' => 'Error loading content',
 			'settings.noLicensesFound' => 'No licenses found',
-			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Community Edition',
-			'settings.aboutDescription' => 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.',
-			'settings.copyright' => '© 2026 POKA. All rights reserved.',
+			'settings.aboutDescription' => 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.',
+			'settings.copyright' => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID',
 			'settings.noResultsFound' => 'No Results Found',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',
 			'settings.notSet' => 'Not Set',
@@ -2630,6 +2629,7 @@ extension on Translations {
 			'settings.exportExcelDesc' => 'Export transactions, accounts, and categories to .xlsx',
 			'settings.exportExcelSuccess' => 'Excel exported successfully',
 			'settings.exportExcelError' => 'Failed to export Excel file',
+			'settings.brandName' => 'Dompet',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',

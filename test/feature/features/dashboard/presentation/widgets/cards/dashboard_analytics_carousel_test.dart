@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/dashboard/domain/services/dashboard_analytics_service.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/dashboard/domain/services/dashboard_analytics_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

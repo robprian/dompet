@@ -3,12 +3,12 @@
 /// Watch [recurringRunnerProvider] once from the shell to trigger processing.
 library;
 
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/features/recurring/domain/recurring_processor_service.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_processor_service.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 
 /// Sealed result type for the runner's outcome.
 sealed class RecurringRunnerState {

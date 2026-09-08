@@ -1,13 +1,13 @@
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/features/settings/presentation/sheets/pin_setup_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/pin_verification_sheet.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/pin_setup_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/pin_verification_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
 
 class SecuritySection extends ConsumerWidget {
   const SecuritySection({super.key});
@@ -24,7 +24,7 @@ class SecuritySection extends ConsumerWidget {
           subtitle: context.t.settings.appLockDesc,
           icon: FPhosphorIcons.lockKey,
           onTap: () {},
-          trailing: PokaSwitch(
+          trailing: DompetSwitch(
             value: appLockState.isEnabled,
             onChange: (value) async {
               if (value) {
@@ -46,7 +46,7 @@ class SecuritySection extends ConsumerWidget {
           subtitle: context.t.settings.biometricsDesc,
           icon: FPhosphorIcons.fingerprint,
           onTap: () {},
-          trailing: PokaSwitch(
+          trailing: DompetSwitch(
             value: appLockState.isBiometricEnabled,
             onChange: (value) async {
               if (value) {

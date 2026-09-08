@@ -1,14 +1,14 @@
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/settings/presentation/sheets/currency_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/language_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/number_format_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/sheets/theme_picker_sheet.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
+import 'package:dompet/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/currency_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/language_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/number_format_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/sheets/theme_picker_sheet.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 class PreferencesSection extends ConsumerWidget {
   const PreferencesSection({super.key});

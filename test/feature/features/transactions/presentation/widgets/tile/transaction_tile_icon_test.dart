@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 
 void main() {
   Widget buildSubject({
@@ -33,7 +33,7 @@ void main() {
   }
 
   group('TransactionTileIcon', () {
-    testWidgets('renders basic PokaIcon', (tester) async {
+    testWidgets('renders basic DompetIcon', (tester) async {
       await tester.pumpWidget(
         buildSubject(
           catColor: Colors.blue,
@@ -41,7 +41,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(PokaIcon), findsOneWidget);
+      expect(find.byType(DompetIcon), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.car), findsOneWidget);
     });
 

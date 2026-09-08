@@ -1,14 +1,14 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/features/accounts/presentation/widgets/account_transaction_list.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/account_transaction_list.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class RecentTransactionsSection extends HookConsumerWidget {
   const RecentTransactionsSection({
@@ -32,7 +32,7 @@ class RecentTransactionsSection extends HookConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PokaSectionLabel(
+            DompetSectionLabel(
               title: accountTransactions.isEmpty
                   ? t.accounts.recentTransactions
                   : t.accounts.recentTransactionsCount(count: accountTransactions.length),
@@ -62,7 +62,7 @@ class RecentTransactionsSection extends HookConsumerWidget {
         ),
         const SizedBox(height: 8),
         if (accountTransactions.isEmpty)
-          PokaEmptyView(
+          DompetEmptyView(
             icon: FPhosphorIcons.receipt,
             title: t.accounts.noTransactionsYet,
             hasBorder: true,

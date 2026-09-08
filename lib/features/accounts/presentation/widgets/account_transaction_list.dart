@@ -1,10 +1,10 @@
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 

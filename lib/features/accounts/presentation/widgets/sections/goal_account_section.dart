@@ -1,13 +1,13 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/features/accounts/domain/account_aggregate.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_mini_card.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/features/accounts/domain/account_aggregate.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class GoalAccountSection extends HookConsumerWidget {
   const GoalAccountSection({
@@ -36,7 +36,7 @@ class GoalAccountSection extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
-                  Expanded(child: PokaSectionLabel(title: t.accounts.goalsAndSavings)),
+                  Expanded(child: DompetSectionLabel(title: t.accounts.goalsAndSavings)),
                   Icon(
                     isExpanded.value ? FPhosphorIcons.caretUp : FPhosphorIcons.caretDown,
                     size: 16,

@@ -1,11 +1,11 @@
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/pickers/dompet_icon_picker.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/pickers/poka_icon_picker.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 /// A button widget for opening an icon picker to select an icon for a category.
 class CategoryIconPickerButton extends StatelessWidget {
@@ -26,11 +26,11 @@ class CategoryIconPickerButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        showPokaSheet<void>(
+        showDompetSheet<void>(
           context: context,
-          builder: (context) => PokaSheet(
+          builder: (context) => DompetSheet(
             title: t.categories.selectIcon,
-            child: PokaIconPicker(
+            child: DompetIconPicker(
               selectedIcon: selectedIcon,
               onIconSelected: (icon) {
                 onIconSelected(icon);

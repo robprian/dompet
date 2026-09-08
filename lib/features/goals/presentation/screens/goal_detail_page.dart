@@ -1,22 +1,22 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/goals/domain/goal_model.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_detail_notifier.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_card.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Detail page presenting the progress, linked pocket balance, and deposit/withdrawal activity of a savings goal.
 class GoalDetailPage extends ConsumerWidget {
@@ -36,7 +36,7 @@ class GoalDetailPage extends ConsumerWidget {
 
     if (activeGoalState == null) {
       return FScaffold(
-        header: PokaHeader(title: t.goals.goalDetails, showBack: true),
+        header: DompetHeader(title: t.goals.goalDetails, showBack: true),
         child: const Center(child: FCircularProgress()),
       );
     }
@@ -69,7 +69,7 @@ class GoalDetailPage extends ConsumerWidget {
     final transactionsAsync = ref.watch(goalTransactionsProvider(activeGoal));
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.goals.goalDetails,
         showBack: true,
         suffixes: [
@@ -108,14 +108,14 @@ class GoalDetailPage extends ConsumerWidget {
             ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.goals.transactions),
+            child: DompetSectionLabel(title: t.goals.transactions),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: DompetEmptyViewCentered(
                     icon: FPhosphorIcons.receipt,
                     title: t.goals.noTransactionsFoundForThisGoal,
                   ),

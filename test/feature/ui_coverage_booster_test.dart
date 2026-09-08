@@ -1,16 +1,16 @@
-import 'package:poka_ce/core/enums.dart';
+import 'package:dompet/core/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/reports/presentation/screens/report_list_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/lock_screen.dart';
-import 'package:poka_ce/features/settings/presentation/screens/about_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/faq_page.dart';
-import 'package:poka_ce/features/settings/presentation/screens/markdown_page.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/views/category_list_tab.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:dompet/features/reports/presentation/screens/report_list_page.dart';
+import 'package:dompet/features/settings/presentation/screens/lock_screen.dart';
+import 'package:dompet/features/settings/presentation/screens/about_page.dart';
+import 'package:dompet/features/settings/presentation/screens/faq_page.dart';
+import 'package:dompet/features/settings/presentation/screens/markdown_page.dart';
+import 'package:dompet/features/categories/presentation/widgets/views/category_list_tab.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:dompet/i18n/strings.g.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

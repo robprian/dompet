@@ -1,12 +1,12 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class GoalSummaryCard extends ConsumerWidget {
   const GoalSummaryCard({required this.totalGoals, super.key});
@@ -19,14 +19,14 @@ class GoalSummaryCard extends ConsumerWidget {
     final summary = ref.watch(goalSummaryProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.target,
           label: t.goals.goalsCount(count: totalGoals),
         ),
         if (summary.targetReachedCount > 0)
-          PokaHeroCardPill(
+          DompetHeroCardPill(
             icon: FPhosphorIcons.checkCircle,
             label: t.goals.fullyFundedCount(count: summary.targetReachedCount),
           ),
@@ -40,7 +40,7 @@ class GoalSummaryCard extends ConsumerWidget {
         ),
       ),
       title: t.goals.totalSaved,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: summary.totalSaved,
         type: TransactionType.income,
         isObscured: !isBalanceVisible,
@@ -52,14 +52,14 @@ class GoalSummaryCard extends ConsumerWidget {
         ),
       ),
       progress: summary.overallProgress,
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.goals.stillNeeded,
         amount: summary.remaining.abs(),
         icon: FPhosphorIcons.arrowCircleUp,
         type: summary.remaining >= 0 ? TransactionType.expense : TransactionType.income,
         isObscured: !isBalanceVisible,
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.goals.totalTarget,
         amount: summary.totalTarget,
         icon: FPhosphorIcons.flag,

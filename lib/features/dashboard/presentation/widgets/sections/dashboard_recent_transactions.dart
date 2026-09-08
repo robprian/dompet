@@ -1,17 +1,17 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DashboardRecentTransactions extends ConsumerWidget {
   const DashboardRecentTransactions({
@@ -37,7 +37,7 @@ class DashboardRecentTransactions extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PokaSectionLabel(title: context.t.dashboard.recentTransactions),
+            DompetSectionLabel(title: context.t.dashboard.recentTransactions),
             GestureDetector(
               onTap: () => const TransactionListRoute().go(context),
               child: Text(
@@ -54,7 +54,7 @@ class DashboardRecentTransactions extends ConsumerWidget {
 
         // ── List or empty state ───────────────────────────────────────────
         if (transactions.isEmpty)
-          PokaEmptyView(
+          DompetEmptyView(
             icon: FPhosphorIcons.receipt,
             title: context.t.dashboard.noRecentTransactions,
             hasBorder: true,

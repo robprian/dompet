@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:poka_ce/theme/tailwind.dart';
+import 'package:dompet/theme/tailwind.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Helper to convert Flutter [Color] to [AnsiPen] for console logging

@@ -1,7 +1,7 @@
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/goals/domain/goal_model.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'goal_notifier.g.dart';

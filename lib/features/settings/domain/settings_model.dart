@@ -1,5 +1,5 @@
+import 'package:dompet/features/settings/domain/currency_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
 
 part 'settings_model.freezed.dart';
 part 'settings_model.g.dart';

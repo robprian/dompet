@@ -1,7 +1,7 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class CategoryItemTile extends StatelessWidget {
   const CategoryItemTile({required this.item, required this.rank, super.key});

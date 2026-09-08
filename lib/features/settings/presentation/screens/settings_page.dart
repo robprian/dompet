@@ -1,12 +1,12 @@
+import 'package:dompet/features/settings/presentation/widgets/sections/data_management_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/preferences_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/security_section.dart';
+import 'package:dompet/features/settings/presentation/widgets/sections/support_section.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/data_management_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/preferences_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/security_section.dart';
-import 'package:poka_ce/features/settings/presentation/widgets/sections/support_section.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// The main Settings screen allowing users to configure preferences, security,
 /// data backups, and view app information.
@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: PokaHeader(title: context.t.settings.title),
+      header: DompetHeader(title: context.t.settings.title),
       child: ListView(
         padding: EdgeInsets.zero,
         children: const [

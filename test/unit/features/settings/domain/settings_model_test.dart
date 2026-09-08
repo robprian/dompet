@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/features/settings/data/settings_repository.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/settings/data/settings_repository.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
 
 class MockSettingsRepository extends Mock implements SettingsRepository {}
 

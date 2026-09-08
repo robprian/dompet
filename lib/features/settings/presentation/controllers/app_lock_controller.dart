@@ -3,11 +3,10 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
+import 'package:dompet/core/services/app_lock_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/core/services/secure_storage_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/core/services/app_lock_service.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/core/services/secure_storage_service.dart';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_lock_controller.freezed.dart';

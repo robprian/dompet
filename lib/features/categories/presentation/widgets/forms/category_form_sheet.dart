@@ -1,14 +1,14 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_form_notifier.dart';
+import 'package:dompet/features/categories/presentation/widgets/pickers/category_icon_picker_button.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/pickers/dompet_color_picker.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_form_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/pickers/category_icon_picker_button.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 /// Bottom sheet for creating or editing a category.
 class CategoryFormSheet extends HookConsumerWidget {
@@ -32,7 +32,7 @@ class CategoryFormSheet extends HookConsumerWidget {
     CategoryType? initialType,
     String? initialName,
   }) {
-    return showPokaSheet(
+    return showDompetSheet(
       context: context,
       builder: (context) => CategoryFormSheet(
         initialCategory: category,
@@ -123,7 +123,7 @@ class CategoryFormSheet extends HookConsumerWidget {
                 child: FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.accounts.color),
-                  child: PokaColorPicker(
+                  child: DompetColorPicker(
                     selectedColor: state.color,
                     onColorSelected: notifier.setColor,
                   ),
@@ -159,7 +159,7 @@ class CategoryFormSheet extends HookConsumerWidget {
       title = initialCategory!.parentId != null ? t.categories.editSubCategory : t.categories.editCategory;
     }
 
-    return PokaSheet(
+    return DompetSheet(
       title: title,
       child: isSubCategory
           ? formContent

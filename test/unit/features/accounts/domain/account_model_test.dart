@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

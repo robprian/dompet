@@ -1,7 +1,7 @@
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 
 /// Abstract repository for managing Transaction data.
 abstract class ITransactionRepository {

@@ -1,6 +1,6 @@
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
 
 abstract class IDebtRepository {
   Future<Result<List<DebtModel>, Failure>> getDebts();

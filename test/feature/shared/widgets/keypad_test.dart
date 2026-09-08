@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/shared/widgets/keypad.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/shared/widgets/keypad.dart';
+import 'package:dompet/theme/theme.dart';
 
 Widget wrap(Widget child) => MaterialApp(
   builder: (context, c) => FTheme(data: lightTheme, child: c!),

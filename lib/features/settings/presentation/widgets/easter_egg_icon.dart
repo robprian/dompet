@@ -1,7 +1,7 @@
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 class EasterEggIcon extends StatefulWidget {
   const EasterEggIcon({super.key});

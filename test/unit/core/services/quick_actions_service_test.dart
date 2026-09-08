@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/services/quick_actions_service.dart';
+import 'package:dompet/core/services/quick_actions_service.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 class MockQuickActions extends Mock implements QuickActions {}

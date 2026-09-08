@@ -4,16 +4,16 @@ import 'package:excel/excel.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
-import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
-import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/domain/i_category_repository.dart';
+import 'package:dompet/features/transactions/data/excel_export_service.dart';
+import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 
 class MockTransactionRepository extends Mock implements ITransactionRepository {}
 
@@ -187,7 +187,7 @@ void main() {
       if (!exportDir.existsSync()) {
         exportDir.createSync(recursive: true);
       }
-      final dummyFile = File('${exportDir.path}/poka-export-old.xlsx');
+      final dummyFile = File('${exportDir.path}/dompet-export-old.xlsx');
       dummyFile.writeAsStringSync('dummy');
       expect(dummyFile.existsSync(), isTrue);
 
@@ -212,7 +212,7 @@ void main() {
       if (!exportDir.existsSync()) {
         exportDir.createSync(recursive: true);
       }
-      final staleFile = File('${exportDir.path}/poka-export-20200101-000000.xlsx');
+      final staleFile = File('${exportDir.path}/dompet-export-20200101-000000.xlsx');
       staleFile.writeAsStringSync('stale data');
       expect(staleFile.existsSync(), isTrue);
 

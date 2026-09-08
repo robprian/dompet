@@ -1,5 +1,5 @@
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'goal_list_view_notifier.g.dart';

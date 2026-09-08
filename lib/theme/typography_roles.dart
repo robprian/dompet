@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-/// Semantic typography roles extension for Poka CE.
+/// Semantic typography roles extension for Dompet CE.
 /// This maps semantic intent to the raw Forui typography scale, ensuring
 /// consistent sizing and weights across the application without inline overrides.
-extension PokaTypographyRoles on FTypography {
+extension DompetTypographyRoles on FTypography {
   // ── Display / Hero ────────────────────────────
   /// Hero amount (e.g., net worth, goal total). 28-30px w800 letterSpacing: -1, tabular figures.
   TextStyle get amountHero => body.xl2.copyWith(

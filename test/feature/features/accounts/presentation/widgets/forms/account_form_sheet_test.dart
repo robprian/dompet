@@ -3,18 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/accounts/domain/use_cases/create_account_use_case.dart';
-import 'package:poka_ce/features/accounts/domain/use_cases/update_account_use_case.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/accounts/domain/use_cases/create_account_use_case.dart';
+import 'package:dompet/features/accounts/domain/use_cases/update_account_use_case.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 class MockAccountRepository extends Mock implements IAccountRepository {}
 

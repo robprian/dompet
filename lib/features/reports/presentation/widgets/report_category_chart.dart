@@ -1,14 +1,13 @@
+import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/category_item_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_donut_chart.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/category_item_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Category breakdown with Expense / Income tab toggle.
 /// Uses fl_chart PieChart donut + ranked list.
@@ -90,9 +89,9 @@ class ReportCategoryChart extends HookConsumerWidget {
                         child: Center(
                           child: Column(
                             children: [
-                              const PokaIcon(
+                              const DompetIcon(
                                 icon: FPhosphorIcons.chartPieSlice,
-                                shape: PokaIconShape.circle,
+                                shape: DompetIconShape.circle,
                               ),
                               const SizedBox(height: 12),
                               Text(
@@ -239,11 +238,11 @@ class _CategoryPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     // The ranked list below already serves as the full legend (dot + name + amount + %).
     return Center(
-      child: PokaDonutChart(
+      child: DompetDonutChart(
         size: 156,
         thickness: 18,
         sections: items.map((item) {
-          return PokaDonutSection(
+          return DompetDonutSection(
             value: item.ratio,
             color: _parseColor(context, item.color),
           );

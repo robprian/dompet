@@ -1,10 +1,10 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class RecurringSummaryCard extends StatelessWidget {
   const RecurringSummaryCard({required this.recurrings, super.key});
@@ -32,20 +32,20 @@ class RecurringSummaryCard extends StatelessWidget {
 
     final netMonthly = monthlyIncome - monthlyExpense;
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.repeat,
           label: t.recurring.schedulesCount(count: recurrings.length),
         ),
         if (activeCount < recurrings.length)
-          PokaHeroCardPill(
+          DompetHeroCardPill(
             icon: FPhosphorIcons.pause,
             label: t.recurring.pausedCount(count: recurrings.length - activeCount),
           ),
       ],
       title: t.recurring.estMonthlyNet,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: netMonthly.abs(),
         type: netMonthly >= 0 ? TransactionType.income : TransactionType.expense,
         style: theme.typography.display.sm.copyWith(
@@ -55,13 +55,13 @@ class RecurringSummaryCard extends StatelessWidget {
           height: 1,
         ),
       ),
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.recurring.monthlyIn,
         amount: monthlyIncome,
         icon: FPhosphorIcons.arrowDown,
         type: TransactionType.income,
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.recurring.monthlyOut,
         amount: monthlyExpense,
         icon: FPhosphorIcons.arrowUp,

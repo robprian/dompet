@@ -1,16 +1,16 @@
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/categories/presentation/widgets/cards/category_hero_card.dart';
+import 'package:dompet/features/categories/presentation/widgets/forms/category_form_sheet.dart';
+import 'package:dompet/features/categories/presentation/widgets/tiles/category_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/cards/category_hero_card.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Screen for displaying details of a specific category and its sub-categories.
 class CategoryDetailPage extends ConsumerWidget {
@@ -32,7 +32,7 @@ class CategoryDetailPage extends ConsumerWidget {
     final subcategories = categories.where((c) => c.parentId == activeCategory.id).toList();
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: activeCategory.name,
         showBack: true,
       ),
@@ -56,7 +56,7 @@ class CategoryDetailPage extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PokaSectionLabel(title: t.categories.subcategories),
+                  DompetSectionLabel(title: t.categories.subcategories),
                   Builder(
                     builder: (context) => GestureDetector(
                       key: const Key('subcategory-add-button'),
@@ -85,7 +85,7 @@ class CategoryDetailPage extends ConsumerWidget {
               const SizedBox(height: 8),
 
               if (subcategories.isEmpty)
-                PokaEmptyView(
+                DompetEmptyView(
                   icon: FPhosphorIcons.tag,
                   title: t.categories.noSubcategoriesYet,
                   subtitle: t.categories.emptySubcategorySubtitle,

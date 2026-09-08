@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
+import 'package:dompet/theme/theme.dart';
 
 class FakeSettingsNotifier extends SettingsNotifier {
   @override

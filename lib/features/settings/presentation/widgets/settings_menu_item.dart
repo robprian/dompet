@@ -1,6 +1,6 @@
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class SettingsMenuItem extends StatelessWidget with FItemMixin {
   const SettingsMenuItem({
@@ -28,9 +28,9 @@ class SettingsMenuItem extends StatelessWidget with FItemMixin {
               style: context.theme.typography.bodySecondary.copyWith(color: context.theme.colors.mutedForeground),
             )
           : null,
-      prefix: PokaIcon(
+      prefix: DompetIcon(
         icon: icon,
-        size: PokaIconSize.small,
+        size: DompetIconSize.small,
       ),
       suffix: trailing ?? Icon(FPhosphorIcons.caretRight, color: context.theme.colors.mutedForeground),
       onPress: onTap,

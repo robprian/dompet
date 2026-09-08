@@ -1,6 +1,6 @@
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Category icon badge (flat-morphism style matching old app)
@@ -29,7 +29,7 @@ class TransactionTileIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final size = isSmall ? PokaIconSize.small : PokaIconSize.medium;
+    final size = isSmall ? DompetIconSize.small : DompetIconSize.medium;
     final boxSize = isSmall ? 36.0 : 42.0;
 
     return SizedBox(
@@ -38,7 +38,7 @@ class TransactionTileIcon extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          PokaIcon(
+          DompetIcon(
             icon: catIcon,
             color: catColor,
             size: size,

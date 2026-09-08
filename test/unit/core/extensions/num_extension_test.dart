@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:dompet/core/extensions/num_extension.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

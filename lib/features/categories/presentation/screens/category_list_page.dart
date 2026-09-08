@@ -1,15 +1,15 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/categories/presentation/widgets/forms/category_form_sheet.dart';
+import 'package:dompet/features/categories/presentation/widgets/views/category_list_tab.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/views/category_list_tab.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Main screen for managing all categories.
 /// Contains tabs for displaying Expense and Income categories.
@@ -27,7 +27,7 @@ class CategoryListPage extends HookConsumerWidget {
     final expenseCategories = categories.where((c) => c.type == CategoryType.expense && c.parentId == null).toList();
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.categories.categories,
         showBack: true,
         suffixes: [

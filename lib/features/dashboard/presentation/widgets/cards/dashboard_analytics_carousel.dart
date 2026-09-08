@@ -1,12 +1,11 @@
+import 'package:dompet/features/dashboard/presentation/widgets/cards/views/dashboard_budget_view.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/views/dashboard_cash_flow_view.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/views/dashboard_categories_view.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/dashboard_budget_view.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/dashboard_cash_flow_view.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/dashboard_categories_view.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DashboardAnalyticsCarousel extends HookConsumerWidget {
   const DashboardAnalyticsCarousel({super.key});

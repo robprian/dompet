@@ -1,11 +1,11 @@
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class TransactionTransferSelector extends StatelessWidget {
   const TransactionTransferSelector({
@@ -47,7 +47,7 @@ class TransactionTransferSelector extends StatelessWidget {
     final toColor = _accountColor(effectiveTo);
 
     Future<void> pickAccount({required bool isFrom}) async {
-      final acc = await PokaPocketSelector.show(
+      final acc = await DompetPocketSelector.show(
         context,
         title: isFrom ? t.transactions.fromAccount : t.transactions.toAccount,
         accounts: accounts,
@@ -163,10 +163,10 @@ class _TransactionTransferChip extends StatelessWidget {
       ),
       child: Row(
         children: [
-          PokaIcon(
+          DompetIcon(
             icon: IconUtil.getIcon(account.icon),
-            shape: PokaIconShape.circle,
-            size: PokaIconSize.small,
+            shape: DompetIconShape.circle,
+            size: DompetIconSize.small,
             color: color,
           ),
           const SizedBox(width: 8),

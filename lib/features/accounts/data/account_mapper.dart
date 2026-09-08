@@ -1,5 +1,5 @@
-import 'package:poka_ce/database/database.dart' as db;
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:dompet/database/database.dart' as db;
+import 'package:dompet/features/accounts/domain/account_model.dart';
 
 /// Mapper to convert data between Domain and Data layer for Account.
 class AccountMapper {

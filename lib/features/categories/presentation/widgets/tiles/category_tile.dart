@@ -1,18 +1,18 @@
 import 'dart:async';
 
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// A list tile representing a category in a list view.
 /// Shows the icon, name, and an optional toggle switch or sub-categories.
@@ -60,7 +60,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.trash,
             color: theme.colors.destructive,
             isDestructive: true,
@@ -68,7 +68,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
               if (onDelete != null) {
                 onDelete!();
               } else {
-                final confirm = await showPokaConfirmDialog(
+                final confirm = await showDompetConfirmDialog(
                   context,
                   title: t.categories.deleteCategory,
                   body: childCount > 0
@@ -88,7 +88,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {
@@ -109,7 +109,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
         behavior: HitTestBehavior.opaque,
         onTap: onPress,
         child: FTile(
-          prefix: PokaIcon(
+          prefix: DompetIcon(
             icon: IconUtil.getIcon(category.icon),
             color: categoryColor,
           ),
@@ -129,7 +129,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (onToggleActive != null)
-                PokaSwitch(
+                DompetSwitch(
                   value: category.isActive,
                   onChange: onToggleActive!,
                 ),

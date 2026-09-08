@@ -1,6 +1,6 @@
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_networth_card.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
 
 class AccountListHeader extends StatelessWidget {
   const AccountListHeader({

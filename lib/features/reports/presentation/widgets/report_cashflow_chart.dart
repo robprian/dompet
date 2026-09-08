@@ -1,11 +1,11 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Income vs Expense grouped bar chart using fl_chart.
 /// Section label lives OUTSIDE this card on the parent page.

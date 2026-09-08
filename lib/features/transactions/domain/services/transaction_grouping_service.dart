@@ -1,6 +1,6 @@
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/datetime_extension.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/datetime_extension.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 
 /// A grouped collection of transactions belonging to a single calendar day,
 /// along with aggregated daily income and expense totals.

@@ -1,12 +1,12 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_donut_chart.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DashboardCategoriesView extends ConsumerWidget {
   const DashboardCategoriesView({super.key});
@@ -59,8 +59,8 @@ class DashboardCategoriesView extends ConsumerWidget {
 
     return Row(
       children: [
-        PokaDonutChart(
-          sections: categoryData.map((e) => PokaDonutSection(value: e.ratio, color: e.color)).toList(),
+        DompetDonutChart(
+          sections: categoryData.map((e) => DompetDonutSection(value: e.ratio, color: e.color)).toList(),
         ),
         const SizedBox(width: 24),
         Expanded(

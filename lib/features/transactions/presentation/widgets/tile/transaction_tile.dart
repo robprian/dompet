@@ -1,26 +1,26 @@
 import 'dart:async';
 
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/datetime_extension.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile_content.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/datetime_extension.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_content.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// A compact tile displaying a single transaction's details,
 /// using category color/icon for the visual prefix badge.
@@ -258,7 +258,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                 motion: const BehindMotion(),
                 extentRatio: 0.22,
                 children: [
-                  PokaSlidableAction(
+                  DompetSlidableAction(
                     icon: FPhosphorIcons.trash,
                     color: theme.colors.destructive,
                     onPressed: onDelete!,
@@ -272,7 +272,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                 motion: const BehindMotion(),
                 extentRatio: 0.22,
                 children: [
-                  PokaSlidableAction(
+                  DompetSlidableAction(
                     icon: FPhosphorIcons.pencilSimple,
                     color: theme.colors.primary,
                     onPressed: onEdit!,

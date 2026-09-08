@@ -1,10 +1,10 @@
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_pill.dart';
 
 /// A group of selectable pills for filtering by category.
 class TransactionFilterCategoryGroup extends HookWidget {
@@ -37,7 +37,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Parent pills
-          PokaPillScrollRow(
+          DompetPillScrollRow(
             children: topCategories.map((cat) {
               final isSelected = selectedIds.contains(cat.id);
               final isExpanded = activeParentId.value == cat.id;
@@ -46,7 +46,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
                   cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
                 ),
               );
-              return PokaPill(
+              return DompetPill(
                 icon: IconUtil.getIcon(cat.icon),
                 label: cat.name,
                 color: color,
@@ -76,7 +76,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
           // Subcategory pills
           if (categoryChildren.isNotEmpty) ...[
             const SizedBox(height: 6),
-            PokaPillScrollRow(
+            DompetPillScrollRow(
               children: categoryChildren.map((sub) {
                 final isSelected = selectedIds.contains(sub.id);
                 final color = Color(
@@ -84,7 +84,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
                     sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
                   ),
                 );
-                return PokaPill(
+                return DompetPill(
                   icon: IconUtil.getIcon(sub.icon),
                   label: sub.name,
                   color: color,

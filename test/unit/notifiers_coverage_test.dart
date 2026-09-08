@@ -1,23 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
-import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/goals/domain/i_goal_repository.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/budgets/domain/i_budget_repository.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/categories/domain/i_category_repository.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:dompet/features/goals/domain/i_goal_repository.dart';
+import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/recurring/domain/i_recurring_repository.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 
 class MockBudgetRepo extends Mock implements IBudgetRepository {}
 

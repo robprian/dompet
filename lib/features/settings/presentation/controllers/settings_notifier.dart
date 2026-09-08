@@ -1,6 +1,6 @@
-import 'package:poka_ce/features/settings/data/settings_repository.dart';
-import 'package:poka_ce/features/settings/domain/currency_model.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:dompet/features/settings/data/settings_repository.dart';
+import 'package:dompet/features/settings/domain/currency_model.dart';
+import 'package:dompet/features/settings/domain/settings_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_notifier.g.dart';

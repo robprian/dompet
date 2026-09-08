@@ -1,10 +1,10 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtSummaryCard extends StatelessWidget {
   const DebtSummaryCard({required this.debts, required this.isPayable, super.key});
@@ -31,21 +31,21 @@ class DebtSummaryCard extends StatelessWidget {
 
     final overallProgress = totalAmount > 0 ? ((totalAmount - totalRemaining) / totalAmount).clamp(0.0, 1.0) : 0.0;
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       cardColor: cardColor,
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: isPayable ? FPhosphorIcons.arrowUpRight : FPhosphorIcons.arrowDownLeft,
           label: isPayable ? t.debts.owedCount(count: debts.length) : t.debts.receivableCount(count: debts.length),
         ),
         if (paidCount > 0)
-          PokaHeroCardPill(
+          DompetHeroCardPill(
             icon: FPhosphorIcons.checkCircle,
             label: t.debts.settled(count: paidCount),
           ),
       ],
       title: t.debts.outstanding,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: totalRemaining,
         type: isPayable ? TransactionType.expense : TransactionType.income,
         style: theme.typography.display.sm.copyWith(
@@ -56,13 +56,13 @@ class DebtSummaryCard extends StatelessWidget {
         ),
       ),
       progress: overallProgress,
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.debts.paid,
         amount: totalAmount - totalRemaining,
         icon: FPhosphorIcons.checkCircle,
         type: isPayable ? TransactionType.expense : TransactionType.income,
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.debts.principal,
         amount: totalAmount,
         icon: FPhosphorIcons.handshake,

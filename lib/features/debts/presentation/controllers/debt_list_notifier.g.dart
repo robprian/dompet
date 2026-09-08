@@ -8,11 +8,15 @@ part of 'debt_list_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// StreamNotifier managing the reactive collection of debts and loans.
 
 @ProviderFor(DebtList)
 final debtListProvider = DebtListProvider._();
 
-final class DebtListProvider extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
+/// StreamNotifier managing the reactive collection of debts and loans.
+final class DebtListProvider
+    extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
+  /// StreamNotifier managing the reactive collection of debts and loans.
   DebtListProvider._()
     : super(
         from: null,
@@ -32,7 +36,9 @@ final class DebtListProvider extends $StreamNotifierProvider<DebtList, List<Debt
   DebtList create() => DebtList();
 }
 
-String _$debtListHash() => r'54179221aa0922f3635c52bf34ba197004d4f317';
+String _$debtListHash() => r'c95366395a03c699bd8f3807a28327a7f818d19a';
+
+/// StreamNotifier managing the reactive collection of debts and loans.
 
 abstract class _$DebtList extends $StreamNotifier<List<DebtModel>> {
   Stream<List<DebtModel>> build();

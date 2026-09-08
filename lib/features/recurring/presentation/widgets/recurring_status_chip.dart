@@ -1,5 +1,5 @@
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class RecurringStatusChip extends StatelessWidget {
   const RecurringStatusChip({required this.isActive, super.key});

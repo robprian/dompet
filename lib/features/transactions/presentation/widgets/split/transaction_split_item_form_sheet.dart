@@ -1,18 +1,18 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/domain/split_item.dart';
+import 'package:dompet/features/transactions/presentation/widgets/calculator/transaction_calculator_body.dart';
+import 'package:dompet/features/transactions/presentation/widgets/split/transaction_split_sheet.dart'
+    show TransactionSplitSheet;
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/utils/math_evaluator.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/split_item.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_body.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart'
-    show TransactionSplitSheet;
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/utils/math_evaluator.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Persistent bottom sheet that creates or edits a single split item.
 ///
@@ -37,7 +37,7 @@ class TransactionSplitItemFormSheet extends ConsumerStatefulWidget {
     required TransactionType transactionType,
     SplitItem? initialItem,
   }) {
-    return showPokaSheet<SplitItem>(
+    return showDompetSheet<SplitItem>(
       context: context,
       isScrollControlled: true,
       persistent: false,
@@ -212,7 +212,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     final settings = ref.watch(settingsProvider).settings;
     final currencyCode = settings?.baseCurrency?.symbol;
 
-    return PokaSheet(
+    return DompetSheet(
       title: isEditing ? t.transactions.editItem : t.transactions.newItem,
       isScrollable: false,
       padding: EdgeInsets.zero,

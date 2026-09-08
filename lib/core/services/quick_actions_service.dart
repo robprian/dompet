@@ -1,10 +1,10 @@
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/logger/dompet_logger.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/features/categories/presentation/widgets/forms/category_form_sheet.dart';
+import 'package:dompet/features/goals/presentation/widgets/goal_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
 import 'package:flutter/widgets.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/logger/poka_logger.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 /// Service responsible for managing app shortcuts (Quick Actions).

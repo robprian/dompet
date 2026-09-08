@@ -1,6 +1,6 @@
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
 
 /// Interface defining the contract for category data operations.
 /// Repositories implementing this interface handle domain mapping, failure translation, and validation.

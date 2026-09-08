@@ -1,10 +1,10 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// A prominent card widget displaying a category's icon, name, and background color.
 class CategoryHeroCard extends StatelessWidget {
@@ -28,7 +28,7 @@ class CategoryHeroCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        gradient: PokaGradients.hero(parentColor),
+        gradient: DompetGradients.hero(parentColor),
         borderRadius: theme.style.borderRadius.lg,
       ),
       padding: const EdgeInsets.all(24),
@@ -73,7 +73,7 @@ class CategoryHeroCard extends StatelessWidget {
             ),
           ),
           if (onToggleActive != null)
-            PokaSwitch(
+            DompetSwitch(
               value: category.isActive,
               onChange: onToggleActive!,
             ),

@@ -1,7 +1,7 @@
+import 'package:dompet/core/services/notification_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/services/notification_service.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 
 /// Supported frequency intervals for periodic backup reminders.
 enum BackupReminderInterval {

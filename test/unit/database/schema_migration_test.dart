@@ -1,7 +1,7 @@
 import 'package:drift/native.dart';
 import 'package:drift_dev/api/migrations_native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/database/database.dart';
+import 'package:dompet/database/database.dart';
 
 import '../../database/schema_v1/schema.dart';
 

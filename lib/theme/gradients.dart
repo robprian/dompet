@@ -1,7 +1,7 @@
 part of 'theme.dart';
 
-/// Poka-specific gradient tokens.
-abstract final class PokaGradients {
+/// Dompet-specific gradient tokens.
+abstract final class DompetGradients {
   /// The standard directional gradient used for hero cards and vibrant color surfaces.
   /// It fades the base color slightly towards black at the bottom right.
   static LinearGradient hero(Color baseColor) {

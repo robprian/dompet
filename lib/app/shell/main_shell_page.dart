@@ -1,12 +1,12 @@
+import 'package:dompet/features/recurring/presentation/controllers/recurring_runner_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_add_transaction_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_runner_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_add_transaction_fab.dart';
 
 /// Main shell page hosting the bottom navigation bar.
 /// Also triggers the recurring automation runner on every app startup.
@@ -112,7 +112,7 @@ class MainShellPage extends HookConsumerWidget {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOutCubic,
                     opacity: isFabVisible.value ? 1.0 : 0.0,
-                    child: const PokaAddTransactionFab(),
+                    child: const DompetAddTransactionFab(),
                   ),
                 ),
               ),

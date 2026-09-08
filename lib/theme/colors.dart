@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-/// Color tokens and theme extensions for Poka CE.
+/// Color tokens and theme extensions for Dompet CE.
 ///
 /// Primary brand color: `#5560D6` (indigo-blue), fixed across both modes.
 /// Light mode: clean white surfaces with subtle brand-tinted supporting tokens.
@@ -10,8 +10,8 @@ part of 'theme.dart';
 // Brand palette reference constants
 // ---------------------------------------------------------------------------
 
-/// Full tonal spectrum extracted from the Poka brand logo.
-abstract final class PokaColors {
+/// Full tonal spectrum extracted from the Dompet brand logo.
+abstract final class DompetColors {
   /// 50 — very light tint, hover/chip backgrounds.
   static const Color brand50 = Color(0xFFDCDDF7);
 
@@ -47,12 +47,12 @@ final FColors lightColors = FColors(
   // Near-black foreground — WCAG AAA on white.
   foreground: const Color(0xFF0F172A),
   // Brand primary fixed at #5560D6 — vibrant indigo-blue.
-  primary: PokaColors.brand500,
+  primary: DompetColors.brand500,
   // White on #5560D6 passes WCAG AA (~4.6:1).
   primaryForeground: const Color(0xFFFFFFFF),
   // Very light brand tint for secondary surfaces — comfortable, not stark.
   secondary: const Color(0xFFEFF0FB),
-  secondaryForeground: PokaColors.brand700,
+  secondaryForeground: DompetColors.brand700,
   // Whisper brand tint for muted zones — barely perceptible.
   muted: const Color(0xFFF5F6FD),
   // Slate-500 — readable without competing with primary.
@@ -95,7 +95,7 @@ final FColors darkColors = FColors(
   // Slate-100 foreground — crisp (~19:1 on slate-950).
   foreground: const Color(0xFFF1F5F9),
   // #5560D6 reads well on slate-950 (~4.6:1 — WCAG AA).
-  primary: PokaColors.brand500,
+  primary: DompetColors.brand500,
   // White on brand500 — clean and accessible.
   primaryForeground: const Color(0xFFFFFFFF),
   // Slate-800 secondary — natural slate family lift.
@@ -134,7 +134,7 @@ extension FColorsExtensions on FColors {
   AppColors get app => extension<AppColors>();
 }
 
-/// Custom color tokens unique to Poka.
+/// Custom color tokens unique to Dompet.
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
   const AppColors({

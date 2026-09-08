@@ -1,6 +1,6 @@
+import 'package:dompet/theme/typography_roles.dart';
 import 'package:flutter/widgets.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/theme/typography_roles.dart';
 
 // Auto-generated Forui ignores
 // ignore_for_file: unnecessary_ignore

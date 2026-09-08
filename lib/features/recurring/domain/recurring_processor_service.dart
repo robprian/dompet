@@ -2,15 +2,15 @@
 /// transactions in the ledger and advancing the schedule's `nextDate`.
 library;
 
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/failure.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/core/utils/datetime_utils.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/failure.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/core/utils/datetime_utils.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/features/recurring/domain/i_recurring_repository.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
 
 /// Processes all due recurring transactions as of `asOf` (typically today).

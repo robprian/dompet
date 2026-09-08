@@ -1,27 +1,27 @@
 import 'dart:async';
 
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/widgets/cards/budget_card.dart';
+import 'package:dompet/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/error/result.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_card.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Streams expense transactions contributing to the specified [BudgetModel] during its active date window.
 // ignore: specify_nonobvious_property_types
@@ -91,7 +91,7 @@ class BudgetDetailPage extends ConsumerWidget {
 
     if (activeBudget == null) {
       return FScaffold(
-        header: PokaHeader(title: t.budgets.budgetDetails, showBack: true),
+        header: DompetHeader(title: t.budgets.budgetDetails, showBack: true),
         child: const Center(child: FCircularProgress()),
       );
     }
@@ -122,7 +122,7 @@ class BudgetDetailPage extends ConsumerWidget {
     final transactionsAsync = ref.watch(budgetTransactionsProvider(activeBudget));
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.budgets.budgetDetails,
         showBack: true,
         suffixes: [
@@ -133,7 +133,7 @@ class BudgetDetailPage extends ConsumerWidget {
           FHeaderAction(
             icon: Icon(FPhosphorIcons.trash, size: 20, color: context.theme.colors.destructive),
             onPress: () async {
-              final confirm = await showPokaConfirmDialog(
+              final confirm = await showDompetConfirmDialog(
                 context,
                 title: t.budgets.deleteBudget,
                 body: t
@@ -157,14 +157,14 @@ class BudgetDetailPage extends ConsumerWidget {
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
           SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.budgets.transactions),
+            child: DompetSectionLabel(title: t.budgets.transactions),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: DompetEmptyViewCentered(
                     icon: FPhosphorIcons.receipt,
                     title: t.budgets.noTransactionsFoundForThisBudgetPeriod,
                   ),

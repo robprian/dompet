@@ -1,8 +1,8 @@
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:poka_ce/core/utils/logger.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Provider exposing an instance of [AppLockService] with local authentication and logger.
@@ -39,7 +39,7 @@ class AppLockService {
   ///
   /// When at least one biometric is enrolled, the prompt is restricted to
   /// biometrics only (`biometricOnly: true`) so only the legitimate owner's
-  /// biometrics can unlock Poka. If no biometric is enrolled but the device
+  /// biometrics can unlock Dompet. If no biometric is enrolled but the device
   /// supports device credentials, the prompt falls back to the device
   /// PIN/pattern — otherwise a user without enrolled biometrics could never
   /// unlock the app.

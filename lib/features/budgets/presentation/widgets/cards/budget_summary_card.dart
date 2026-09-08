@@ -1,13 +1,13 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_progress_provider.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_hero_card.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class BudgetSummaryCard extends ConsumerWidget {
   const BudgetSummaryCard({required this.budgets, super.key});
@@ -33,14 +33,14 @@ class BudgetSummaryCard extends ConsumerWidget {
     final overallProgress = totalLimit > 0 ? (totalSpent / totalLimit).clamp(0.0, 1.0) : 0.0;
     final isOverLimit = overallProgress >= 1.0;
 
-    return PokaHeroCard(
+    return DompetHeroCard(
       pills: [
-        PokaHeroCardPill(
+        DompetHeroCardPill(
           icon: FPhosphorIcons.chartPieSlice,
           label: '${budgets.length} budget${budgets.length > 1 ? 's' : ''}',
         ),
         if (isOverLimit)
-          PokaHeroCardPill(
+          DompetHeroCardPill(
             icon: FPhosphorIcons.warning,
             label: t.budgets.overLimit,
           ),
@@ -54,7 +54,7 @@ class BudgetSummaryCard extends ConsumerWidget {
         ),
       ),
       title: t.budgets.remaining,
-      amount: PokaAmountText(
+      amount: DompetAmountText(
         amount: totalRemaining.abs(),
         type: totalRemaining >= 0 ? TransactionType.income : TransactionType.expense,
         isObscured: !isBalanceVisible,
@@ -66,14 +66,14 @@ class BudgetSummaryCard extends ConsumerWidget {
         ),
       ),
       progress: overallProgress,
-      leftSubAmount: PokaHeroCardSubAmount(
+      leftSubAmount: DompetHeroCardSubAmount(
         label: t.budgets.totalSpent,
         amount: totalSpent,
         icon: FPhosphorIcons.trendDown,
         type: TransactionType.expense,
         isObscured: !isBalanceVisible,
       ),
-      rightSubAmount: PokaHeroCardSubAmount(
+      rightSubAmount: DompetHeroCardSubAmount(
         label: t.budgets.totalLimit,
         amount: totalLimit,
         icon: FPhosphorIcons.chartBar,

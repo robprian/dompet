@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/features/backup/presentation/controllers/backup_form_notifier.dart';
+import 'package:dompet/features/backup/presentation/controllers/backup_form_notifier.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

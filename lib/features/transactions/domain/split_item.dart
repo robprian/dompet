@@ -1,6 +1,6 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart' show TransactionItemModel;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart' show TransactionItemModel;
 
 part 'split_item.freezed.dart';
 

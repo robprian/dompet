@@ -1,7 +1,7 @@
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/features/dashboard/domain/dashboard_quick_action.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/features/dashboard/domain/dashboard_quick_action.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dashboard_quick_actions_provider.g.dart';

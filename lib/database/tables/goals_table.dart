@@ -1,7 +1,7 @@
 // coverage:ignore-file
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/database/tables/accounts_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:uuid/uuid.dart';
 
 /// Database table definition for savings goals linked 1:1 with pocket accounts.

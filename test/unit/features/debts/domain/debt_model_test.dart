@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

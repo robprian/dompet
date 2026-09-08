@@ -1,24 +1,24 @@
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/features/transactions/domain/services/transaction_grouping_service.dart';
+import 'package:dompet/features/transactions/domain/transaction_model.dart';
+import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:dompet/features/transactions/presentation/widgets/filter/transaction_filter_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/list/transaction_list_summary_card.dart';
+import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/transactions/domain/services/transaction_grouping_service.dart';
-import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
-import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/list/transaction_list_summary_card.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Transaction list page — displays all transactions for a given date window
 /// with a summary card, sticky date navigator, and advanced filter.
@@ -244,7 +244,7 @@ class TransactionListPage extends HookConsumerWidget {
 
 /// Pinned sliver header containing view-mode chips and the date navigator.
 ///
-/// Pins itself below the [PokaHeader] so the user can always navigate dates
+/// Pins itself below the [DompetHeader] so the user can always navigate dates
 /// while scrolling through the transaction list.
 class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
   _StickyNavDelegate({
@@ -557,7 +557,7 @@ class _DateGroupSection extends ConsumerWidget {
                     TransactionFormSheet.show(context, initialTransaction: tx);
                   },
                   onDelete: () async {
-                    final confirmed = await showPokaConfirmDialog(
+                    final confirmed = await showDompetConfirmDialog(
                       context,
                       title: t.transactions.deleteTransaction,
                       body: t.transactions.deleteTransactionWarning,
@@ -696,7 +696,7 @@ class _DateHeader extends StatelessWidget {
                             color: theme.colors.app.income,
                           ),
                         ),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: income,
                           type: TransactionType.income,
                           style: theme.typography.amountTile,
@@ -710,7 +710,7 @@ class _DateHeader extends StatelessWidget {
                             color: theme.colors.app.expense,
                           ),
                         ),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: expense,
                           type: TransactionType.expense,
                           style: theme.typography.amountTile,
@@ -724,7 +724,7 @@ class _DateHeader extends StatelessWidget {
                           color: theme.colors.mutedForeground,
                         ),
                         const SizedBox(width: 4),
-                        PokaAmountText(
+                        DompetAmountText(
                           amount: total.abs(),
                           type: totalType,
                           style: theme.typography.amountTile,
@@ -756,7 +756,7 @@ class _EmptyPeriod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: PokaEmptyView(
+      child: DompetEmptyView(
         icon: FPhosphorIcons.receipt,
         title: t.transactions.noTransactions,
         subtitle: t.transactions.nothingRecordedFor(period: state.periodLabel.toLowerCase()),

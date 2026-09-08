@@ -1,7 +1,7 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/database/database.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/database/database.dart';
 import 'package:drift/drift.dart' hide isNotNull, isNull;
 
 void main() {

@@ -2,10 +2,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:poka_ce/core/services/app_lock_service.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
-import 'package:poka_ce/core/services/secure_storage_service.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
+import 'package:dompet/core/services/app_lock_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
+import 'package:dompet/core/services/secure_storage_service.dart';
+import 'package:dompet/features/settings/presentation/controllers/app_lock_controller.dart';
 
 // ── Fakes ───────────────────────────────────────────────────────────────────
 

@@ -1,10 +1,10 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/database/database.dart';
+import 'package:dompet/database/tables/accounts_table.dart';
+import 'package:dompet/database/tables/budgets_table.dart';
+import 'package:dompet/database/tables/debts_table.dart';
+import 'package:dompet/database/tables/transactions_table.dart';
 import 'package:drift/drift.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/database/database.dart';
-import 'package:poka_ce/database/tables/accounts_table.dart';
-import 'package:poka_ce/database/tables/budgets_table.dart';
-import 'package:poka_ce/database/tables/debts_table.dart';
-import 'package:poka_ce/database/tables/transactions_table.dart';
 
 part 'transactions_dao.g.dart';
 

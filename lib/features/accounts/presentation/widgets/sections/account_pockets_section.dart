@@ -1,17 +1,17 @@
+import 'package:dompet/features/accounts/domain/account_model.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/accounts/presentation/screens/pocket_detail_page.dart';
+import 'package:dompet/features/accounts/presentation/widgets/cards/account_mini_card.dart';
+import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_empty_view.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/screens/pocket_detail_page.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class AccountPocketsSection extends HookConsumerWidget {
   const AccountPocketsSection({
@@ -35,7 +35,7 @@ class AccountPocketsSection extends HookConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PokaSectionLabel(title: t.accounts.pockets),
+            DompetSectionLabel(title: t.accounts.pockets),
             GestureDetector(
               onTap: () => AccountFormSheet.show(context, parentAccountId: accountId),
               child: Row(
@@ -56,7 +56,7 @@ class AccountPocketsSection extends HookConsumerWidget {
         ).animate().fade(duration: 300.ms, delay: 60.ms).slideY(begin: 0.05, end: 0),
         const SizedBox(height: 8),
         if (pockets.isEmpty)
-          PokaEmptyView(
+          DompetEmptyView(
             icon: FPhosphorIcons.wallet,
             title: t.accounts.noPocketsYet,
             subtitle: t.accounts.pocketsHelpYouSplitYourWalletIntoCategories,
@@ -97,7 +97,7 @@ class AccountPocketsSection extends HookConsumerWidget {
                 pocketCount: 0,
                 onEdit: () => AccountFormSheet.show(context, initialAccount: pocket),
                 onDelete: () async {
-                  final confirm = await showPokaConfirmDialog(
+                  final confirm = await showDompetConfirmDialog(
                     context,
                     title: t.accounts.deletePocket,
                     body: t.accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp,

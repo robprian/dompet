@@ -1,13 +1,13 @@
+import 'package:dompet/app/app.dart';
+import 'package:dompet/core/logger/dompet_logger.dart';
+import 'package:dompet/core/logger/talker_riverpod_observer.dart';
+import 'package:dompet/core/services/notification_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/app.dart';
-import 'package:poka_ce/core/logger/poka_logger.dart';
-import 'package:poka_ce/core/logger/talker_riverpod_observer.dart';
-import 'package:poka_ce/core/services/notification_service.dart';
-import 'package:poka_ce/core/services/preferences_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -34,7 +34,7 @@ void main() async {
       overrides: [
         sharedPreferencesProvider.overrideWithValue(sharedPrefs),
       ],
-      child: const PokaApp(),
+      child: const DompetApp(),
     ),
   );
 }

@@ -1,23 +1,23 @@
 import 'dart:async';
 
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/recurring/domain/recurring_model.dart';
+import 'package:dompet/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_form_sheet.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_next_date_chip.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_period_chip.dart';
+import 'package:dompet/features/recurring/presentation/widgets/recurring_status_chip.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/shared/widgets/dompet_switch.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
-import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_next_date_chip.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_period_chip.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/recurring_status_chip.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/shared/widgets/poka_switch.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class RecurringCard extends ConsumerWidget {
   const RecurringCard({
@@ -57,7 +57,7 @@ class RecurringCard extends ConsumerWidget {
           children: [
             Row(
               children: [
-                PokaIcon(icon: typeIcon, color: typeColor),
+                DompetIcon(icon: typeIcon, color: typeColor),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -88,7 +88,7 @@ class RecurringCard extends ConsumerWidget {
                       ref.read(recurringListProvider.notifier).toggleActive(recurring.id);
                     },
                     behavior: HitTestBehavior.opaque,
-                    child: PokaSwitch(
+                    child: DompetSwitch(
                       value: recurring.isActive,
                       onChange: (_) => ref.read(recurringListProvider.notifier).toggleActive(recurring.id),
                     ),
@@ -99,7 +99,7 @@ class RecurringCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PokaAmountText(
+                DompetAmountText(
                   amount: recurring.amount,
                   type: recurring.type,
                   style: theme.typography.amountCard,
@@ -122,12 +122,12 @@ class RecurringCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.trash,
             color: theme.colors.destructive,
             isDestructive: true,
             onPressed: () async {
-              final confirm = await showPokaConfirmDialog(
+              final confirm = await showDompetConfirmDialog(
                 context,
                 title: t.recurring.deleteSchedule,
                 body: t
@@ -146,7 +146,7 @@ class RecurringCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {

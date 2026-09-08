@@ -1,8 +1,8 @@
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Known license names keyed by their identifying substring, ordered
 /// most-specific first so longer phrases win over short overlaps.
@@ -45,7 +45,7 @@ class LicensesScreen extends StatelessWidget {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.settings.openSourceLicenses,
         showBack: true,
       ),

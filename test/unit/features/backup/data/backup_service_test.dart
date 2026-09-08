@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:poka_ce/features/backup/data/backup_service.dart';
+import 'package:dompet/features/backup/data/backup_service.dart';
 
 /// Fake path provider that returns controlled temp directories.
 class FakePathProviderPlatform extends PathProviderPlatform with MockPlatformInterfaceMixin {

@@ -8,11 +8,18 @@ part of 'transaction_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Controller managing form input, split items, in-place math evaluation, and submission
+/// for creating and updating transactions.
 
 @ProviderFor(TransactionFormNotifier)
 final transactionFormProvider = TransactionFormNotifierFamily._();
 
-final class TransactionFormNotifierProvider extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
+/// Controller managing form input, split items, in-place math evaluation, and submission
+/// for creating and updating transactions.
+final class TransactionFormNotifierProvider
+    extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
+  /// Controller managing form input, split items, in-place math evaluation, and submission
+  /// for creating and updating transactions.
   TransactionFormNotifierProvider._({
     required TransactionFormNotifierFamily super.from,
     required TransactionFormArgs super.argument,
@@ -48,7 +55,8 @@ final class TransactionFormNotifierProvider extends $NotifierProvider<Transactio
 
   @override
   bool operator ==(Object other) {
-    return other is TransactionFormNotifierProvider && other.argument == argument;
+    return other is TransactionFormNotifierProvider &&
+        other.argument == argument;
   }
 
   @override
@@ -57,7 +65,11 @@ final class TransactionFormNotifierProvider extends $NotifierProvider<Transactio
   }
 }
 
-String _$transactionFormNotifierHash() => r'b23c76ff47eaae665bf1827f070bc66f0406e9a6';
+String _$transactionFormNotifierHash() =>
+    r'b23c76ff47eaae665bf1827f070bc66f0406e9a6';
+
+/// Controller managing form input, split items, in-place math evaluation, and submission
+/// for creating and updating transactions.
 
 final class TransactionFormNotifierFamily extends $Family
     with
@@ -77,6 +89,9 @@ final class TransactionFormNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
+  /// Controller managing form input, split items, in-place math evaluation, and submission
+  /// for creating and updating transactions.
+
   TransactionFormNotifierProvider call(TransactionFormArgs args) =>
       TransactionFormNotifierProvider._(argument: args, from: this);
 
@@ -84,7 +99,11 @@ final class TransactionFormNotifierFamily extends $Family
   String toString() => r'transactionFormProvider';
 }
 
-abstract class _$TransactionFormNotifier extends $Notifier<TransactionFormState> {
+/// Controller managing form input, split items, in-place math evaluation, and submission
+/// for creating and updating transactions.
+
+abstract class _$TransactionFormNotifier
+    extends $Notifier<TransactionFormState> {
   late final _$args = ref.$arg as TransactionFormArgs;
   TransactionFormArgs get args => _$args;
 

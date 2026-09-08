@@ -1,24 +1,24 @@
 import 'dart:async';
 
+import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/extensions/string_extension.dart';
+import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:dompet/features/budgets/domain/budget_model.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_progress_provider.dart';
+import 'package:dompet/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
+import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
+import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_slidable_action.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/core/extensions/string_extension.dart';
-import 'package:poka_ce/core/utils/icon_util.dart';
-import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/budgets/domain/budget_model.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
-import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
-import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
-import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
-import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class BudgetCard extends ConsumerWidget {
   const BudgetCard({
@@ -64,7 +64,7 @@ class BudgetCard extends ConsumerWidget {
           children: [
             Row(
               children: [
-                PokaIcon(
+                DompetIcon(
                   icon: category != null ? IconUtil.getIcon(category.icon) : FPhosphorIcons.chartPieSlice,
                   color: category != null ? (category.color?.toColor() ?? progressColor) : progressColor,
                 ),
@@ -106,7 +106,7 @@ class BudgetCard extends ConsumerWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    PokaAmountText(
+                    DompetAmountText(
                       amount: remaining.abs(),
                       type: remaining >= 0 ? TransactionType.income : TransactionType.expense,
                       style: theme.typography.amountCard,
@@ -133,7 +133,7 @@ class BudgetCard extends ConsumerWidget {
                       t.budgets.spent,
                       style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                     ),
-                    PokaAmountText(
+                    DompetAmountText(
                       amount: spent,
                       type: TransactionType.expense,
                       style: theme.typography.bodySecondary.copyWith(
@@ -149,7 +149,7 @@ class BudgetCard extends ConsumerWidget {
                       t.budgets.percentOf(percent: (progress * 100).toStringAsFixed(0)),
                       style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                     ),
-                    PokaAmountText(
+                    DompetAmountText(
                       amount: budget.amount,
                       type: TransactionType.income,
                       style: theme.typography.bodySecondary.copyWith(
@@ -176,12 +176,12 @@ class BudgetCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.trash,
             color: theme.colors.destructive,
             isDestructive: true,
             onPressed: () async {
-              final confirm = await showPokaConfirmDialog(
+              final confirm = await showDompetConfirmDialog(
                 context,
                 title: t.budgets.deleteBudget,
                 body: t
@@ -200,7 +200,7 @@ class BudgetCard extends ConsumerWidget {
         motion: const BehindMotion(),
         extentRatio: 0.22,
         children: [
-          PokaSlidableAction(
+          DompetSlidableAction(
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {

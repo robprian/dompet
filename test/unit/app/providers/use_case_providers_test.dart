@@ -1,9 +1,9 @@
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/app/providers/use_case_providers.dart';
-import 'package:poka_ce/database/database.dart';
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/app/providers/use_case_providers.dart';
+import 'package:dompet/database/database.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

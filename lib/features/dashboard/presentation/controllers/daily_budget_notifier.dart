@@ -1,4 +1,4 @@
-import 'package:poka_ce/core/services/preferences_service.dart';
+import 'package:dompet/core/services/preferences_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'daily_budget_notifier.g.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
-import 'package:poka_ce/features/backup/presentation/sheets/backup_reminder_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/features/backup/presentation/sheets/backup_reminder_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 
 Widget _wrapWithTheme(Widget child) {
   return TranslationProvider(

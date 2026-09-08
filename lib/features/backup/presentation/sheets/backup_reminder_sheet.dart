@@ -1,15 +1,15 @@
+import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 /// Shows a bottom sheet allowing the user to configure the periodic backup reminder interval.
 Future<BackupReminderInterval?> showBackupReminderSheet(
   BuildContext context, {
   required BackupReminderInterval currentInterval,
 }) async {
-  return showPokaSheet<BackupReminderInterval>(
+  return showDompetSheet<BackupReminderInterval>(
     context: context,
     persistent: false,
     fitContent: true,
@@ -25,13 +25,13 @@ class _BackupReminderSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.t;
-    return PokaSheet(
+    return DompetSheet(
       title: t.backup.reminder,
       isScrollable: false,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          PokaSheetActionItem(
+          DompetSheetActionItem(
             title: t.backup.reminderOff,
             icon: FPhosphorIcons.bellSlash,
             trailing: currentInterval == BackupReminderInterval.off
@@ -39,7 +39,7 @@ class _BackupReminderSheet extends StatelessWidget {
                 : null,
             onTap: () => Navigator.of(context).pop(BackupReminderInterval.off),
           ),
-          PokaSheetActionItem(
+          DompetSheetActionItem(
             title: t.backup.reminderWeekly,
             icon: FPhosphorIcons.calendarDots,
             trailing: currentInterval == BackupReminderInterval.weekly
@@ -47,7 +47,7 @@ class _BackupReminderSheet extends StatelessWidget {
                 : null,
             onTap: () => Navigator.of(context).pop(BackupReminderInterval.weekly),
           ),
-          PokaSheetActionItem(
+          DompetSheetActionItem(
             title: t.backup.reminderMonthly,
             icon: FPhosphorIcons.calendar,
             trailing: currentInterval == BackupReminderInterval.monthly

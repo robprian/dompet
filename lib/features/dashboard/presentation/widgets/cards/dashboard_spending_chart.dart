@@ -1,12 +1,12 @@
+import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/sheets/dashboard_budget_sheet.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/extensions/num_extension.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/sheets/dashboard_budget_sheet.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DashboardSpendingChart extends HookConsumerWidget {
   const DashboardSpendingChart({super.key});

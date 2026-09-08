@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:dompet/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
+import 'package:dompet/theme/theme.dart';
+import 'package:dompet/i18n/strings.g.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

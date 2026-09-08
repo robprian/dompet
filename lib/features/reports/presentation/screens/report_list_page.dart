@@ -1,18 +1,18 @@
+import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_budget_utilization.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_cashflow_chart.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_category_chart.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_period_selector.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_spending_allocation.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_summary_card.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_header.dart';
+import 'package:dompet/shared/widgets/dompet_section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_budget_utilization.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_cashflow_chart.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_category_chart.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_period_selector.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_spending_allocation.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/report_summary_card.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_header.dart';
-import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 
 /// Reports screen presenting cashflow trends, spending by category, budget utilization, and allocation splits.
 class ReportListPage extends ConsumerWidget {
@@ -24,7 +24,7 @@ class ReportListPage extends ConsumerWidget {
     final t = context.t.reports;
 
     return FScaffold(
-      header: PokaHeader(
+      header: DompetHeader(
         title: t.title,
         subtitle: t.overview,
         suffixes: [
@@ -79,7 +79,7 @@ class ReportListPage extends ConsumerWidget {
                                 const SizedBox(height: 20),
 
                                 // 2. Cashflow Trend
-                                PokaSectionLabel(title: t.cashflowTrend),
+                                DompetSectionLabel(title: t.cashflowTrend),
                                 const SizedBox(height: 8),
                                 const ReportCashflowChart()
                                     .animate()
@@ -88,7 +88,7 @@ class ReportListPage extends ConsumerWidget {
                                 const SizedBox(height: 20),
 
                                 // 3. Top Categories
-                                PokaSectionLabel(title: t.topCategories),
+                                DompetSectionLabel(title: t.topCategories),
                                 const SizedBox(height: 8),
                                 const ReportCategoryChart()
                                     .animate()
@@ -116,7 +116,7 @@ class ReportListPage extends ConsumerWidget {
                               children: [
                                 const SizedBox(height: 12),
                                 // 1. Budget Utilization
-                                PokaSectionLabel(title: t.budgetUtilization),
+                                DompetSectionLabel(title: t.budgetUtilization),
                                 const SizedBox(height: 8),
                                 const ReportBudgetUtilization()
                                     .animate()
@@ -125,7 +125,7 @@ class ReportListPage extends ConsumerWidget {
                                 const SizedBox(height: 20),
 
                                 // 2. Spending Allocation (50/30/20)
-                                PokaSectionLabel(title: t.spendingAllocation),
+                                DompetSectionLabel(title: t.spendingAllocation),
                                 const SizedBox(height: 8),
                                 const ReportSpendingAllocation()
                                     .animate()

@@ -1,9 +1,9 @@
+import 'package:dompet/app/providers/repository_providers.dart';
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/debts/domain/debt_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dialogs/dompet_confirm_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/app/providers/repository_providers.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/debts/domain/debt_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'debt_list_notifier.g.dart';
@@ -27,7 +27,7 @@ class DebtList extends _$DebtList {
   /// Prompts the user with a confirmation dialog before deleting [debt] and reverting associated cash flows.
   Future<void> deleteDebtWithConfirmation(BuildContext context, DebtModel debt) async {
     final isPayable = debt.type == DebtType.debt;
-    final confirm = await showPokaConfirmDialog(
+    final confirm = await showDompetConfirmDialog(
       context,
       title: t.debts.deleteDebt,
       body:

@@ -1,19 +1,19 @@
+import 'package:dompet/core/enums.dart';
+import 'package:dompet/features/categories/domain/category_model.dart';
+import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class CategoryPickerSheet extends ConsumerWidget {
   const CategoryPickerSheet({super.key});
 
   static Future<CategoryModel?> show(BuildContext context) {
-    return showPokaSheet<CategoryModel>(
+    return showDompetSheet<CategoryModel>(
       context: context,
-      builder: (context) => PokaSheet(
+      builder: (context) => DompetSheet(
         title: t.transactions.selectCategory,
         child: const CategoryPickerSheet(),
       ),

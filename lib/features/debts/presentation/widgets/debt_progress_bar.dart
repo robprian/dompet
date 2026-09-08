@@ -1,5 +1,5 @@
+import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:poka_ce/theme/theme.dart';
 
 class DebtProgressBar extends StatelessWidget {
   const DebtProgressBar({required this.progress, required this.color, super.key});
