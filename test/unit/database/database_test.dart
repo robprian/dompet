@@ -11,8 +11,8 @@ void main() {
   tearDown(() async => db.close());
 
   group('AppDatabase', () {
-    test('schemaVersion is 1', () {
-      expect(db.schemaVersion, 1);
+    test('schemaVersion is 2', () {
+      expect(db.schemaVersion, 2);
     });
 
     test('database opens with foreign_keys pragma', () async {
@@ -29,6 +29,7 @@ void main() {
       expect(db.debtsDao, isNotNull);
       expect(db.transactionsDao, isNotNull);
       expect(db.settingsDao, isNotNull);
+      expect(db.detectionDao, isNotNull);
     });
 
     test('can insert and retrieve across tables', () async {
@@ -39,7 +40,7 @@ void main() {
       expect(acc, isNotNull);
     });
 
-    test('database contains all 11 tables via DB inspection', () async {
+    test('database contains all 15 tables via DB inspection', () async {
       final tables = await db.customSelect("SELECT name FROM sqlite_master WHERE type='table'").get();
       final names = tables.map((r) => r.data['name'] as String).toSet();
       expect(names.contains('accounts'), true);
@@ -52,6 +53,9 @@ void main() {
       expect(names.contains('recurring_transactions'), true);
       expect(names.contains('currencies'), true);
       expect(names.contains('settings'), true);
+      expect(names.contains('transaction_detections'), true);
+      expect(names.contains('merchant_category_rules'), true);
+      expect(names.contains('salary_profiles'), true);
     });
   });
 }

@@ -1,23 +1,67 @@
 name: Release Build
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Target Release Tag (e.g. v1.0.0)'
+        description: 'Target Release Tag (e.g. v0.1.0)'
         required: true
         type: string
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
-    
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Resolve release tag
+        id: tag
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Release tag: $TAG"
+
+      - name: Validate tag format
+        run: |
+          if ! echo "${{ steps.tag.outputs.value }}" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Tag must match vMAJOR.MINOR.PATCH (e.g. v0.1.0)"
+            exit 1
+          fi
+
+      - name: Validate pubspec version matches tag
+        run: |
+          PUBSPEC_VERSION=$(grep -E '^version:' pubspec.yaml | sed 's/version:[[:space:]]*//')
+          APP_VERSION="${PUBSPEC_VERSION%%+*}"
+          EXPECTED="v$APP_VERSION"
+          echo "pubspec version: $PUBSPEC_VERSION (app: $APP_VERSION)"
+          if [ "$EXPECTED" != "${{ steps.tag.outputs.value }}" ]; then
+            echo "Tag ${{ steps.tag.outputs.value }} does not match pubspec app version $APP_VERSION"
+            exit 1
+          fi
+
+      - name: Require release signing secrets
+        run: |
+          for secret_name in ANDROID_KEYSTORE_BASE64 ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD ANDROID_STORE_PASSWORD; do
+            if [ -z "${!secret_name}" ]; then
+              echo "Missing required secret: $secret_name"
+              exit 1
+            fi
+          done
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -29,17 +73,31 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.47.2'
           channel: 'stable'
           cache: true
 
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Generate code
+        run: |
+          rm -f lib/i18n/*.g.dart
+          dart run build_runner build
+          dart run slang
+
+      - name: Run static analysis
+        run: flutter analyze
+
+      - name: Run tests
+        run: make test
+
       - name: Decode Keystore
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
-          echo $ENCODED_STRING | base64 -d > android/app/keystore.jks
+          echo "$ENCODED_STRING" | base64 -d > android/app/keystore.jks
+          test -s android/app/keystore.jks || (echo 'Decoded keystore is empty' && exit 1)
 
       - name: Create key.properties
         env:
@@ -47,45 +105,94 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
-          echo "storePassword=$ANDROID_STORE_PASSWORD" > android/key.properties
-          echo "keyPassword=$ANDROID_KEY_PASSWORD" >> android/key.properties
-          echo "keyAlias=$ANDROID_KEY_ALIAS" >> android/key.properties
-          echo "storeFile=keystore.jks" >> android/key.properties
+          printf 'storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=keystore.jks\n' \
+            "$ANDROID_STORE_PASSWORD" "$ANDROID_KEY_PASSWORD" "$ANDROID_KEY_ALIAS" \
+            > android/key.properties
 
-      - name: Build Universal & Split APKs
+      - name: Build release APK
         run: |
-          # Build Universal Fat APK first
-          flutter build apk --release --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
-          # Rename it so it's clear and won't be overwritten
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
-          
-          # Build Split APKs
-          flutter build apk --release --split-per-abi --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          TAG="${{ steps.tag.outputs.value }}"
+          flutter build apk --release --dart-define=APP_VERSION="$TAG"
 
-      - name: Upload Release APKs
-        uses: actions/upload-artifact@v4
-        with:
-          name: poka-ce-release
-          path: build/app/outputs/flutter-apk/app-*-release.apk
-
-      - name: Attach APKs to Release
-        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/app/outputs/flutter-apk/app-*-release.apk
-          file_glob: true
-          tag: ${{ github.event.inputs.tag || github.ref_name }}
-          overwrite: true
-
-      - name: Trigger Poka Landing Redeploy
-        if: always() && (github.event_name == 'release' || github.event_name == 'workflow_dispatch')
-        env:
-          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+      - name: Validate and rename APK
+        id: apk
         run: |
-          if [ -n "$DEPLOY_HOOK" ]; then
-            echo "Triggering Cloudflare Deploy Hook for Poka Landing..."
-            curl -s -X POST "$DEPLOY_HOOK"
-          else
-            echo "CLOUDFLARE_DEPLOY_HOOK secret is not set, skipping."
+          TAG="${{ steps.tag.outputs.value }}"
+          VERSION="${TAG#v}"
+          APK_DIR="build/app/outputs/flutter-apk"
+          SRC="$APK_DIR/app-release.apk"
+          DEST="$APK_DIR/Dompet-$TAG.apk"
+
+          test -s "$SRC" || (echo "Release APK missing or empty: $SRC" && exit 1)
+          mv "$SRC" "$DEST"
+
+          AAPT=$(find "$ANDROID_HOME/build-tools" -name aapt | sort | tail -1)
+          test -n "$AAPT" || (echo 'aapt not found in Android SDK build-tools' && exit 1)
+          BADGING=$("$AAPT" dump badging "$DEST")
+          echo "$BADGING" | head -2
+
+          APK_PACKAGE=$(echo "$BADGING" | sed -n "s/^package: name='\([^']*\)'.*/\1/p")
+          APK_VERSION=$(echo "$BADGING" | sed -n "s/.*versionName='\([^']*\)'.*/\1/p")
+          echo "package=$APK_PACKAGE versionName=$APK_VERSION"
+
+          if [ "$APK_PACKAGE" != 'dev.robprian.dompet' ]; then
+            echo "Unexpected package id: $APK_PACKAGE"
+            exit 1
           fi
+          if [ "$APK_VERSION" != "$VERSION" ]; then
+            echo "APK versionName $APK_VERSION does not match tag $TAG"
+            exit 1
+          fi
+
+          sha256sum "$DEST" | awk '{print $1}' > "$DEST.sha256"
+          echo "SHA256: $(cat "$DEST.sha256")"
+          echo "apk=$DEST" >> "$GITHUB_OUTPUT"
+          echo "checksum=$DEST.sha256" >> "$GITHUB_OUTPUT"
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          TAG="${{ steps.tag.outputs.value }}"
+          PREVIOUS=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || echo '')
+          if [ -n "$PREVIOUS" ]; then
+            RANGE="$PREVIOUS..$TAG"
+          else
+            RANGE="$TAG"
+          fi
+          {
+            echo "# Dompet $TAG"
+            echo ''
+            echo '## Highlights'
+            echo ''
+            git log --pretty='- %s' "$RANGE" | head -50
+            echo ''
+            echo '## Privacy'
+            echo ''
+            echo 'All financial processing remains local on your device. No cloud sync, no remote AI.'
+            echo ''
+            echo '## APK'
+            echo ''
+            echo "Dompet-$TAG.apk"
+            echo ''
+            echo 'SHA256:'
+            echo '```'
+            cat "${{ steps.apk.outputs.checksum }}"
+            echo '```'
+          } > release-notes.md
+          cat release-notes.md
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.value }}
+          name: Dompet ${{ steps.tag.outputs.value }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.apk.outputs.apk }}
+            ${{ steps.apk.outputs.checksum }}
+
+      - name: Clean up signing material
+        if: always()
+        run: rm -f android/app/keystore.jks android/key.properties

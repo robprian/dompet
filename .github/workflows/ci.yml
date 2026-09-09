@@ -13,6 +13,16 @@ on:
       - 'pubspec.yaml'
       - 'pubspec.lock'
       - '.github/workflows/ci.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'lib/**'
+      - 'test/**'
+      - 'android/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - '.github/workflows/ci.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,18 +32,29 @@ jobs:
   analyze:
     if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.47.2'
           channel: 'stable'
           cache: true
 
       - name: Install Dependencies
         run: flutter pub get
+
+      - name: Verify generated code is up to date
+        run: |
+          rm -f lib/i18n/*.g.dart
+          dart run build_runner build
+          dart run slang
+          git diff --exit-code -- lib test || (echo 'Generated code is stale. Run: make generate' && exit 1)
+
+      - name: Check Formatting
+        run: dart format --output=none --set-exit-if-changed lib test
 
       - name: Check Formatting & Lints
         run: make check
@@ -42,18 +63,19 @@ jobs:
     needs: analyze
     if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
         test-suite: [unit, feature, e2e]
-    
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.47.2'
           channel: 'stable'
           cache: true
 
@@ -62,3 +84,31 @@ jobs:
 
       - name: Run Tests
         run: make test:${{ matrix.test-suite }}
+
+  build:
+    needs: test
+    if: github.event_name == 'push' || github.event.pull_request.draft != true
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build debug APK (validation only)
+        run: flutter build apk --debug
