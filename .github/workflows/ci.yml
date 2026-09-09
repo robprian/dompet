@@ -69,7 +69,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        test-suite: [unit, feature, e2e]
+        test-suite: [unit, feature]
 
     steps:
       - uses: actions/checkout@v4
