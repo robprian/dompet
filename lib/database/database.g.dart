@@ -8293,7 +8293,7 @@ class $SalaryProfilesTable extends SalaryProfiles
         false,
         type: DriftSqlType.double,
         requiredDuringInsert: false,
-        defaultValue: const Constant(0.0),
+        defaultValue: const Constant(0),
       );
   static const VerificationMeta _occurrenceCountMeta = const VerificationMeta(
     'occurrenceCount',

@@ -1,3 +1,4 @@
+import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/app/router/router.dart';
 import 'package:dompet/core/services/quick_actions_service.dart';
 import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
@@ -53,6 +54,9 @@ class DompetApp extends HookConsumerWidget {
 
       // Initialize quick actions
       QuickActionsService.instance.initialize();
+
+      // Start receiving bank/QRIS notification candidates locally
+      ref.read(detectionNotificationServiceProvider).start();
 
       return null;
     }, const []);

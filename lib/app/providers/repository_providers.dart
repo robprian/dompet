@@ -11,6 +11,11 @@ import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/domain/i_category_repository.dart';
 import 'package:dompet/features/debts/data/debt_repository_impl.dart';
 import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/features/detection/data/detection_notification_service.dart';
+import 'package:dompet/features/detection/data/detection_repository.dart';
+import 'package:dompet/features/detection/data/notification_bridge.dart';
+import 'package:dompet/features/detection/domain/i_detection_repository.dart';
+import 'package:dompet/features/detection/domain/services/detection_import_service.dart';
 import 'package:dompet/features/goals/data/goal_repository_impl.dart';
 import 'package:dompet/features/goals/domain/i_goal_repository.dart';
 import 'package:dompet/features/recurring/data/recurring_repository_impl.dart';
@@ -71,6 +76,30 @@ final debtRepositoryProvider = Provider<IDebtRepository>((ref) {
 final recurringRepositoryProvider = Provider<IRecurringRepository>((ref) {
   final db = ref.watch(databaseProvider);
   return RecurringRepositoryImpl(db.recurringDao);
+});
+
+/// Provides the [IDetectionRepository] implementation.
+final detectionRepositoryProvider = Provider<IDetectionRepository>((ref) {
+  final db = ref.watch(databaseProvider);
+  return DetectionRepository(db.detectionDao, db);
+});
+
+/// Provides the local notification import pipeline.
+final detectionImportServiceProvider = Provider<DetectionImportService>((ref) {
+  return DetectionImportService(
+    ref.watch(detectionRepositoryProvider),
+    ref.watch(transactionRepositoryProvider),
+    ref.watch(accountRepositoryProvider),
+    ref.watch(categoryRepositoryProvider),
+  );
+});
+
+/// Provides the runtime bridge between Android notifications and the pipeline.
+final detectionNotificationServiceProvider = Provider<DetectionNotificationService>((ref) {
+  return DetectionNotificationService(
+    bridge: NotificationBridge(),
+    importService: ref.watch(detectionImportServiceProvider),
+  );
 });
 
 // --- Stream Providers for Reactive UI ---
