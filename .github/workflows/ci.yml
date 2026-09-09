@@ -51,7 +51,9 @@ jobs:
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
           dart run slang
-          git diff --exit-code -- lib test || (echo 'Generated code is stale. Run: make generate' && exit 1)
+          # Only build_runner outputs are committed; slang timestamps are volatile.
+          git diff --exit-code -- lib test -- ':!lib/i18n/strings*.g.dart' \
+            || (echo 'Generated code is stale. Run: make generate' && exit 1)
 
       - name: Check Formatting
         run: dart format --output=none --set-exit-if-changed lib test
