@@ -1156,8 +1156,8 @@ class Translations$lock$en {
 	/// en: 'Temporarily locked'
 	String get temporarilyLocked => 'Temporarily locked';
 
-	/// en: 'Authenticate to access Poka'
-	String get authenticateReason => 'Authenticate to access Poka';
+	/// en: 'Authenticate to access Dompet'
+	String get authenticateReason => 'Authenticate to access Dompet';
 }
 
 // Path: onboarding
@@ -2601,7 +2601,7 @@ extension on Translations {
 			'lock.invalidPin' => 'Invalid PIN',
 			'lock.tooManyAttempts' => 'Too many attempts',
 			'lock.temporarilyLocked' => 'Temporarily locked',
-			'lock.authenticateReason' => 'Authenticate to access Poka',
+			'lock.authenticateReason' => 'Authenticate to access Dompet',
 			'onboarding.continueWithCurrency' => 'Continue with selected currency',
 			'onboarding.chooseYourBaseCurrency' => 'Choose Your Base Currency',
 			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',

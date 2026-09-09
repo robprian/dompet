@@ -14,11 +14,11 @@ trigger: always_on
 - **NO SHADOWS**: Strictly do NOT use shadows (`boxShadow`, `Shadow`, `elevation`, etc.) anywhere in the app. Use flat
   design with borders, gradients, and subtle background opacity instead.
 
-## PokaIcon
+## DompetIcon
 
-- Always use `PokaIcon` (from `shared/widgets/poka_icon.dart`) instead of raw `Icon(...)` or manual `Container + Icon`
+- Always use `DompetIcon` (from `shared/widgets/dompet_icon.dart`) instead of raw `Icon(...)` or manual `Container + Icon`
   combinations for account/category/pocket icons in lists and cards.
-- `PokaIcon` has a semantic size scale: `small` (36px, dense lists/menu items), `medium` (44px, standard data rows),
+- `DompetIcon` has a semantic size scale: `small` (36px, dense lists/menu items), `medium` (44px, standard data rows),
   `large` (52px, primary touch targets), `hero` (64px, decorative focal points/dialogs).
 - **Exception — icon on gradient background**: When an icon sits on a colored gradient (e.g., hero balance card), use a
   plain `Container(color: Colors.white.withValues(alpha: 0.2)) + Icon(color: Colors.white)` **without a border**. The
@@ -54,11 +54,11 @@ customize just because you can — every deviation increases maintenance burden.
 - Gap between major *sections* on a *screen*: **`20`** (`SizedBox(height: 20)`).
 - *Padding* before the bottom of the *screen* (bottom safe area): **`20`**.
 
-**2. Global PokaSheet Layout**
+**2. Global DompetSheet Layout**
 
 - **Body Padding**: Left-right padding is `12` (`EdgeInsets.fromLTRB(12, 0, 12, 0)`).
-- **Header Padding**: `PokaSheetHeader` has a bottom padding of **`12`** towards the *body* content.
-- *Crucial Rule*: Never add an empty manual `SizedBox` at the very top of the `PokaSheet` *body* to avoid *double
+- **Header Padding**: `DompetSheetHeader` has a bottom padding of **`12`** towards the *body* content.
+- *Crucial Rule*: Never add an empty manual `SizedBox` at the very top of the `DompetSheet` *body* to avoid *double
   padding* with the header.
 
 **3. Standard Form Sheets (Account, Budget, Goal, Debt, Category)**

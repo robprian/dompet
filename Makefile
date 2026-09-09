@@ -2,7 +2,7 @@
 
 # Default target
 help:
-	@echo "Poka CE - Available Commands:"
+	@echo "Dompet - Available Commands:"
 	@echo "--------------------------------------------------------"
 	@echo "Development:"
 	@echo "  make run      - Run the app on a connected emulator/device"

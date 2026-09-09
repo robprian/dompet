@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-# Poka CE — Coding Standards
+# Dompet — Coding Standards
 
 ## 1. Absolute CE Blindness
 

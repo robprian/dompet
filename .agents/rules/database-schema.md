@@ -4,12 +4,15 @@ trigger: always_on
 
 # Database Architecture & Core Business Logic
 
+> Dompet extends the upstream Poka CE schema with a local transaction-detection pipeline
+> (`transaction_detections`, `merchant_category_rules`, `salary_profiles`, schema v2).
+
 > [!IMPORTANT]
 > **DATABASE RULES:**
 > ALL `Enum` values (e.g., `type`, `status`, `role`) **MUST** be stored in lowercase in the database (e.g., `income`,
 `expense`, `transfer`, `active`, `synced`). Uppercase or CamelCase is prohibited in the database.
 
-Blueprint of the database structure and core business logic for the Poka application.
+Blueprint of the database structure and core business logic for the Dompet application.
 
 ## Entity-Relationship Diagram (ERD)
 
@@ -36,7 +39,7 @@ erDiagram
 
 ## 0. Currencies
 
-Master catalog holding standard currency information. Poka CE operates as **Single Currency**. The user selects 1
+Master catalog holding standard currency information. Dompet operates as **Single Currency**. The user selects 1
 currency during Onboarding, stored permanently in the `settings` table.
 
 - **`currencies` Table:** `id` (UUIDv7), `name`, `code` (ISO 4217), `symbol`, `precision`, timestamps.

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Poka CE — an open-source Flutter personal-finance app (single-currency, local-first).
+Dompet — an offline-first Flutter personal-finance app (single-currency, local-first), built on the open-source Poka CE codebase.
 
 ## Source-of-truth docs (read before writing code)
 

@@ -26,7 +26,7 @@ static `Card`, `Container`, text, padding).
 * **When to test a Widget:**
     * **Complex / Stateful:** The widget contains branching logic (if/else), handles user interactions independently, or
       has state variations (e.g., loading, error, custom animations).
-    * **Reusable Component:** Core components used massively throughout the application (e.g., `PokaPocketSelector`,
+    * **Reusable Component:** Core components used massively throughout the application (e.g., `DompetPocketSelector`,
       `Keypad`, custom buttons, custom input forms). If one breaks, everything breaks.
     * **Main Pages / Screens:** To ensure all small components integrate well and the state connects correctly to the
       UI.

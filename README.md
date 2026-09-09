@@ -1,16 +1,15 @@
 <p align="center">
-  <img src="assets/images/logo.png" width="100" alt="Poka CE Logo" />
+  <img src="assets/images/logo.png" width="100" alt="Dompet Logo" />
 </p>
 
-<h1 align="center">Poka CE — Community Edition</h1>
-<p align="center"><i>Simple. Offline. Yours. — Personal finance management, no cloud required.</i></p>
-<p align="center"><a href="https://getpoka.app">getpoka.app</a></p>
+<h1 align="center">Dompet</h1>
+<p align="center"><i>Dompet — Personal finance, private by design.</i></p>
 
 <p align="center">
-  <a href="https://github.com/getpoka/poka-ce/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/getpoka/poka-ce/ci.yml?style=for-the-badge&logo=github&label=CI" alt="CI" />
+  <a href="https://github.com/robprian/dompet/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/robprian/dompet/ci.yml?style=for-the-badge&logo=github&label=CI" alt="CI" />
   </a>
-  <a href="https://github.com/getpoka/poka-ce/blob/main/LICENSE">
+  <a href="https://github.com/robprian/dompet/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202.0-blue?style=for-the-badge" alt="License" />
   </a>
   <a href="https://flutter.dev">
@@ -38,20 +37,19 @@
 
 ---
 
-## About Poka
+## About Dompet
 
-Poka CE is a personal finance tracker with one core principle: **your financial data belongs to you, and only you.**
-There is no account to create, no server to sync with, and no subscription to manage. Every transaction, balance, and
-record lives exclusively in a local SQLite database on your device.
+Dompet is an offline-first personal finance tracker with one core principle: **your financial data belongs to you, and
+only you.** There is no account to create, no server to sync with, and no subscription to manage. Every transaction,
+balance, and record lives exclusively in a local SQLite database on your device.
 
-Unlike most finance apps that treat cloud sync as a default, Poka CE treats local-first storage as a hard architectural
-constraint — not an optional mode. It is open-source, built with Flutter, and designed to be simple enough for daily use
-without being stripped of the features that matter.
+Dompet automatically detects transactions from Indonesian bank, e-wallet, and QRIS notifications — entirely on-device —
+and pairs them with a local financial advisor that suggests salary allocations, flags overspending, and watches your
+budgets. No notification content, transaction, or insight ever leaves your phone.
 
 > [!WARNING]
-> **Public Beta — Active Refinement.** Core features are ready for use, but we are actively refining edge cases around
-record management. Occasional breaking changes may occur between versions. We strongly recommend backing up your data
-regularly via **Settings → Backup**.
+> **Active development.** Core features are ready for use, but edge cases are still being refined. We strongly
+> recommend backing up your data regularly via **Settings → Backup**.
 
 ---
 
@@ -59,6 +57,12 @@ regularly via **Settings → Backup**.
 
 - **Multi-Account Management** — Track multiple accounts simultaneously with real-time balance updates.
 - **Income, Expense & Transfer** — Record all transaction types with full history and filtering.
+- **Automatic Transaction Detection** — Reads Android bank/e-wallet/QRIS notifications locally (with your explicit
+  permission) and proposes transaction candidates with confidence scoring, duplicate detection, and a review queue.
+- **Salary Detection** — Recognizes recurring salary payments using keywords and historical patterns, then suggests a
+  configurable allocation plan.
+- **Dompet Advisor** — A 100% offline recommendation engine: budget alerts, overspending detection, large-transaction
+  notices, savings-rate guidance, and local notifications. No cloud AI involved.
 - **Budgeting** — Set monthly spending limits per category and monitor adherence.
 - **Goals** — Define saving targets and visualize progress over time.
 - **Debt & Loan Tracking** — Log amounts owed or lent, with paired transaction records.
@@ -68,6 +72,15 @@ regularly via **Settings → Backup**.
 - **Offline First** — 100% local SQLite storage via Drift. No internet required, ever.
 - **Flat Design System** — Built with [ForUI](https://github.com/forui-dev/forui); no shadows, no elevation — clean and
   sharp.
+
+---
+
+## Privacy Architecture
+
+- Financial data is stored only in a local SQLite database (`dompet.sqlite`).
+- Bank/QRIS notifications are parsed in memory; raw notification text is never persisted, logged, or transmitted.
+- The advisor runs deterministic local rules — there is no OpenAI/Gemini/Claude integration and no analytics SDK.
+- Backups are AES-GCM encrypted files that you control.
 
 ---
 
@@ -86,13 +99,14 @@ regularly via **Settings → Backup**.
 
 ## Download & Install
 
-Download the latest release directly from the [GitHub Releases page](https://github.com/getpoka/poka-ce/releases).
+Download the latest release directly from the [GitHub Releases page](https://github.com/robprian/dompet/releases).
+Each release ships a `Dompet-vX.Y.Z.apk` built by GitHub Actions, plus a `.sha256` checksum.
 
 **System Requirements:**
 
 - **OS**: Android 5.0 (Lollipop) or newer (API level 21+)
 - **Storage**: ~30 MB free space (if using Split APK)
-- **Internet**: Not required — Poka CE is 100% offline.
+- **Internet**: Not required — Dompet is 100% offline.
 
 **Which APK should I choose?**
 
@@ -107,16 +121,16 @@ Download the latest release directly from the [GitHub Releases page](https://git
 
 ### Prerequisites
 
-- Flutter SDK **3.47.1** or newer
-- Dart SDK **3.13.1** or newer
+- Flutter SDK **3.47.2** or newer
+- Dart SDK **3.13.2** or newer
 
 ### Steps
 
 **1. Clone the repository:**
 
 ```bash
-git clone https://github.com/getpoka/poka-ce.git
-cd poka-ce
+git clone https://github.com/robprian/dompet.git
+cd dompet
 ```
 
 **2. Install dependencies:**
@@ -132,8 +146,8 @@ cp .env.example .env
 make generate
 ```
 
-> The `.env` file is required. Set `POKA_ENABLE_SEEDER=true` to populate the database with seed data for development.
-> If you don't have Make, run `dart run build_runner build` instead.
+> The `.env` file is required for local runs. Set `DOMPET_SEED_DUMMY_DATA=true` to populate the database with seed
+> data for development. If you don't have Make, run `dart run build_runner build` instead.
 
 **4. Run the application:**
 
@@ -146,24 +160,24 @@ flutter run --dart-define-from-file=.env
 
 ---
 
-## Trademark & Brand Policy
+## Attribution
+
+Dompet is built on top of the open-source [Poka CE](https://github.com/getpoka/poka-ce) codebase by Octopy ID,
+licensed under the Apache License 2.0. See [LICENSE](LICENSE) for the full license text. Dompet is an independent
+project and does not imply official affiliation with Poka/GetPoka.
 
 The Apache 2.0 license covers the code — it does **not** grant rights to the **Poka**, **GetPoka**, or **Octopy ID**
-brand identities. You may freely fork, modify, and self-host this project, but you may not publish a derivative under
-our name, logo, or domains, or imply official affiliation.
-
-Read the full policy: [TRADEMARK.md](TRADEMARK.md).
+brand identities. Read the upstream policy: [TRADEMARK.md](TRADEMARK.md).
 
 ---
 
 ## Security & Privacy
 
-Poka CE uses an **offline-first, local-only architecture**. All financial data is stored in a SQLite database on the
+Dompet uses an **offline-first, local-only architecture**. All financial data is stored in a SQLite database on the
 user's device. No data is transmitted to any server, and no analytics or telemetry is collected.
 
 **Reporting a Vulnerability:** If you discover a security issue, please follow the responsible disclosure process
-described in [SECURITY.md](SECURITY.md). Do not open a public GitHub issue for security vulnerabilities — contact
-**security@getpoka.app** directly.
+described in [SECURITY.md](SECURITY.md). Do not open a public GitHub issue for security vulnerabilities.
 
 ---
 
@@ -179,4 +193,4 @@ constraints, code style, commit conventions, branch workflow, and the PR review 
 
 ## License
 
-Poka CE is licensed under the **Apache License 2.0**. See [LICENSE](LICENSE) for the full license text.
+Dompet is licensed under the **Apache License 2.0**. See [LICENSE](LICENSE) for the full license text.

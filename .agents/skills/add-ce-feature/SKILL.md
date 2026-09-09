@@ -1,13 +1,13 @@
 ---
 name: add-ce-feature
 description: >
-  Step-by-step checklist for adding a new feature to Poka CE.
+  Step-by-step checklist for adding a new feature to Dompet.
   Trigger: "create feature X", "add feature X", "implement X in CE".
 ---
 
 # Add CE Feature — Skill
 
-Use this checklist **every time** you implement a new feature in Poka CE. Do not skip steps.
+Use this checklist **every time** you implement a new feature in Dompet. Do not skip steps.
 
 ---
 

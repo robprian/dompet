@@ -1,4 +1,4 @@
-# This file configures the Dart analyzer and linter for Poka CE.
+# This file configures the Dart analyzer and linter for Dompet.
 # Enforces very_good_analysis — the strictest recommended Flutter lint set.
 # All rules are intentional. Do NOT disable rules without team approval.
 #

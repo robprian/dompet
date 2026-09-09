@@ -1,4 +1,4 @@
-# DESIGN.md — Poka CE Design System
+# DESIGN.md — Dompet Design System
 
 > **Normative rules only.** Every rule below is mandatory unless a specific comment in the source explicitly documents
 > the exception and the PR author who approved it.
@@ -328,4 +328,4 @@ not contain an outer border around the items. Use a plain `Column` with `PokaShe
 
 ---
 
-*Last updated: 2026-08-29. Maintained by the Poka CE core team.*
+*Last updated: 2026-08-29. Maintained by the Dompet contributors.*

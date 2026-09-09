@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Poka CE will be documented in this file.
+All notable changes to Dompet will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -9,12 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Local transaction detection pipeline: Android notification listener with QRIS, bank transfer, and e-wallet parsers, confidence scoring, duplicate detection, and a review queue.
+- Salary detection with keyword and recurring-pattern analysis plus configurable income allocation plans.
+- Dompet Advisor: offline recommendations for budgets, overspending, large transactions, savings rate, and cash flow, with local notifications.
+- Drift schema v2 migration adding `transaction_detections`, `merchant_category_rules`, and `salary_profiles` tables.
+- GitHub Actions release workflow producing versioned `Dompet-vX.Y.Z.apk` assets with SHA256 checksums.
+
 - 5-second Undo Delete for transactions with a temporary toast allowing users to restore deleted transactions, line items, and account balance mutations.
 - Periodic backup reminder with customizable intervals (Off, Weekly, Monthly), tracking last backup timestamps and alerting users when backups are due.
 - Multi-sheet Excel export (`.xlsx`) exporting transactions, accounts, and categories via native system sharing.
 - [internal] Drift schema verification suite and schema v1 snapshot to guarantee schema integrity for upcoming releases.
 - Insufficient balance confirmation warning dialog when creating or editing outgoing transactions (expense and transfer) that exceed available account balance, allowing users to proceed or review.
-- Reusable `PokaDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
+- Reusable `DompetDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
 
 ### Changed
 
@@ -61,7 +67,7 @@ Comprehensive bilingual localization (English & Indonesian), visual Net Worth sp
 
 - Refined balance and hero card typography to 22px (`amountSection`) across Home Net Worth, Account Hero, and Transaction Summary cards.
 - Polished transaction list item styling: standardized 14px semibold category label, removed split tree lines in favor of clean 16px YAML-style indentation.
-- Replaced 8×8 circular date bullets with 4×16px vertical accent bars matching `PokaSectionLabel`.
+- Replaced 8×8 circular date bullets with 4×16px vertical accent bars matching `DompetSectionLabel`.
 - Streamlined Transaction Filter sheet by removing redundant labels and normalizing active chip borders.
 
 ### Fixed

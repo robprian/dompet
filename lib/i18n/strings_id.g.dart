@@ -487,7 +487,7 @@ class _Translations$lock$id extends Translations$lock$en {
 	@override String get invalidPin => 'PIN tidak valid';
 	@override String get tooManyAttempts => 'Terlalu banyak percobaan';
 	@override String get temporarilyLocked => 'Terkunci sementara';
-	@override String get authenticateReason => 'Autentikasi untuk mengakses Poka';
+	@override String get authenticateReason => 'Autentikasi untuk mengakses Dompet';
 }
 
 // Path: onboarding
@@ -1265,7 +1265,7 @@ extension on TranslationsId {
 			'lock.invalidPin' => 'PIN tidak valid',
 			'lock.tooManyAttempts' => 'Terlalu banyak percobaan',
 			'lock.temporarilyLocked' => 'Terkunci sementara',
-			'lock.authenticateReason' => 'Autentikasi untuk mengakses Poka',
+			'lock.authenticateReason' => 'Autentikasi untuk mengakses Dompet',
 			'onboarding.continueWithCurrency' => 'Lanjutkan dengan mata uang pilihan',
 			'onboarding.chooseYourBaseCurrency' => 'Pilih Mata Uang Utama Anda',
 			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',

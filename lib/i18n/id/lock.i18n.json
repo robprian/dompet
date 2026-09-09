@@ -15,5 +15,5 @@
   "invalidPin": "PIN tidak valid",
   "tooManyAttempts": "Terlalu banyak percobaan",
   "temporarilyLocked": "Terkunci sementara",
-  "authenticateReason": "Autentikasi untuk mengakses Poka"
+  "authenticateReason": "Autentikasi untuk mengakses Dompet"
 }

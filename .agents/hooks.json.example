@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"boxShadow|PhysicalModel|elevation:\\s*[1-9]\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Shadow/elevation in $FILE. Poka CE is strictly flat design — no boxShadow, no elevation.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"boxShadow|PhysicalModel|elevation:\\s*[1-9]\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Shadow/elevation in $FILE. Dompet is strictly flat design — no boxShadow, no elevation.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
             "timeout": 10
           }
         ]

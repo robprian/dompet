@@ -1,6 +1,6 @@
-# Contributing to Poka CE
+# Contributing to Dompet
 
-Thank you for your interest in contributing to Poka CE — the open-source personal finance app built with Flutter.
+Thank you for your interest in contributing to Dompet — the open-source personal finance app built with Flutter.
 
 ---
 
@@ -15,8 +15,8 @@ Thank you for your interest in contributing to Poka CE — the open-source perso
 ### Setup
 
 ```bash
-git clone https://github.com/getpoka/poka-ce.git
-cd poka-ce
+git clone https://github.com/robprian/dompet.git
+cd dompet
 flutter pub get
 dart run build_runner build
 flutter run
@@ -26,7 +26,7 @@ flutter run
 
 ## Project Architecture
 
-Poka CE uses a **Feature-First Clean Architecture** with strict layer separation. Key points:
+Dompet uses a **Feature-First Clean Architecture** with strict layer separation. Key points:
 
 - **3-layer feature structure**: `data/` (repositories) → `domain/` (Freezed models) → `presentation/` (controllers +
   screens + widgets)
@@ -186,5 +186,5 @@ Please be respectful and constructive in issues and pull requests.
 
 ## Questions?
 
-Open a [GitHub Discussion](https://github.com/getpoka/poka-ce/discussions) for architecture questions or feature
+Open a [GitHub Discussion](https://github.com/robprian/dompet/discussions) for architecture questions or feature
 proposals before opening a PR.

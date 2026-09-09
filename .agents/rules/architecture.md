@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-# Poka CE — Architecture Reference
+# Dompet — Architecture Reference
 
 ## Tech Stack
 
@@ -60,7 +60,7 @@ features/<name>/
 
 ## CE Blindness (Strict Isolation)
 
-Poka CE must compile and run flawlessly as a fully self-contained app.
+Dompet must compile and run flawlessly as a fully self-contained app.
 
 - UI screens are **FORBIDDEN** from importing Drift-generated `*Data` classes.
 - Repositories map Drift objects into pure `Freezed` domain models in the `domain/` layer.
@@ -83,7 +83,7 @@ Poka CE must compile and run flawlessly as a fully self-contained app.
 
 CE ships a `core/sync/` folder with an abstract `SyncableRepository` contract (`getPendingPush`, `processPull`,
 `markAsSynced`). This contract is a placeholder — CE itself does not implement sync. External consumers implement the
-contract in their own `data/` layer, keeping the CE Sync Engine generic and unmodified.
+contract in their own `data/` layer, keeping the sync contract generic and unmodified.
 
 ---
 
