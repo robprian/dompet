@@ -44,7 +44,7 @@ final class AdvisorNotifierProvider
   }
 }
 
-String _$advisorNotifierHash() => r'ef7529302b744e0ad06dbb6241d9b805cbd7d423';
+String _$advisorNotifierHash() => r'510e27590ab6e6199da35c23874fbb75ee0ca4cd';
 
 /// Computes offline financial recommendations reactively.
 

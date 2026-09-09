@@ -41,7 +41,7 @@ final class DetectionSettingsNotifierProvider
 }
 
 String _$detectionSettingsNotifierHash() =>
-    r'd1170e5a6694e89bf0da2763d57620919f021459';
+    r'85d29c9c53361b37a68ba1c583adcdb88497bb84';
 
 /// Manages detection preferences and platform access state.
 
