@@ -31,7 +31,7 @@ abstract class TransactionDetectionModel with _$TransactionDetectionModel {
   /// Display label of the payment channel.
   String get methodLabel => switch (method) {
         PaymentMethod.qris => 'QRIS',
-        PaymentMethod.bankTransfer => 'Bank Transfer',
+        PaymentMethod.bank => 'Bank Transfer',
         PaymentMethod.ewallet => 'E-Wallet',
         PaymentMethod.card => 'Card',
         PaymentMethod.cash => 'Cash',

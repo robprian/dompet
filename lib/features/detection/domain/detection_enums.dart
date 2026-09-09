@@ -8,7 +8,7 @@ library;
 enum DetectionTransactionType { income, expense, transfer }
 
 /// Payment channel identified from a notification.
-enum PaymentMethod { qris, bankTransfer, ewallet, card, cash, other }
+enum PaymentMethod { qris, bank, ewallet, card, cash, other }
 
 /// Confidence tier assigned to a detected transaction.
 enum ConfidenceTier { high, likely, uncertain, rejected }

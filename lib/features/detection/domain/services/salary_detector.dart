@@ -79,6 +79,7 @@ class SalaryDetector {
 
     if (score > 0.95) score = 0.95;
     if (score < 0) score = 0;
+    score = (score * 100).round() / 100;
 
     final reason = score >= 0.7
         ? 'salary_recurring_or_keyword'

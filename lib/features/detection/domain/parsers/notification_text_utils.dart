@@ -43,9 +43,9 @@ bool containsRupiahAmount(String text) => extractAmount(text) != null;
 String? extractPartyAfter(String text, List<String> markers) {
   final t = normalizeText(text);
   for (final marker in markers) {
-    final index = t.indexOf(marker);
-    if (index < 0) continue;
-    final tail = t.substring(index + marker.length).trim();
+    final match = RegExp(r'(?:^|\s)' + RegExp.escape(marker.trim()) + r'(?=[\s:;,.]|$)').firstMatch(t);
+    if (match == null) continue;
+    final tail = t.substring(match.end).trim();
     final cleaned = tail
         .replaceFirst(RegExp(r'^(?:dari|ke|kepada|di|atas nama|a\.n\.?|an|pada|untuk)\s+'), '')
         .trim();

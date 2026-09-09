@@ -102,8 +102,13 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
   }
 
   DetectionTransactionType _detectDirection(String text) {
-    final incomeHits = _countHits(text, incomeMarkers);
-    final expenseHits = _countHits(text, expenseMarkers);
+    final t = text.toLowerCase();
+    final explicitIncome = _countHits(t, explicitIncomeMarkers) > 0;
+    final explicitExpense = _countHits(t, explicitExpenseMarkers) > 0;
+    if (explicitIncome && !explicitExpense) return DetectionTransactionType.income;
+    if (explicitExpense && !explicitIncome) return DetectionTransactionType.expense;
+    final incomeHits = _countHits(t, incomeMarkers);
+    final expenseHits = _countHits(t, expenseMarkers);
     if (incomeHits > expenseHits) return DetectionTransactionType.income;
     if (expenseHits > incomeHits) return DetectionTransactionType.expense;
     return DetectionTransactionType.expense;
@@ -118,7 +123,7 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
   }
 
   String? _extractCounterparty(String text) {
-    return extractPartyAfter(text, const ['kepada', 'ke rekening', 'atas nama', 'a.n', 'dari ', 'penerima', 'kepada ']);
+    return extractPartyAfter(text, const ['kepada', 'ke rekening', 'atas nama', 'a.n.', 'a.n', 'an', 'dari', 'penerima', 'ke']);
   }
 
   String? _extractReference(String text) {
@@ -141,7 +146,14 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
   }
 
   static double _bounded(double value) {
-    if (value > 0.98) return 0.98;
+    return _round(_clamp(value, 0.98));
+  }
+
+  /// Rounds a score to two decimals so confidence tiers stay stable.
+  static double _round(double value) => (value * 100).round() / 100;
+
+  static double _clamp(double value, double ceiling) {
+    if (value > ceiling) return ceiling;
     if (value < 0) return 0;
     return value;
   }
@@ -174,7 +186,19 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
   /// Markers indicating money left (expense).
   static const Set<String> expenseMarkers = {
     'transfer keluar', 'dana keluar', 'terkirim ke', 'pembayaran', 'pembelian', 'pemakaian', 'debit', 'dibayar', 'belanja',
-    'terbayar', 'outgoing transfer', 'transfer', 'tarik tunai', 'penarikan', 'uang keluar', 'qris',
+    'terbayar', 'outgoing transfer', 'tarik tunai', 'penarikan', 'uang keluar', 'qris',
+  };
+
+  /// Unambiguous markers that money arrived.
+  static const Set<String> explicitIncomeMarkers = {
+    'transfer masuk', 'dana masuk', 'diterima', 'kredit', 'uang masuk', 'masuk ke', 'pemindahan dana masuk',
+    'incoming transfer', 'penerimaan',
+  };
+
+  /// Unambiguous markers that money left.
+  static const Set<String> explicitExpenseMarkers = {
+    'transfer keluar', 'dana keluar', 'terkirim', 'debit', 'uang keluar', 'penarikan', 'outgoing transfer',
+    'tarik tunai',
   };
 
   /// Markers suggesting the attempt did not complete.
@@ -230,9 +254,7 @@ class QrisParser extends IndonesianNotificationParser {
   }
 
   static double _boundedScore(double value) {
-    if (value > 0.97) return 0.97;
-    if (value < 0) return 0;
-    return value;
+    return IndonesianNotificationParser._round(IndonesianNotificationParser._clamp(value, 0.97));
   }
 }
 
@@ -258,7 +280,7 @@ class BankTransferParser extends IndonesianNotificationParser {
   }
 
   @override
-  PaymentMethod detectMethod(String text) => PaymentMethod.bankTransfer;
+  PaymentMethod detectMethod(String text) => PaymentMethod.bank;
 
   @override
   double scoreCandidate({
@@ -288,9 +310,7 @@ class BankTransferParser extends IndonesianNotificationParser {
   }
 
   static double _boundedScore(double value) {
-    if (value > 0.97) return 0.97;
-    if (value < 0) return 0;
-    return value;
+    return IndonesianNotificationParser._round(IndonesianNotificationParser._clamp(value, 0.97));
   }
 }
 
