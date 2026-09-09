@@ -43,8 +43,8 @@ void main() {
 
     setUp(() async {
       originalPlatform = PathProviderPlatform.instance;
-      appDocsDir = await Directory.systemTemp.createTemp('poka_app_docs_');
-      tempDir = await Directory.systemTemp.createTemp('poka_temp_');
+      appDocsDir = await Directory.systemTemp.createTemp('dompet_app_docs_');
+      tempDir = await Directory.systemTemp.createTemp('dompet_temp_');
       PathProviderPlatform.instance = FakePathProviderPlatform(appDocsDir.path, tempDir.path);
       service = BackupService();
     });
@@ -59,7 +59,7 @@ void main() {
       }
     });
 
-    Future<File> createFakeDb({String content = 'hello poka db content'}) async {
+    Future<File> createFakeDb({String content = 'hello dompet db content'}) async {
       final dbFile = File(p.join(appDocsDir.path, service.dbName));
       await dbFile.writeAsString(content);
       return dbFile;
@@ -92,8 +92,8 @@ void main() {
       expect(mac.length, 16);
       expect(cipherText.length, greaterThan(0));
 
-      // Filename pattern: poka-YYYYMMDD-HHmmss.sqlite
-      expect(p.basename(backupFile.path), matches(RegExp(r'^poka-\d{8}-\d{6}\.sqlite$')));
+      // Filename pattern: dompet-YYYYMMDD-HHmmss.sqlite
+      expect(p.basename(backupFile.path), matches(RegExp(r'^dompet-\d{8}-\d{6}\.sqlite$')));
 
       // Ensure original DB unchanged
       final afterBytes = await dbFile.readAsBytes();
