@@ -19,6 +19,7 @@ import 'package:dompet/database/tables/goals_table.dart';
 import 'package:dompet/database/tables/recurring_table.dart';
 import 'package:dompet/database/tables/settings_table.dart';
 import 'package:dompet/database/tables/transactions_table.dart';
+import 'package:dompet/features/detection/domain/detection_enums.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
