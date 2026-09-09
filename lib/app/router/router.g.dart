@@ -20,6 +20,8 @@ List<RouteBase> get $appRoutes => [
   $debtListRoute,
   $debtDetailRoute,
   $aboutRoute,
+  $advisorRoute,
+  $detectionReviewRoute,
   $supportFaqRoute,
   $supportTermsRoute,
   $supportPrivacyRoute,
@@ -526,6 +528,59 @@ mixin $AboutRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/about');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $advisorRoute => GoRouteData.$route(
+  path: '/advisor',
+  hasOverriddenOnExit: false,
+  factory: $AdvisorRoute._fromState,
+);
+
+mixin $AdvisorRoute on GoRouteData {
+  static AdvisorRoute _fromState(GoRouterState state) => const AdvisorRoute();
+
+  @override
+  String get location => GoRouteData.$location('/advisor');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $detectionReviewRoute => GoRouteData.$route(
+  path: '/detections',
+  hasOverriddenOnExit: false,
+  factory: $DetectionReviewRoute._fromState,
+);
+
+mixin $DetectionReviewRoute on GoRouteData {
+  static DetectionReviewRoute _fromState(GoRouterState state) =>
+      const DetectionReviewRoute();
+
+  @override
+  String get location => GoRouteData.$location('/detections');
 
   @override
   void go(BuildContext context) => context.go(location);

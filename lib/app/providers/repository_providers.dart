@@ -4,6 +4,7 @@ import 'package:dompet/database/database.dart';
 import 'package:dompet/features/accounts/data/account_repository_impl.dart';
 import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/features/accounts/domain/i_account_repository.dart';
+import 'package:dompet/features/advisor/domain/advisor_notification_service.dart';
 import 'package:dompet/features/budgets/data/budget_repository_impl.dart';
 import 'package:dompet/features/budgets/domain/i_budget_repository.dart';
 import 'package:dompet/features/categories/data/category_repository_impl.dart';
@@ -99,6 +100,7 @@ final detectionNotificationServiceProvider = Provider<DetectionNotificationServi
   return DetectionNotificationService(
     bridge: NotificationBridge(),
     importService: ref.watch(detectionImportServiceProvider),
+    onProcessed: (outcome) => ref.read(advisorNotificationServiceProvider).handleImportOutcome(outcome),
   );
 });
 

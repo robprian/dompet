@@ -2,6 +2,7 @@ import 'package:dompet/app/shell/main_shell_page.dart';
 import 'package:dompet/core/logger/dompet_logger.dart';
 import 'package:dompet/features/accounts/presentation/screens/account_detail_page.dart';
 import 'package:dompet/features/accounts/presentation/screens/account_list_page.dart';
+import 'package:dompet/features/advisor/presentation/screens/advisor_page.dart';
 import 'package:dompet/features/budgets/domain/budget_model.dart';
 import 'package:dompet/features/budgets/presentation/screens/budget_detail_page.dart';
 import 'package:dompet/features/budgets/presentation/screens/budget_list_page.dart';
@@ -10,6 +11,7 @@ import 'package:dompet/features/dashboard/presentation/screens/dashboard_page.da
 import 'package:dompet/features/debts/domain/debt_model.dart';
 import 'package:dompet/features/debts/presentation/screens/debt_detail_page.dart';
 import 'package:dompet/features/debts/presentation/screens/debt_list_page.dart';
+import 'package:dompet/features/detection/presentation/screens/detection_review_page.dart';
 import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:dompet/features/goals/presentation/screens/goal_detail_page.dart';
 import 'package:dompet/features/goals/presentation/screens/goal_list_page.dart';
@@ -313,6 +315,22 @@ class AboutRoute extends GoRouteData with $AboutRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const AboutPage();
+}
+
+@TypedGoRoute<AdvisorRoute>(path: '/advisor')
+class AdvisorRoute extends GoRouteData with $AdvisorRoute {
+  const AdvisorRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const AdvisorPage();
+}
+
+@TypedGoRoute<DetectionReviewRoute>(path: '/detections')
+class DetectionReviewRoute extends GoRouteData with $DetectionReviewRoute {
+  const DetectionReviewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const DetectionReviewPage();
 }
 
 @TypedGoRoute<SupportFaqRoute>(path: '/faq')

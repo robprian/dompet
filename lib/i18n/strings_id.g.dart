@@ -132,8 +132,8 @@ class _Translations$app$id extends Translations$app$en {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Poka';
-	@override String get tagline => 'Teman keuangan pribadi Anda';
+	@override String get name => 'Dompet';
+	@override String get tagline => 'Keuangan pribadi, privat sejak awal.';
 	@override late final _Translations$app$nav$id nav = _Translations$app$nav$id._(_root);
 	@override String get termsOfService => 'Syarat Layanan';
 	@override String get privacyPolicy => 'Kebijakan Privasi';
@@ -706,6 +706,58 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
 	@override String get exportExcelError => 'Gagal mengekspor file Excel';
 	@override String get brandName => 'Dompet';
+	@override String get detection => 'Deteksi transaksi';
+	@override String get detectionDesc => 'Baca notifikasi bank dan QRIS secara lokal';
+	@override String get enableDetection => 'Aktifkan deteksi notifikasi';
+	@override String get enableDetectionDesc => 'Notifikasi hanya diproses di perangkat ini';
+	@override String get notificationAccess => 'Akses notifikasi';
+	@override String get notificationAccessDesc => 'Izinkan Dompet membaca notifikasi bank';
+	@override String get openNotificationSettings => 'Buka pengaturan notifikasi';
+	@override String get autoImport => 'Impor otomatis berkeyakinan tinggi';
+	@override String get autoImportDesc => 'Simpan otomatis deteksi di atas keyakinan 90%';
+	@override String get advisor => 'Dompet Advisor';
+	@override String get advisorDesc => 'Wawasan keuangan privat yang dihitung di perangkat';
+	@override String get salaryDetected => 'Gaji terdeteksi';
+	@override String salaryDetectedBody({required Object amount}) => 'Rp${amount} diterima. Dompet punya saran alokasi lokal.';
+	@override String get largeTransactionDetected => 'Transaksi besar terdeteksi';
+	@override String largeTransactionBody({required Object amount}) => 'Rp${amount} lebih besar dari pengeluaran biasanya.';
+	@override String get newTransactionDetected => 'Transaksi baru terdeteksi';
+	@override String detectionReviewBody({required Object amount, required Object confidence}) => 'Rp${amount} terdeteksi dengan keyakinan ${confidence}. Tinjau di Dompet.';
+	@override String get reviewQueue => 'Transaksi untuk ditinjau';
+	@override String get reviewQueueDesc => 'Tinjau transaksi yang terdeteksi secara lokal';
+	@override String get reviewQueueEmpty => 'Belum ada transaksi terdeteksi';
+	@override String get reviewQueueReview => 'Tinjau transaksi';
+	@override String get reviewQueueAmount => 'Jumlah';
+	@override String get reviewQueueAccount => 'Akun';
+	@override String get reviewQueueCategory => 'Kategori';
+	@override String get reviewQueueSave => 'Simpan';
+	@override String get reviewQueueIgnore => 'Abaikan';
+	@override String get reviewQueueConfidence => 'Keyakinan';
+	@override String get detectionThreshold => 'Ambang impor otomatis';
+	@override String get allocationNeeds => 'Kebutuhan';
+	@override String get allocationSavings => 'Tabungan';
+	@override String get allocationDebt => 'Utang';
+	@override String get allocationLifestyle => 'Gaya hidup';
+	@override String get allocationBuffer => 'Dana darurat';
+	@override String get advisorTitle => 'Dompet Advisor';
+	@override String get advisorEmpty => 'Belum ada saran. Tambahkan transaksi untuk melihat wawasan.';
+	@override String get advisorBudgetOver => 'Budget terlampaui';
+	@override String advisorBudgetOverBody({required Object name}) => '${name} sudah melewati batas. Pertimbangkan menunda pengeluaran non-esensial.';
+	@override String get advisorBudgetAlmost => 'Budget hampir habis';
+	@override String advisorBudgetAlmostBody({required Object name, required Object percent, required Object remaining}) => '${name} sudah ${percent}% terpakai. Tersisa ${remaining}.';
+	@override String get advisorCashflowTitle => 'Arus kas negatif';
+	@override String get advisorCashflowBody => 'Pengeluaran melebihi pemasukan periode ini.';
+	@override String get advisorSavingsTitle => 'Tingkat tabungan rendah';
+	@override String get advisorSavingsBody => 'Kurang dari 10% pemasukan tersisa. Sisihkan tabungan segera setelah pemasukan masuk.';
+	@override String get advisorLargeTitle => 'Transaksi besar terdeteksi';
+	@override String get advisorLargeBody => 'Ada pembelian di atas 3x rata-rata transaksi Anda.';
+	@override String get advisorGoalTitle => 'Progres target tabungan';
+	@override String advisorGoalBody({required Object amount}) => 'Anda masih butuh ${amount} untuk mencapai target tabungan.';
+	@override String get advisorAllocationTitle => 'Alokasi pemasukan';
+	@override String advisorAllocationBody({required Object amount}) => 'Saran alokasi untuk ${amount}:';
+	@override String get accessGranted => 'Aktif';
+	@override String get accessDenied => 'Belum aktif';
+	@override String get salaryDetectionDesc => 'Deteksi pemasukan berulang sebagai gaji';
 }
 
 // Path: shared
@@ -912,8 +964,8 @@ extension on TranslationsId {
 			'accounts.percentOfAssets' => ({required Object percent}) => '${percent}% dari aset',
 			'accounts.recentTransactions' => 'Transaksi Terakhir',
 			'accounts.recentTransactionsCount' => ({required Object count}) => 'Transaksi Terakhir (${count})',
-			'app.name' => 'Poka',
-			'app.tagline' => 'Teman keuangan pribadi Anda',
+			'app.name' => 'Dompet',
+			'app.tagline' => 'Keuangan pribadi, privat sejak awal.',
 			'app.nav.home' => 'Beranda',
 			'app.nav.transactions' => 'Transaksi',
 			'app.nav.reports' => 'Laporan',
@@ -1398,6 +1450,58 @@ extension on TranslationsId {
 			'settings.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
 			'settings.exportExcelError' => 'Gagal mengekspor file Excel',
 			'settings.brandName' => 'Dompet',
+			'settings.detection' => 'Deteksi transaksi',
+			'settings.detectionDesc' => 'Baca notifikasi bank dan QRIS secara lokal',
+			'settings.enableDetection' => 'Aktifkan deteksi notifikasi',
+			'settings.enableDetectionDesc' => 'Notifikasi hanya diproses di perangkat ini',
+			'settings.notificationAccess' => 'Akses notifikasi',
+			'settings.notificationAccessDesc' => 'Izinkan Dompet membaca notifikasi bank',
+			'settings.openNotificationSettings' => 'Buka pengaturan notifikasi',
+			'settings.autoImport' => 'Impor otomatis berkeyakinan tinggi',
+			'settings.autoImportDesc' => 'Simpan otomatis deteksi di atas keyakinan 90%',
+			'settings.advisor' => 'Dompet Advisor',
+			'settings.advisorDesc' => 'Wawasan keuangan privat yang dihitung di perangkat',
+			'settings.salaryDetected' => 'Gaji terdeteksi',
+			'settings.salaryDetectedBody' => ({required Object amount}) => 'Rp${amount} diterima. Dompet punya saran alokasi lokal.',
+			'settings.largeTransactionDetected' => 'Transaksi besar terdeteksi',
+			'settings.largeTransactionBody' => ({required Object amount}) => 'Rp${amount} lebih besar dari pengeluaran biasanya.',
+			'settings.newTransactionDetected' => 'Transaksi baru terdeteksi',
+			'settings.detectionReviewBody' => ({required Object amount, required Object confidence}) => 'Rp${amount} terdeteksi dengan keyakinan ${confidence}. Tinjau di Dompet.',
+			'settings.reviewQueue' => 'Transaksi untuk ditinjau',
+			'settings.reviewQueueDesc' => 'Tinjau transaksi yang terdeteksi secara lokal',
+			'settings.reviewQueueEmpty' => 'Belum ada transaksi terdeteksi',
+			'settings.reviewQueueReview' => 'Tinjau transaksi',
+			'settings.reviewQueueAmount' => 'Jumlah',
+			'settings.reviewQueueAccount' => 'Akun',
+			'settings.reviewQueueCategory' => 'Kategori',
+			'settings.reviewQueueSave' => 'Simpan',
+			'settings.reviewQueueIgnore' => 'Abaikan',
+			'settings.reviewQueueConfidence' => 'Keyakinan',
+			'settings.detectionThreshold' => 'Ambang impor otomatis',
+			'settings.allocationNeeds' => 'Kebutuhan',
+			'settings.allocationSavings' => 'Tabungan',
+			'settings.allocationDebt' => 'Utang',
+			'settings.allocationLifestyle' => 'Gaya hidup',
+			'settings.allocationBuffer' => 'Dana darurat',
+			'settings.advisorTitle' => 'Dompet Advisor',
+			'settings.advisorEmpty' => 'Belum ada saran. Tambahkan transaksi untuk melihat wawasan.',
+			'settings.advisorBudgetOver' => 'Budget terlampaui',
+			'settings.advisorBudgetOverBody' => ({required Object name}) => '${name} sudah melewati batas. Pertimbangkan menunda pengeluaran non-esensial.',
+			'settings.advisorBudgetAlmost' => 'Budget hampir habis',
+			'settings.advisorBudgetAlmostBody' => ({required Object name, required Object percent, required Object remaining}) => '${name} sudah ${percent}% terpakai. Tersisa ${remaining}.',
+			'settings.advisorCashflowTitle' => 'Arus kas negatif',
+			'settings.advisorCashflowBody' => 'Pengeluaran melebihi pemasukan periode ini.',
+			'settings.advisorSavingsTitle' => 'Tingkat tabungan rendah',
+			'settings.advisorSavingsBody' => 'Kurang dari 10% pemasukan tersisa. Sisihkan tabungan segera setelah pemasukan masuk.',
+			'settings.advisorLargeTitle' => 'Transaksi besar terdeteksi',
+			'settings.advisorLargeBody' => 'Ada pembelian di atas 3x rata-rata transaksi Anda.',
+			'settings.advisorGoalTitle' => 'Progres target tabungan',
+			'settings.advisorGoalBody' => ({required Object amount}) => 'Anda masih butuh ${amount} untuk mencapai target tabungan.',
+			'settings.advisorAllocationTitle' => 'Alokasi pemasukan',
+			'settings.advisorAllocationBody' => ({required Object amount}) => 'Saran alokasi untuk ${amount}:',
+			'settings.accessGranted' => 'Aktif',
+			'settings.accessDenied' => 'Belum aktif',
+			'settings.salaryDetectionDesc' => 'Deteksi pemasukan berulang sebagai gaji',
 			'shared.authRequired' => 'Dibutuhkan Autentikasi',
 			'shared.hexColorCode' => 'Kode Warna Hex',
 			'shared.apply' => 'Terapkan',

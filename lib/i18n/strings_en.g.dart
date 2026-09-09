@@ -239,11 +239,11 @@ class Translations$app$en {
 
 	// Translations
 
-	/// en: 'Poka'
-	String get name => 'Poka';
+	/// en: 'Dompet'
+	String get name => 'Dompet';
 
-	/// en: 'Your personal finance companion'
-	String get tagline => 'Your personal finance companion';
+	/// en: 'Personal finance, private by design.'
+	String get tagline => 'Personal finance, private by design.';
 
 	late final Translations$app$nav$en nav = Translations$app$nav$en.internal(_root);
 
@@ -1740,6 +1740,162 @@ class Translations$settings$en {
 
 	/// en: 'Dompet'
 	String get brandName => 'Dompet';
+
+	/// en: 'Transaction detection'
+	String get detection => 'Transaction detection';
+
+	/// en: 'Read bank and QRIS notifications locally'
+	String get detectionDesc => 'Read bank and QRIS notifications locally';
+
+	/// en: 'Enable notification detection'
+	String get enableDetection => 'Enable notification detection';
+
+	/// en: 'Only processes notifications on this device'
+	String get enableDetectionDesc => 'Only processes notifications on this device';
+
+	/// en: 'Notification access'
+	String get notificationAccess => 'Notification access';
+
+	/// en: 'Allow Dompet to read bank notifications'
+	String get notificationAccessDesc => 'Allow Dompet to read bank notifications';
+
+	/// en: 'Open notification settings'
+	String get openNotificationSettings => 'Open notification settings';
+
+	/// en: 'Auto-import high confidence'
+	String get autoImport => 'Auto-import high confidence';
+
+	/// en: 'Automatically save detections above 90% confidence'
+	String get autoImportDesc => 'Automatically save detections above 90% confidence';
+
+	/// en: 'Dompet Advisor'
+	String get advisor => 'Dompet Advisor';
+
+	/// en: 'Private financial insights computed on-device'
+	String get advisorDesc => 'Private financial insights computed on-device';
+
+	/// en: 'Salary detected'
+	String get salaryDetected => 'Salary detected';
+
+	/// en: 'Rp{{amount}} received. Dompet has local allocation suggestions.'
+	String salaryDetectedBody({required Object amount}) => 'Rp${amount} received. Dompet has local allocation suggestions.';
+
+	/// en: 'Large transaction detected'
+	String get largeTransactionDetected => 'Large transaction detected';
+
+	/// en: 'Rp{{amount}} is larger than your usual spending.'
+	String largeTransactionBody({required Object amount}) => 'Rp${amount} is larger than your usual spending.';
+
+	/// en: 'New transaction detected'
+	String get newTransactionDetected => 'New transaction detected';
+
+	/// en: 'Rp{{amount}} detected with {{confidence}} confidence. Review in Dompet.'
+	String detectionReviewBody({required Object amount, required Object confidence}) => 'Rp${amount} detected with ${confidence} confidence. Review in Dompet.';
+
+	/// en: 'Transactions to review'
+	String get reviewQueue => 'Transactions to review';
+
+	/// en: 'Review locally detected transactions'
+	String get reviewQueueDesc => 'Review locally detected transactions';
+
+	/// en: 'No detected transactions'
+	String get reviewQueueEmpty => 'No detected transactions';
+
+	/// en: 'Review transaction'
+	String get reviewQueueReview => 'Review transaction';
+
+	/// en: 'Amount'
+	String get reviewQueueAmount => 'Amount';
+
+	/// en: 'Account'
+	String get reviewQueueAccount => 'Account';
+
+	/// en: 'Category'
+	String get reviewQueueCategory => 'Category';
+
+	/// en: 'Save'
+	String get reviewQueueSave => 'Save';
+
+	/// en: 'Ignore'
+	String get reviewQueueIgnore => 'Ignore';
+
+	/// en: 'Confidence'
+	String get reviewQueueConfidence => 'Confidence';
+
+	/// en: 'Auto-import threshold'
+	String get detectionThreshold => 'Auto-import threshold';
+
+	/// en: 'Needs'
+	String get allocationNeeds => 'Needs';
+
+	/// en: 'Savings'
+	String get allocationSavings => 'Savings';
+
+	/// en: 'Debt'
+	String get allocationDebt => 'Debt';
+
+	/// en: 'Lifestyle'
+	String get allocationLifestyle => 'Lifestyle';
+
+	/// en: 'Buffer'
+	String get allocationBuffer => 'Buffer';
+
+	/// en: 'Dompet Advisor'
+	String get advisorTitle => 'Dompet Advisor';
+
+	/// en: 'No advice yet. Add transactions to see insights.'
+	String get advisorEmpty => 'No advice yet. Add transactions to see insights.';
+
+	/// en: 'Budget exceeded'
+	String get advisorBudgetOver => 'Budget exceeded';
+
+	/// en: '{{name}} has passed its limit. Consider pausing non-essential spending.'
+	String advisorBudgetOverBody({required Object name}) => '${name} has passed its limit. Consider pausing non-essential spending.';
+
+	/// en: 'Budget almost spent'
+	String get advisorBudgetAlmost => 'Budget almost spent';
+
+	/// en: '{{name}} is {{percent}}% used. {{remaining}} left.'
+	String advisorBudgetAlmostBody({required Object name, required Object percent, required Object remaining}) => '${name} is ${percent}% used. ${remaining} left.';
+
+	/// en: 'Negative cash flow'
+	String get advisorCashflowTitle => 'Negative cash flow';
+
+	/// en: 'Spending exceeded income this period.'
+	String get advisorCashflowBody => 'Spending exceeded income this period.';
+
+	/// en: 'Low savings rate'
+	String get advisorSavingsTitle => 'Low savings rate';
+
+	/// en: 'Less than 10% of income remains. Move savings right after income arrives.'
+	String get advisorSavingsBody => 'Less than 10% of income remains. Move savings right after income arrives.';
+
+	/// en: 'Large transaction detected'
+	String get advisorLargeTitle => 'Large transaction detected';
+
+	/// en: 'A purchase is over 3x your average transaction.'
+	String get advisorLargeBody => 'A purchase is over 3x your average transaction.';
+
+	/// en: 'Goal progress'
+	String get advisorGoalTitle => 'Goal progress';
+
+	/// en: 'You still need {{amount}} to reach your savings targets.'
+	String advisorGoalBody({required Object amount}) => 'You still need ${amount} to reach your savings targets.';
+
+	/// en: 'Income allocation'
+	String get advisorAllocationTitle => 'Income allocation';
+
+	/// en: 'Suggested allocation for {{amount}}:'
+	String advisorAllocationBody({required Object amount}) => 'Suggested allocation for ${amount}:';
+
+	/// en: 'Enabled'
+	String get accessGranted => 'Enabled';
+
+	/// en: 'Not enabled'
+	String get accessDenied => 'Not enabled';
+
+	/// en: 'Detect recurring income as salary'
+	String get salaryDetectionDesc => 'Detect recurring income as salary';
 }
 
 // Path: shared
@@ -2144,8 +2300,8 @@ extension on Translations {
 			'accounts.percentOfAssets' => ({required Object percent}) => '${percent}% of assets',
 			'accounts.recentTransactions' => 'Recent Transactions',
 			'accounts.recentTransactionsCount' => ({required Object count}) => 'Recent Transactions (${count})',
-			'app.name' => 'Poka',
-			'app.tagline' => 'Your personal finance companion',
+			'app.name' => 'Dompet',
+			'app.tagline' => 'Personal finance, private by design.',
 			'app.nav.home' => 'Home',
 			'app.nav.transactions' => 'Transactions',
 			'app.nav.reports' => 'Reports',
@@ -2630,6 +2786,58 @@ extension on Translations {
 			'settings.exportExcelSuccess' => 'Excel exported successfully',
 			'settings.exportExcelError' => 'Failed to export Excel file',
 			'settings.brandName' => 'Dompet',
+			'settings.detection' => 'Transaction detection',
+			'settings.detectionDesc' => 'Read bank and QRIS notifications locally',
+			'settings.enableDetection' => 'Enable notification detection',
+			'settings.enableDetectionDesc' => 'Only processes notifications on this device',
+			'settings.notificationAccess' => 'Notification access',
+			'settings.notificationAccessDesc' => 'Allow Dompet to read bank notifications',
+			'settings.openNotificationSettings' => 'Open notification settings',
+			'settings.autoImport' => 'Auto-import high confidence',
+			'settings.autoImportDesc' => 'Automatically save detections above 90% confidence',
+			'settings.advisor' => 'Dompet Advisor',
+			'settings.advisorDesc' => 'Private financial insights computed on-device',
+			'settings.salaryDetected' => 'Salary detected',
+			'settings.salaryDetectedBody' => ({required Object amount}) => 'Rp${amount} received. Dompet has local allocation suggestions.',
+			'settings.largeTransactionDetected' => 'Large transaction detected',
+			'settings.largeTransactionBody' => ({required Object amount}) => 'Rp${amount} is larger than your usual spending.',
+			'settings.newTransactionDetected' => 'New transaction detected',
+			'settings.detectionReviewBody' => ({required Object amount, required Object confidence}) => 'Rp${amount} detected with ${confidence} confidence. Review in Dompet.',
+			'settings.reviewQueue' => 'Transactions to review',
+			'settings.reviewQueueDesc' => 'Review locally detected transactions',
+			'settings.reviewQueueEmpty' => 'No detected transactions',
+			'settings.reviewQueueReview' => 'Review transaction',
+			'settings.reviewQueueAmount' => 'Amount',
+			'settings.reviewQueueAccount' => 'Account',
+			'settings.reviewQueueCategory' => 'Category',
+			'settings.reviewQueueSave' => 'Save',
+			'settings.reviewQueueIgnore' => 'Ignore',
+			'settings.reviewQueueConfidence' => 'Confidence',
+			'settings.detectionThreshold' => 'Auto-import threshold',
+			'settings.allocationNeeds' => 'Needs',
+			'settings.allocationSavings' => 'Savings',
+			'settings.allocationDebt' => 'Debt',
+			'settings.allocationLifestyle' => 'Lifestyle',
+			'settings.allocationBuffer' => 'Buffer',
+			'settings.advisorTitle' => 'Dompet Advisor',
+			'settings.advisorEmpty' => 'No advice yet. Add transactions to see insights.',
+			'settings.advisorBudgetOver' => 'Budget exceeded',
+			'settings.advisorBudgetOverBody' => ({required Object name}) => '${name} has passed its limit. Consider pausing non-essential spending.',
+			'settings.advisorBudgetAlmost' => 'Budget almost spent',
+			'settings.advisorBudgetAlmostBody' => ({required Object name, required Object percent, required Object remaining}) => '${name} is ${percent}% used. ${remaining} left.',
+			'settings.advisorCashflowTitle' => 'Negative cash flow',
+			'settings.advisorCashflowBody' => 'Spending exceeded income this period.',
+			'settings.advisorSavingsTitle' => 'Low savings rate',
+			'settings.advisorSavingsBody' => 'Less than 10% of income remains. Move savings right after income arrives.',
+			'settings.advisorLargeTitle' => 'Large transaction detected',
+			'settings.advisorLargeBody' => 'A purchase is over 3x your average transaction.',
+			'settings.advisorGoalTitle' => 'Goal progress',
+			'settings.advisorGoalBody' => ({required Object amount}) => 'You still need ${amount} to reach your savings targets.',
+			'settings.advisorAllocationTitle' => 'Income allocation',
+			'settings.advisorAllocationBody' => ({required Object amount}) => 'Suggested allocation for ${amount}:',
+			'settings.accessGranted' => 'Enabled',
+			'settings.accessDenied' => 'Not enabled',
+			'settings.salaryDetectionDesc' => 'Detect recurring income as salary',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',
