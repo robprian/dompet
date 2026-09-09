@@ -47,6 +47,9 @@ class NotificationBridge {
     } on PlatformException catch (e, st) {
       talker.handle(e, st, 'NotificationBridge.requestAccess');
       return false;
+    } on MissingPluginException catch (e, st) {
+      talker.handle(e, st, 'NotificationBridge.requestAccess');
+      return false;
     }
   }
 

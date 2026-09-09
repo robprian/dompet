@@ -71,6 +71,7 @@ class DetectionSettingsNotifier extends _$DetectionSettingsNotifier {
   Future<void> _write(String key, String value) async {
     final repo = ref.read(detectionRepositoryProvider);
     await repo.setSetting(key, value);
+    if (!ref.mounted) return;
     ref.invalidateSelf();
   }
 
@@ -91,11 +92,13 @@ class DetectionSettingsNotifier extends _$DetectionSettingsNotifier {
     final service = ref.read(detectionNotificationServiceProvider);
     await service.requestNotificationAccess();
     await Future<void>.delayed(const Duration(milliseconds: 800));
+    if (!ref.mounted) return;
     ref.invalidateSelf();
   }
 
   /// Re-checks platform access state.
   Future<void> refreshAccess() async {
+    if (!ref.mounted) return;
     ref.invalidateSelf();
   }
 }
