@@ -245,7 +245,7 @@ class DetectionImportService {
     }
     final history = await _salaryHistory();
     return _salaryDetector.assess(
-      sourceText: '${candidate.merchant ?? ''} ${candidate.counterparty ?? ''}',
+      sourceText: candidate.sourceText,
       amount: candidate.amount,
       occurredAt: candidate.occurredAt,
       history: history,

@@ -22,6 +22,7 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
     final title = payload.title;
     final body = payload.body;
     final text = '$title $body';
+    final normalizedSource = '$title $body'.trim();
 
     if (_indicatesFailure(text)) return null;
     final amount = extractAmount(text);
@@ -69,6 +70,7 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
       referenceId: referenceId,
       maskedAccount: _extractMaskedAccount(text),
       categoryHint: merchant,
+      sourceText: normalizedSource,
     );
   }
 
@@ -247,6 +249,7 @@ class BankTransferParser extends IndonesianNotificationParser {
     const markers = {
       'transfer masuk', 'transfer keluar', 'transfer', 'dana masuk', 'dana keluar', 'pemindahan dana',
       'dana diterima', 'dana terkirim', 'incoming transfer', 'outgoing transfer', 'kredit', 'debit',
+      'diterima', 'masuk', 'dikirim', 'salary', 'payroll', 'gaji',
     };
     for (final m in markers) {
       if (t.contains(m)) return m;

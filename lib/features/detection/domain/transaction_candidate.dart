@@ -23,6 +23,7 @@ abstract class TransactionCandidate with _$TransactionCandidate {
     String? maskedAccount,
     @Default(false) bool likelySalary,
     String? categoryHint,
+    @Default('') String sourceText,
   }) = _TransactionCandidate;
 
   const TransactionCandidate._();
