@@ -5,6 +5,7 @@ import 'package:dompet/features/advisor/domain/advisor_engine.dart';
 import 'package:dompet/features/advisor/domain/advisor_recommendation.dart';
 import 'package:dompet/features/budgets/domain/budget_model.dart';
 import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:dompet/features/budgets/presentation/controllers/budget_progress_provider.dart';
 import 'package:dompet/features/debts/domain/debt_model.dart';
 import 'package:dompet/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:dompet/features/goals/domain/goal_model.dart';
@@ -80,12 +81,20 @@ class AdvisorNotifier extends _$AdvisorNotifier {
         accounts: accounts,
         transactions: transactions,
         budgets: budgets,
-        budgetSpent: const {},
+        budgetSpent: _budgetSpent(budgets),
         goalsTarget: goalsTarget,
         goalsSaved: goalsSaved,
         debtRemaining: debtRemaining,
       ),
     );
+  }
+
+  Map<String, int> _budgetSpent(List<BudgetModel> budgets) {
+    final spent = <String, int>{};
+    for (final budget in budgets) {
+      spent[budget.id] = ref.watch(budgetProgressProvider(budget)).value ?? 0;
+    }
+    return spent;
   }
 }
 
