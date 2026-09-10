@@ -46,14 +46,21 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Verify generated code is up to date
+- name: Verify generated code is up to date
         run: |
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
           dart run slang
           # Only build_runner outputs are committed; slang timestamps are volatile.
-          git diff --exit-code -- lib test -- ':!lib/i18n/strings*.g.dart' \
-            || (echo 'Generated code is stale. Run: make generate' && exit 1)
+          # Use a temporary file to store diff excluding slang timestamps
+          git diff lib test > /tmp/diff.txt 2>&1
+          # Filter out slang timestamp changes
+          grep -v 'Built on ' /tmp/diff.txt > /tmp/diff_filtered.txt || true
+          if [ -s /tmp/diff_filtered.txt ]; then
+            cat /tmp/diff_filtered.txt
+            echo 'Generated code is stale. Run: make generate'
+            exit 1
+          fi
 
       - name: Check Formatting
         run: dart format --output=none --set-exit-if-changed lib test
