@@ -14,8 +14,7 @@ part of 'account_form_notifier.dart';
 final accountFormProvider = AccountFormNotifierProvider._();
 
 /// Notifier managing account creation and editing form state and validation logic.
-final class AccountFormNotifierProvider
-    extends $NotifierProvider<AccountFormNotifier, AccountFormState> {
+final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNotifier, AccountFormState> {
   /// Notifier managing account creation and editing form state and validation logic.
   AccountFormNotifierProvider._()
     : super(
@@ -44,8 +43,7 @@ final class AccountFormNotifierProvider
   }
 }
 
-String _$accountFormNotifierHash() =>
-    r'c0cf89967066a172245b5e00f3bfa9e37c2cfa67';
+String _$accountFormNotifierHash() => r'c0cf89967066a172245b5e00f3bfa9e37c2cfa67';
 
 /// Notifier managing account creation and editing form state and validation logic.
 

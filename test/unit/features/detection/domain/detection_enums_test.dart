@@ -19,8 +19,14 @@ void main() {
     });
 
     test('confidence tiers cover the documented bands', () {
-      expect(ConfidenceTier.values, containsAll([ConfidenceTier.high, ConfidenceTier.likely, ConfidenceTier.uncertain, ConfidenceTier.rejected]));
-      expect(DetectionStatus.values, containsAll([DetectionStatus.pending, DetectionStatus.imported, DetectionStatus.ignored]));
+      expect(
+        ConfidenceTier.values,
+        containsAll([ConfidenceTier.high, ConfidenceTier.likely, ConfidenceTier.uncertain, ConfidenceTier.rejected]),
+      );
+      expect(
+        DetectionStatus.values,
+        containsAll([DetectionStatus.pending, DetectionStatus.imported, DetectionStatus.ignored]),
+      );
     });
   });
 }

@@ -123,7 +123,17 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
   }
 
   String? _extractCounterparty(String text) {
-    return extractPartyAfter(text, const ['kepada', 'ke rekening', 'atas nama', 'a.n.', 'a.n', 'an', 'dari', 'penerima', 'ke']);
+    return extractPartyAfter(text, const [
+      'kepada',
+      'ke rekening',
+      'atas nama',
+      'a.n.',
+      'a.n',
+      'an',
+      'dari',
+      'penerima',
+      'ke',
+    ]);
   }
 
   String? _extractReference(String text) {
@@ -179,36 +189,87 @@ abstract class IndonesianNotificationParser implements NotificationTransactionPa
 
   /// Markers indicating money arrived (income).
   static const Set<String> incomeMarkers = {
-    'transfer masuk', 'dana masuk', 'diterima', 'penerimaan', 'masuk ke', 'saldo bertambah', 'kredit', 'pemindahan dana masuk',
-    'incoming transfer', 'deposit', 'top up', 'top-up', 'topup', 'uang masuk',
+    'transfer masuk',
+    'dana masuk',
+    'diterima',
+    'penerimaan',
+    'masuk ke',
+    'saldo bertambah',
+    'kredit',
+    'pemindahan dana masuk',
+    'incoming transfer',
+    'deposit',
+    'top up',
+    'top-up',
+    'topup',
+    'uang masuk',
   };
 
   /// Markers indicating money left (expense).
   static const Set<String> expenseMarkers = {
-    'transfer keluar', 'dana keluar', 'terkirim ke', 'pembayaran', 'pembelian', 'pemakaian', 'debit', 'dibayar', 'belanja',
-    'terbayar', 'outgoing transfer', 'tarik tunai', 'penarikan', 'uang keluar', 'qris',
+    'transfer keluar',
+    'dana keluar',
+    'terkirim ke',
+    'pembayaran',
+    'pembelian',
+    'pemakaian',
+    'debit',
+    'dibayar',
+    'belanja',
+    'terbayar',
+    'outgoing transfer',
+    'tarik tunai',
+    'penarikan',
+    'uang keluar',
+    'qris',
   };
 
   /// Unambiguous markers that money arrived.
   static const Set<String> explicitIncomeMarkers = {
-    'transfer masuk', 'dana masuk', 'diterima', 'kredit', 'uang masuk', 'masuk ke', 'pemindahan dana masuk',
-    'incoming transfer', 'penerimaan',
+    'transfer masuk',
+    'dana masuk',
+    'diterima',
+    'kredit',
+    'uang masuk',
+    'masuk ke',
+    'pemindahan dana masuk',
+    'incoming transfer',
+    'penerimaan',
   };
 
   /// Unambiguous markers that money left.
   static const Set<String> explicitExpenseMarkers = {
-    'transfer keluar', 'dana keluar', 'terkirim', 'debit', 'uang keluar', 'penarikan', 'outgoing transfer',
+    'transfer keluar',
+    'dana keluar',
+    'terkirim',
+    'debit',
+    'uang keluar',
+    'penarikan',
+    'outgoing transfer',
     'tarik tunai',
   };
 
   /// Markers suggesting the attempt did not complete.
   static const Set<String> failureMarkers = {
-    'gagal', 'ditolak', 'tidak berhasil', 'batal', 'failed', 'declined', 'insufficient', 'gagal diproses', 'saldo tidak cukup',
+    'gagal',
+    'ditolak',
+    'tidak berhasil',
+    'batal',
+    'failed',
+    'declined',
+    'insufficient',
+    'gagal diproses',
+    'saldo tidak cukup',
   };
 
   /// Markers that positively indicate completion.
   static const Set<String> successMarkers = {
-    'berhasil', 'sukses', 'success', 'terkonfirmasi', 'selesai', 'transaksi berhasil',
+    'berhasil',
+    'sukses',
+    'success',
+    'terkonfirmasi',
+    'selesai',
+    'transaksi berhasil',
   };
 }
 
@@ -269,9 +330,24 @@ class BankTransferParser extends IndonesianNotificationParser {
   String? confirmMarker(String text) {
     final t = text.toLowerCase();
     const markers = {
-      'transfer masuk', 'transfer keluar', 'transfer', 'dana masuk', 'dana keluar', 'pemindahan dana',
-      'dana diterima', 'dana terkirim', 'incoming transfer', 'outgoing transfer', 'kredit', 'debit',
-      'diterima', 'masuk', 'dikirim', 'salary', 'payroll', 'gaji',
+      'transfer masuk',
+      'transfer keluar',
+      'transfer',
+      'dana masuk',
+      'dana keluar',
+      'pemindahan dana',
+      'dana diterima',
+      'dana terkirim',
+      'incoming transfer',
+      'outgoing transfer',
+      'kredit',
+      'debit',
+      'diterima',
+      'masuk',
+      'dikirim',
+      'salary',
+      'payroll',
+      'gaji',
     };
     for (final m in markers) {
       if (t.contains(m)) return m;
@@ -292,7 +368,8 @@ class BankTransferParser extends IndonesianNotificationParser {
     required String text,
   }) {
     final t = text.toLowerCase();
-    final isIncoming = t.contains('masuk') || t.contains('diterima') || t.contains('kredit') || t.contains('dana masuk');
+    final isIncoming =
+        t.contains('masuk') || t.contains('diterima') || t.contains('kredit') || t.contains('dana masuk');
     final isOutgoing = t.contains('keluar') || t.contains('terkirim') || t.contains('debit') || t.contains('dibayar');
     final explicit = isIncoming != isOutgoing;
     final base = super.scoreCandidate(
@@ -319,8 +396,20 @@ class EWalletParser extends IndonesianNotificationParser {
   const EWalletParser();
 
   static const Set<String> walletKeywords = {
-    'gopay', 'ovo', 'dana', 'shopeepay', 'shopee pay', 'linkaja', 'isaku', 'astrapay', 'gojek',
-    'kamu bayar', 'kamu terima', 'pembayaran diterima', 'uang masuk ke', 'uang keluar dari',
+    'gopay',
+    'ovo',
+    'dana',
+    'shopeepay',
+    'shopee pay',
+    'linkaja',
+    'isaku',
+    'astrapay',
+    'gojek',
+    'kamu bayar',
+    'kamu terima',
+    'pembayaran diterima',
+    'uang masuk ke',
+    'uang keluar dari',
   };
 
   @override

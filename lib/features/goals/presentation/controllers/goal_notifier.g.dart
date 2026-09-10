@@ -14,8 +14,7 @@ part of 'goal_notifier.dart';
 final goalProvider = GoalNotifierProvider._();
 
 /// StreamNotifier managing the reactive list of savings goals.
-final class GoalNotifierProvider
-    extends $StreamNotifierProvider<GoalNotifier, List<GoalModel>> {
+final class GoalNotifierProvider extends $StreamNotifierProvider<GoalNotifier, List<GoalModel>> {
   /// StreamNotifier managing the reactive list of savings goals.
   GoalNotifierProvider._()
     : super(
@@ -66,12 +65,7 @@ final goalListStatesProvider = GoalListStatesProvider._();
 /// Provides a list of [GoalItemState] objects by joining goals with pocket account balances.
 
 final class GoalListStatesProvider
-    extends
-        $FunctionalProvider<
-          List<GoalItemState>,
-          List<GoalItemState>,
-          List<GoalItemState>
-        >
+    extends $FunctionalProvider<List<GoalItemState>, List<GoalItemState>, List<GoalItemState>>
     with $Provider<List<GoalItemState>> {
   /// Provides a list of [GoalItemState] objects by joining goals with pocket account balances.
   GoalListStatesProvider._()
@@ -117,13 +111,7 @@ final goalSummaryProvider = GoalSummaryProvider._();
 
 /// Computes cumulative progress and target aggregates across all active goals.
 
-final class GoalSummaryProvider
-    extends
-        $FunctionalProvider<
-          GoalSummaryState,
-          GoalSummaryState,
-          GoalSummaryState
-        >
+final class GoalSummaryProvider extends $FunctionalProvider<GoalSummaryState, GoalSummaryState, GoalSummaryState>
     with $Provider<GoalSummaryState> {
   /// Computes cumulative progress and target aggregates across all active goals.
   GoalSummaryProvider._()
@@ -142,8 +130,7 @@ final class GoalSummaryProvider
 
   @$internal
   @override
-  $ProviderElement<GoalSummaryState> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<GoalSummaryState> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   GoalSummaryState create(Ref ref) {

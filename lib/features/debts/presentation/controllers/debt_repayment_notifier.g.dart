@@ -14,8 +14,7 @@ part of 'debt_repayment_notifier.dart';
 final debtRepaymentProvider = DebtRepaymentNotifierProvider._();
 
 /// Notifier driving the debt/loan repayment sheet and keypad calculator.
-final class DebtRepaymentNotifierProvider
-    extends $NotifierProvider<DebtRepaymentNotifier, DebtRepaymentState> {
+final class DebtRepaymentNotifierProvider extends $NotifierProvider<DebtRepaymentNotifier, DebtRepaymentState> {
   /// Notifier driving the debt/loan repayment sheet and keypad calculator.
   DebtRepaymentNotifierProvider._()
     : super(
@@ -44,8 +43,7 @@ final class DebtRepaymentNotifierProvider
   }
 }
 
-String _$debtRepaymentNotifierHash() =>
-    r'0238a61b8f9f7049089d5030eb297b1255aa4117';
+String _$debtRepaymentNotifierHash() => r'0238a61b8f9f7049089d5030eb297b1255aa4117';
 
 /// Notifier driving the debt/loan repayment sheet and keypad calculator.
 

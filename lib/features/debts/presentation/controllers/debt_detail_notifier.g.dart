@@ -17,14 +17,8 @@ final debtTransactionsProvider = DebtTransactionsFamily._();
 
 final class DebtTransactionsProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<List<TransactionModel>>,
-          List<TransactionModel>,
-          Stream<List<TransactionModel>>
-        >
-    with
-        $FutureModifier<List<TransactionModel>>,
-        $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
+    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
   /// Watches transactions linked to the specified [debt] (disbursements and repayments).
   DebtTransactionsProvider._({
     required DebtTransactionsFamily super.from,
@@ -87,8 +81,7 @@ final class DebtTransactionsFamily extends $Family
 
   /// Watches transactions linked to the specified [debt] (disbursements and repayments).
 
-  DebtTransactionsProvider call(DebtModel debt) =>
-      DebtTransactionsProvider._(argument: debt, from: this);
+  DebtTransactionsProvider call(DebtModel debt) => DebtTransactionsProvider._(argument: debt, from: this);
 
   @override
   String toString() => r'debtTransactionsProvider';
@@ -100,8 +93,7 @@ final class DebtTransactionsFamily extends $Family
 final debtDetailProvider = DebtDetailNotifierProvider._();
 
 /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
-final class DebtDetailNotifierProvider
-    extends $NotifierProvider<DebtDetailNotifier, void> {
+final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotifier, void> {
   /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
   DebtDetailNotifierProvider._()
     : super(
@@ -130,8 +122,7 @@ final class DebtDetailNotifierProvider
   }
 }
 
-String _$debtDetailNotifierHash() =>
-    r'888fd9d54dcfcec5bd67bcdb660ac52a5157c494';
+String _$debtDetailNotifierHash() => r'888fd9d54dcfcec5bd67bcdb660ac52a5157c494';
 
 /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
 
@@ -141,14 +132,7 @@ abstract class _$DebtDetailNotifier extends $Notifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<void, void>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<void, void>,
-              void,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

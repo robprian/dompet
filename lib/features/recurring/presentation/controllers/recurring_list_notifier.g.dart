@@ -14,8 +14,7 @@ part of 'recurring_list_notifier.dart';
 final recurringListProvider = RecurringListNotifierProvider._();
 
 /// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
-final class RecurringListNotifierProvider
-    extends $NotifierProvider<RecurringListNotifier, RecurringListState> {
+final class RecurringListNotifierProvider extends $NotifierProvider<RecurringListNotifier, RecurringListState> {
   /// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
   RecurringListNotifierProvider._()
     : super(
@@ -44,8 +43,7 @@ final class RecurringListNotifierProvider
   }
 }
 
-String _$recurringListNotifierHash() =>
-    r'03eb65b234863f5ab79499257717d7f2f810b084';
+String _$recurringListNotifierHash() => r'03eb65b234863f5ab79499257717d7f2f810b084';
 
 /// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
 

@@ -16,8 +16,7 @@ final transactionFormProvider = TransactionFormNotifierFamily._();
 
 /// Controller managing form input, split items, in-place math evaluation, and submission
 /// for creating and updating transactions.
-final class TransactionFormNotifierProvider
-    extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
+final class TransactionFormNotifierProvider extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
   /// Controller managing form input, split items, in-place math evaluation, and submission
   /// for creating and updating transactions.
   TransactionFormNotifierProvider._({
@@ -55,8 +54,7 @@ final class TransactionFormNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is TransactionFormNotifierProvider &&
-        other.argument == argument;
+    return other is TransactionFormNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -65,8 +63,7 @@ final class TransactionFormNotifierProvider
   }
 }
 
-String _$transactionFormNotifierHash() =>
-    r'b23c76ff47eaae665bf1827f070bc66f0406e9a6';
+String _$transactionFormNotifierHash() => r'b23c76ff47eaae665bf1827f070bc66f0406e9a6';
 
 /// Controller managing form input, split items, in-place math evaluation, and submission
 /// for creating and updating transactions.
@@ -102,8 +99,7 @@ final class TransactionFormNotifierFamily extends $Family
 /// Controller managing form input, split items, in-place math evaluation, and submission
 /// for creating and updating transactions.
 
-abstract class _$TransactionFormNotifier
-    extends $Notifier<TransactionFormState> {
+abstract class _$TransactionFormNotifier extends $Notifier<TransactionFormState> {
   late final _$args = ref.$arg as TransactionFormArgs;
   TransactionFormArgs get args => _$args;
 

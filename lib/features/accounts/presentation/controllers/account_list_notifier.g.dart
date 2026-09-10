@@ -14,8 +14,7 @@ part of 'account_list_notifier.dart';
 final accountListProvider = AccountListNotifierProvider._();
 
 /// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
-final class AccountListNotifierProvider
-    extends $StreamNotifierProvider<AccountListNotifier, AccountListState> {
+final class AccountListNotifierProvider extends $StreamNotifierProvider<AccountListNotifier, AccountListState> {
   /// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
   AccountListNotifierProvider._()
     : super(
@@ -36,8 +35,7 @@ final class AccountListNotifierProvider
   AccountListNotifier create() => AccountListNotifier();
 }
 
-String _$accountListNotifierHash() =>
-    r'39ef2379c54b16dbcd706c33ac33211889a23236';
+String _$accountListNotifierHash() => r'39ef2379c54b16dbcd706c33ac33211889a23236';
 
 /// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
 
@@ -46,8 +44,7 @@ abstract class _$AccountListNotifier extends $StreamNotifier<AccountListState> {
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<AccountListState>, AccountListState>;
+    final ref = this.ref as $Ref<AsyncValue<AccountListState>, AccountListState>;
     final element =
         ref.element
             as $ClassProviderElement<
@@ -69,11 +66,7 @@ final regularAccountListProvider = RegularAccountListProvider._();
 
 final class RegularAccountListProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>
-        >
+        $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
   /// Filters the active account list to exclude goal-linked pocket accounts.
   RegularAccountListProvider._()
@@ -110,8 +103,7 @@ final class RegularAccountListProvider
   }
 }
 
-String _$regularAccountListHash() =>
-    r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
+String _$regularAccountListHash() => r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
 
 /// Filters the active account list to only include goal-linked pocket accounts.
 
@@ -122,11 +114,7 @@ final goalAccountListProvider = GoalAccountListProvider._();
 
 final class GoalAccountListProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>
-        >
+        $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
   /// Filters the active account list to only include goal-linked pocket accounts.
   GoalAccountListProvider._()
@@ -173,12 +161,7 @@ final accountMetricsProvider = AccountMetricsProvider._();
 /// Computes global asset, liability, and net worth metrics across all active accounts.
 
 final class AccountMetricsProvider
-    extends
-        $FunctionalProvider<
-          AccountMetricsData,
-          AccountMetricsData,
-          AccountMetricsData
-        >
+    extends $FunctionalProvider<AccountMetricsData, AccountMetricsData, AccountMetricsData>
     with $Provider<AccountMetricsData> {
   /// Computes global asset, liability, and net worth metrics across all active accounts.
   AccountMetricsProvider._()
@@ -225,12 +208,7 @@ final accountAggregateProvider = AccountAggregateFamily._();
 /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
 
 final class AccountAggregateProvider
-    extends
-        $FunctionalProvider<
-          AccountAggregate?,
-          AccountAggregate?,
-          AccountAggregate?
-        >
+    extends $FunctionalProvider<AccountAggregate?, AccountAggregate?, AccountAggregate?>
     with $Provider<AccountAggregate?> {
   /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
   AccountAggregateProvider._({
@@ -289,8 +267,7 @@ String _$accountAggregateHash() => r'5aff591642a0874d8915f55cde24a8e8463bdd19';
 
 /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
 
-final class AccountAggregateFamily extends $Family
-    with $FunctionalFamilyOverride<AccountAggregate?, String> {
+final class AccountAggregateFamily extends $Family with $FunctionalFamilyOverride<AccountAggregate?, String> {
   AccountAggregateFamily._()
     : super(
         retry: null,
@@ -302,8 +279,7 @@ final class AccountAggregateFamily extends $Family
 
   /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
 
-  AccountAggregateProvider call(String accountId) =>
-      AccountAggregateProvider._(argument: accountId, from: this);
+  AccountAggregateProvider call(String accountId) => AccountAggregateProvider._(argument: accountId, from: this);
 
   @override
   String toString() => r'accountAggregateProvider';
@@ -317,12 +293,7 @@ final accountTransactionsProvider = AccountTransactionsFamily._();
 /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
 
 final class AccountTransactionsProvider
-    extends
-        $FunctionalProvider<
-          List<TransactionModel>,
-          List<TransactionModel>,
-          List<TransactionModel>
-        >
+    extends $FunctionalProvider<List<TransactionModel>, List<TransactionModel>, List<TransactionModel>>
     with $Provider<List<TransactionModel>> {
   /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
   AccountTransactionsProvider._({
@@ -377,8 +348,7 @@ final class AccountTransactionsProvider
   }
 }
 
-String _$accountTransactionsHash() =>
-    r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
+String _$accountTransactionsHash() => r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
 
 /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
 
@@ -410,12 +380,7 @@ final accountMapProvider = AccountMapProvider._();
 /// Provides an indexed lookup map of accounts by their unique ID string.
 
 final class AccountMapProvider
-    extends
-        $FunctionalProvider<
-          Map<String, AccountModel>,
-          Map<String, AccountModel>,
-          Map<String, AccountModel>
-        >
+    extends $FunctionalProvider<Map<String, AccountModel>, Map<String, AccountModel>, Map<String, AccountModel>>
     with $Provider<Map<String, AccountModel>> {
   /// Provides an indexed lookup map of accounts by their unique ID string.
   AccountMapProvider._()

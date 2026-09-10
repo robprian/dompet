@@ -75,7 +75,9 @@ void main() {
     });
 
     testWidgets('isObscured expense shows - ••••••', (tester) async {
-      await tester.pumpWidget(wrap(const DompetAmountText(amount: 999, type: TransactionType.expense, isObscured: true)));
+      await tester.pumpWidget(
+        wrap(const DompetAmountText(amount: 999, type: TransactionType.expense, isObscured: true)),
+      );
       await tester.pump();
       expect(find.text('- ••••••'), findsOneWidget);
     });

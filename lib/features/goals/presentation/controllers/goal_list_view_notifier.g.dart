@@ -15,13 +15,7 @@ final goalListViewProvider = GoalListViewProvider._();
 
 /// Provides partitioned lists of active and past goals for UI tab displays.
 
-final class GoalListViewProvider
-    extends
-        $FunctionalProvider<
-          GoalListViewState,
-          GoalListViewState,
-          GoalListViewState
-        >
+final class GoalListViewProvider extends $FunctionalProvider<GoalListViewState, GoalListViewState, GoalListViewState>
     with $Provider<GoalListViewState> {
   /// Provides partitioned lists of active and past goals for UI tab displays.
   GoalListViewProvider._()

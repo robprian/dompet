@@ -135,7 +135,9 @@ void main() {
   });
 
   test('disabled detection discards everything', () async {
-    await db.into(db.settings).insertOnConflictUpdate(
+    await db
+        .into(db.settings)
+        .insertOnConflictUpdate(
           const SettingsCompanion(key: Value('detectionEnabled'), value: Value('false')),
         );
 

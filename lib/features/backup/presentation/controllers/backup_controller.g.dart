@@ -16,8 +16,7 @@ final backupControllerProvider = BackupControllerProvider._();
 
 /// Controller managing the execution of encrypted backup and restore operations,
 /// updating its async state and invoking system share sheets.
-final class BackupControllerProvider
-    extends $AsyncNotifierProvider<BackupController, void> {
+final class BackupControllerProvider extends $AsyncNotifierProvider<BackupController, void> {
   /// Controller managing the execution of encrypted backup and restore operations,
   /// updating its async state and invoking system share sheets.
   BackupControllerProvider._()
@@ -51,13 +50,7 @@ abstract class _$BackupController extends $AsyncNotifier<void> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<void>, void>,
-              AsyncValue<void>,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<AsyncValue<void>, void>, AsyncValue<void>, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

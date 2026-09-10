@@ -15,8 +15,7 @@ final budgetProgressProvider = BudgetProgressFamily._();
 
 /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 
-final class BudgetProgressProvider
-    extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
+final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
     with $FutureModifier<int>, $FutureProvider<int> {
   /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
   BudgetProgressProvider._({
@@ -42,8 +41,7 @@ final class BudgetProgressProvider
 
   @$internal
   @override
-  $FutureProviderElement<int> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<int> $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<int> create(Ref ref) {
@@ -66,8 +64,7 @@ String _$budgetProgressHash() => r'5d43323347de03a8b8c5789ac2a53c9be9b2ca46';
 
 /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 
-final class BudgetProgressFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<int>, BudgetModel> {
+final class BudgetProgressFamily extends $Family with $FunctionalFamilyOverride<FutureOr<int>, BudgetModel> {
   BudgetProgressFamily._()
     : super(
         retry: null,
@@ -79,8 +76,7 @@ final class BudgetProgressFamily extends $Family
 
   /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 
-  BudgetProgressProvider call(BudgetModel budget) =>
-      BudgetProgressProvider._(argument: budget, from: this);
+  BudgetProgressProvider call(BudgetModel budget) => BudgetProgressProvider._(argument: budget, from: this);
 
   @override
   String toString() => r'budgetProgressProvider';

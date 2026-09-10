@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// Fires local notifications for detection and advisor events.
 class AdvisorNotificationService {
   /// Creates the notification service.
-  AdvisorNotificationService({NotificationService? notifications}) : _notifications = notifications ?? notificationService;
+  AdvisorNotificationService({NotificationService? notifications})
+    : _notifications = notifications ?? notificationService;
 
   final NotificationService _notifications;
 

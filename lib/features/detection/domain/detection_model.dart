@@ -30,13 +30,13 @@ abstract class TransactionDetectionModel with _$TransactionDetectionModel {
 
   /// Display label of the payment channel.
   String get methodLabel => switch (method) {
-        PaymentMethod.qris => 'QRIS',
-        PaymentMethod.bank => 'Bank Transfer',
-        PaymentMethod.ewallet => 'E-Wallet',
-        PaymentMethod.card => 'Card',
-        PaymentMethod.cash => 'Cash',
-        PaymentMethod.other => 'Other',
-      };
+    PaymentMethod.qris => 'QRIS',
+    PaymentMethod.bank => 'Bank Transfer',
+    PaymentMethod.ewallet => 'E-Wallet',
+    PaymentMethod.card => 'Card',
+    PaymentMethod.cash => 'Cash',
+    PaymentMethod.other => 'Other',
+  };
 
   /// Primary party name for display and search.
   String? get partyName => merchant ?? counterparty;

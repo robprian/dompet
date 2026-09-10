@@ -31,9 +31,9 @@ class DetectionImportService {
     NotificationParserRegistry? registry,
     SalaryDetector? salaryDetector,
     CategoryInferenceEngine? categoryEngine,
-  })  : _registry = registry ?? const NotificationParserRegistry(),
-        _salaryDetector = salaryDetector ?? const SalaryDetector(),
-        _categoryEngine = categoryEngine ?? CategoryInferenceEngine();
+  }) : _registry = registry ?? const NotificationParserRegistry(),
+       _salaryDetector = salaryDetector ?? const SalaryDetector(),
+       _categoryEngine = categoryEngine ?? CategoryInferenceEngine();
 
   final IDetectionRepository _detectionRepository;
   final ITransactionRepository _transactionRepository;
@@ -48,8 +48,13 @@ class DetectionImportService {
     final text = '${payload.title} ${payload.body}';
     if (text.trim().length < 12) return false;
     const ignoredPackages = {
-      'android', 'com.android.systemui', 'com.google.android.gms', 'com.android.vending',
-      'com.google.android.apps.messaging', 'org.telegram.messenger', 'com.whatsapp',
+      'android',
+      'com.android.systemui',
+      'com.google.android.gms',
+      'com.android.vending',
+      'com.google.android.apps.messaging',
+      'org.telegram.messenger',
+      'com.whatsapp',
     };
     if (ignoredPackages.contains(payload.package)) return false;
     return true;
@@ -117,7 +122,9 @@ class DetectionImportService {
           salaryScore: salaryAssessment.score,
         );
         if (imported) {
-          await _detectionRepository.saveCandidate(model.copyWith(status: DetectionStatus.imported, accountId: account.id));
+          await _detectionRepository.saveCandidate(
+            model.copyWith(status: DetectionStatus.imported, accountId: account.id),
+          );
           if (candidate.type == DetectionTransactionType.income && salaryAssessment.isHighConfidence) {
             await _detectionRepository.recordSalary(
               amount: candidate.amount,
@@ -258,9 +265,8 @@ class DetectionImportService {
         .watchTransactions(startDate: since, endDate: DateTime.now().toUtc(), types: {TransactionType.income})
         .first;
     return switch (result) {
-      Success(value: final transactions) => transactions
-          .map((t) => SalaryObservation(amount: t.amount, occurredAt: t.transactionDate))
-          .toList(),
+      Success(value: final transactions) =>
+        transactions.map((t) => SalaryObservation(amount: t.amount, occurredAt: t.transactionDate)).toList(),
       ErrorResult(error: _) => <SalaryObservation>[],
     };
   }
@@ -271,9 +277,11 @@ class DetectionImportService {
       Success(value: final data) => data,
       ErrorResult(error: _) => <AccountModel>[],
     };
-    final main = accounts.where((a) => a.isActive && a.type == AccountType.assets && !a.isPocket).toList()..sort((a, b) => a.sort.compareTo(b.sort));
+    final main = accounts.where((a) => a.isActive && a.type == AccountType.assets && !a.isPocket).toList()
+      ..sort((a, b) => a.sort.compareTo(b.sort));
     if (main.isNotEmpty) return main.first;
-    final any = accounts.where((a) => a.isActive && a.type == AccountType.assets).toList()..sort((a, b) => a.sort.compareTo(b.sort));
+    final any = accounts.where((a) => a.isActive && a.type == AccountType.assets).toList()
+      ..sort((a, b) => a.sort.compareTo(b.sort));
     return any.isEmpty ? null : any.first;
   }
 

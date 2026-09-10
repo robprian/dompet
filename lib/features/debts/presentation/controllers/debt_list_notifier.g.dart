@@ -14,8 +14,7 @@ part of 'debt_list_notifier.dart';
 final debtListProvider = DebtListProvider._();
 
 /// StreamNotifier managing the reactive collection of debts and loans.
-final class DebtListProvider
-    extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
+final class DebtListProvider extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
   /// StreamNotifier managing the reactive collection of debts and loans.
   DebtListProvider._()
     : super(

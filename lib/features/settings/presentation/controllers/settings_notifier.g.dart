@@ -14,8 +14,7 @@ part of 'settings_notifier.dart';
 final settingsProvider = SettingsNotifierProvider._();
 
 /// Notifier coordinating user preferences (theme, language, number format, base currency).
-final class SettingsNotifierProvider
-    extends $NotifierProvider<SettingsNotifier, SettingsState> {
+final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier, SettingsState> {
   /// Notifier coordinating user preferences (theme, language, number format, base currency).
   SettingsNotifierProvider._()
     : super(
@@ -56,12 +55,7 @@ abstract class _$SettingsNotifier extends $Notifier<SettingsState> {
     final ref = this.ref as $Ref<SettingsState, SettingsState>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<SettingsState, SettingsState>,
-              SettingsState,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<SettingsState, SettingsState>, SettingsState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

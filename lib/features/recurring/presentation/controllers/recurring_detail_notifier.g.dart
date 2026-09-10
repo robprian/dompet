@@ -14,14 +14,8 @@ final recurringTransactionsProvider = RecurringTransactionsFamily._();
 
 final class RecurringTransactionsProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<List<TransactionModel>>,
-          List<TransactionModel>,
-          Stream<List<TransactionModel>>
-        >
-    with
-        $FutureModifier<List<TransactionModel>>,
-        $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
+    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
   RecurringTransactionsProvider._({
     required RecurringTransactionsFamily super.from,
     required RecurringTransactionModel super.argument,
@@ -66,15 +60,10 @@ final class RecurringTransactionsProvider
   }
 }
 
-String _$recurringTransactionsHash() =>
-    r'678daf4133a51e195353df7c7b3bea5af1012f24';
+String _$recurringTransactionsHash() => r'678daf4133a51e195353df7c7b3bea5af1012f24';
 
 final class RecurringTransactionsFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          Stream<List<TransactionModel>>,
-          RecurringTransactionModel
-        > {
+    with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, RecurringTransactionModel> {
   RecurringTransactionsFamily._()
     : super(
         retry: null,

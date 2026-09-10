@@ -14,8 +14,7 @@ part of 'report_notifier.dart';
 final reportProvider = ReportNotifierProvider._();
 
 /// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
-final class ReportNotifierProvider
-    extends $NotifierProvider<ReportNotifier, ReportState> {
+final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, ReportState> {
   /// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
   ReportNotifierProvider._()
     : super(
@@ -55,13 +54,7 @@ abstract class _$ReportNotifier extends $Notifier<ReportState> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<ReportState, ReportState>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<ReportState, ReportState>,
-              ReportState,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<ReportState, ReportState>, ReportState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

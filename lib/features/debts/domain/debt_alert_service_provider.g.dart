@@ -15,13 +15,7 @@ final debtAlertServiceProvider = DebtAlertServiceProvider._();
 
 /// Provides a singleton instance of [DebtAlertService] injected with the debt repository.
 
-final class DebtAlertServiceProvider
-    extends
-        $FunctionalProvider<
-          DebtAlertService,
-          DebtAlertService,
-          DebtAlertService
-        >
+final class DebtAlertServiceProvider extends $FunctionalProvider<DebtAlertService, DebtAlertService, DebtAlertService>
     with $Provider<DebtAlertService> {
   /// Provides a singleton instance of [DebtAlertService] injected with the debt repository.
   DebtAlertServiceProvider._()
@@ -40,8 +34,7 @@ final class DebtAlertServiceProvider
 
   @$internal
   @override
-  $ProviderElement<DebtAlertService> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<DebtAlertService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   DebtAlertService create(Ref ref) {

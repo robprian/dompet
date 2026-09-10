@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 class NotificationBridge {
   /// Creates the bridge with its platform channels.
   NotificationBridge({MethodChannel? channel, MethodChannel? control})
-      : _channel = channel ?? const MethodChannel('dompet/notifications'),
-        _control = control ?? const MethodChannel('dompet/notifications/control');
+    : _channel = channel ?? const MethodChannel('dompet/notifications'),
+      _control = control ?? const MethodChannel('dompet/notifications/control');
 
   /// Primary channel receiving parsed notification payloads.
   final MethodChannel _channel;

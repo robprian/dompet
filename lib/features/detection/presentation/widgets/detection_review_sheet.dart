@@ -129,7 +129,9 @@ class DetectionReviewSheet extends HookConsumerWidget {
                       if (accountId.value == null) return;
                       final amount = int.tryParse(amountController.text.trim());
                       if (amount == null || amount <= 0) return;
-                      await ref.read(detectionReviewProvider.notifier).importAsTransaction(
+                      await ref
+                          .read(detectionReviewProvider.notifier)
+                          .importAsTransaction(
                             detection,
                             accountId: accountId.value!,
                             categoryId: categoryId.value,

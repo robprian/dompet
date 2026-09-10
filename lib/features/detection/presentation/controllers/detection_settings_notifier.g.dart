@@ -15,11 +15,7 @@ final detectionSettingsProvider = DetectionSettingsNotifierProvider._();
 
 /// Manages detection preferences and platform access state.
 final class DetectionSettingsNotifierProvider
-    extends
-        $AsyncNotifierProvider<
-          DetectionSettingsNotifier,
-          DetectionSettingsState
-        > {
+    extends $AsyncNotifierProvider<DetectionSettingsNotifier, DetectionSettingsState> {
   /// Manages detection preferences and platform access state.
   DetectionSettingsNotifierProvider._()
     : super(
@@ -40,27 +36,20 @@ final class DetectionSettingsNotifierProvider
   DetectionSettingsNotifier create() => DetectionSettingsNotifier();
 }
 
-String _$detectionSettingsNotifierHash() =>
-    r'85d29c9c53361b37a68ba1c583adcdb88497bb84';
+String _$detectionSettingsNotifierHash() => r'85d29c9c53361b37a68ba1c583adcdb88497bb84';
 
 /// Manages detection preferences and platform access state.
 
-abstract class _$DetectionSettingsNotifier
-    extends $AsyncNotifier<DetectionSettingsState> {
+abstract class _$DetectionSettingsNotifier extends $AsyncNotifier<DetectionSettingsState> {
   FutureOr<DetectionSettingsState> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref =
-        this.ref
-            as $Ref<AsyncValue<DetectionSettingsState>, DetectionSettingsState>;
+    final ref = this.ref as $Ref<AsyncValue<DetectionSettingsState>, DetectionSettingsState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                AsyncValue<DetectionSettingsState>,
-                DetectionSettingsState
-              >,
+              AnyNotifier<AsyncValue<DetectionSettingsState>, DetectionSettingsState>,
               AsyncValue<DetectionSettingsState>,
               Object?,
               Object?

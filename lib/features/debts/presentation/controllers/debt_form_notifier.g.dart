@@ -14,8 +14,7 @@ part of 'debt_form_notifier.dart';
 final debtFormProvider = DebtFormProvider._();
 
 /// Notifier managing input state and validation for creating or editing debts and loans.
-final class DebtFormProvider
-    extends $NotifierProvider<DebtForm, DebtFormState> {
+final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> {
   /// Notifier managing input state and validation for creating or editing debts and loans.
   DebtFormProvider._()
     : super(
@@ -56,12 +55,7 @@ abstract class _$DebtForm extends $Notifier<DebtFormState> {
     final ref = this.ref as $Ref<DebtFormState, DebtFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<DebtFormState, DebtFormState>,
-              DebtFormState,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<DebtFormState, DebtFormState>, DebtFormState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

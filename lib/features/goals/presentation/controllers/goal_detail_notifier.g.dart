@@ -17,14 +17,8 @@ final goalTransactionsProvider = GoalTransactionsFamily._();
 
 final class GoalTransactionsProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<List<TransactionModel>>,
-          List<TransactionModel>,
-          Stream<List<TransactionModel>>
-        >
-    with
-        $FutureModifier<List<TransactionModel>>,
-        $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
+    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
   /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
   GoalTransactionsProvider._({
     required GoalTransactionsFamily super.from,
@@ -87,8 +81,7 @@ final class GoalTransactionsFamily extends $Family
 
   /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
 
-  GoalTransactionsProvider call(GoalModel goal) =>
-      GoalTransactionsProvider._(argument: goal, from: this);
+  GoalTransactionsProvider call(GoalModel goal) => GoalTransactionsProvider._(argument: goal, from: this);
 
   @override
   String toString() => r'goalTransactionsProvider';
@@ -100,8 +93,7 @@ final class GoalTransactionsFamily extends $Family
 final goalDetailProvider = GoalDetailNotifierProvider._();
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
-final class GoalDetailNotifierProvider
-    extends $NotifierProvider<GoalDetailNotifier, void> {
+final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotifier, void> {
   /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
   GoalDetailNotifierProvider._()
     : super(
@@ -130,8 +122,7 @@ final class GoalDetailNotifierProvider
   }
 }
 
-String _$goalDetailNotifierHash() =>
-    r'4164318fb32c647fa3f77e5cfabb1de2a467251f';
+String _$goalDetailNotifierHash() => r'4164318fb32c647fa3f77e5cfabb1de2a467251f';
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 
@@ -141,14 +132,7 @@ abstract class _$GoalDetailNotifier extends $Notifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<void, void>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<void, void>,
-              void,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

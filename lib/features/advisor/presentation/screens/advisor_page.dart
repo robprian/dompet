@@ -26,15 +26,15 @@ class AdvisorPage extends ConsumerWidget {
       child: switch ((state.isLoading, state.recommendations.isEmpty)) {
         (true, _) => const Center(child: FCircularProgress()),
         (_, true) => DompetEmptyView(
-            icon: FPhosphorIcons.lightbulb,
-            title: context.t.settings.advisorEmpty,
-          ),
+          icon: FPhosphorIcons.lightbulb,
+          title: context.t.settings.advisorEmpty,
+        ),
         _ => ListView.separated(
-            padding: EdgeInsets.zero,
-            itemCount: state.recommendations.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemBuilder: (context, index) => _AdvisorCard(recommendation: state.recommendations[index]),
-          ),
+          padding: EdgeInsets.zero,
+          itemCount: state.recommendations.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, index) => _AdvisorCard(recommendation: state.recommendations[index]),
+        ),
       },
     );
   }
@@ -94,7 +94,10 @@ class _AdvisorCard extends HookConsumerWidget {
   static ({String title, String message}) _text(Translations t, AdvisorRecommendationModel recommendation) {
     switch (recommendation.type) {
       case AdvisorRecommendationType.salaryAllocation:
-        return (title: t.settings.advisorAllocationTitle, message: t.settings.advisorAllocationBody(amount: '${recommendation.amount ?? 0}'));
+        return (
+          title: t.settings.advisorAllocationTitle,
+          message: t.settings.advisorAllocationBody(amount: '${recommendation.amount ?? 0}'),
+        );
       case AdvisorRecommendationType.budget:
         final name = recommendation.relatedName ?? '';
         final percent = ((recommendation.ratio ?? 0) * 100).round();
@@ -103,7 +106,11 @@ class _AdvisorCard extends HookConsumerWidget {
         }
         return (
           title: t.settings.advisorBudgetAlmost,
-          message: t.settings.advisorBudgetAlmostBody(name: name, percent: '$percent', remaining: '${recommendation.amount ?? 0}'),
+          message: t.settings.advisorBudgetAlmostBody(
+            name: name,
+            percent: '$percent',
+            remaining: '${recommendation.amount ?? 0}',
+          ),
         );
       case AdvisorRecommendationType.overspending:
         return (title: t.settings.advisorLargeTitle, message: t.settings.advisorLargeBody);
@@ -114,7 +121,10 @@ class _AdvisorCard extends HookConsumerWidget {
       case AdvisorRecommendationType.cashFlow:
         return (title: t.settings.advisorCashflowTitle, message: t.settings.advisorCashflowBody);
       case AdvisorRecommendationType.recurringExpense:
-        return (title: t.settings.advisorBudgetAlmost, message: t.settings.advisorBudgetAlmostBody(name: '', percent: '', remaining: ''));
+        return (
+          title: t.settings.advisorBudgetAlmost,
+          message: t.settings.advisorBudgetAlmostBody(name: '', percent: '', remaining: ''),
+        );
     }
   }
 }

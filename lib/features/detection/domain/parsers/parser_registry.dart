@@ -26,7 +26,9 @@ class GenericBankParser extends IndonesianNotificationParser {
 /// Runs specialized parsers in priority order and returns the best result.
 class NotificationParserRegistry {
   /// Creates a registry with the default Indonesian parser chain.
-  const NotificationParserRegistry({this.parsers = const [QrisParser(), BankTransferParser(), EWalletParser(), GenericBankParser()]});
+  const NotificationParserRegistry({
+    this.parsers = const [QrisParser(), BankTransferParser(), EWalletParser(), GenericBankParser()],
+  });
 
   /// Ordered parser chain.
   final List<NotificationTransactionParser> parsers;

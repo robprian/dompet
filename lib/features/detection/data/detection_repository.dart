@@ -66,7 +66,8 @@ class DetectionRepository implements IDetectionRepository {
   }) async {
     final query = database.select(database.transactionDetections)
       ..where(
-        (t) => t.sourcePackage.equals(sourcePackage) &
+        (t) =>
+            t.sourcePackage.equals(sourcePackage) &
             t.amount.equals(amount) &
             t.type.equals(type.name) &
             t.occurredAt.isBiggerOrEqualValue(since.toUtc()),
@@ -97,12 +98,14 @@ class DetectionRepository implements IDetectionRepository {
 
   @override
   Future<void> recordSalary({required int amount, required int dayOfMonth, required double confidence}) async {
-    final existing = await (database.select(database.salaryProfiles)
-          ..where((t) => t.amount.equals(amount) & t.dayOfMonth.equals(dayOfMonth)))
-        .getSingleOrNull();
+    final existing = await (database.select(
+      database.salaryProfiles,
+    )..where((t) => t.amount.equals(amount) & t.dayOfMonth.equals(dayOfMonth))).getSingleOrNull();
     final now = DateTime.now().toUtc();
     if (existing == null) {
-      await database.into(database.salaryProfiles).insert(
+      await database
+          .into(database.salaryProfiles)
+          .insert(
             db.SalaryProfilesCompanion.insert(
               amount: Value(amount),
               dayOfMonth: Value(dayOfMonth),
@@ -116,13 +119,13 @@ class DetectionRepository implements IDetectionRepository {
     final count = existing.occurrenceCount + 1;
     final average = ((existing.averageConfidence * existing.occurrenceCount) + confidence) / count;
     await (database.update(database.salaryProfiles)..where((t) => t.id.equals(existing.id))).write(
-          db.SalaryProfilesCompanion(
-            averageConfidence: Value(average),
-            occurrenceCount: Value(count),
-            lastDetectedAt: Value(now),
-            updatedAt: Value(now),
-          ),
-        );
+      db.SalaryProfilesCompanion(
+        averageConfidence: Value(average),
+        occurrenceCount: Value(count),
+        lastDetectedAt: Value(now),
+        updatedAt: Value(now),
+      ),
+    );
   }
 
   @override
@@ -139,7 +142,9 @@ class DetectionRepository implements IDetectionRepository {
 
   @override
   Future<void> setSetting(String key, String value) async {
-    await database.into(database.settings).insertOnConflictUpdate(
+    await database
+        .into(database.settings)
+        .insertOnConflictUpdate(
           db.SettingsCompanion.insert(key: key, value: value),
         );
   }

@@ -18,6 +18,7 @@ import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
+
 import 'dart:async';
 
 import 'package:dompet/features/advisor/presentation/controllers/advisor_notifier.dart';
@@ -28,7 +29,14 @@ import 'package:mocktail/mocktail.dart';
 final _now = DateTime.now().toUtc();
 
 AccountModel account({String id = 'a1', int balance = 10000000}) {
-  return AccountModel(id: id, name: 'BCA', type: AccountType.assets, balance: balance, createdAt: _now, updatedAt: _now);
+  return AccountModel(
+    id: id,
+    name: 'BCA',
+    type: AccountType.assets,
+    balance: balance,
+    createdAt: _now,
+    updatedAt: _now,
+  );
 }
 
 TransactionModel incomeTx(int amount) {

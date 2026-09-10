@@ -14,8 +14,7 @@ part of 'advisor_notifier.dart';
 final advisorProvider = AdvisorNotifierProvider._();
 
 /// Computes offline financial recommendations reactively.
-final class AdvisorNotifierProvider
-    extends $NotifierProvider<AdvisorNotifier, AdvisorState> {
+final class AdvisorNotifierProvider extends $NotifierProvider<AdvisorNotifier, AdvisorState> {
   /// Computes offline financial recommendations reactively.
   AdvisorNotifierProvider._()
     : super(
@@ -55,13 +54,7 @@ abstract class _$AdvisorNotifier extends $Notifier<AdvisorState> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AdvisorState, AdvisorState>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AdvisorState, AdvisorState>,
-              AdvisorState,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<AdvisorState, AdvisorState>, AdvisorState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

@@ -22,9 +22,7 @@ final class PendingDetectionsProvider
           List<TransactionDetectionModel>,
           Stream<List<TransactionDetectionModel>>
         >
-    with
-        $FutureModifier<List<TransactionDetectionModel>>,
-        $StreamProvider<List<TransactionDetectionModel>> {
+    with $FutureModifier<List<TransactionDetectionModel>>, $StreamProvider<List<TransactionDetectionModel>> {
   /// Streams candidates awaiting review.
   PendingDetectionsProvider._()
     : super(
@@ -61,8 +59,7 @@ final pendingDetectionCountProvider = PendingDetectionCountProvider._();
 
 /// Counts candidates awaiting review.
 
-final class PendingDetectionCountProvider
-    extends $FunctionalProvider<AsyncValue<int>, int, Stream<int>>
+final class PendingDetectionCountProvider extends $FunctionalProvider<AsyncValue<int>, int, Stream<int>>
     with $FutureModifier<int>, $StreamProvider<int> {
   /// Counts candidates awaiting review.
   PendingDetectionCountProvider._()
@@ -81,8 +78,7 @@ final class PendingDetectionCountProvider
 
   @$internal
   @override
-  $StreamProviderElement<int> $createElement($ProviderPointer pointer) =>
-      $StreamProviderElement(pointer);
+  $StreamProviderElement<int> $createElement($ProviderPointer pointer) => $StreamProviderElement(pointer);
 
   @override
   Stream<int> create(Ref ref) {
@@ -90,8 +86,7 @@ final class PendingDetectionCountProvider
   }
 }
 
-String _$pendingDetectionCountHash() =>
-    r'e9d0576caf46715564c05adc4fd5b615ba5639d3';
+String _$pendingDetectionCountHash() => r'e9d0576caf46715564c05adc4fd5b615ba5639d3';
 
 /// Handles saving or ignoring reviewed detection candidates.
 
@@ -99,8 +94,7 @@ String _$pendingDetectionCountHash() =>
 final detectionReviewProvider = DetectionReviewNotifierProvider._();
 
 /// Handles saving or ignoring reviewed detection candidates.
-final class DetectionReviewNotifierProvider
-    extends $AsyncNotifierProvider<DetectionReviewNotifier, void> {
+final class DetectionReviewNotifierProvider extends $AsyncNotifierProvider<DetectionReviewNotifier, void> {
   /// Handles saving or ignoring reviewed detection candidates.
   DetectionReviewNotifierProvider._()
     : super(
@@ -121,8 +115,7 @@ final class DetectionReviewNotifierProvider
   DetectionReviewNotifier create() => DetectionReviewNotifier();
 }
 
-String _$detectionReviewNotifierHash() =>
-    r'5f525922a93e224ebf64d44f18a9b2af282fc3fd';
+String _$detectionReviewNotifierHash() => r'5f525922a93e224ebf64d44f18a9b2af282fc3fd';
 
 /// Handles saving or ignoring reviewed detection candidates.
 
@@ -133,13 +126,7 @@ abstract class _$DetectionReviewNotifier extends $AsyncNotifier<void> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<void>, void>,
-              AsyncValue<void>,
-              Object?,
-              Object?
-            >;
+        ref.element as $ClassProviderElement<AnyNotifier<AsyncValue<void>, void>, AsyncValue<void>, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

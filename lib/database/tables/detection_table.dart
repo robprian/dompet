@@ -20,7 +20,8 @@ class TransactionDetections extends Table {
   TextColumn get confidenceTier => text().map(const EnumNameConverter(ConfidenceTier.values))();
   TextColumn get method => text().map(const EnumNameConverter(PaymentMethod.values))();
   TextColumn get parserVersion => text()();
-  TextColumn get status => text().map(const EnumNameConverter(DetectionStatus.values)).withDefault(const Constant('pending'))();
+  TextColumn get status =>
+      text().map(const EnumNameConverter(DetectionStatus.values)).withDefault(const Constant('pending'))();
   TextColumn get fingerprint => text().unique()();
   DateTimeColumn get occurredAt => dateTime()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();

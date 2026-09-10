@@ -15,8 +15,7 @@ final backupServiceProvider = BackupServiceProvider._();
 
 /// Provider that exposes an instance of [BackupService].
 
-final class BackupServiceProvider
-    extends $FunctionalProvider<BackupService, BackupService, BackupService>
+final class BackupServiceProvider extends $FunctionalProvider<BackupService, BackupService, BackupService>
     with $Provider<BackupService> {
   /// Provider that exposes an instance of [BackupService].
   BackupServiceProvider._()
@@ -35,8 +34,7 @@ final class BackupServiceProvider
 
   @$internal
   @override
-  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   BackupService create(Ref ref) {

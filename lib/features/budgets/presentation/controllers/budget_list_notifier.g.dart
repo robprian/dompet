@@ -14,8 +14,7 @@ part of 'budget_list_notifier.dart';
 final budgetListProvider = BudgetListNotifierProvider._();
 
 /// Notifier managing the asynchronous collection of user budgets and associated CRUD lifecycles.
-final class BudgetListNotifierProvider
-    extends $AsyncNotifierProvider<BudgetListNotifier, List<BudgetModel>> {
+final class BudgetListNotifierProvider extends $AsyncNotifierProvider<BudgetListNotifier, List<BudgetModel>> {
   /// Notifier managing the asynchronous collection of user budgets and associated CRUD lifecycles.
   BudgetListNotifierProvider._()
     : super(
@@ -36,8 +35,7 @@ final class BudgetListNotifierProvider
   BudgetListNotifier create() => BudgetListNotifier();
 }
 
-String _$budgetListNotifierHash() =>
-    r'b367f8af97e0d2c614793f16369585253e7ffbda';
+String _$budgetListNotifierHash() => r'b367f8af97e0d2c614793f16369585253e7ffbda';
 
 /// Notifier managing the asynchronous collection of user budgets and associated CRUD lifecycles.
 
@@ -46,8 +44,7 @@ abstract class _$BudgetListNotifier extends $AsyncNotifier<List<BudgetModel>> {
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<List<BudgetModel>>, List<BudgetModel>>;
+    final ref = this.ref as $Ref<AsyncValue<List<BudgetModel>>, List<BudgetModel>>;
     final element =
         ref.element
             as $ClassProviderElement<

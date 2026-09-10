@@ -14,8 +14,7 @@ part of 'goal_form_notifier.dart';
 final goalFormProvider = GoalFormNotifierProvider._();
 
 /// Notifier driving the savings goal creation and edit form sheet.
-final class GoalFormNotifierProvider
-    extends $NotifierProvider<GoalFormNotifier, GoalFormState> {
+final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier, GoalFormState> {
   /// Notifier driving the savings goal creation and edit form sheet.
   GoalFormNotifierProvider._()
     : super(
@@ -56,12 +55,7 @@ abstract class _$GoalFormNotifier extends $Notifier<GoalFormState> {
     final ref = this.ref as $Ref<GoalFormState, GoalFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<GoalFormState, GoalFormState>,
-              GoalFormState,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<GoalFormState, GoalFormState>, GoalFormState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

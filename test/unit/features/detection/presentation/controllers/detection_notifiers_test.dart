@@ -131,7 +131,9 @@ void main() {
       );
       addTearDown(container.dispose);
 
-      await container.read(detectionReviewProvider.notifier).importAsTransaction(
+      await container
+          .read(detectionReviewProvider.notifier)
+          .importAsTransaction(
             detection(),
             accountId: 'acc-1',
             categoryId: 'cat-1',

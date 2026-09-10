@@ -7,11 +7,9 @@ mixin _$DebtsDaoMixin on DatabaseAccessor<AppDatabase> {
   $DebtsTable get debts => attachedDatabase.debts;
   $AccountsTable get accounts => attachedDatabase.accounts;
   $CategoriesTable get categories => attachedDatabase.categories;
-  $RecurringTransactionsTable get recurringTransactions =>
-      attachedDatabase.recurringTransactions;
+  $RecurringTransactionsTable get recurringTransactions => attachedDatabase.recurringTransactions;
   $TransactionsTable get transactions => attachedDatabase.transactions;
-  $TransactionItemsTable get transactionItems =>
-      attachedDatabase.transactionItems;
+  $TransactionItemsTable get transactionItems => attachedDatabase.transactionItems;
   $BudgetsTable get budgets => attachedDatabase.budgets;
   $BudgetRecordsTable get budgetRecords => attachedDatabase.budgetRecords;
   DebtsDaoManager get managers => DebtsDaoManager(this);
@@ -20,26 +18,20 @@ mixin _$DebtsDaoMixin on DatabaseAccessor<AppDatabase> {
 class DebtsDaoManager {
   final _$DebtsDaoMixin _db;
   DebtsDaoManager(this._db);
-  $$DebtsTableTableManager get debts =>
-      $$DebtsTableTableManager(_db.attachedDatabase, _db.debts);
-  $$AccountsTableTableManager get accounts =>
-      $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
-  $$CategoriesTableTableManager get categories =>
-      $$CategoriesTableTableManager(_db.attachedDatabase, _db.categories);
-  $$RecurringTransactionsTableTableManager get recurringTransactions =>
-      $$RecurringTransactionsTableTableManager(
-        _db.attachedDatabase,
-        _db.recurringTransactions,
-      );
+  $$DebtsTableTableManager get debts => $$DebtsTableTableManager(_db.attachedDatabase, _db.debts);
+  $$AccountsTableTableManager get accounts => $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
+  $$CategoriesTableTableManager get categories => $$CategoriesTableTableManager(_db.attachedDatabase, _db.categories);
+  $$RecurringTransactionsTableTableManager get recurringTransactions => $$RecurringTransactionsTableTableManager(
+    _db.attachedDatabase,
+    _db.recurringTransactions,
+  );
   $$TransactionsTableTableManager get transactions =>
       $$TransactionsTableTableManager(_db.attachedDatabase, _db.transactions);
-  $$TransactionItemsTableTableManager get transactionItems =>
-      $$TransactionItemsTableTableManager(
-        _db.attachedDatabase,
-        _db.transactionItems,
-      );
-  $$BudgetsTableTableManager get budgets =>
-      $$BudgetsTableTableManager(_db.attachedDatabase, _db.budgets);
+  $$TransactionItemsTableTableManager get transactionItems => $$TransactionItemsTableTableManager(
+    _db.attachedDatabase,
+    _db.transactionItems,
+  );
+  $$BudgetsTableTableManager get budgets => $$BudgetsTableTableManager(_db.attachedDatabase, _db.budgets);
   $$BudgetRecordsTableTableManager get budgetRecords =>
       $$BudgetRecordsTableTableManager(_db.attachedDatabase, _db.budgetRecords);
 }

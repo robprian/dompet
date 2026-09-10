@@ -6,7 +6,6 @@ part 'detection_settings_notifier.g.dart';
 
 /// Persisted detection preferences surfaced to the settings UI.
 class DetectionSettingsState {
-
   /// Creates a detection settings state.
   const DetectionSettingsState({
     this.enabled = true,
@@ -16,6 +15,7 @@ class DetectionSettingsState {
     this.isLoading = true,
     this.accessEnabled = false,
   });
+
   /// Loads the state from stored values and the platform.
   factory DetectionSettingsState.load({
     required Map<String, String?> raw,

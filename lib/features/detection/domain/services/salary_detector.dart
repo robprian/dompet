@@ -38,10 +38,24 @@ class SalaryDetector {
     this.monthsLookback = 3,
     this.dayToleranceDays = 2,
     this.strongKeywords = const {
-      'gaji', 'salary', 'payroll', 'upah', 'thr', 'gaji bulanan', 'gaji karyawan', 'salary credited', 'payroll credited',
+      'gaji',
+      'salary',
+      'payroll',
+      'upah',
+      'thr',
+      'gaji bulanan',
+      'gaji karyawan',
+      'salary credited',
+      'payroll credited',
     },
     this.mediumKeywords = const {
-      'dana masuk', 'transfer masuk', 'diterima', 'incoming transfer', 'kredit', 'deposit', 'top up',
+      'dana masuk',
+      'transfer masuk',
+      'diterima',
+      'incoming transfer',
+      'kredit',
+      'deposit',
+      'top up',
     },
   });
 
@@ -84,8 +98,8 @@ class SalaryDetector {
     final reason = score >= 0.7
         ? 'salary_recurring_or_keyword'
         : score >= 0.5
-            ? 'salary_uncertain'
-            : 'salary_unlikely';
+        ? 'salary_uncertain'
+        : 'salary_unlikely';
     return SalaryAssessment(score: score, reason: reason);
   }
 

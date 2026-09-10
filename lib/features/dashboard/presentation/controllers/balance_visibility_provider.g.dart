@@ -14,8 +14,7 @@ part of 'balance_visibility_provider.dart';
 final balanceVisibilityProvider = BalanceVisibilityProvider._();
 
 /// Notifier tracking the UI visibility toggle for sensitive financial figures.
-final class BalanceVisibilityProvider
-    extends $NotifierProvider<BalanceVisibility, bool> {
+final class BalanceVisibilityProvider extends $NotifierProvider<BalanceVisibility, bool> {
   /// Notifier tracking the UI visibility toggle for sensitive financial figures.
   BalanceVisibilityProvider._()
     : super(
@@ -54,14 +53,7 @@ abstract class _$BalanceVisibility extends $Notifier<bool> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<bool, bool>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<bool, bool>, bool, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

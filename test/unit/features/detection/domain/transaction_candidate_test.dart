@@ -7,13 +7,13 @@ void main() {
     test('fingerprints are stable for identical inputs', () {
       final postedAt = DateTime.utc(2026, 3, 15, 10, 30, 45);
       String fingerprint() => TransactionCandidate.makeFingerprint(
-            sourcePackage: 'com.bank',
-            amount: 25000,
-            type: DetectionTransactionType.expense,
-            merchant: 'KOPI ABC',
-            referenceId: null,
-            occurredAt: postedAt,
-          );
+        sourcePackage: 'com.bank',
+        amount: 25000,
+        type: DetectionTransactionType.expense,
+        merchant: 'KOPI ABC',
+        referenceId: null,
+        occurredAt: postedAt,
+      );
       expect(fingerprint(), equals(fingerprint()));
     });
 
@@ -38,16 +38,16 @@ void main() {
 
     test('canAutoImport follows the 0.90 tier rule', () {
       TransactionCandidate candidate(double confidence) => TransactionCandidate(
-            fingerprint: 'f',
-            amount: 25000,
-            type: DetectionTransactionType.expense,
-            method: PaymentMethod.qris,
-            confidence: confidence,
-            confidenceTier: ConfidenceTier.high,
-            occurredAt: DateTime.utc(2026, 1, 1),
-            parserVersion: 'qris-v1',
-            sourcePackage: 'com.bank',
-          );
+        fingerprint: 'f',
+        amount: 25000,
+        type: DetectionTransactionType.expense,
+        method: PaymentMethod.qris,
+        confidence: confidence,
+        confidenceTier: ConfidenceTier.high,
+        occurredAt: DateTime.utc(2026, 1, 1),
+        parserVersion: 'qris-v1',
+        sourcePackage: 'com.bank',
+      );
       expect(candidate(0.9).canAutoImport, isTrue);
       expect(candidate(0.89).canAutoImport, isFalse);
     });

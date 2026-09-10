@@ -16,12 +16,7 @@ final budgetAlertServiceProvider = BudgetAlertServiceProvider._();
 /// Provides a singleton instance of [BudgetAlertService] injected with the budget repository.
 
 final class BudgetAlertServiceProvider
-    extends
-        $FunctionalProvider<
-          BudgetAlertService,
-          BudgetAlertService,
-          BudgetAlertService
-        >
+    extends $FunctionalProvider<BudgetAlertService, BudgetAlertService, BudgetAlertService>
     with $Provider<BudgetAlertService> {
   /// Provides a singleton instance of [BudgetAlertService] injected with the budget repository.
   BudgetAlertServiceProvider._()
@@ -58,5 +53,4 @@ final class BudgetAlertServiceProvider
   }
 }
 
-String _$budgetAlertServiceHash() =>
-    r'bc8fdb21d6fd583caa44609a10706f8600506c85';
+String _$budgetAlertServiceHash() => r'bc8fdb21d6fd583caa44609a10706f8600506c85';

@@ -12,11 +12,7 @@ String normalizeText(String input) {
     final c = String.fromCharCode(rune);
     buffer.write(c == '–' ? '-' : c);
   }
-  return buffer
-      .toString()
-      .replaceAll(RegExp(r'[^a-z0-9.,:%\s\-]'), ' ')
-      .replaceAll(RegExp(r'\s+'), ' ')
-      .trim();
+  return buffer.toString().replaceAll(RegExp(r'[^a-z0-9.,:%\s\-]'), ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
 }
 
 /// Extracts the integer rupiah amount from a notification string.
@@ -46,18 +42,12 @@ String? extractPartyAfter(String text, List<String> markers) {
     final match = RegExp(r'(?:^|\s)' + RegExp.escape(marker.trim()) + r'(?=[\s:;,.]|$)').firstMatch(t);
     if (match == null) continue;
     final tail = t.substring(match.end).trim();
-    final cleaned = tail
-        .replaceFirst(RegExp(r'^(?:dari|ke|kepada|di|atas nama|a\.n\.?|an|pada|untuk)\s+'), '')
-        .trim();
+    final cleaned = tail.replaceFirst(RegExp(r'^(?:dari|ke|kepada|di|atas nama|a\.n\.?|an|pada|untuk)\s+'), '').trim();
     if (cleaned.isEmpty) continue;
     final boundary = RegExp(r'\b(?:sebesar|rp|idr|jam|pukul|wib|wita|wit|tanggal|tgl|ref|no|nomor|berhasil|gagal)\b')
         .firstMatch(cleaned);
     var candidate = boundary == null ? cleaned : cleaned.substring(0, boundary.start);
-    candidate = candidate
-        .split(RegExp(r'\s{2,}|[,;]\s'))
-        .first
-        .trim()
-        .replaceFirst(RegExp(r'[.]+$'), '');
+    candidate = candidate.split(RegExp(r'\s{2,}|[,;]\s')).first.trim().replaceFirst(RegExp(r'[.]+$'), '');
     if (candidate.isNotEmpty && !candidate.contains(RegExp(r'\d{4,}'))) {
       return candidate.toUpperCase();
     }

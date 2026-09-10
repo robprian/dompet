@@ -26,12 +26,15 @@ class DetectionDao extends DatabaseAccessor<AppDatabase> with _$DetectionDaoMixi
 
   /// Returns true when the normalized fingerprint has already been seen.
   Future<bool> hasFingerprint(String fingerprint) async {
-    final row = await (select(transactionDetections)..where((t) => t.fingerprint.equals(fingerprint))).getSingleOrNull();
+    final row = await (select(
+      transactionDetections,
+    )..where((t) => t.fingerprint.equals(fingerprint))).getSingleOrNull();
     return row != null;
   }
 
   /// Stores a candidate after duplicate checking is performed by the caller.
-  Future<int> insertDetection(TransactionDetectionsCompanion companion) => into(transactionDetections).insert(companion);
+  Future<int> insertDetection(TransactionDetectionsCompanion companion) =>
+      into(transactionDetections).insert(companion);
 
   /// Updates the review state and optional account/category choices.
   Future<int> updateDetection({
@@ -54,7 +57,9 @@ class DetectionDao extends DatabaseAccessor<AppDatabase> with _$DetectionDaoMixi
   Future<void> learnMerchantCategory({required String merchant, required String categoryId}) async {
     final normalized = merchant.trim().toLowerCase();
     if (normalized.isEmpty) return;
-    final existing = await (select(merchantCategoryRules)..where((t) => t.merchantNormalized.equals(normalized))).getSingleOrNull();
+    final existing = await (select(
+      merchantCategoryRules,
+    )..where((t) => t.merchantNormalized.equals(normalized))).getSingleOrNull();
     if (existing == null) {
       await into(merchantCategoryRules).insert(
         MerchantCategoryRulesCompanion.insert(
@@ -76,7 +81,9 @@ class DetectionDao extends DatabaseAccessor<AppDatabase> with _$DetectionDaoMixi
 
   /// Resolves a learned merchant category, if one exists.
   Future<String?> getLearnedCategory(String merchant) async {
-    final row = await (select(merchantCategoryRules)..where((t) => t.merchantNormalized.equals(merchant.trim().toLowerCase()))).getSingleOrNull();
+    final row = await (select(
+      merchantCategoryRules,
+    )..where((t) => t.merchantNormalized.equals(merchant.trim().toLowerCase()))).getSingleOrNull();
     return row?.categoryId;
   }
 }

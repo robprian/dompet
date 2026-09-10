@@ -42,7 +42,12 @@ void main() {
       const ImportOutcome(type: ImportOutcomeType.imported, amount: 5000000, isSalary: false),
     );
     verify(
-      () => notifications.showNotification(id: 91003, title: any(named: 'title'), body: any(named: 'body'), payload: 'advisor'),
+      () => notifications.showNotification(
+        id: 91003,
+        title: any(named: 'title'),
+        body: any(named: 'body'),
+        payload: 'advisor',
+      ),
     ).called(1);
   });
 

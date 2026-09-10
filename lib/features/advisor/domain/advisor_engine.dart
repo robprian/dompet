@@ -126,7 +126,10 @@ class AdvisorEngine {
       }
     }
 
-    final expenses = snapshot.transactions.where((t) => t.type == TransactionType.expense).map((t) => t.amount).toList();
+    final expenses = snapshot.transactions
+        .where((t) => t.type == TransactionType.expense)
+        .map((t) => t.amount)
+        .toList();
     if (expenses.length >= 3) {
       var sum = 0;
       for (final amount in expenses) {

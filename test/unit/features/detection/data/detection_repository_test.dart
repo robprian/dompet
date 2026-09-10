@@ -85,10 +85,14 @@ void main() {
   });
 
   test('resolves candidates and learns merchant rules', () async {
-    await db.into(db.categories).insert(
+    await db
+        .into(db.categories)
+        .insert(
           CategoriesCompanion.insert(id: const Value('cat-food'), name: 'Food & Dining', type: CategoryType.expense),
         );
-    await db.into(db.accounts).insert(
+    await db
+        .into(db.accounts)
+        .insert(
           AccountsCompanion.insert(id: const Value('acc-1'), name: 'BCA', type: AccountType.assets),
         );
     await repo.saveCandidate(model('d1'));
