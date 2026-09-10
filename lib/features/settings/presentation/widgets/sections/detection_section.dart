@@ -75,7 +75,8 @@ class DetectionSection extends ConsumerWidget {
               icon: FPhosphorIcons.bank,
               trailing: DompetSwitch(
                 value: settings.salaryDetectionEnabled,
-                onChange: (value) => ref.read(detectionSettingsProvider.notifier).setSalaryDetectionEnabled(value: value),
+                onChange: (value) =>
+                    ref.read(detectionSettingsProvider.notifier).setSalaryDetectionEnabled(value: value),
               ),
             ),
           ],

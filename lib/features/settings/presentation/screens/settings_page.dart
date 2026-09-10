@@ -1,3 +1,4 @@
+import 'package:dompet/features/settings/presentation/widgets/sections/ai_section.dart';
 import 'package:dompet/features/settings/presentation/widgets/sections/data_management_section.dart';
 import 'package:dompet/features/settings/presentation/widgets/sections/detection_section.dart';
 import 'package:dompet/features/settings/presentation/widgets/sections/preferences_section.dart';
@@ -24,6 +25,8 @@ class SettingsPage extends StatelessWidget {
           PreferencesSection(),
           SizedBox(height: 20),
           SecuritySection(),
+          SizedBox(height: 20),
+          AISection(),
           SizedBox(height: 20),
           DetectionSection(),
           SizedBox(height: 20),

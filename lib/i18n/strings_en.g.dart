@@ -1896,6 +1896,69 @@ class Translations$settings$en {
 
 	/// en: 'Detect recurring income as salary'
 	String get salaryDetectionDesc => 'Detect recurring income as salary';
+
+	/// en: 'AI Advisor'
+	String get aiAdvisor => 'AI Advisor';
+
+	/// en: 'AI Provider'
+	String get aiProvider => 'AI Provider';
+
+	/// en: 'Status'
+	String get aiStatus => 'Status';
+
+	/// en: '● Active (Local / Offline)'
+	String get aiLocalActive => '● Active (Local / Offline)';
+
+	/// en: '● Active (External AI)'
+	String get aiExternalActive => '● Active (External AI)';
+
+	/// en: '○ Configure to enable'
+	String get aiConfigureNeeded => '○ Configure to enable';
+
+	/// en: 'Privacy Mode'
+	String get aiPrivacyMode => 'Privacy Mode';
+
+	/// en: '● Strict Local-only'
+	String get aiPrivacyStrict => '● Strict Local-only';
+
+	/// en: '○ Allow External AI'
+	String get aiPrivacyExternal => '○ Allow External AI';
+
+	/// en: 'Provider Configuration'
+	String get aiProviderConfig => 'Provider Configuration';
+
+	/// en: 'Base URL'
+	String get aiBaseUrl => 'Base URL';
+
+	/// en: 'Model'
+	String get aiModel => 'Model';
+
+	/// en: 'API Key'
+	String get aiApiKey => 'API Key';
+
+	/// en: 'Provider Name'
+	String get aiDisplayName => 'Provider Name';
+
+	/// en: 'Privacy Notice'
+	String get aiPrivacyNotice => 'Privacy Notice';
+
+	/// en: 'Using an external AI provider may send selected financial information outside this device. Your financial data stays on-device in Local mode.'
+	String get aiPrivacyWarning => 'Using an external AI provider may send selected financial information outside this device. Your financial data stays on-device in Local mode.';
+
+	/// en: 'Continue'
+	String get aiContinue => 'Continue';
+
+	/// en: 'Reset to Local Mode'
+	String get aiResetToLocal => 'Reset to Local Mode';
+
+	/// en: 'Choose your AI provider'
+	String get aiProviderSelection => 'Choose your AI provider';
+
+	/// en: 'All processing happens on your device. No data leaves.'
+	String get aiLocalDescription => 'All processing happens on your device. No data leaves.';
+
+	/// en: 'Uses an external API. Review what data is shared.'
+	String get aiExternalDescription => 'Uses an external API. Review what data is shared.';
 }
 
 // Path: shared
@@ -2838,6 +2901,27 @@ extension on Translations {
 			'settings.accessGranted' => 'Enabled',
 			'settings.accessDenied' => 'Not enabled',
 			'settings.salaryDetectionDesc' => 'Detect recurring income as salary',
+			'settings.aiAdvisor' => 'AI Advisor',
+			'settings.aiProvider' => 'AI Provider',
+			'settings.aiStatus' => 'Status',
+			'settings.aiLocalActive' => '● Active (Local / Offline)',
+			'settings.aiExternalActive' => '● Active (External AI)',
+			'settings.aiConfigureNeeded' => '○ Configure to enable',
+			'settings.aiPrivacyMode' => 'Privacy Mode',
+			'settings.aiPrivacyStrict' => '● Strict Local-only',
+			'settings.aiPrivacyExternal' => '○ Allow External AI',
+			'settings.aiProviderConfig' => 'Provider Configuration',
+			'settings.aiBaseUrl' => 'Base URL',
+			'settings.aiModel' => 'Model',
+			'settings.aiApiKey' => 'API Key',
+			'settings.aiDisplayName' => 'Provider Name',
+			'settings.aiPrivacyNotice' => 'Privacy Notice',
+			'settings.aiPrivacyWarning' => 'Using an external AI provider may send selected financial information outside this device. Your financial data stays on-device in Local mode.',
+			'settings.aiContinue' => 'Continue',
+			'settings.aiResetToLocal' => 'Reset to Local Mode',
+			'settings.aiProviderSelection' => 'Choose your AI provider',
+			'settings.aiLocalDescription' => 'All processing happens on your device. No data leaves.',
+			'settings.aiExternalDescription' => 'Uses an external API. Review what data is shared.',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',

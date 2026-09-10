@@ -68,6 +68,7 @@ dependencies:
   quick_actions: ^1.1.0
   excel: ^4.0.6
 
+  http: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

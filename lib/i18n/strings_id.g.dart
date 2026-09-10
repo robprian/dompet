@@ -758,6 +758,27 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get accessGranted => 'Aktif';
 	@override String get accessDenied => 'Belum aktif';
 	@override String get salaryDetectionDesc => 'Deteksi pemasukan berulang sebagai gaji';
+	@override String get aiAdvisor => 'AI Advisor';
+	@override String get aiProvider => 'Penyedia AI';
+	@override String get aiStatus => 'Status';
+	@override String get aiLocalActive => '● Aktif (Lokal / Offline)';
+	@override String get aiExternalActive => '● Aktif (AI Eksternal)';
+	@override String get aiConfigureNeeded => '○ Konfigurasi untuk mengaktifkan';
+	@override String get aiPrivacyMode => 'Mode Privasi';
+	@override String get aiPrivacyStrict => '● Hanya Lokal (Strict)';
+	@override String get aiPrivacyExternal => '○ Izinkan AI Eksternal';
+	@override String get aiProviderConfig => 'Konfigurasi Penyedia';
+	@override String get aiBaseUrl => 'URL Dasar';
+	@override String get aiModel => 'Model';
+	@override String get aiApiKey => 'Kunci API';
+	@override String get aiDisplayName => 'Nama Penyedia';
+	@override String get aiPrivacyNotice => 'Pemberitahuan Privasi';
+	@override String get aiPrivacyWarning => 'Menggunakan penyedia AI eksternal dapat mengirim informasi keuangan terpilih keluar dari perangkat ini. Data keuangan Anda tetap di perangkat dalam mode Lokal.';
+	@override String get aiContinue => 'Lanjutkan';
+	@override String get aiResetToLocal => 'Kembali ke Mode Lokal';
+	@override String get aiProviderSelection => 'Pilih penyedia AI Anda';
+	@override String get aiLocalDescription => 'Semua pemrosesan terjadi di perangkat Anda. Tidak ada data yang keluar.';
+	@override String get aiExternalDescription => 'Menggunakan API eksternal. Tinjau data apa yang dibagikan.';
 }
 
 // Path: shared
@@ -1502,6 +1523,27 @@ extension on TranslationsId {
 			'settings.accessGranted' => 'Aktif',
 			'settings.accessDenied' => 'Belum aktif',
 			'settings.salaryDetectionDesc' => 'Deteksi pemasukan berulang sebagai gaji',
+			'settings.aiAdvisor' => 'AI Advisor',
+			'settings.aiProvider' => 'Penyedia AI',
+			'settings.aiStatus' => 'Status',
+			'settings.aiLocalActive' => '● Aktif (Lokal / Offline)',
+			'settings.aiExternalActive' => '● Aktif (AI Eksternal)',
+			'settings.aiConfigureNeeded' => '○ Konfigurasi untuk mengaktifkan',
+			'settings.aiPrivacyMode' => 'Mode Privasi',
+			'settings.aiPrivacyStrict' => '● Hanya Lokal (Strict)',
+			'settings.aiPrivacyExternal' => '○ Izinkan AI Eksternal',
+			'settings.aiProviderConfig' => 'Konfigurasi Penyedia',
+			'settings.aiBaseUrl' => 'URL Dasar',
+			'settings.aiModel' => 'Model',
+			'settings.aiApiKey' => 'Kunci API',
+			'settings.aiDisplayName' => 'Nama Penyedia',
+			'settings.aiPrivacyNotice' => 'Pemberitahuan Privasi',
+			'settings.aiPrivacyWarning' => 'Menggunakan penyedia AI eksternal dapat mengirim informasi keuangan terpilih keluar dari perangkat ini. Data keuangan Anda tetap di perangkat dalam mode Lokal.',
+			'settings.aiContinue' => 'Lanjutkan',
+			'settings.aiResetToLocal' => 'Kembali ke Mode Lokal',
+			'settings.aiProviderSelection' => 'Pilih penyedia AI Anda',
+			'settings.aiLocalDescription' => 'Semua pemrosesan terjadi di perangkat Anda. Tidak ada data yang keluar.',
+			'settings.aiExternalDescription' => 'Menggunakan API eksternal. Tinjau data apa yang dibagikan.',
 			'shared.authRequired' => 'Dibutuhkan Autentikasi',
 			'shared.hexColorCode' => 'Kode Warna Hex',
 			'shared.apply' => 'Terapkan',
