@@ -85,15 +85,10 @@ jobs:
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
           dart run slang
-          # Only build_runner outputs are committed; slang timestamps are volatile.
-          git diff lib test > /tmp/diff.txt 2>&1
-          # Filter out slang timestamp changes
-          grep -v 'Built on ' /tmp/diff.txt > /tmp/diff_filtered.txt || true
-          if [ -s /tmp/diff_filtered.txt ]; then
-            cat /tmp/diff_filtered.txt
-            echo 'Generated code is stale. Run: make generate'
-            exit 1
-          fi
+          # Slang embeds a volatile generation timestamp; normalize it before diffing.
+          sed -i -E 's#^/// Built on .*$#/// Built on NORMALIZED#' lib/i18n/strings.g.dart
+          git diff --exit-code -- lib test \
+            || (echo 'Generated code is stale. Run: make generate' && exit 1)
 
       - name: Run static analysis
         run: flutter analyze
