@@ -46,7 +46,7 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-- name: Verify generated code is up to date
+      - name: Verify generated code is up to date
         run: |
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
