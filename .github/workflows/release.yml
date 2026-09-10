@@ -85,9 +85,17 @@ jobs:
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
           dart run slang
-          # Slang embeds a volatile generation timestamp; normalize it before diffing.
-          sed -i -E 's#^/// Built on .*$#/// Built on NORMALIZED#' lib/i18n/strings.g.dart
-          git diff --exit-code -- lib test \
+          # Slang embeds a volatile generation timestamp in strings.g.dart.
+          # Compare it timestamp-normalized on BOTH sides; diff the rest normally.
+          git show HEAD:lib/i18n/strings.g.dart \
+            | sed -E 's#^/// Built on .*$#/// Built on NORMALIZED#' > /tmp/strings_head.dart
+          sed -E 's#^/// Built on .*$#/// Built on NORMALIZED#' lib/i18n/strings.g.dart > /tmp/strings_work.dart
+          if ! diff -q /tmp/strings_head.dart /tmp/strings_work.dart > /dev/null; then
+            echo 'lib/i18n/strings.g.dart is stale. Run: make generate'
+            diff /tmp/strings_head.dart /tmp/strings_work.dart | head -20
+            exit 1
+          fi
+          git diff --exit-code -- lib test ':!lib/i18n/strings.g.dart' \
             || (echo 'Generated code is stale. Run: make generate' && exit 1)
 
       - name: Run static analysis
