@@ -91,14 +91,28 @@ Future<bool?> showDompetInsufficientBalanceDialog(
                     child: FButton(
                       onPress: () => Navigator.of(ctx).pop(false),
                       variant: FButtonVariant.outline,
-                      child: Text(cancelText ?? t.checkAgain),
+                      child: Flexible(
+                        child: Text(
+                          cancelText ?? t.checkAgain,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: FButton(
                       onPress: () => Navigator.of(ctx).pop(true),
-                      child: Text(confirmText ?? t.continueAnyway),
+                      child: Flexible(
+                        child: Text(
+                          confirmText ?? t.continueAnyway,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -147,22 +147,36 @@ void main() {
       expect(values.last, 'C');
     });
 
-    testWidgets('template button when onTemplatePressed', (tester) async {
-      bool templatePressed = false;
+    testWidgets('receipt button triggers OCR scan when onReceiptPressed', (tester) async {
+      bool receiptPressed = false;
       await tester.pumpWidget(
         wrapNumpad(
           TransactionCalculatorNumpad(
             value: '',
             onKeyPressed: (_) {},
             typeColor: Colors.green,
-            onTemplatePressed: () => templatePressed = true,
+            onReceiptPressed: () => receiptPressed = true,
           ),
         ),
       );
 
       await tester.tap(find.byIcon(FPhosphorIcons.receipt));
       await tester.pump();
-      expect(templatePressed, true);
+      expect(receiptPressed, true);
+    });
+
+    testWidgets('receipt button is inert when onReceiptPressed is null', (tester) async {
+      await tester.pumpWidget(
+        wrapNumpad(
+          TransactionCalculatorNumpad(
+            value: '',
+            onKeyPressed: (_) {},
+            typeColor: Colors.green,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(FPhosphorIcons.receipt), findsNothing);
     });
 
     testWidgets('split button when onSplitPressed', (tester) async {

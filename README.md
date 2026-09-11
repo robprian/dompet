@@ -100,20 +100,34 @@ budgets. No notification content, transaction, or insight ever leaves your phone
 ## Download & Install
 
 Download the latest release directly from the [GitHub Releases page](https://github.com/robprian/dompet/releases).
-Each release ships a `Dompet-vX.Y.Z.apk` built by GitHub Actions, plus a `.sha256` checksum.
+Each release ships per-ABI APKs and an Android App Bundle, each with a `.sha256` checksum:
+
+- `Dompet-vX.Y.Z-arm64-v8a.apk` **(Recommended)** — almost all modern Android phones.
+- `Dompet-vX.Y.Z-armeabi-v7a.apk` — older 32-bit Android devices.
+- `Dompet-vX.Y.Z-x86_64.apk` — emulators and x86 devices.
+- `Dompet-vX.Y.Z.aab` — upload to Google Play.
 
 **System Requirements:**
 
 - **OS**: Android 5.0 (Lollipop) or newer (API level 21+)
-- **Storage**: ~30 MB free space (if using Split APK)
+- **Storage**: ~30 MB free space (per-ABI APK)
 - **Internet**: Not required — Dompet is 100% offline.
 
-**Which APK should I choose?**
+### Verifying Bank / E-Wallet Auto-Detection
 
-- `app-arm64-v8a-release.apk` **(Recommended)**: Almost all modern Android phones (2016 and newer).
-- `app-armeabi-v7a-release.apk`: Older 32-bit Android devices.
-- `app-universal-release.apk`: Works on all devices, but larger in size. Use this if you are unsure or if the others
-  fail to install.
+Automatic transaction detection relies on Android's Notification Listener, which
+cannot be exercised by automated tests. To verify it on a device:
+
+1. Open **Settings → Detection** and enable **Notification Access**.
+2. In the Android system screen, allow **Dompet** to read notifications.
+3. Make a small QRIS/e-wallet payment (or trigger a bank transaction notification).
+4. Open **Settings → Review Queue** (or the Detection section) — a candidate
+   appears with its parsed amount and confidence.
+5. Import it and confirm the transaction and account balance update.
+
+If nothing appears, confirm the app's notification access is still enabled after
+OS updates, and check that the detection threshold in
+**Settings → Detection → Threshold** is not set too high.
 
 ---
 

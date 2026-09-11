@@ -77,4 +77,32 @@ class NumberFormatService {
 
   /// Parses a user-entered formatted number string into a [num] or `null`.
   String normalizeGrouping(String raw) => formatNumericString(raw);
+
+  /// Parses a formatted numeric string (as typed by the user) into a [num].
+  ///
+  /// Handles both `1.234,56` and `1,234.56` conventions by treating a
+  /// trailing separator followed by one or two digits as the decimal point and
+  /// everything else as grouping. Returns `null` when unparseable.
+  num? parse(String raw) {
+    final trimmed = raw.trim();
+    if (trimmed.isEmpty) return null;
+
+    final cleaned = trimmed.replaceAll(RegExp('[^0-9.,-]'), '');
+    if (cleaned.isEmpty) return null;
+
+    final lastComma = cleaned.lastIndexOf(',');
+    final lastDot = cleaned.lastIndexOf('.');
+    final lastSeparator = lastComma > lastDot ? lastComma : lastDot;
+    final digitsAfter = lastSeparator < 0 ? 0 : cleaned.length - lastSeparator - 1;
+    final hasBoth = lastComma >= 0 && lastDot >= 0;
+    final isDecimal = hasBoth || (lastSeparator >= 0 && digitsAfter > 0 && digitsAfter <= 2);
+
+    if (isDecimal) {
+      // Keep only the last separator as the decimal point.
+      final intPart = cleaned.substring(0, lastSeparator).replaceAll(RegExp('[.,]'), '');
+      final fracPart = cleaned.substring(lastSeparator + 1).replaceAll(RegExp('[.,]'), '');
+      return num.tryParse('$intPart.$fracPart');
+    }
+    return num.tryParse(cleaned.replaceAll(RegExp('[.,]'), ''));
+  }
 }

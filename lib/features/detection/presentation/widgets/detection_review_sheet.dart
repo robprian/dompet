@@ -1,5 +1,6 @@
 import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -127,7 +128,7 @@ class DetectionReviewSheet extends HookConsumerWidget {
                   child: FButton(
                     onPress: () async {
                       if (accountId.value == null) return;
-                      final amount = int.tryParse(amountController.text.trim());
+                      final amount = ref.read(numberFormatServiceProvider).parse(amountController.text);
                       if (amount == null || amount <= 0) return;
                       await ref
                           .read(detectionReviewProvider.notifier)
@@ -135,7 +136,7 @@ class DetectionReviewSheet extends HookConsumerWidget {
                             detection,
                             accountId: accountId.value!,
                             categoryId: categoryId.value,
-                            amount: amount,
+                            amount: amount.round(),
                             note: noteController.text,
                           );
                       if (context.mounted) Navigator.of(context).pop();

@@ -62,5 +62,23 @@ void main() {
       const s = NumberFormatService('id_ID');
       expect(s.normalizeGrouping('1000000'), s.formatNumericString('1000000'));
     });
+
+    test('parse handles grouping-only values as integers', () {
+      expect(const NumberFormatService('id_ID').parse('25.500'), 25500);
+      expect(const NumberFormatService('en_US').parse('25,500'), 25500);
+      expect(const NumberFormatService('id_ID').parse('1.234.567'), 1234567);
+    });
+
+    test('parse handles explicit decimals', () {
+      expect(const NumberFormatService('en_US').parse('12.50'), 12.5);
+      expect(const NumberFormatService('id_ID').parse('12,50'), 12.5);
+      expect(const NumberFormatService('id_ID').parse('1.234,56'), 1234.56);
+      expect(const NumberFormatService('en_US').parse('1,234.56'), 1234.56);
+    });
+
+    test('parse returns null for unparseable input', () {
+      expect(const NumberFormatService('en_US').parse(''), isNull);
+      expect(const NumberFormatService('en_US').parse('abc'), isNull);
+    });
   });
 }
