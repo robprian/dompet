@@ -66,5 +66,13 @@
   "continueAnyway": "Continue Anyway",
   "checkAgain": "Check Again",
   "transactionDeleted": "Transaction deleted",
-  "transactionRestored": "Transaction restored"
+  "transactionRestored": "Transaction restored",
+  "scanReceipt": "Scan receipt",
+  "scanFromCamera": "Take photo",
+  "scanFromGallery": "Choose image",
+  "scanReceiptHint": "Reads the total, merchant, and date on-device. Nothing leaves your phone.",
+  "scanningReceipt": "Reading receipt...",
+  "scanNoResult": "Couldn't read the receipt. Try a clearer photo.",
+  "scanFilled": "Receipt details filled in — please review",
+  "scanFailed": "Scan failed"
 }

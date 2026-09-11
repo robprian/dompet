@@ -66,5 +66,13 @@
   "continueAnyway": "Tetap Simpan",
   "checkAgain": "Periksa Kembali",
   "transactionDeleted": "Transaksi dihapus",
-  "transactionRestored": "Transaksi dipulihkan"
+  "transactionRestored": "Transaksi dipulihkan",
+  "scanReceipt": "Pindai struk",
+  "scanFromCamera": "Ambil foto",
+  "scanFromGallery": "Pilih gambar",
+  "scanReceiptHint": "Membaca total, merchant, dan tanggal di perangkat. Tidak ada data yang dikirim keluar.",
+  "scanningReceipt": "Membaca struk...",
+  "scanNoResult": "Struk tidak terbaca. Coba foto yang lebih jelas.",
+  "scanFilled": "Detail struk terisi — mohon periksa kembali",
+  "scanFailed": "Gagal memindai"
 }

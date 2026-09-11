@@ -6,6 +6,7 @@ import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/error/failure.dart';
 import 'package:dompet/core/error/result.dart';
 import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
+import 'package:dompet/features/transactions/domain/receipt_scan_result.dart';
 import 'package:dompet/features/transactions/domain/split_item.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:dompet/features/transactions/domain/use_cases/create_transaction_use_case.dart';
@@ -462,6 +463,45 @@ void main() {
       expect(s.amountExpression, '99');
       expect(s.note, 'bonus');
       expect(s.accountId, 'a9');
+    });
+
+    test('applyReceiptScan fills amount as a whole number expression', () {
+      final container = createContainer();
+      const args = TransactionFormArgs();
+      final n = container.read(transactionFormProvider(args).notifier);
+      n.applyReceiptScan(const ReceiptScanResult(amount: 25500));
+      final s = container.read(transactionFormProvider(args));
+      expect(s.amountExpression, '25500');
+      expect(s.historyExpression, isNull);
+    });
+
+    test('applyReceiptScan keeps decimals for fractional amounts', () {
+      final container = createContainer();
+      const args = TransactionFormArgs();
+      final n = container.read(transactionFormProvider(args).notifier);
+      n.applyReceiptScan(const ReceiptScanResult(amount: 12.5));
+      expect(container.read(transactionFormProvider(args)).amountExpression, '12.5');
+    });
+
+    test('applyReceiptScan sets note and date when recognised', () {
+      final container = createContainer();
+      const args = TransactionFormArgs();
+      final n = container.read(transactionFormProvider(args).notifier);
+      n.applyReceiptScan(
+        ReceiptScanResult(amount: 1000, note: 'ALFAMART', date: DateTime(2026, 2, 1)),
+      );
+      final s = container.read(transactionFormProvider(args));
+      expect(s.note, 'ALFAMART');
+      expect(s.date, DateTime(2026, 2, 1));
+    });
+
+    test('applyReceiptScan preserves existing note when OCR has none', () {
+      final container = createContainer();
+      const args = TransactionFormArgs(initialNote: 'existing');
+      final n = container.read(transactionFormProvider(args).notifier);
+      n.applyReceiptScan(const ReceiptScanResult(amount: 1000));
+      final s = container.read(transactionFormProvider(args));
+      expect(s.note, 'existing');
     });
 
     test('save via update use case for expense', () async {

@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/core/logger/dompet_logger.dart';
 import 'package:dompet/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:dompet/features/transactions/data/receipt_scanner_provider.dart';
+import 'package:dompet/features/transactions/data/transaction_ai_assist_provider.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:dompet/features/transactions/presentation/controllers/transaction_form_notifier.dart';
 import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
@@ -25,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 /// Bottom sheet for creating a new transaction (simple or split) or editing an existing one.
 class TransactionFormSheet extends HookConsumerWidget {
@@ -129,6 +133,40 @@ class TransactionFormSheet extends HookConsumerWidget {
       return null;
     }, [accounts]);
 
+    // Optional AI category suggestion: only when an external provider is
+    // configured, the user has tried to fill a note, and no category is picked.
+    final lastSuggestedNote = useRef<String?>(null);
+    useEffect(() {
+      final note = state.note.trim();
+      final aiAssist = ref.read(transactionAiAssistServiceProvider);
+      final type = state.type;
+      final relevantCategories = categories
+          .where(
+            (c) => c.isActive &&
+                (type == TransactionType.income ? c.type == CategoryType.income : c.type == CategoryType.expense),
+          )
+          .toList();
+
+      if (!aiAssist.isEnabled ||
+          note.length < 3 ||
+          state.categoryId != null ||
+          type == TransactionType.transfer ||
+          relevantCategories.length < 2 ||
+          lastSuggestedNote.value == note) {
+        return null;
+      }
+
+      lastSuggestedNote.value = note;
+      aiAssist
+          .suggestCategoryId(note: note, categories: relevantCategories)
+          .then((categoryId) {
+            if (categoryId != null && context.mounted) {
+              notifier.setCategory(categoryId);
+            }
+          });
+      return null;
+    }, [state.note, state.categoryId, state.type, categories]);
+
     ref.listen<TransactionFormState>(provider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
         ref.read(dashboardProvider.notifier).refresh();
@@ -211,6 +249,88 @@ class TransactionFormSheet extends HookConsumerWidget {
           },
         ),
       );
+    }
+
+    Future<void> scanReceipt() async {
+      final source = await showFDialog<ImageSource>(
+        context: context,
+        builder: (ctx, style, animation) => FDialog(
+          animation: animation,
+          builder: (dialogCtx, dialogStyle) => SizedBox(
+            width: 320,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.transactions.scanReceipt,
+                        style: dialogCtx.theme.typography.display.sm.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        t.transactions.scanReceiptHint,
+                        style: dialogCtx.theme.typography.bodyPrimary.copyWith(
+                          color: dialogCtx.theme.colors.mutedForeground,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 4, 12, 16),
+                  child: Column(
+                    children: [
+                      FButton(
+                        onPress: () => Navigator.of(ctx).pop(ImageSource.camera),
+                        prefix: const Icon(FPhosphorIcons.camera, size: 18),
+                        child: Text(t.transactions.scanFromCamera),
+                      ),
+                      const SizedBox(height: 8),
+                      FButton(
+                        onPress: () => Navigator.of(ctx).pop(ImageSource.gallery),
+                        variant: FButtonVariant.outline,
+                        prefix: const Icon(FPhosphorIcons.image, size: 18),
+                        child: Text(t.transactions.scanFromGallery),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+      if (source == null || !context.mounted) return;
+
+      final scanner = ref.read(receiptScannerServiceProvider);
+      try {
+        showFToast(
+          context: context,
+          title: Text(t.transactions.scanningReceipt),
+          icon: const Icon(FPhosphorIcons.spinner),
+        );
+        final result = source == ImageSource.camera
+            ? await scanner.scanFromCamera()
+            : await scanner.scanFromGallery();
+        if (!context.mounted) return;
+        if (result == null) return; // cancelled
+        if (!result.hasData) {
+          showFToast(context: context, title: Text(t.transactions.scanNoResult));
+          return;
+        }
+        notifier.applyReceiptScan(result);
+        showFToast(context: context, title: Text(t.transactions.scanFilled));
+      } on Object catch (error, stack) {
+        talker.handle(error, stack, 'TransactionFormSheet.scanReceipt');
+        if (context.mounted) {
+          showFToast(context: context, title: Text(t.transactions.scanFailed));
+        }
+      }
     }
 
     final selectedAccount = accounts.where((a) => a.id == state.accountId).firstOrNull;
@@ -367,6 +487,7 @@ class TransactionFormSheet extends HookConsumerWidget {
             showSplitButton: state.type == TransactionType.expense,
             showCategoryShelf: state.type != TransactionType.transfer,
             onSplitPressed: openSplitSheet,
+            onReceiptPressed: state.type == TransactionType.transfer ? null : scanReceipt,
             onPickNote: showNoteEditor,
             onAllocationChanged: notifier.setAllocation,
             onCategorySelected: (cat) => notifier.setCategory(cat?.id),

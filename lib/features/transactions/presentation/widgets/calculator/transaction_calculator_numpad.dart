@@ -10,7 +10,7 @@ class TransactionCalculatorNumpad extends StatelessWidget {
     required this.value,
     required this.onKeyPressed,
     required this.typeColor,
-    this.onTemplatePressed,
+    this.onReceiptPressed,
     this.showSplitButton = false,
     this.onSplitPressed,
     super.key,
@@ -25,9 +25,8 @@ class TransactionCalculatorNumpad extends StatelessWidget {
   /// The active transaction type color — used to accent the Done key.
   final Color typeColor;
 
-  /// Opens the transaction template list. When null the receipt key stays inert
-  /// (e.g. in the split item editor where templates do not apply).
-  final VoidCallback? onTemplatePressed;
+  /// Opens the receipt scanner (OCR). When null the receipt key stays inert.
+  final VoidCallback? onReceiptPressed;
 
   /// Whether to show the split transaction button.
   final bool showSplitButton;
@@ -87,15 +86,16 @@ class TransactionCalculatorNumpad extends StatelessWidget {
               TransactionCalculatorKey(key: const Key('numpad-4'), label: '4', theme: theme, onTap: () => _press('4')),
               TransactionCalculatorKey(key: const Key('numpad-5'), label: '5', theme: theme, onTap: () => _press('5')),
               TransactionCalculatorKey(key: const Key('numpad-6'), label: '6', theme: theme, onTap: () => _press('6')),
-              if (onTemplatePressed != null)
+              if (onReceiptPressed != null)
                 TransactionCalculatorKey(
+                  key: const Key('numpad-receipt'),
                   icon: FPhosphorIcons.receipt,
                   theme: theme,
                   variant: TransactionCalculatorKeyVariant.operator,
                   color: theme.colors.primary,
                   onTap: () {
                     HapticFeedback.lightImpact();
-                    onTemplatePressed!();
+                    onReceiptPressed!();
                   },
                 )
               else

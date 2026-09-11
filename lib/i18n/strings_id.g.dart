@@ -878,6 +878,14 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get checkAgain => 'Periksa Kembali';
 	@override String get transactionDeleted => 'Transaksi dihapus';
 	@override String get transactionRestored => 'Transaksi dipulihkan';
+	@override String get scanReceipt => 'Pindai struk';
+	@override String get scanFromCamera => 'Ambil foto';
+	@override String get scanFromGallery => 'Pilih gambar';
+	@override String get scanReceiptHint => 'Membaca total, merchant, dan tanggal di perangkat. Tidak ada data yang dikirim keluar.';
+	@override String get scanningReceipt => 'Membaca struk...';
+	@override String get scanNoResult => 'Struk tidak terbaca. Coba foto yang lebih jelas.';
+	@override String get scanFilled => 'Detail struk terisi — mohon periksa kembali';
+	@override String get scanFailed => 'Gagal memindai';
 }
 
 // Path: app.nav
@@ -1625,6 +1633,14 @@ extension on TranslationsId {
 			'transactions.checkAgain' => 'Periksa Kembali',
 			'transactions.transactionDeleted' => 'Transaksi dihapus',
 			'transactions.transactionRestored' => 'Transaksi dipulihkan',
+			'transactions.scanReceipt' => 'Pindai struk',
+			'transactions.scanFromCamera' => 'Ambil foto',
+			'transactions.scanFromGallery' => 'Pilih gambar',
+			'transactions.scanReceiptHint' => 'Membaca total, merchant, dan tanggal di perangkat. Tidak ada data yang dikirim keluar.',
+			'transactions.scanningReceipt' => 'Membaca struk...',
+			'transactions.scanNoResult' => 'Struk tidak terbaca. Coba foto yang lebih jelas.',
+			'transactions.scanFilled' => 'Detail struk terisi — mohon periksa kembali',
+			'transactions.scanFailed' => 'Gagal memindai',
 			_ => null,
 		};
 	}

@@ -2220,6 +2220,30 @@ class Translations$transactions$en {
 
 	/// en: 'Transaction restored'
 	String get transactionRestored => 'Transaction restored';
+
+	/// en: 'Scan receipt'
+	String get scanReceipt => 'Scan receipt';
+
+	/// en: 'Take photo'
+	String get scanFromCamera => 'Take photo';
+
+	/// en: 'Choose image'
+	String get scanFromGallery => 'Choose image';
+
+	/// en: 'Reads the total, merchant, and date on-device. Nothing leaves your phone.'
+	String get scanReceiptHint => 'Reads the total, merchant, and date on-device. Nothing leaves your phone.';
+
+	/// en: 'Reading receipt...'
+	String get scanningReceipt => 'Reading receipt...';
+
+	/// en: 'Couldn't read the receipt. Try a clearer photo.'
+	String get scanNoResult => 'Couldn\'t read the receipt. Try a clearer photo.';
+
+	/// en: 'Receipt details filled in — please review'
+	String get scanFilled => 'Receipt details filled in — please review';
+
+	/// en: 'Scan failed'
+	String get scanFailed => 'Scan failed';
 }
 
 // Path: app.nav
@@ -3003,6 +3027,14 @@ extension on Translations {
 			'transactions.checkAgain' => 'Check Again',
 			'transactions.transactionDeleted' => 'Transaction deleted',
 			'transactions.transactionRestored' => 'Transaction restored',
+			'transactions.scanReceipt' => 'Scan receipt',
+			'transactions.scanFromCamera' => 'Take photo',
+			'transactions.scanFromGallery' => 'Choose image',
+			'transactions.scanReceiptHint' => 'Reads the total, merchant, and date on-device. Nothing leaves your phone.',
+			'transactions.scanningReceipt' => 'Reading receipt...',
+			'transactions.scanNoResult' => 'Couldn\'t read the receipt. Try a clearer photo.',
+			'transactions.scanFilled' => 'Receipt details filled in — please review',
+			'transactions.scanFailed' => 'Scan failed',
 			_ => null,
 		};
 	}

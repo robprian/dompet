@@ -3,6 +3,7 @@ import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/error/failure.dart';
 import 'package:dompet/core/error/result.dart';
 import 'package:dompet/features/budgets/domain/budget_alert_service_provider.dart';
+import 'package:dompet/features/transactions/domain/receipt_scan_result.dart';
 import 'package:dompet/features/transactions/domain/split_item.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:dompet/shared/utils/math_evaluator.dart';
@@ -195,6 +196,25 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   /// Sets the date when the transaction occurred.
   void setDate(DateTime date) => state = state.copyWith(date: date);
+
+  /// Applies an OCR [result] from a scanned receipt as an editable suggestion.
+  ///
+  /// Only sets fields that were actually recognised, so it never wipes data the
+  /// user already typed (except the amount, which the receipt is authoritative
+  /// for). The user can still adjust everything before saving.
+  void applyReceiptScan(ReceiptScanResult result) {
+    final amount = result.amount;
+    final amountExpression = amount == null
+        ? state.amountExpression
+        : (amount == amount.roundToDouble() ? amount.toInt().toString() : amount.toString());
+
+    state = state.copyWith(
+      amountExpression: amountExpression,
+      historyExpression: () => null,
+      note: result.note ?? state.note,
+      date: result.date ?? state.date,
+    );
+  }
 
   /// Sets the budget allocation (needs, wants, or savings).
   void setAllocation(TransactionAllocation? allocation) => state = state.copyWith(allocation: () => allocation);

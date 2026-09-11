@@ -23,6 +23,7 @@ class TransactionCalculatorBody extends StatelessWidget {
     required this.onCategorySelected,
     required this.onKeyPressed,
     required this.onDone,
+    this.onReceiptPressed,
     this.showSplitButton = false,
     this.showCategoryShelf = true,
     this.currencyCode,
@@ -43,6 +44,7 @@ class TransactionCalculatorBody extends StatelessWidget {
   final bool showCategoryShelf;
   final String? currencyCode;
   final VoidCallback? onSplitPressed;
+  final VoidCallback? onReceiptPressed;
   final VoidCallback onPickNote;
   final ValueChanged<TransactionAllocation?> onAllocationChanged;
   final ValueChanged<CategoryModel?> onCategorySelected;
@@ -100,6 +102,7 @@ class TransactionCalculatorBody extends StatelessWidget {
                   value: amountExpression,
                   showSplitButton: showSplitButton,
                   onSplitPressed: onSplitPressed,
+                  onReceiptPressed: onReceiptPressed,
                   onKeyPressed: onKeyPressed,
                 ),
             ],
