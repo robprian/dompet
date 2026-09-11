@@ -20,3 +20,12 @@
 -keep class androidx.core.content.pm.ShortcutManagerCompat** { *; }
 -keep class androidx.core.graphics.drawable.IconCompat** { *; }
 
+# ML Kit text recognition references optional language models (Chinese,
+# Devanagari, Japanese, Korean) that are not bundled. Silence R8 so the Latin
+# recognizer we actually use builds without pulling every script.
+-dontwarn com.google.mlkit.vision.text.chinese.**
+-dontwarn com.google.mlkit.vision.text.devanagari.**
+-dontwarn com.google.mlkit.vision.text.japanese.**
+-dontwarn com.google.mlkit.vision.text.korean.**
+-keep class com.google.mlkit.vision.text.** { *; }
+
