@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.provider.Settings
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
@@ -64,7 +65,18 @@ object TransactionNotificationBridge {
                 else -> result.notImplemented()
             }
         }
-        context.registerReceiver(receiver, IntentFilter(ACTION_NOTIFICATION))
+        // Android 14+ (targetSdk 34+) requires an explicit export flag for
+        // runtime receivers; otherwise registerReceiver throws SecurityException
+        // during Activity creation and the app force-closes on launch.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            context.registerReceiver(
+                receiver,
+                IntentFilter(ACTION_NOTIFICATION),
+                Context.RECEIVER_NOT_EXPORTED,
+            )
+        } else {
+            context.registerReceiver(receiver, IntentFilter(ACTION_NOTIFICATION))
+        }
     }
 
     /** Unregisters the broadcast receiver and control channel handler. */

@@ -1,0 +1,81 @@
+name: Auto Version
+
+on:
+  # Run only after CI succeeds on main, so a broken commit is never released.
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: auto-version-main
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Always version the tip of main, not the (possibly stale) CI ref.
+          ref: main
+          fetch-depth: 0
+          # Use a PAT (falling back to the default token) so the tag push can
+          # trigger the downstream Release Build workflow. Tags pushed with the
+          # default GITHUB_TOKEN do not start other workflows.
+          token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Compute next version
+        id: bump
+        run: |
+          git fetch --tags --force
+          # Skip versioning commits created by this same workflow.
+          HEAD_MSG="$(git log -1 --pretty=%s)"
+          if [[ "$HEAD_MSG" == chore\(release\):* ]]; then
+            echo "HEAD is a release commit; nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          TAG="$(bash scripts/bump_version.sh --print)"
+          if [ -z "$TAG" ]; then
+            echo "No commits to release since the last tag."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "Next release tag: $TAG"
+
+      - name: Bump pubspec version
+        if: steps.bump.outputs.skip != 'true'
+        run: bash scripts/bump_version.sh
+
+      - name: Verify pubspec matches tag
+        if: steps.bump.outputs.skip != 'true'
+        run: |
+          PUBSPEC_VERSION=$(grep -E '^version:' pubspec.yaml | sed 's/version:[[:space:]]*//' | tr -d '[:space:]')
+          APP_VERSION="${PUBSPEC_VERSION%%+*}"
+          if [ "v$APP_VERSION" != "${{ steps.bump.outputs.tag }}" ]; then
+            echo "pubspec ($APP_VERSION) does not match computed tag ${{ steps.bump.outputs.tag }}"
+            exit 1
+          fi
+
+      - name: Commit and tag
+        if: steps.bump.outputs.skip != 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add pubspec.yaml
+          git commit -m "chore(release): ${{ steps.bump.outputs.tag }}"
+          git tag "${{ steps.bump.outputs.tag }}"
+          git push origin HEAD:main
+          git push origin "${{ steps.bump.outputs.tag }}"
