@@ -4,11 +4,11 @@
 # Only run this ONCE. Keep the generated passwords safe!
 
 echo "==========================================="
-echo " Poka CE - Keystore Generator for GitHub"
+echo " Dompet - Keystore Generator for GitHub"
 echo "==========================================="
 
 KEYSTORE_FILE="upload-keystore.jks"
-KEY_ALIAS="poka-ce"
+KEY_ALIAS="dompet"
 read -p "Enter a secure password for the keystore (min 6 chars): " KEY_PASSWORD
 
 if [ ${#KEY_PASSWORD} -lt 6 ]; then
@@ -18,7 +18,7 @@ fi
 
 echo "Generating keystore..."
 rm -f $KEYSTORE_FILE
-keytool -genkey -v -keystore $KEYSTORE_FILE -keyalg RSA -keysize 2048 -validity 10000 -alias $KEY_ALIAS -storepass "$KEY_PASSWORD" -keypass "$KEY_PASSWORD" -dname "CN=Poka CE, OU=App, O=Octopy ID, L=Banjarbaru, S=Kalimantan Selatan, C=ID"
+keytool -genkey -v -keystore $KEYSTORE_FILE -keyalg RSA -keysize 2048 -validity 10000 -alias $KEY_ALIAS -storepass "$KEY_PASSWORD" -keypass "$KEY_PASSWORD" -dname "CN=Dompet, OU=App, O=robprian, C=ID"
 
 if [ $? -eq 0 ]; then
   echo "✅ Keystore generated successfully: $KEYSTORE_FILE"

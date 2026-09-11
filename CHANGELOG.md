@@ -5,7 +5,7 @@ All notable changes to Dompet will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-09-11
 
 ### Added
 
@@ -170,9 +170,9 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.5...main
-[v0.1.0-beta.5]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.4...v0.1.0-beta.5
-[v0.1.0-beta.4]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...v0.1.0-beta.4
-[v0.1.0-beta.3]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...v0.1.0-beta.3
-[v0.1.0-beta.2]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...v0.1.0-beta.2
-[v0.1.0-beta.1]: https://github.com/getpoka/poka-ce/releases/tag/v0.1.0-beta.1
+[1.0.0]: https://github.com/robprian/dompet/compare/v0.1.0-beta.5...v1.0.0
+[v0.1.0-beta.5]: https://github.com/robprian/dompet/compare/v0.1.0-beta.4...v0.1.0-beta.5
+[v0.1.0-beta.4]: https://github.com/robprian/dompet/compare/v0.1.0-beta.3...v0.1.0-beta.4
+[v0.1.0-beta.3]: https://github.com/robprian/dompet/compare/v0.1.0-beta.2...v0.1.0-beta.3
+[v0.1.0-beta.2]: https://github.com/robprian/dompet/compare/v0.1.0-beta.1...v0.1.0-beta.2
+[v0.1.0-beta.1]: https://github.com/robprian/dompet/releases/tag/v0.1.0-beta.1
