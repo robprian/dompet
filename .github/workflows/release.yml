@@ -85,6 +85,9 @@ jobs:
           rm -f lib/i18n/*.g.dart
           dart run build_runner build
           dart run slang
+          # Mirror `make generate`: format everything so committed code
+          # matches builder output + current SDK formatter exactly.
+          dart format lib test
           # Slang embeds a volatile generation timestamp in strings.g.dart.
           # Compare it timestamp-normalized on BOTH sides; diff the rest normally.
           git show HEAD:lib/i18n/strings.g.dart \

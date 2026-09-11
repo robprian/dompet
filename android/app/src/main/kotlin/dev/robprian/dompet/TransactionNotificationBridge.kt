@@ -1,11 +1,10 @@
 package dev.robprian.dompet
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.provider.Settings
-import android.service.notification.NotificationListenerService
-import android.service.notification.StatusBarNotification
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -60,7 +59,7 @@ object TransactionNotificationBridge {
                     result.success(null)
                 }
                 "isNotificationListenerEnabled" -> {
-                    result.success(NotificationListenerService.isListenerEnabled(context))
+                    result.success(isListenerEnabled(context))
                 }
                 else -> result.notImplemented()
             }
@@ -74,6 +73,18 @@ object TransactionNotificationBridge {
         methodChannel?.setMethodCallHandler(null)
         methodChannel = null
         messenger = null
+    }
+
+    /**
+     * Checks whether [TransactionNotificationListenerService] is enabled.
+     * Reads the secure-settings listener list directly, so no extra
+     * dependency is required. Raw notification content is never touched here.
+     */
+    private fun isListenerEnabled(context: Context): Boolean {
+        val component = ComponentName(context, TransactionNotificationListenerService::class.java)
+        val enabled =
+            Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners").orEmpty()
+        return enabled.split(":").any { ComponentName.unflattenFromString(it) == component }
     }
 
     private fun payloadFrom(intent: Intent): Map<String, Any?> = mapOf(
