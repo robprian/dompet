@@ -8,7 +8,7 @@ echo " Dompet - Keystore Generator for GitHub"
 echo "==========================================="
 
 KEYSTORE_FILE="upload-keystore.jks"
-KEY_ALIAS="dompet"
+KEY_ALIAS="robrion-alias"
 read -p "Enter a secure password for the keystore (min 6 chars): " KEY_PASSWORD
 
 if [ ${#KEY_PASSWORD} -lt 6 ]; then

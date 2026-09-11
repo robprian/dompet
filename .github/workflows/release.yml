@@ -114,32 +114,110 @@ jobs:
           echo "$ENCODED_STRING" | base64 -d > android/app/keystore.jks
           test -s android/app/keystore.jks || (echo 'Decoded keystore is empty' && exit 1)
 
-      - name: Create key.properties
+      - name: Resolve keystore alias and create key.properties
+        id: signing
         env:
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SECRET_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
-          printf 'storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=keystore.jks\n' \
-            "$ANDROID_STORE_PASSWORD" "$ANDROID_KEY_PASSWORD" "$ANDROID_KEY_ALIAS" \
-            > android/key.properties
+          set -euo pipefail
 
-      - name: Validate keystore alias
-        env:
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
-        run: |
-          if ! keytool -list -keystore android/app/keystore.jks \
-            -storepass "$ANDROID_STORE_PASSWORD" \
-            -alias "$ANDROID_KEY_ALIAS" > /dev/null 2>&1; then
-            echo "Keystore check failed: alias '$ANDROID_KEY_ALIAS' not found," \
-              'or the store password is wrong.'
+          KEYSTORE="android/app/keystore.jks"
+          # Secrets are typed by humans: normalise stray CR/space so a trailing
+          # newline cannot silently become part of the alias.
+          SECRET_KEY_ALIAS=$(printf '%s' "${SECRET_KEY_ALIAS:-}" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+          # 1. List every alias actually contained in the keystore. keytool
+          #    prints errors on stdout for some failure modes, so the command
+          #    must succeed AND every candidate must be re-verified before we
+          #    trust it as an alias.
+          LIST_OUT=$(keytool -list -keystore "$KEYSTORE" \
+            -storepass "$ANDROID_STORE_PASSWORD" 2>&1) || {
+            echo 'Unable to read the keystore. ANDROID_STORE_PASSWORD is likely'
+            echo 'wrong, or ANDROID_KEYSTORE_BASE64 is not a valid JKS/PKCS12 file.'
+            echo "$LIST_OUT"
             echo 'Regenerate a matching set with: bash scripts/keystore.sh'
-            echo 'then update ANDROID_KEYSTORE_BASE64, ANDROID_KEY_ALIAS,'
-            echo 'ANDROID_KEY_PASSWORD and ANDROID_STORE_PASSWORD in the repo secrets.'
+            exit 1
+          }
+
+          ALIASES=$(printf '%s\n' "$LIST_OUT" \
+            | sed -n 's/^\([^,]*\),.*Entry.*$/\1/p' \
+            | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+            | grep -v '^$' || true)
+
+          # Keep only aliases that keytool itself confirms exist.
+          VERIFIED_ALIASES=""
+          for candidate in $ALIASES; do
+            if keytool -list -keystore "$KEYSTORE" \
+              -storepass "$ANDROID_STORE_PASSWORD" \
+              -alias "$candidate" > /dev/null 2>&1; then
+              VERIFIED_ALIASES="${VERIFIED_ALIASES}${candidate}"$'\n'
+            fi
+          done
+          ALIASES=$(printf '%s' "$VERIFIED_ALIASES" | grep -v '^$' || true)
+
+          if [ -z "$ALIASES" ]; then
+            echo 'Could not read any alias from the keystore. The store password'
+            echo 'is likely wrong, or the keystore file is not valid.'
+            echo 'Regenerate a matching set with: bash scripts/keystore.sh'
             exit 1
           fi
-          echo "Keystore contains alias '$ANDROID_KEY_ALIAS'."
+
+          echo "Aliases found in keystore:"
+          echo "$ALIASES" | sed 's/^/  - /'
+
+          # 2. Prefer the configured secret alias when it is valid; otherwise
+          #    fall back to the keystore's alias so a stale secret cannot break
+          #    an otherwise perfectly valid release build.
+          RESOLVED_ALIAS=""
+          if [ -n "${SECRET_KEY_ALIAS:-}" ] && echo "$ALIASES" | grep -qxF "$SECRET_KEY_ALIAS"; then
+            RESOLVED_ALIAS="$SECRET_KEY_ALIAS"
+            echo "Using alias from ANDROID_KEY_ALIAS secret: '$RESOLVED_ALIAS'"
+          else
+            ALIAS_COUNT=$(echo "$ALIASES" | wc -l | tr -d ' ')
+            if [ "$ALIAS_COUNT" != "1" ]; then
+              echo "ANDROID_KEY_ALIAS='${SECRET_KEY_ALIAS:-}' does not match any alias," \
+                "and the keystore has $ALIAS_COUNT aliases so it cannot be auto-resolved."
+              echo "Update ANDROID_KEY_ALIAS to one of the aliases listed above."
+              exit 1
+            fi
+            RESOLVED_ALIAS="$ALIASES"
+            echo "ANDROID_KEY_ALIAS secret is missing or stale; auto-resolved to" \
+              "the only keystore alias: '$RESOLVED_ALIAS'"
+          fi
+
+          # 3. Verify the key password unlocks the resolved key before building.
+          #    Importing into a throwaway PKCS12 store validates the key password
+          #    without mutating the release keystore.
+          rm -f /tmp/dompet-verify.p12
+          if ! keytool -importkeystore \
+            -srckeystore "$KEYSTORE" -srcalias "$RESOLVED_ALIAS" \
+            -srcstorepass "$ANDROID_STORE_PASSWORD" \
+            -srckeypass "$ANDROID_KEY_PASSWORD" \
+            -destkeystore /tmp/dompet-verify.p12 -deststoretype PKCS12 \
+            -deststorepass verifypass -destkeypass verifypass -noprompt \
+            > /dev/null 2>&1; then
+            rm -f /tmp/dompet-verify.p12
+            echo "ANDROID_KEY_PASSWORD cannot unlock key '$RESOLVED_ALIAS'."
+            echo 'Set ANDROID_KEY_PASSWORD to the password used when the key was created.'
+            exit 1
+          fi
+          rm -f /tmp/dompet-verify.p12
+
+          # 4. Write key.properties with the resolved alias. trim any accidental
+          #    trailing CR/newline so Gradle never sees an invalid alias value.
+          printf 'storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=keystore.jks\n' \
+            "$ANDROID_STORE_PASSWORD" "$ANDROID_KEY_PASSWORD" "$RESOLVED_ALIAS" \
+            > android/key.properties
+          echo "alias=$RESOLVED_ALIAS" >> "$GITHUB_OUTPUT"
+          echo "Release signing configured for alias '$RESOLVED_ALIAS'."
+
+          # 5. If the secret differs from what we used, surface it loudly so the
+          #    secret can be corrected without blocking the release.
+          if [ "${SECRET_KEY_ALIAS:-}" != "$RESOLVED_ALIAS" ]; then
+            echo "::warning title=Stale ANDROID_KEY_ALIAS::Secret contains '${SECRET_KEY_ALIAS:-}' but the keystore only has '$RESOLVED_ALIAS'. Update the secret to avoid future confusion."
+          fi
 
       - name: Build release APK
         run: |
