@@ -124,6 +124,23 @@ jobs:
             "$ANDROID_STORE_PASSWORD" "$ANDROID_KEY_PASSWORD" "$ANDROID_KEY_ALIAS" \
             > android/key.properties
 
+      - name: Validate keystore alias
+        env:
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+        run: |
+          if ! keytool -list -keystore android/app/keystore.jks \
+            -storepass "$ANDROID_STORE_PASSWORD" \
+            -alias "$ANDROID_KEY_ALIAS" > /dev/null 2>&1; then
+            echo "Keystore check failed: alias '$ANDROID_KEY_ALIAS' not found," \
+              'or the store password is wrong.'
+            echo 'Regenerate a matching set with: bash scripts/keystore.sh'
+            echo 'then update ANDROID_KEYSTORE_BASE64, ANDROID_KEY_ALIAS,'
+            echo 'ANDROID_KEY_PASSWORD and ANDROID_STORE_PASSWORD in the repo secrets.'
+            exit 1
+          fi
+          echo "Keystore contains alias '$ANDROID_KEY_ALIAS'."
+
       - name: Build release APK
         run: |
           TAG="${{ steps.tag.outputs.value }}"
