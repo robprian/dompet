@@ -44,7 +44,9 @@ class TransactionAiAssistService {
 
     final allowed = {for (final c in categories) c.id: c.name};
     final client = _client ?? http.Client();
-    final uri = Uri.parse('${baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl}/chat/completions');
+    final uri = Uri.parse(
+      '${baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl}/chat/completions',
+    );
 
     final candidates = allowed.entries.map((e) => '${e.key}: ${e.value}').join('\n');
     final body = jsonEncode({
@@ -54,8 +56,7 @@ class TransactionAiAssistService {
       'messages': [
         {
           'role': 'system',
-          'content':
-              'You categorise personal finance transactions. Reply with ONLY the id of the best matching category, or NONE. No other text.',
+          'content': 'You categorise personal finance transactions. Reply with ONLY the id of the best matching category, or NONE. No other text.',
         },
         {
           'role': 'user',

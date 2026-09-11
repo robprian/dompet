@@ -70,7 +70,8 @@ class NumberFormatService {
   }
 
   /// Formats a currency amount with the given [symbol] and [precision].
-  String formatCurrency(num value, {required String symbol, required int precision}) {    final cleanSymbol = symbol.trim();
+  String formatCurrency(num value, {required String symbol, required int precision}) {
+    final cleanSymbol = symbol.trim();
     final effectiveSymbol = cleanSymbol.isEmpty ? '' : '$cleanSymbol ';
     return _currency(effectiveSymbol, precision).format(value);
   }

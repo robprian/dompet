@@ -71,11 +71,7 @@ class ReceiptTextParser {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return ReceiptScanResult.empty;
 
-    final lines = trimmed
-        .split('\n')
-        .map((l) => l.trim())
-        .where((l) => l.isNotEmpty)
-        .toList();
+    final lines = trimmed.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
 
     return ReceiptScanResult(
       amount: _extractAmount(lines),
@@ -135,9 +131,7 @@ class ReceiptTextParser {
     final lastDot = cleaned.lastIndexOf('.');
     final onlySeparatorIndex = lastComma < 0 ? lastDot : (lastDot < 0 ? lastComma : -2);
     final isThousandGroup =
-        onlySeparatorIndex >= 0 &&
-        cleaned.length > 4 &&
-        _digitCountAfter(cleaned, onlySeparatorIndex) == 3;
+        onlySeparatorIndex >= 0 && cleaned.length > 4 && _digitCountAfter(cleaned, onlySeparatorIndex) == 3;
 
     if (isThousandGroup) {
       cleaned = cleaned.replaceAll(RegExp('[.,]'), '');

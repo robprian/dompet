@@ -9,7 +9,6 @@ import 'package:riverpod/riverpod.dart';
 /// amount across the app uses the same locale separators.
 final numberFormatServiceProvider = Provider<NumberFormatService>((ref) {
   final numberFormat =
-      ref.watch(settingsProvider.select((state) => state.settings?.numberFormat)) ??
-      NumberFormatService.systemLocale;
+      ref.watch(settingsProvider.select((state) => state.settings?.numberFormat)) ?? NumberFormatService.systemLocale;
   return NumberFormatService(numberFormat);
 });

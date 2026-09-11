@@ -142,7 +142,8 @@ class TransactionFormSheet extends HookConsumerWidget {
       final type = state.type;
       final relevantCategories = categories
           .where(
-            (c) => c.isActive &&
+            (c) =>
+                c.isActive &&
                 (type == TransactionType.income ? c.type == CategoryType.income : c.type == CategoryType.expense),
           )
           .toList();
@@ -157,13 +158,11 @@ class TransactionFormSheet extends HookConsumerWidget {
       }
 
       lastSuggestedNote.value = note;
-      aiAssist
-          .suggestCategoryId(note: note, categories: relevantCategories)
-          .then((categoryId) {
-            if (categoryId != null && context.mounted) {
-              notifier.setCategory(categoryId);
-            }
-          });
+      aiAssist.suggestCategoryId(note: note, categories: relevantCategories).then((categoryId) {
+        if (categoryId != null && context.mounted) {
+          notifier.setCategory(categoryId);
+        }
+      });
       return null;
     }, [state.note, state.categoryId, state.type, categories]);
 
@@ -314,9 +313,7 @@ class TransactionFormSheet extends HookConsumerWidget {
           title: Text(t.transactions.scanningReceipt),
           icon: const Icon(FPhosphorIcons.spinner),
         );
-        final result = source == ImageSource.camera
-            ? await scanner.scanFromCamera()
-            : await scanner.scanFromGallery();
+        final result = source == ImageSource.camera ? await scanner.scanFromCamera() : await scanner.scanFromGallery();
         if (!context.mounted) return;
         if (result == null) return; // cancelled
         if (!result.hasData) {
