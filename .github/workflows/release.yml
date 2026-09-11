@@ -219,45 +219,68 @@ jobs:
             echo "::warning title=Stale ANDROID_KEY_ALIAS::Secret contains '${SECRET_KEY_ALIAS:-}' but the keystore only has '$RESOLVED_ALIAS'. Update the secret to avoid future confusion."
           fi
 
-      - name: Build release APK
+      - name: Build release APKs (split per ABI)
         run: |
           TAG="${{ steps.tag.outputs.value }}"
-          flutter build apk --release --dart-define=APP_VERSION="$TAG"
+          flutter build apk --release --split-per-abi --dart-define=APP_VERSION="$TAG"
 
-      - name: Validate and rename APK
+      - name: Build release App Bundle (AAB)
+        run: |
+          TAG="${{ steps.tag.outputs.value }}"
+          flutter build appbundle --release --dart-define=APP_VERSION="$TAG"
+
+      - name: Validate and rename artifacts
         id: apk
         run: |
+          set -euo pipefail
           TAG="${{ steps.tag.outputs.value }}"
           VERSION="${TAG#v}"
           APK_DIR="build/app/outputs/flutter-apk"
-          SRC="$APK_DIR/app-release.apk"
-          DEST="$APK_DIR/Dompet-$TAG.apk"
-
-          test -s "$SRC" || (echo "Release APK missing or empty: $SRC" && exit 1)
-          mv "$SRC" "$DEST"
+          AAB_DIR="build/app/outputs/bundle/release"
 
           AAPT=$(find "$ANDROID_HOME/build-tools" -name aapt | sort | tail -1)
           test -n "$AAPT" || (echo 'aapt not found in Android SDK build-tools' && exit 1)
-          BADGING=$("$AAPT" dump badging "$DEST")
-          echo "$BADGING" | head -2
 
-          APK_PACKAGE=$(echo "$BADGING" | sed -n "s/^package: name='\([^']*\)'.*/\1/p")
-          APK_VERSION=$(echo "$BADGING" | sed -n "s/.*versionName='\([^']*\)'.*/\1/p")
-          echo "package=$APK_PACKAGE versionName=$APK_VERSION"
+          FILES=""
+          for ABI in armeabi-v7a arm64-v8a x86_64; do
+            SRC="$APK_DIR/app-$ABI-release.apk"
+            DEST="$APK_DIR/Dompet-$TAG-$ABI.apk"
+            test -s "$SRC" || (echo "Release APK missing or empty: $SRC" && exit 1)
+            mv "$SRC" "$DEST"
 
-          if [ "$APK_PACKAGE" != 'dev.robprian.dompet' ]; then
-            echo "Unexpected package id: $APK_PACKAGE"
-            exit 1
-          fi
-          if [ "$APK_VERSION" != "$VERSION" ]; then
-            echo "APK versionName $APK_VERSION does not match tag $TAG"
-            exit 1
-          fi
+            BADGING=$("$AAPT" dump badging "$DEST")
+            APK_PACKAGE=$(echo "$BADGING" | sed -n "s/^package: name='\([^']*\)'.*/\1/p")
+            APK_VERSION=$(echo "$BADGING" | sed -n "s/.*versionName='\([^']*\)'.*/\1/p")
+            echo "$ABI -> package=$APK_PACKAGE versionName=$APK_VERSION"
 
-          sha256sum "$DEST" | awk '{print $1}' > "$DEST.sha256"
-          echo "SHA256: $(cat "$DEST.sha256")"
-          echo "apk=$DEST" >> "$GITHUB_OUTPUT"
-          echo "checksum=$DEST.sha256" >> "$GITHUB_OUTPUT"
+            if [ "$APK_PACKAGE" != 'dev.robprian.dompet' ]; then
+              echo "Unexpected package id: $APK_PACKAGE"
+              exit 1
+            fi
+            if [ "$APK_VERSION" != "$VERSION" ]; then
+              echo "APK versionName $APK_VERSION does not match tag $TAG"
+              exit 1
+            fi
+
+            sha256sum "$DEST" | awk '{print $1}' > "$DEST.sha256"
+            FILES="${FILES}${DEST}"$'\n'"${DEST}.sha256"$'\n'
+          done
+
+          AAB="$AAB_DIR/app-release.aab"
+          AAB_DEST="$AAB_DIR/Dompet-$TAG.aab"
+          test -s "$AAB" || (echo "Release AAB missing or empty: $AAB" && exit 1)
+          mv "$AAB" "$AAB_DEST"
+          sha256sum "$AAB_DEST" | awk '{print $1}' > "$AAB_DEST.sha256"
+          FILES="${FILES}${AAB_DEST}"$'\n'"${AAB_DEST}.sha256"$'\n'
+
+          printf '%s' "$FILES" > /tmp/artifacts.txt
+          echo "artifacts<<EOF" >> "$GITHUB_OUTPUT"
+          cat /tmp/artifacts.txt >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "aab=$AAB_DEST" >> "$GITHUB_OUTPUT"
+          echo "checksum=$AAB_DEST.sha256" >> "$GITHUB_OUTPUT"
+          echo "--- artifacts ---"
+          cat /tmp/artifacts.txt
 
       - name: Generate release notes
         id: notes
@@ -280,11 +303,18 @@ jobs:
             echo ''
             echo 'All financial processing remains local on your device. No cloud sync, no remote AI.'
             echo ''
-            echo '## APK'
+            echo '## Downloads'
             echo ''
-            echo "Dompet-$TAG.apk"
+            echo 'Choose the APK matching your device ABI (most phones are `arm64-v8a`):'
             echo ''
-            echo 'SHA256:'
+            echo '- `Dompet-'"$TAG"'-arm64-v8a.apk` — modern 64-bit ARM devices'
+            echo '- `Dompet-'"$TAG"'-armeabi-v7a.apk` — older 32-bit ARM devices'
+            echo '- `Dompet-'"$TAG"'-x86_64.apk` — emulators / x86 devices'
+            echo '- `Dompet-'"$TAG"'.aab` — Google Play upload'
+            echo ''
+            echo 'Each artifact ships a matching `.sha256` checksum file.'
+            echo ''
+            echo 'AAB SHA256:'
             echo '```'
             cat "${{ steps.apk.outputs.checksum }}"
             echo '```'
@@ -299,9 +329,7 @@ jobs:
           body_path: release-notes.md
           draft: false
           prerelease: false
-          files: |
-            ${{ steps.apk.outputs.apk }}
-            ${{ steps.apk.outputs.checksum }}
+          files: ${{ steps.apk.outputs.artifacts }}
 
       - name: Clean up signing material
         if: always()

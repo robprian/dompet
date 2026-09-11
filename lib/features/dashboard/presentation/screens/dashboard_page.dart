@@ -6,6 +6,7 @@ import 'package:dompet/features/dashboard/presentation/widgets/cards/dashboard_s
 import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
 import 'package:dompet/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
 import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_brand_mark.dart';
 import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -24,6 +25,7 @@ class DashboardPage extends HookConsumerWidget {
     final header = customHeaderBuilder != null
         ? customHeaderBuilder(context)
         : DompetHeader(
+            leading: const DompetBrandMark(size: 40),
             subtitle: context.t.dashboard.overview,
             title: context.t.dashboard.myFinances,
           );

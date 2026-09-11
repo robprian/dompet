@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:dompet/core/utils/number_format_service.dart';
 
 /// Formatting helpers for numeric values (integers and doubles).
 extension NumExtension on num {
@@ -17,18 +17,15 @@ extension NumExtension on num {
     String? locale,
     bool isVisible = true,
   }) {
-    // Trim the symbol to ensure no double-spaces, then add exactly one space.
     final cleanSymbol = symbol.trim();
     final effectiveSymbol = cleanSymbol.isEmpty ? '' : '$cleanSymbol ';
 
     if (!isVisible) return '$effectiveSymbol••••••';
 
-    final format = NumberFormat.currency(
-      locale: (locale == 'system') ? null : locale,
-      symbol: effectiveSymbol,
-      decimalDigits: precision,
+    return NumberFormatService(locale ?? NumberFormatService.systemLocale).formatCurrency(
+      this,
+      symbol: cleanSymbol,
+      precision: precision,
     );
-
-    return format.format(this);
   }
 }

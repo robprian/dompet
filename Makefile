@@ -79,9 +79,8 @@ test\:feature:
 # ==========================================
 
 build:
-	flutter build apk --dart-define-from-file=.env
-	mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
-	flutter build apk --split-per-abi --dart-define-from-file=.env
+	flutter build apk --release --split-per-abi --dart-define-from-file=.env
+	flutter build appbundle --release --dart-define-from-file=.env
 
 keystore:
 	@chmod +x scripts/keystore.sh

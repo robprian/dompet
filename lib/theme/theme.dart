@@ -6,7 +6,6 @@ import 'package:dompet/theme/styles/tile_group_style.dart';
 import 'package:dompet/theme/tailwind.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_ui/material_ui.dart';
 
 export 'package:forui/forui.dart';

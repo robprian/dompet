@@ -9,6 +9,7 @@ class DompetHeader extends StatelessWidget {
   const DompetHeader({
     required this.title,
     this.subtitle,
+    this.leading,
     this.suffixes = const [],
     this.showBack = false,
     super.key,
@@ -19,6 +20,9 @@ class DompetHeader extends StatelessWidget {
 
   /// Optional subtitle to display above the title.
   final String? subtitle;
+
+  /// Optional widget rendered before the title (e.g. the brand mark).
+  final Widget? leading;
 
   /// A list of widgets to display after the title.
   final List<Widget> suffixes;
@@ -44,6 +48,17 @@ class DompetHeader extends StatelessWidget {
             ),
           ),
           titleWidget,
+        ],
+      );
+    }
+
+    if (leading != null) {
+      titleWidget = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          leading!,
+          const SizedBox(width: 12),
+          Flexible(child: titleWidget),
         ],
       );
     }

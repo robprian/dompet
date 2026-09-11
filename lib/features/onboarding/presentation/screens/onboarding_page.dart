@@ -3,6 +3,7 @@ import 'package:dompet/features/settings/domain/currency_model.dart';
 import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:dompet/features/settings/presentation/widgets/currency_search_list.dart';
 import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_brand_mark.dart';
 import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class OnboardingPage extends HookConsumerWidget {
 
     return FScaffold(
       header: DompetHeader(
+        leading: const DompetBrandMark(size: 40),
+        subtitle: t.app.name,
         title: t.onboarding.chooseYourBaseCurrency,
       ),
       child: Column(

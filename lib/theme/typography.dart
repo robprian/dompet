@@ -4,8 +4,8 @@ part of 'theme.dart';
 ///
 /// Typography tokens for the generated theme.
 FTypography _typography({required FColors colors, required bool touch}) {
-  final headingFamily = GoogleFonts.plusJakartaSans().fontFamily!;
-  final bodyFamily = GoogleFonts.inter().fontFamily!;
+  const headingFamily = 'PlusJakartaSans';
+  const bodyFamily = 'Inter';
   return FTypography(
     display: _display(colors: colors, touch: touch, fontFamily: headingFamily),
     body: _body(colors: colors, touch: touch, fontFamily: bodyFamily),

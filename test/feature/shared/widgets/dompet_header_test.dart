@@ -56,6 +56,27 @@ void main() {
       await t.pumpWidget(wrap(const DompetHeader(title: 'T', suffixes: [Text('A')])));
       expect(find.text('A'), findsOneWidget);
     });
+    testWidgets('renders leading widget alongside title', (t) async {
+      await t.pumpWidget(
+        wrap(const DompetHeader(title: 'T', leading: Icon(Icons.account_balance_wallet))),
+      );
+      expect(find.byIcon(Icons.account_balance_wallet), findsOneWidget);
+      expect(find.text('T'), findsOneWidget);
+    });
+    testWidgets('leading works with subtitle and showBack', (t) async {
+      await t.pumpWidget(
+        wrap(
+          const DompetHeader(
+            title: 'T',
+            subtitle: 'S',
+            showBack: true,
+            leading: Icon(Icons.star),
+          ),
+        ),
+      );
+      expect(find.byIcon(Icons.star), findsOneWidget);
+      expect(find.text('S'), findsOneWidget);
+    });
     testWidgets('back button tap pops when canPop', (t) async {
       await t.pumpWidget(wrap(const DompetHeader(title: 'T', showBack: true)));
       await t.pumpAndSettle();
