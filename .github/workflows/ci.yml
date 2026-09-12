@@ -124,5 +124,5 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-       - name: Build release APK (validation only)
-         run: flutter build apk --release --no-shrink
+      - name: Build release APK (validation only)
+        run: flutter build apk --release --no-shrink
