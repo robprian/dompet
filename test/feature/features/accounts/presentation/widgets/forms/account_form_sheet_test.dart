@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
+import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/app/providers/use_case_providers.dart';
@@ -13,6 +14,7 @@ import 'package:dompet/features/accounts/domain/use_cases/create_account_use_cas
 import 'package:dompet/features/accounts/domain/use_cases/update_account_use_case.dart';
 import 'package:dompet/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:dompet/shared/widgets/pickers/dompet_icon_picker.dart';
 import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/theme/theme.dart';
 
@@ -131,6 +133,58 @@ void main() {
           isActive: true,
         ),
       ).called(1);
+    });
+
+    testWidgets('fills name from selected provider when name is empty', (tester) async {
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      final iconField = find.ancestor(
+        of: find.byIcon(FPhosphorIcons.pencilSimple),
+        matching: find.byType(GestureDetector),
+      );
+      await tester.tap(iconField.first);
+      await tester.pumpAndSettle();
+      expect(find.byType(DompetIconPicker), findsOneWidget);
+
+      final bcaLogo = find.byWidgetPredicate(
+        (widget) =>
+            widget is Image &&
+            widget.image is AssetImage &&
+            (widget.image as AssetImage).assetName == 'assets/images/b_bca.png',
+      );
+      await tester.ensureVisible(bcaLogo.first);
+      await tester.tap(bcaLogo.first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('BCA'), findsOneWidget);
+    });
+
+    testWidgets('keeps custom name when a provider is selected', (tester) async {
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(EditableText).first, 'My Vault');
+      await tester.pumpAndSettle();
+
+      final iconField = find.ancestor(
+        of: find.byIcon(FPhosphorIcons.pencilSimple),
+        matching: find.byType(GestureDetector),
+      );
+      await tester.tap(iconField.first);
+      await tester.pumpAndSettle();
+
+      final bcaLogo = find.byWidgetPredicate(
+        (widget) =>
+            widget is Image &&
+            widget.image is AssetImage &&
+            (widget.image as AssetImage).assetName == 'assets/images/b_bca.png',
+      );
+      await tester.ensureVisible(bcaLogo.first);
+      await tester.tap(bcaLogo.first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('My Vault'), findsOneWidget);
     });
 
     testWidgets('changes account type when liability tab is tapped', (tester) async {

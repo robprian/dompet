@@ -129,6 +129,10 @@ class AccountFormSheet extends HookConsumerWidget {
                           accountProvidersOnly: true,
                           onIconSelected: (icon) {
                             notifier.setIcon(icon);
+                            final provider = IconUtil.accountProvider(icon);
+                            if (provider != null && nameController.text.trim().isEmpty) {
+                              nameController.text = provider.name;
+                            }
                             Navigator.of(context).pop();
                           },
                         ),
