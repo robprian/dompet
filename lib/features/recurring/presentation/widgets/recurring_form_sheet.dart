@@ -7,6 +7,7 @@ library;
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/string_extension.dart';
 import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -19,6 +20,7 @@ import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_category_selector.dart';
 import 'package:dompet/shared/widgets/dompet_form_label.dart';
 import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
 import 'package:dompet/shared/widgets/dompet_switch.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
@@ -346,44 +348,35 @@ class RecurringFormSheet extends HookConsumerWidget {
 // Amount tile — tappable row that opens a simple number input dialog
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _AmountTile extends HookWidget {
+class _AmountTile extends HookConsumerWidget {
   const _AmountTile({required this.amount, required this.onChanged});
 
   final int amount;
   final ValueChanged<int> onChanged;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final numberFormat = ref.watch(numberFormatServiceProvider);
     final controller = useTextEditingController(
-      text: amount > 0 ? amount.toString() : '',
+      text: amount > 0 ? numberFormat.formatInt(amount) : '',
     );
 
     useEffect(() {
-      final newText = amount > 0 ? amount.toString() : '';
+      final newText = amount > 0 ? numberFormat.formatInt(amount) : '';
       if (controller.text != newText && newText.isNotEmpty) {
         Future.microtask(() => controller.text = newText);
       }
       return null;
     }, [amount]);
 
-    useEffect(() {
-      void listener() {
-        final parsed = int.tryParse(controller.text) ?? 0;
-        onChanged(parsed);
-      }
-
-      controller.addListener(listener);
-      return () => controller.removeListener(listener);
-    }, [controller]);
-
-    return FTextFormField(
-      control: FTextFieldControl.managed(controller: controller),
+    return DompetMoneyField(
+      controller: controller,
       label: Text(t.recurring.amount),
       hint: '0',
-      keyboardType: TextInputType.number,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (value) => onChanged(value?.round() ?? 0),
       validator: (value) {
-        final amount = int.tryParse(value ?? '');
+        final amount = numberFormat.parse(value ?? '');
         if (amount == null || amount <= 0) return t.recurring.amountGreaterThanZero;
         return null;
       },

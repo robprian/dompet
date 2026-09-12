@@ -5,6 +5,22 @@ All notable changes to Dompet will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-09-12
+
+### Added
+
+- On-device receipt OCR using camera or gallery images, with local ML Kit
+  recognition and editable transaction suggestions.
+- Bundled real provider logos for banks, e-wallets, and investment platforms,
+  selectable from the account form.
+- GitHub release checking from the About screen with offline-safe fallback.
+
+### Changed
+
+- Modernized the Accounts page with spacious single-column account cards and
+  provider branding.
+- Standardized locale-aware amount entry across financial forms.
+
 ## [1.0.0] - 2026-09-11
 
 ### Added

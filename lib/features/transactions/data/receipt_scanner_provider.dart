@@ -3,8 +3,7 @@ import 'package:riverpod/riverpod.dart';
 
 /// Provides the receipt scanner used by the transaction form.
 ///
-/// Defaults to the on-device ML Kit scanner. Tests can override this with a
-/// fake implementation to avoid touching platform plugins.
+/// Provides the on-device OCR scanner used by the transaction form.
 final receiptScannerServiceProvider = Provider<ReceiptScannerService>((ref) {
   return MlKitReceiptScannerService();
 });

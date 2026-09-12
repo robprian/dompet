@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/num_extension.dart';
-import 'package:dompet/core/logger/dompet_logger.dart';
 import 'package:dompet/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -196,6 +195,61 @@ class TransactionFormSheet extends HookConsumerWidget {
       }
     }
 
+    Future<void> scanReceipt() async {
+      final source = await showFDialog<ImageSource>(
+        context: context,
+        builder: (ctx, style, animation) => FDialog(
+          animation: animation,
+          builder: (dialogCtx, dialogStyle) => Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(t.transactions.scanReceipt, style: dialogCtx.theme.typography.display.sm),
+                const SizedBox(height: 8),
+                Text(t.transactions.scanReceiptHint),
+                const SizedBox(height: 16),
+                FButton(
+                  onPress: () => Navigator.of(ctx).pop(ImageSource.camera),
+                  prefix: const Icon(FPhosphorIcons.camera),
+                  child: Text(t.transactions.scanFromCamera),
+                ),
+                const SizedBox(height: 8),
+                FButton(
+                  onPress: () => Navigator.of(ctx).pop(ImageSource.gallery),
+                  variant: FButtonVariant.outline,
+                  prefix: const Icon(FPhosphorIcons.image),
+                  child: Text(t.transactions.scanFromGallery),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+      if (source == null || !context.mounted) return;
+
+      final scanner = ref.read(receiptScannerServiceProvider);
+      showFToast(context: context, title: Text(t.transactions.scanningReceipt));
+      try {
+        final result = source == ImageSource.camera
+            ? await scanner.scanFromCamera()
+            : await scanner.scanFromGallery();
+        if (!context.mounted || result == null) return;
+        if (!result.hasData) {
+          showFToast(context: context, title: Text(t.transactions.scanNoResult));
+          return;
+        }
+        notifier.applyReceiptScan(result);
+        showFToast(context: context, title: Text(t.transactions.scanFilled));
+      } on Object catch (error, stack) {
+        talker.error('Receipt OCR failed', error, stack);
+        if (context.mounted) {
+          showFToast(context: context, title: Text(t.transactions.scanFailed));
+        }
+      }
+    }
+
     Future<void> showNoteEditor() async {
       final controller = TextEditingController(text: state.note);
       await showFDialog<void>(
@@ -250,86 +304,6 @@ class TransactionFormSheet extends HookConsumerWidget {
       );
     }
 
-    Future<void> scanReceipt() async {
-      final source = await showFDialog<ImageSource>(
-        context: context,
-        builder: (ctx, style, animation) => FDialog(
-          animation: animation,
-          builder: (dialogCtx, dialogStyle) => SizedBox(
-            width: 320,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        t.transactions.scanReceipt,
-                        style: dialogCtx.theme.typography.display.sm.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        t.transactions.scanReceiptHint,
-                        style: dialogCtx.theme.typography.bodyPrimary.copyWith(
-                          color: dialogCtx.theme.colors.mutedForeground,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 4, 12, 16),
-                  child: Column(
-                    children: [
-                      FButton(
-                        onPress: () => Navigator.of(ctx).pop(ImageSource.camera),
-                        prefix: const Icon(FPhosphorIcons.camera, size: 18),
-                        child: Text(t.transactions.scanFromCamera),
-                      ),
-                      const SizedBox(height: 8),
-                      FButton(
-                        onPress: () => Navigator.of(ctx).pop(ImageSource.gallery),
-                        variant: FButtonVariant.outline,
-                        prefix: const Icon(FPhosphorIcons.image, size: 18),
-                        child: Text(t.transactions.scanFromGallery),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-      if (source == null || !context.mounted) return;
-
-      final scanner = ref.read(receiptScannerServiceProvider);
-      try {
-        showFToast(
-          context: context,
-          title: Text(t.transactions.scanningReceipt),
-          icon: const Icon(FPhosphorIcons.spinner),
-        );
-        final result = source == ImageSource.camera ? await scanner.scanFromCamera() : await scanner.scanFromGallery();
-        if (!context.mounted) return;
-        if (result == null) return; // cancelled
-        if (!result.hasData) {
-          showFToast(context: context, title: Text(t.transactions.scanNoResult));
-          return;
-        }
-        notifier.applyReceiptScan(result);
-        showFToast(context: context, title: Text(t.transactions.scanFilled));
-      } on Object catch (error, stack) {
-        talker.handle(error, stack, 'TransactionFormSheet.scanReceipt');
-        if (context.mounted) {
-          showFToast(context: context, title: Text(t.transactions.scanFailed));
-        }
-      }
-    }
-
     final selectedAccount = accounts.where((a) => a.id == state.accountId).firstOrNull;
     final parentAccount = selectedAccount?.parentId != null
         ? accounts.where((a) => a.id == selectedAccount!.parentId).firstOrNull
@@ -347,6 +321,7 @@ class TransactionFormSheet extends HookConsumerWidget {
     final currencySymbol = settings?.baseCurrency?.symbol ?? '';
     final precision = settings?.baseCurrency?.precision ?? 0;
     final localeFormat = settings?.numberFormat ?? 'system';
+    final receiptScannerAvailable = ref.read(receiptScannerServiceProvider).isAvailable;
 
     Future<void> handleSave() async {
       unawaited(HapticFeedback.mediumImpact());
@@ -484,7 +459,7 @@ class TransactionFormSheet extends HookConsumerWidget {
             showSplitButton: state.type == TransactionType.expense,
             showCategoryShelf: state.type != TransactionType.transfer,
             onSplitPressed: openSplitSheet,
-            onReceiptPressed: state.type == TransactionType.transfer ? null : scanReceipt,
+            onReceiptPressed: state.type == TransactionType.transfer || !receiptScannerAvailable ? null : scanReceipt,
             onPickNote: showNoteEditor,
             onAllocationChanged: notifier.setAllocation,
             onCategorySelected: (cat) => notifier.setCategory(cat?.id),

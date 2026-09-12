@@ -1,7 +1,9 @@
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:dompet/features/goals/presentation/controllers/goal_form_notifier.dart';
 import 'package:dompet/features/goals/presentation/widgets/goal_date_picker_tile.dart';
 import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +66,10 @@ class GoalFormSheet extends HookConsumerWidget {
     final nameController = useTextEditingController(text: initialGoal?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialGoal != null && initialGoal!.targetAmount > 0
-          ? initialGoal!.targetAmount.toString()
+          ? ref.read(numberFormatServiceProvider).formatInt(initialGoal!.targetAmount)
           : (initialTargetAmount != null && initialTargetAmount! > 0
-                ? initialTargetAmount.toString()
-                : (state.targetAmount > 0 ? state.targetAmount.toString() : '')),
+                ? ref.read(numberFormatServiceProvider).formatInt(initialTargetAmount!)
+                : (state.targetAmount > 0 ? ref.read(numberFormatServiceProvider).formatInt(state.targetAmount) : '')),
     );
 
     // Sync controllers → notifier.
@@ -76,16 +78,9 @@ class GoalFormSheet extends HookConsumerWidget {
         if (state.name != nameController.text) notifier.setName(nameController.text);
       }
 
-      void onAmount() {
-        final val = int.tryParse(amountController.text) ?? 0;
-        if (state.targetAmount != val) notifier.setTargetAmount(val);
-      }
-
       nameController.addListener(onName);
-      amountController.addListener(onAmount);
       return () {
         nameController.removeListener(onName);
-        amountController.removeListener(onAmount);
       };
     }, [nameController, amountController]);
 
@@ -124,14 +119,14 @@ class GoalFormSheet extends HookConsumerWidget {
             const SizedBox(height: 12),
 
             // ── Target amount ────────────────────────────────────────────
-            FTextFormField(
-              control: FTextFieldControl.managed(controller: amountController),
+            DompetMoneyField(
+              controller: amountController,
               label: Text(t.goals.targetAmount),
               hint: '0',
-              keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) => notifier.setTargetAmount(value?.round() ?? 0),
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
+                final amount = ref.read(numberFormatServiceProvider).parse(value ?? '');
                 if (amount == null || amount <= 0) return t.goals.targetAmountGreaterThanZero;
                 return null;
               },

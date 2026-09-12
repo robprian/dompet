@@ -1,4 +1,5 @@
 import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:dompet/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -12,6 +13,7 @@ import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_category_selector.dart';
 import 'package:dompet/shared/widgets/dompet_form_label.dart';
 import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -104,10 +106,10 @@ class DebtFormSheet extends HookConsumerWidget {
     );
     final amountController = useTextEditingController(
       text: initialDebt != null && initialDebt!.amount > 0
-          ? initialDebt!.amount.toString()
+          ? ref.read(numberFormatServiceProvider).formatInt(initialDebt!.amount)
           : (initialAmount != null && initialAmount! > 0
-                ? initialAmount.toString()
-                : (state.amount > 0 ? state.amount.toString() : '')),
+                ? ref.read(numberFormatServiceProvider).formatInt(initialAmount!)
+                : (state.amount > 0 ? ref.read(numberFormatServiceProvider).formatInt(state.amount) : '')),
     );
     final noteController = useTextEditingController(
       text: initialDebt?.note ?? initialNote ?? state.note ?? '',
@@ -118,21 +120,14 @@ class DebtFormSheet extends HookConsumerWidget {
         if (state.personName != personController.text) notifier.setPersonName(personController.text);
       }
 
-      void onAmount() {
-        final val = int.tryParse(amountController.text) ?? 0;
-        if (state.amount != val) notifier.setAmount(val);
-      }
-
       void onNote() {
         if (state.note != noteController.text) notifier.setNote(noteController.text);
       }
 
       personController.addListener(onPerson);
-      amountController.addListener(onAmount);
       noteController.addListener(onNote);
       return () {
         personController.removeListener(onPerson);
-        amountController.removeListener(onAmount);
         noteController.removeListener(onNote);
       };
     }, [personController, amountController, noteController]);
@@ -195,14 +190,14 @@ class DebtFormSheet extends HookConsumerWidget {
               validator: (value) => value == null || value.trim().isEmpty ? t.debts.personNameCannotBeEmpty : null,
             ),
             const SizedBox(height: 12),
-            FTextFormField(
-              control: FTextFieldControl.managed(controller: amountController),
+            DompetMoneyField(
+              controller: amountController,
               label: Text(t.debts.principalAmount),
               hint: '0',
-              keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) => notifier.setAmount(value?.round() ?? 0),
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
+                final amount = ref.read(numberFormatServiceProvider).parse(value ?? '');
                 if (amount == null || amount <= 0) return t.debts.amountGreaterThanZero;
                 return null;
               },

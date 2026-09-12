@@ -1,6 +1,7 @@
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/string_extension.dart';
 import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:dompet/features/budgets/domain/budget_model.dart';
 import 'package:dompet/features/budgets/presentation/controllers/budget_form_notifier.dart';
@@ -13,6 +14,7 @@ import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_category_selector.dart';
 import 'package:dompet/shared/widgets/dompet_form_label.dart';
 import 'package:dompet/shared/widgets/dompet_icon.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:flutter/material.dart';
@@ -83,10 +85,10 @@ class BudgetFormSheet extends HookConsumerWidget {
     final nameController = useTextEditingController(text: initialBudget?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialBudget != null && initialBudget!.amount > 0
-          ? initialBudget!.amount.toString()
+          ? ref.read(numberFormatServiceProvider).formatInt(initialBudget!.amount)
           : (initialAmount != null && initialAmount! > 0
-                ? initialAmount.toString()
-                : (state.amount > 0 ? state.amount.toString() : '')),
+                ? ref.read(numberFormatServiceProvider).formatInt(initialAmount)
+                : (state.amount > 0 ? ref.read(numberFormatServiceProvider).formatInt(state.amount) : '')),
     );
     final resetDayController = useTextEditingController(
       text: initialBudget?.resetDay?.toString() ?? (state.resetDay != null ? state.resetDay.toString() : ''),
@@ -102,11 +104,6 @@ class BudgetFormSheet extends HookConsumerWidget {
         if (state.name != nameController.text) notifier.setName(nameController.text);
       }
 
-      void onAmount() {
-        final val = int.tryParse(amountController.text) ?? 0;
-        if (state.amount != val) notifier.setAmount(val);
-      }
-
       void onResetDay() {
         final val = int.tryParse(resetDayController.text);
         if (state.resetDay != val) notifier.setResetDay(val);
@@ -118,12 +115,10 @@ class BudgetFormSheet extends HookConsumerWidget {
       }
 
       nameController.addListener(onName);
-      amountController.addListener(onAmount);
       resetDayController.addListener(onResetDay);
       alertThresholdController.addListener(onAlertThreshold);
       return () {
         nameController.removeListener(onName);
-        amountController.removeListener(onAmount);
         resetDayController.removeListener(onResetDay);
         alertThresholdController.removeListener(onAlertThreshold);
       };
@@ -168,14 +163,14 @@ class BudgetFormSheet extends HookConsumerWidget {
               validator: (value) => value == null || value.trim().isEmpty ? t.budgets.nameCannotBeEmpty : null,
             ),
             const SizedBox(height: 12),
-            FTextFormField(
-              control: FTextFieldControl.managed(controller: amountController),
+            DompetMoneyField(
+              controller: amountController,
               label: Text(t.budgets.spendingLimit),
               hint: '0',
-              keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) => notifier.setAmount(value?.round() ?? 0),
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
+                final amount = ref.read(numberFormatServiceProvider).parse(value ?? '');
                 if (amount == null || amount <= 0) return t.budgets.amountGreaterThanZero;
                 return null;
               },

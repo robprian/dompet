@@ -1,11 +1,13 @@
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/string_extension.dart';
 import 'package:dompet/core/utils/icon_util.dart';
+import 'package:dompet/core/utils/number_format_provider.dart';
 import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/features/accounts/presentation/controllers/account_form_notifier.dart';
 import 'package:dompet/features/accounts/presentation/widgets/forms/fields/active_account_toggle.dart';
 import 'package:dompet/features/accounts/presentation/widgets/forms/fields/category_selection_field.dart';
 import 'package:dompet/i18n/strings.g.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/pickers/dompet_color_picker.dart';
 import 'package:dompet/shared/widgets/pickers/dompet_icon_picker.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
@@ -53,8 +55,8 @@ class AccountFormSheet extends HookConsumerWidget {
     final nameController = useTextEditingController(text: initialAccount?.name ?? state.name);
     final balanceController = useTextEditingController(
       text: initialAccount != null && initialAccount!.balance != 0
-          ? initialAccount!.balance.toString()
-          : (state.balance != 0 ? state.balance.toString() : ''),
+          ? ref.read(numberFormatServiceProvider).formatInt(initialAccount!.balance)
+          : (state.balance != 0 ? ref.read(numberFormatServiceProvider).formatInt(state.balance) : ''),
     );
 
     useEffect(() {
@@ -64,18 +66,9 @@ class AccountFormSheet extends HookConsumerWidget {
         }
       }
 
-      void balanceListener() {
-        final val = int.tryParse(balanceController.text) ?? 0;
-        if (state.balance != val) {
-          notifier.setBalance(val);
-        }
-      }
-
       nameController.addListener(nameListener);
-      balanceController.addListener(balanceListener);
       return () {
         nameController.removeListener(nameListener);
-        balanceController.removeListener(balanceListener);
       };
     }, [nameController, balanceController]);
 
@@ -96,6 +89,7 @@ class AccountFormSheet extends HookConsumerWidget {
     );
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
+    final selectedProvider = IconUtil.accountProvider(state.icon);
 
     final formContent = Form(
       key: formKey,
@@ -110,11 +104,12 @@ class AccountFormSheet extends HookConsumerWidget {
             validator: (value) => value == null || value.trim().isEmpty ? t.accounts.nameCannotBeEmpty : null,
           ),
           const SizedBox(height: 12),
-          FTextFormField(
-            control: FTextFieldControl.managed(controller: balanceController),
+          DompetMoneyField(
+            controller: balanceController,
             label: Text(t.accounts.initialBalance),
             hint: '0',
-            keyboardType: TextInputType.number,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: (value) => notifier.setBalance(value?.round() ?? 0),
           ),
           const SizedBox(height: 12),
           Row(
@@ -131,6 +126,7 @@ class AccountFormSheet extends HookConsumerWidget {
                         title: t.accounts.selectIcon,
                         child: DompetIconPicker(
                           selectedIcon: state.icon,
+                          accountProvidersOnly: true,
                           onIconSelected: (icon) {
                             notifier.setIcon(icon);
                             Navigator.of(context).pop();
@@ -152,13 +148,20 @@ class AccountFormSheet extends HookConsumerWidget {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        Center(
-                          child: Icon(
-                            IconUtil.getIcon(state.icon),
-                            size: 40,
-                            color: state.color?.toColor() ?? context.theme.colors.primary,
-                          ),
-                        ),
+                         Center(
+                           child: selectedProvider == null
+                               ? Icon(
+                                   IconUtil.getIcon(state.icon),
+                                   size: 40,
+                                   color: state.color?.toColor() ?? context.theme.colors.primary,
+                                 )
+                               : Image.asset(
+                                   selectedProvider.assetPath,
+                                   width: 48,
+                                   height: 48,
+                                   fit: BoxFit.contain,
+                                 ),
+                         ),
                         Positioned(
                           bottom: -4,
                           right: -4,

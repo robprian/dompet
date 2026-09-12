@@ -1,4 +1,5 @@
 import 'package:dompet/app/router/router.dart';
+import 'package:dompet/core/services/github_release_provider.dart';
 import 'package:dompet/core/utils/log_exporter.dart';
 import 'package:dompet/core/utils/logger.dart';
 import 'package:dompet/features/settings/presentation/widgets/easter_egg_icon.dart';
@@ -8,15 +9,18 @@ import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// About screen displaying app version, credits, and links to source code and legal documents.
-class AboutPage extends StatelessWidget {
+class AboutPage extends ConsumerWidget {
   const AboutPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+    final latestRelease = ref.watch(latestGithubReleaseProvider);
+    final currentVersion = const String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main');
 
     return FScaffold(
       header: DompetHeader(
@@ -51,7 +55,7 @@ class AboutPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      const String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main'),
+                       currentVersion,
                       style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                     ),
                   ),
@@ -70,7 +74,25 @@ class AboutPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                SettingsMenuSection(
+                 latestRelease.when(
+                   data: (release) => release == null || release.tagName == currentVersion
+                       ? const SizedBox.shrink()
+                       : SettingsMenuSection(
+                           title: 'Update available',
+                           items: [
+                             SettingsMenuItem(
+                               title: release.tagName,
+                               subtitle: 'Open the latest release on GitHub',
+                               icon: FPhosphorIcons.downloadSimple,
+                               onTap: () => _launchUrl(release.url.toString()),
+                             ),
+                           ],
+                         ),
+                   loading: () => const SizedBox.shrink(),
+                   error: (error, stackTrace) => const SizedBox.shrink(),
+                 ),
+                 const SizedBox(height: 24),
+                 SettingsMenuSection(
                   title: t.settings.support,
                   items: [
                     SettingsMenuItem(

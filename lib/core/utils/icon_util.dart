@@ -10,8 +10,97 @@ class IconCategory {
   final Map<String, IconData> icons;
 }
 
+/// Provider group used when choosing an account brand.
+enum AccountProviderType { bank, ewallet, investment }
+
+/// A real bank, e-wallet, or investment provider icon bundled with Dompet.
+class AccountProvider {
+  /// Creates an account provider descriptor.
+  const AccountProvider({required this.id, required this.name, required this.type});
+
+  /// Stable identifier stored in the account model.
+  final String id;
+
+  /// Human-readable provider name.
+  final String name;
+
+  /// Provider group.
+  final AccountProviderType type;
+
+  /// Bundled asset path.
+  String get assetPath => id == 'e_mandiri_emoney'
+      ? 'assets/images/e_mandiri_emoney.png'
+      : 'assets/images/$id.png';
+}
+
 /// Utility class providing categorized Phosphor icons and lookup helpers.
 class IconUtil {
+  /// All bundled financial provider logos grouped by their asset prefix.
+  static const List<AccountProvider> accountProviders = [
+    AccountProvider(id: 'b_allobank', name: 'Allo Bank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bca', name: 'BCA', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bca_syariah', name: 'BCA Syariah', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bjb', name: 'Bank BJB', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bni', name: 'BNI', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bri', name: 'BRI', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_bsi', name: 'BSI', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_blu', name: 'blu', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_btn', name: 'BTN', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_btpn', name: 'BTPN', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_cimb', name: 'CIMB Niaga', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_danamon', name: 'Danamon', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_diy', name: 'Bank DIY', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_dki', name: 'Bank DKI', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_jago', name: 'Jago', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_jateng', name: 'Bank Jateng', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_jatim', name: 'Bank Jatim', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_jenius', name: 'Jenius', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_kaltimtara', name: 'Bank Kaltimtara', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_krom', name: 'Krom Bank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_mandiri', name: 'Mandiri', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_maybank', name: 'Maybank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_mega', name: 'Bank Mega', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_muamalat', name: 'Muamalat', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_neobank', name: 'neo', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_nobu', name: 'Nobu Bank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_ntb_syariah', name: 'Bank NTB Syariah', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_ocbc', name: 'OCBC', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_panin', name: 'Panin', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_permata', name: 'Permata', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_saqu', name: 'Saqqu', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_seabank', name: 'SeaBank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_sinarmas', name: 'Sinarmas', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_superbank', name: 'Superbank', type: AccountProviderType.bank),
+    AccountProvider(id: 'b_uob', name: 'UOB', type: AccountProviderType.bank),
+    AccountProvider(id: 'e_bca_flazz', name: 'BCA Flazz', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_brizzi', name: 'BRIZZI', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_dana', name: 'DANA', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_gopay', name: 'GoPay', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_linkaja', name: 'LinkAja', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_mandiri_emoney', name: 'Mandiri e-money', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_ovo', name: 'OVO', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_shopeepay', name: 'ShopeePay', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'e_tapcash', name: 'TapCash', type: AccountProviderType.ewallet),
+    AccountProvider(id: 'i_ajaib', name: 'Ajaib', type: AccountProviderType.investment),
+    AccountProvider(id: 'i_binance', name: 'Binance', type: AccountProviderType.investment),
+    AccountProvider(id: 'i_bibit', name: 'Bibit', type: AccountProviderType.investment),
+    AccountProvider(id: 'i_bybit', name: 'Bybit', type: AccountProviderType.investment),
+    AccountProvider(id: 'i_pluang', name: 'Pluang', type: AccountProviderType.investment),
+    AccountProvider(id: 'i_stockbit', name: 'Stockbit', type: AccountProviderType.investment),
+  ];
+
+  /// Returns providers belonging to [type].
+  static List<AccountProvider> providersOf(AccountProviderType type) =>
+      accountProviders.where((provider) => provider.type == type).toList();
+
+  /// Finds a bundled account provider by its stored identifier.
+  static AccountProvider? accountProvider(String? id) {
+    for (final provider in accountProviders) {
+      if (provider.id == id) return provider;
+    }
+    return null;
+  }
+
   /// List of icon categories used in category creation and selection sheets.
   static const List<IconCategory> categories = [
     IconCategory(
@@ -19,8 +108,17 @@ class IconUtil {
       icons: {
         'wallet': FPhosphorIcons.wallet,
         'bank': FPhosphorIcons.bank,
+        'bca': FPhosphorIcons.bank,
+        'mandiri': FPhosphorIcons.bank,
+        'bri': FPhosphorIcons.bank,
+        'bni': FPhosphorIcons.bank,
         'credit_card': FPhosphorIcons.creditCard,
         'money': FPhosphorIcons.money,
+        'gopay': FPhosphorIcons.wallet,
+        'ovo': FPhosphorIcons.wallet,
+        'dana': FPhosphorIcons.wallet,
+        'shopeepay': FPhosphorIcons.wallet,
+        'linkaja': FPhosphorIcons.wallet,
         'piggy_bank': FPhosphorIcons.piggyBank,
         'coins': FPhosphorIcons.coins,
         'currency_circle_dollar': FPhosphorIcons.currencyCircleDollar,
@@ -249,5 +347,21 @@ class IconUtil {
       return FPhosphorIcons.wallet;
     }
     return availableIcons[name]!;
+  }
+
+  /// Returns a short brand mark for known bank and e-wallet identifiers.
+  static String getBrandMark(String? name) {
+    return switch (name) {
+      'bca' => 'BCA',
+      'mandiri' => 'M',
+      'bri' => 'BRI',
+      'bni' => 'BNI',
+      'gopay' => 'G',
+      'ovo' => 'OVO',
+      'dana' => 'D',
+      'shopeepay' => 'SP',
+      'linkaja' => 'LA',
+      _ => '',
+    };
   }
 }

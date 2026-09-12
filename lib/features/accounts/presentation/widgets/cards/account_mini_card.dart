@@ -54,11 +54,11 @@ class AccountMiniCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      DompetIcon(
-                        icon: accountIcon,
-                        color: accentColor,
-                        size: DompetIconSize.small,
-                      ),
+                       _AccountBrandMark(
+                         icon: accountIcon,
+                         identifier: account.icon,
+                         color: accentColor,
+                       ),
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -188,6 +188,41 @@ class AccountMiniCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AccountBrandMark extends StatelessWidget {
+  const _AccountBrandMark({required this.icon, required this.identifier, required this.color});
+
+  final IconData icon;
+  final String? identifier;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final brand = IconUtil.getBrandMark(identifier);
+    final brandAsset = IconUtil.accountProvider(identifier)?.assetPath;
+    return Container(
+      width: 38,
+      height: 38,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.28)),
+      ),
+      child: brandAsset != null
+          ? Image.asset(brandAsset, width: 24, height: 24, fit: BoxFit.contain)
+          : brand.isEmpty
+          ? Icon(icon, size: 20, color: color)
+          : Text(
+              brand,
+              style: context.theme.typography.labelBadge.copyWith(
+                color: color,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:dompet/features/detection/domain/detection_model.dart';
 import 'package:dompet/features/detection/presentation/controllers/detection_review_notifier.dart';
 import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_amount_text.dart';
+import 'package:dompet/shared/widgets/dompet_money_field.dart';
 import 'package:dompet/shared/widgets/dompet_category_selector.dart';
 import 'package:dompet/shared/widgets/dompet_pocket_selector.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
@@ -40,7 +41,9 @@ class DetectionReviewSheet extends HookConsumerWidget {
     final categories = ref.watch(categoryListProvider).value ?? <CategoryModel>[];
     final accountId = useState<String?>(detection.accountId);
     final categoryId = useState<String?>(detection.categoryId);
-    final amountController = useTextEditingController(text: '${detection.amount}');
+    final amountController = useTextEditingController(
+      text: ref.read(numberFormatServiceProvider).formatInt(detection.amount),
+    );
     final noteController = useTextEditingController();
 
     final selectedAccount = _findAccount(accounts, accountId.value);
@@ -74,10 +77,9 @@ class DetectionReviewSheet extends HookConsumerWidget {
               style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
             ),
             const SizedBox(height: 16),
-            FTextField(
+            DompetMoneyField(
+              controller: amountController,
               hint: context.t.settings.reviewQueueAmount,
-              control: FTextFieldControl.managed(controller: amountController),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
             ),
             const SizedBox(height: 12),
             FButton(

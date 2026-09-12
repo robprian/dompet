@@ -7,6 +7,9 @@ import 'package:image_picker/image_picker.dart';
 /// Abstraction over receipt scanning so the presentation layer stays free of
 /// platform plugins and can be unit-tested with a fake implementation.
 abstract interface class ReceiptScannerService {
+  /// Whether this platform currently supports receipt scanning.
+  bool get isAvailable;
+
   /// Picks an image from the camera or gallery and extracts structured fields.
   Future<ReceiptScanResult?> scanFromGallery();
 
@@ -14,28 +17,26 @@ abstract interface class ReceiptScannerService {
   Future<ReceiptScanResult?> scanFromCamera();
 }
 
-/// Result of an image-picking attempt. `null` means the user cancelled.
-typedef _PickedImage = XFile?;
-
 /// On-device receipt scanner backed by ML Kit text recognition.
-///
-/// Runs entirely offline: images never leave the device. Raw OCR text is
-/// parsed locally into an editable [ReceiptScanResult].
 class MlKitReceiptScannerService implements ReceiptScannerService {
   /// Creates the service with an optional [ImagePicker] for testability.
-  MlKitReceiptScannerService({ImagePicker? imagePicker}) : _imagePicker = imagePicker ?? ImagePicker();
+  MlKitReceiptScannerService({ImagePicker? imagePicker})
+      : _imagePicker = imagePicker ?? ImagePicker();
 
   final ImagePicker _imagePicker;
 
   @override
-  Future<ReceiptScanResult?> scanFromGallery() =>
-      _scan(_imagePicker.pickImage(source: ImageSource.gallery, imageQuality: 92));
+  bool get isAvailable => Platform.isAndroid || Platform.isIOS;
 
   @override
   Future<ReceiptScanResult?> scanFromCamera() =>
       _scan(_imagePicker.pickImage(source: ImageSource.camera, imageQuality: 92));
 
-  Future<ReceiptScanResult?> _scan(Future<_PickedImage> pending) async {
+  @override
+  Future<ReceiptScanResult?> scanFromGallery() =>
+      _scan(_imagePicker.pickImage(source: ImageSource.gallery, imageQuality: 92));
+
+  Future<ReceiptScanResult?> _scan(Future<XFile?> pending) async {
     final file = await pending;
     if (file == null) return null;
 
@@ -46,19 +47,14 @@ class MlKitReceiptScannerService implements ReceiptScannerService {
       return ReceiptTextParser.parse(recognised.text);
     } finally {
       await recognizer.close();
-      // Best-effort cleanup of the temporary capture.
-      try {
-        await File(file.path).delete();
-      } on FileSystemException {
-        // Ignore: cache files are reclaimed by the OS.
-      }
     }
   }
 }
 
 /// Stateless parser that turns raw OCR text into a [ReceiptScanResult].
 ///
-/// Kept separate from the platform plugin so it can be tested exhaustively.
+/// Kept separate from any platform plugin so the parsing logic can be tested
+/// exhaustively and reused by whichever OCR engine is enabled in the future.
 class ReceiptTextParser {
   ReceiptTextParser._();
 
@@ -71,7 +67,11 @@ class ReceiptTextParser {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return ReceiptScanResult.empty;
 
-    final lines = trimmed.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
+    final lines = trimmed
+        .split('\n')
+        .map((l) => l.trim())
+        .where((l) => l.isNotEmpty)
+        .toList();
 
     return ReceiptScanResult(
       amount: _extractAmount(lines),
