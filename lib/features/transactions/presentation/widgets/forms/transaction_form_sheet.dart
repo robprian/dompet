@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/extensions/num_extension.dart';
+import 'package:dompet/core/utils/logger.dart';
 import 'package:dompet/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:dompet/features/categories/domain/category_model.dart';
 import 'package:dompet/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -232,9 +233,7 @@ class TransactionFormSheet extends HookConsumerWidget {
       final scanner = ref.read(receiptScannerServiceProvider);
       showFToast(context: context, title: Text(t.transactions.scanningReceipt));
       try {
-        final result = source == ImageSource.camera
-            ? await scanner.scanFromCamera()
-            : await scanner.scanFromGallery();
+        final result = source == ImageSource.camera ? await scanner.scanFromCamera() : await scanner.scanFromGallery();
         if (!context.mounted || result == null) return;
         if (!result.hasData) {
           showFToast(context: context, title: Text(t.transactions.scanNoResult));

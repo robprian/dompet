@@ -28,9 +28,7 @@ class AccountProvider {
   final AccountProviderType type;
 
   /// Bundled asset path.
-  String get assetPath => id == 'e_mandiri_emoney'
-      ? 'assets/images/e_mandiri_emoney.png'
-      : 'assets/images/$id.png';
+  String get assetPath => id == 'e_mandiri_emoney' ? 'assets/images/e_mandiri_emoney.png' : 'assets/images/$id.png';
 }
 
 /// Utility class providing categorized Phosphor icons and lookup helpers.

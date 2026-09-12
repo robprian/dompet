@@ -20,7 +20,7 @@ class AboutPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final latestRelease = ref.watch(latestGithubReleaseProvider);
-    final currentVersion = const String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main');
+    const currentVersion = String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main');
 
     return FScaffold(
       header: DompetHeader(
@@ -55,7 +55,7 @@ class AboutPage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                       currentVersion,
+                      currentVersion,
                       style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                     ),
                   ),
@@ -74,25 +74,25 @@ class AboutPage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                 latestRelease.when(
-                   data: (release) => release == null || release.tagName == currentVersion
-                       ? const SizedBox.shrink()
-                       : SettingsMenuSection(
-                           title: 'Update available',
-                           items: [
-                             SettingsMenuItem(
-                               title: release.tagName,
-                               subtitle: 'Open the latest release on GitHub',
-                               icon: FPhosphorIcons.downloadSimple,
-                               onTap: () => _launchUrl(release.url.toString()),
-                             ),
-                           ],
-                         ),
-                   loading: () => const SizedBox.shrink(),
-                   error: (error, stackTrace) => const SizedBox.shrink(),
-                 ),
-                 const SizedBox(height: 24),
-                 SettingsMenuSection(
+                latestRelease.when(
+                  data: (release) => release == null || release.tagName == currentVersion
+                      ? const SizedBox.shrink()
+                      : SettingsMenuSection(
+                          title: 'Update available',
+                          items: [
+                            SettingsMenuItem(
+                              title: release.tagName,
+                              subtitle: 'Open the latest release on GitHub',
+                              icon: FPhosphorIcons.downloadSimple,
+                              onTap: () => _launchUrl(release.url.toString()),
+                            ),
+                          ],
+                        ),
+                  loading: () => const SizedBox.shrink(),
+                  error: (error, stackTrace) => const SizedBox.shrink(),
+                ),
+                const SizedBox(height: 24),
+                SettingsMenuSection(
                   title: t.settings.support,
                   items: [
                     SettingsMenuItem(

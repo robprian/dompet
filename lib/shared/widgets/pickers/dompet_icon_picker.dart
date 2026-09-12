@@ -23,9 +23,7 @@ class DompetIconPicker extends HookWidget {
     final selectedCategory = useState<IconCategory>(IconUtil.categories.first);
     final providerType = useState(AccountProviderType.bank);
     final providers = accountProvidersOnly ? IconUtil.providersOf(providerType.value) : const <AccountProvider>[];
-    final entries = accountProvidersOnly
-        ? <Object>[...providers]
-        : <Object>[...selectedCategory.value.icons.entries];
+    final entries = accountProvidersOnly ? <Object>[...providers] : <Object>[...selectedCategory.value.icons.entries];
 
     final providerLabels = <AccountProviderType, String>{
       AccountProviderType.bank: 'Bank',
@@ -126,15 +124,15 @@ class DompetIconPicker extends HookWidget {
                 ),
                 child: switch (entry) {
                   AccountProvider(:final assetPath) => Image.asset(
-                      assetPath,
-                      width: 30,
-                      height: 30,
-                      fit: BoxFit.contain,
-                    ),
+                    assetPath,
+                    width: 30,
+                    height: 30,
+                    fit: BoxFit.contain,
+                  ),
                   MapEntry<String, IconData>() => Icon(
-                      iconData!,
-                      color: isSelected ? theme.colors.primary : theme.colors.foreground,
-                    ),
+                    iconData,
+                    color: isSelected ? theme.colors.primary : theme.colors.foreground,
+                  ),
                   _ => const SizedBox.shrink(),
                 },
               ),

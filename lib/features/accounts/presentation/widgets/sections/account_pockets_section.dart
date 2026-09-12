@@ -75,11 +75,11 @@ class AccountPocketsSection extends HookConsumerWidget {
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
-                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                   crossAxisCount: 1,
-                   mainAxisSpacing: 12,
-                   childAspectRatio: 2.35,
-                 ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 2.35,
+                ),
                 children: children,
               );
             },

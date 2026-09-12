@@ -148,20 +148,20 @@ class AccountFormSheet extends HookConsumerWidget {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                         Center(
-                           child: selectedProvider == null
-                               ? Icon(
-                                   IconUtil.getIcon(state.icon),
-                                   size: 40,
-                                   color: state.color?.toColor() ?? context.theme.colors.primary,
-                                 )
-                               : Image.asset(
-                                   selectedProvider.assetPath,
-                                   width: 48,
-                                   height: 48,
-                                   fit: BoxFit.contain,
-                                 ),
-                         ),
+                        Center(
+                          child: selectedProvider == null
+                              ? Icon(
+                                  IconUtil.getIcon(state.icon),
+                                  size: 40,
+                                  color: state.color?.toColor() ?? context.theme.colors.primary,
+                                )
+                              : Image.asset(
+                                  selectedProvider.assetPath,
+                                  width: 48,
+                                  height: 48,
+                                  fit: BoxFit.contain,
+                                ),
+                        ),
                         Positioned(
                           bottom: -4,
                           right: -4,

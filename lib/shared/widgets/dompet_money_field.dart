@@ -30,7 +30,7 @@ class MoneyInputFormatter extends TextInputFormatter {
     final normalized = raw.replaceAll(service.groupSeparator, '').replaceAll(service.decimalSeparator, '.');
     final digitsOnly = normalized.replaceAll(RegExp('[^0-9.]'), '');
     if (digitsOnly.isEmpty) {
-      return isNegative ? const TextEditingValue(text: '-') : const TextEditingValue();
+      return isNegative ? const TextEditingValue(text: '-') : TextEditingValue.empty;
     }
 
     // Keep at most one decimal point.
@@ -42,15 +42,18 @@ class MoneyInputFormatter extends TextInputFormatter {
         : digitsOnly;
 
     final formatted = service.formatNumericString(cleaned);
-    var text = '${isNegative ? '-' : ''}$formatted';
-    if (hasDecimal && cleaned.endsWith('.')) {
-      text = '$text${service.decimalSeparator}';
-    }
-    final rawBeforeCursor = raw.substring(0, newValue.selection.baseOffset.clamp(0, raw.length).toInt());
-    final cursorInput = rawBeforeCursor.replaceAll(service.groupSeparator, '').replaceAll(service.decimalSeparator, '.');
+    final text = '${isNegative ? '-' : ''}$formatted';
+    final cursorOffset = newValue.selection.baseOffset.clamp(0, raw.length);
+    final rawBeforeCursor = raw.substring(0, cursorOffset);
+    final cursorInput = rawBeforeCursor
+        .replaceAll(service.groupSeparator, '')
+        .replaceAll(service.decimalSeparator, '.');
     final significantCharacters = cursorInput.replaceAll(RegExp('[^0-9.]'), '').length;
     final cursor = _cursorOffset(text, significantCharacters);
-    return TextEditingValue(text: text, selection: TextSelection.collapsed(offset: cursor));
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: cursor),
+    );
   }
 
   int _cursorOffset(String text, int significantCharacters) {
@@ -58,7 +61,7 @@ class MoneyInputFormatter extends TextInputFormatter {
     var seen = 0;
     for (var index = 0; index < text.length; index++) {
       final character = text[index];
-      if (RegExp(r'[0-9]').hasMatch(character) || character == service.decimalSeparator) {
+      if (RegExp('[0-9]').hasMatch(character) || character == service.decimalSeparator) {
         seen++;
         if (seen == significantCharacters) return index + 1;
       }

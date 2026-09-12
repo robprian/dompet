@@ -59,7 +59,7 @@ void main() {
       expect(cash.icon, 'payments');
       expect(cash.color, '#4CAF50');
       final bca = (await db.select(db.accounts).get()).firstWhere((a) => a.name == 'Bank BCA');
-      expect(bca.icon, 'account_balance');
+      expect(bca.icon, 'bca');
     });
 
     test('seed also creates currencies, budgets, goals, debts, transactions', () async {

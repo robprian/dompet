@@ -20,8 +20,7 @@ abstract interface class ReceiptScannerService {
 /// On-device receipt scanner backed by ML Kit text recognition.
 class MlKitReceiptScannerService implements ReceiptScannerService {
   /// Creates the service with an optional [ImagePicker] for testability.
-  MlKitReceiptScannerService({ImagePicker? imagePicker})
-      : _imagePicker = imagePicker ?? ImagePicker();
+  MlKitReceiptScannerService({ImagePicker? imagePicker}) : _imagePicker = imagePicker ?? ImagePicker();
 
   final ImagePicker _imagePicker;
 
@@ -67,11 +66,7 @@ class ReceiptTextParser {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return ReceiptScanResult.empty;
 
-    final lines = trimmed
-        .split('\n')
-        .map((l) => l.trim())
-        .where((l) => l.isNotEmpty)
-        .toList();
+    final lines = trimmed.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
 
     return ReceiptScanResult(
       amount: _extractAmount(lines),

@@ -87,7 +87,7 @@ class BudgetFormSheet extends HookConsumerWidget {
       text: initialBudget != null && initialBudget!.amount > 0
           ? ref.read(numberFormatServiceProvider).formatInt(initialBudget!.amount)
           : (initialAmount != null && initialAmount! > 0
-                ? ref.read(numberFormatServiceProvider).formatInt(initialAmount)
+                ? ref.read(numberFormatServiceProvider).formatInt(initialAmount!)
                 : (state.amount > 0 ? ref.read(numberFormatServiceProvider).formatInt(state.amount) : '')),
     );
     final resetDayController = useTextEditingController(

@@ -4,7 +4,6 @@ import 'package:dompet/core/utils/icon_util.dart';
 import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/shared/widgets/dompet_amount_text.dart';
-import 'package:dompet/shared/widgets/dompet_icon.dart';
 import 'package:dompet/shared/widgets/sheets/dompet_sheet.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +53,11 @@ class AccountMiniCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                       _AccountBrandMark(
-                         icon: accountIcon,
-                         identifier: account.icon,
-                         color: accentColor,
-                       ),
+                      _AccountBrandMark(
+                        icon: accountIcon,
+                        identifier: account.icon,
+                        color: accentColor,
+                      ),
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

@@ -284,7 +284,8 @@ void main() {
       await tester.pumpWidget(buildWidget(initialDebt: debt));
       await tester.pumpAndSettle();
       expect(find.text('Alice'), findsOneWidget);
-      expect(find.text('1000'), findsOneWidget);
+      final amountText = tester.widgetList<EditableText>(find.byType(EditableText)).map((e) => e.controller.text);
+      expect(amountText.any((text) => text.replaceAll(RegExp('[^0-9]'), '') == '1000'), isTrue);
       expect(find.text('dinner'), findsOneWidget);
     });
 

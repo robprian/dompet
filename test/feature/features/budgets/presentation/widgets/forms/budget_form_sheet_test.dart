@@ -216,7 +216,8 @@ void main() {
       await tester.pumpWidget(buildWidget(initialBudget: budget));
       await tester.pumpAndSettle();
       expect(find.text('Groceries'), findsOneWidget);
-      expect(find.text('1000'), findsOneWidget);
+      final amountText = tester.widgetList<EditableText>(find.byType(EditableText)).map((e) => e.controller.text);
+      expect(amountText.any((text) => text.replaceAll(RegExp('[^0-9]'), '') == '1000'), isTrue);
       // Scope should show selected category name
       expect(find.text('Food'), findsOneWidget);
     });
