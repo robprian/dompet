@@ -119,6 +119,68 @@ class ReportBudgetAllocation {
   double get savingRatio => total > 0 ? saving / total : 0;
 }
 
+/// A labelled node of the money-flow diagram with its total nominal.
+class ReportFlowNode {
+  const ReportFlowNode({
+    required this.id,
+    required this.label,
+    required this.amount,
+    this.color,
+  });
+
+  final String id;
+  final String label;
+  final double amount;
+
+  /// Optional hex color inherited from the source category.
+  final String? color;
+}
+
+/// A directed flow between two money-flow nodes.
+class ReportFlowLink {
+  const ReportFlowLink({
+    required this.fromId,
+    required this.toId,
+    required this.amount,
+  });
+
+  final String fromId;
+  final String toId;
+  final double amount;
+}
+
+/// Aggregated money-flow diagram: income sources → accounts → uses.
+class ReportMoneyFlow {
+  const ReportMoneyFlow({
+    this.incomeNodes = const [],
+    this.accountNodes = const [],
+    this.expenseNodes = const [],
+    this.links = const [],
+    this.totalInflow = 0,
+    this.totalOutflow = 0,
+  });
+
+  /// Sources of funds (income categories).
+  final List<ReportFlowNode> incomeNodes;
+
+  /// Intermediate wallet/bank nodes.
+  final List<ReportFlowNode> accountNodes;
+
+  /// Uses of funds (expense categories plus savings and debt repayments).
+  final List<ReportFlowNode> expenseNodes;
+
+  /// Directed links, always from income → account or account → use.
+  final List<ReportFlowLink> links;
+
+  final double totalInflow;
+  final double totalOutflow;
+
+  /// Net balance left after all outflows in the period.
+  double get netBalance => totalInflow - totalOutflow;
+
+  bool get hasData => links.isNotEmpty;
+}
+
 /// Aggregated report data for the selected period.
 class ReportData {
   const ReportData({
@@ -128,6 +190,7 @@ class ReportData {
     this.incomeCategoryItems = const [],
     this.trendPoints = const [],
     this.budgetAllocation = const ReportBudgetAllocation(),
+    this.moneyFlow = const ReportMoneyFlow(),
   });
 
   final ReportSummary summary;
@@ -136,6 +199,7 @@ class ReportData {
   final List<ReportCategoryItem> incomeCategoryItems;
   final List<ReportTrendPoint> trendPoints;
   final ReportBudgetAllocation budgetAllocation;
+  final ReportMoneyFlow moneyFlow;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -155,6 +219,7 @@ class ReportAnalyticsService {
     DateTime? customStart,
     DateTime? customEnd,
     TrendGranularity granularity = TrendGranularity.weekly,
+    Map<String, String> accountNames = const {},
   }) {
     final now = DateTime.now();
 
@@ -261,6 +326,9 @@ class ReportAnalyticsService {
       saving: budgetSums[TransactionAllocation.saving]!,
     );
 
+    // ── Money flow diagram (income → accounts → uses) ─────────────────────────
+    final moneyFlow = _buildMoneyFlow(txs, categoryMap, accountNames);
+
     return ReportData(
       summary: summary,
       comparison: comparison,
@@ -268,6 +336,142 @@ class ReportAnalyticsService {
       incomeCategoryItems: incCategoryList,
       trendPoints: trendPoints,
       budgetAllocation: budgetAllocation,
+      moneyFlow: moneyFlow,
+    );
+  }
+
+  /// Builds the money-flow graph from real transactions in the period:
+  /// income categories → source accounts → expense categories / savings / debt.
+  static ReportMoneyFlow _buildMoneyFlow(
+    List<TransactionModel> txs,
+    Map<String, CategoryModel> categoryMap,
+    Map<String, String> accountNames,
+  ) {
+    const savingsNodeId = '__savings__';
+    const debtNodeId = '__debt__';
+
+    final incomeToAccount = <String, double>{};
+    final accountToExpense = <String, double>{};
+    final accountToAccount = <String, double>{};
+    final savingsFrom = <String, double>{};
+    final debtFrom = <String, double>{};
+
+    final incomeByCategory = <String, double>{};
+    final expenseByCategory = <String, double>{};
+    var totalInflow = 0.0;
+    var totalOutflow = 0.0;
+    var savings = 0.0;
+    final debtRepayments = <String, double>{};
+    final debtDisbursements = <String, double>{};
+    final accountInflow = <String, double>{};
+    final accountOutflow = <String, double>{};
+
+    for (final tx in txs) {
+      final amount = tx.amount.toDouble();
+      switch (tx.type) {
+        case TransactionType.income:
+          totalInflow += amount;
+          accountInflow[tx.accountId] = (accountInflow[tx.accountId] ?? 0) + amount;
+          final categoryId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
+          final label = categoryId != null ? (categoryMap[categoryId]?.name ?? 'Income') : 'Income';
+          incomeByCategory[label] = (incomeByCategory[label] ?? 0) + amount;
+          incomeToAccount['$label|${tx.accountId}'] = (incomeToAccount['$label|${tx.accountId}'] ?? 0) + amount;
+          if (tx.debtId != null) {
+            debtDisbursements[tx.debtId!] = (debtDisbursements[tx.debtId!] ?? 0) + amount;
+          }
+        case TransactionType.expense:
+          totalOutflow += amount;
+          accountOutflow[tx.accountId] = (accountOutflow[tx.accountId] ?? 0) + amount;
+          final categoryId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
+          final label = categoryId != null ? (categoryMap[categoryId]?.name ?? 'Expense') : 'Expense';
+          expenseByCategory[label] = (expenseByCategory[label] ?? 0) + amount;
+          accountToExpense['${tx.accountId}|$label'] = (accountToExpense['${tx.accountId}|$label'] ?? 0) + amount;
+          if (tx.debtId != null) {
+            debtRepayments[tx.debtId!] = (debtRepayments[tx.debtId!] ?? 0) + amount;
+            debtFrom[tx.accountId] = (debtFrom[tx.accountId] ?? 0) + amount;
+          }
+        case TransactionType.transfer:
+          // Transfers are reallocations, never income or expense.
+          final noteLower = (tx.note ?? '').toLowerCase();
+          accountOutflow[tx.accountId] = (accountOutflow[tx.accountId] ?? 0) + amount;
+          final dest = tx.destinationAccountId;
+          if (dest != null) accountInflow[dest] = (accountInflow[dest] ?? 0) + amount;
+          if (dest != null) {
+            accountToAccount['${tx.accountId}|$dest'] = (accountToAccount['${tx.accountId}|$dest'] ?? 0) + amount;
+          }
+          if (noteLower.contains('tabungan') || noteLower.contains('savings') || noteLower.contains('contribution')) {
+            savings += amount;
+            if (dest != null) savingsFrom[dest] = (savingsFrom[dest] ?? 0) + amount;
+          }
+      }
+    }
+
+    final incomeNodes = [
+      for (final entry in incomeByCategory.entries)
+        ReportFlowNode(id: 'inc_${entry.key}', label: entry.key, amount: entry.value),
+    ]..sort((a, b) => b.amount.compareTo(a.amount));
+
+    final accountIds = <String>{
+      ...accountInflow.keys,
+      ...accountOutflow.keys,
+      if (accountNames.isNotEmpty) ...accountNames.keys,
+    }.toList();
+    final accountNodes = accountIds
+        .map(
+          (id) => ReportFlowNode(
+            id: 'acc_$id',
+            label: accountNames[id] ?? id,
+            amount: (accountInflow[id] ?? 0) + (accountOutflow[id] ?? 0),
+          ),
+        )
+        .toList();
+
+    final expenseNodes = [
+      for (final entry in expenseByCategory.entries)
+        ReportFlowNode(id: 'exp_${entry.key}', label: entry.key, amount: entry.value),
+    ]..sort((a, b) => b.amount.compareTo(a.amount));
+
+    final debtTotal = debtRepayments.values.fold<double>(0, (sum, value) => sum + value);
+    if (savings > 0) {
+      expenseNodes.add(ReportFlowNode(id: savingsNodeId, label: 'Savings', amount: savings));
+    }
+    if (debtTotal > 0) {
+      expenseNodes.add(ReportFlowNode(id: debtNodeId, label: 'Debt', amount: debtTotal));
+    }
+
+    final links = <ReportFlowLink>[
+      for (final entry in incomeToAccount.entries)
+        ReportFlowLink(
+          fromId: 'inc_${entry.key.split('|').first}',
+          toId: 'acc_${entry.key.split('|').last}',
+          amount: entry.value,
+        ),
+      for (final entry in accountToExpense.entries)
+        ReportFlowLink(
+          fromId: 'acc_${entry.key.split('|').first}',
+          toId: 'exp_${entry.key.split('|').skip(1).join('|')}',
+          amount: entry.value,
+        ),
+      for (final entry in accountToAccount.entries)
+        ReportFlowLink(
+          fromId: 'acc_${entry.key.split('|').first}',
+          toId: 'acc_${entry.key.split('|').last}',
+          amount: entry.value,
+        ),
+      for (final entry in savingsFrom.entries)
+        ReportFlowLink(fromId: 'acc_${entry.key}', toId: savingsNodeId, amount: entry.value),
+      if (debtTotal > 0)
+        for (final entry in debtFrom.entries)
+          ReportFlowLink(fromId: 'acc_${entry.key}', toId: debtNodeId, amount: entry.value),
+    ];
+
+    return ReportMoneyFlow(
+      incomeNodes: incomeNodes,
+      accountNodes: accountNodes,
+      expenseNodes: expenseNodes,
+      links: links,
+      totalInflow: totalInflow,
+      totalOutflow: totalOutflow + savings,
     );
   }
 

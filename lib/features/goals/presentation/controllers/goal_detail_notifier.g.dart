@@ -8,18 +8,18 @@ part of 'goal_detail_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+/// Watches transactions associated with the goal's linked pocket account (contributions and withdrawals).
 
 @ProviderFor(goalTransactions)
 final goalTransactionsProvider = GoalTransactionsFamily._();
 
-/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+/// Watches transactions associated with the goal's linked pocket account (contributions and withdrawals).
 
 final class GoalTransactionsProvider
     extends
         $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
     with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
-  /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+  /// Watches transactions associated with the goal's linked pocket account (contributions and withdrawals).
   GoalTransactionsProvider._({
     required GoalTransactionsFamily super.from,
     required GoalModel super.argument,
@@ -66,7 +66,7 @@ final class GoalTransactionsProvider
 
 String _$goalTransactionsHash() => r'c38f6d823473ece186f45bed0e924b0ccae31816';
 
-/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+/// Watches transactions associated with the goal's linked pocket account (contributions and withdrawals).
 
 final class GoalTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, GoalModel> {
@@ -79,12 +79,96 @@ final class GoalTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+  /// Watches transactions associated with the goal's linked pocket account (contributions and withdrawals).
 
   GoalTransactionsProvider call(GoalModel goal) => GoalTransactionsProvider._(argument: goal, from: this);
 
   @override
   String toString() => r'goalTransactionsProvider';
+}
+
+/// Watches goal contributions derived from transfers touching the linked
+/// pocket. These are allocations, so they are never counted as expenses.
+
+@ProviderFor(goalContributions)
+final goalContributionsProvider = GoalContributionsFamily._();
+
+/// Watches goal contributions derived from transfers touching the linked
+/// pocket. These are allocations, so they are never counted as expenses.
+
+final class GoalContributionsProvider
+    extends
+        $FunctionalProvider<AsyncValue<List<GoalContribution>>, List<GoalContribution>, Stream<List<GoalContribution>>>
+    with $FutureModifier<List<GoalContribution>>, $StreamProvider<List<GoalContribution>> {
+  /// Watches goal contributions derived from transfers touching the linked
+  /// pocket. These are allocations, so they are never counted as expenses.
+  GoalContributionsProvider._({
+    required GoalContributionsFamily super.from,
+    required GoalModel super.argument,
+  }) : super(
+         retry: null,
+         name: r'goalContributionsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$goalContributionsHash();
+
+  @override
+  String toString() {
+    return r'goalContributionsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<List<GoalContribution>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<GoalContribution>> create(Ref ref) {
+    final argument = this.argument as GoalModel;
+    return goalContributions(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GoalContributionsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$goalContributionsHash() => r'041524c07801da342ddff4629fa800f32659e5c8';
+
+/// Watches goal contributions derived from transfers touching the linked
+/// pocket. These are allocations, so they are never counted as expenses.
+
+final class GoalContributionsFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<List<GoalContribution>>, GoalModel> {
+  GoalContributionsFamily._()
+    : super(
+        retry: null,
+        name: r'goalContributionsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Watches goal contributions derived from transfers touching the linked
+  /// pocket. These are allocations, so they are never counted as expenses.
+
+  GoalContributionsProvider call(GoalModel goal) => GoalContributionsProvider._(argument: goal, from: this);
+
+  @override
+  String toString() => r'goalContributionsProvider';
 }
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
@@ -122,7 +206,7 @@ final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotif
   }
 }
 
-String _$goalDetailNotifierHash() => r'4164318fb32c647fa3f77e5cfabb1de2a467251f';
+String _$goalDetailNotifierHash() => r'35b0a48b1428b929610e6a82e30310b5baebec24';
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 

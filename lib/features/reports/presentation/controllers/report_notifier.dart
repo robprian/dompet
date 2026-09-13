@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/features/budgets/domain/budget_model.dart';
 import 'package:dompet/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
@@ -69,6 +70,7 @@ class ReportNotifier extends _$ReportNotifier {
 
     final transactions = transactionsAsync.value ?? [];
     final categories = categoriesAsync.value ?? [];
+    final accounts = ref.watch(accountsStreamProvider).value ?? <AccountModel>[];
 
     // Budgets are now watched at the root level, but progress is watched in UI tiles!
     final budgets = budgetsAsync.value ?? [];
@@ -80,6 +82,7 @@ class ReportNotifier extends _$ReportNotifier {
       customStart: _customStart,
       customEnd: _customEnd,
       granularity: _granularity,
+      accountNames: {for (final account in accounts) account.id: account.name},
     );
 
     return ReportState(

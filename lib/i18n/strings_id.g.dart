@@ -462,6 +462,26 @@ class _Translations$goals$id extends Translations$goals$en {
 	@override String get targetAmountGreaterThanZero => 'Jumlah target harus lebih besar dari 0';
 	@override String get saveChanges => 'Simpan Perubahan';
 	@override String get targetDateLabel => 'Tanggal Target';
+	@override String get addSavings => 'Tambah Tabungan';
+	@override String addSavingsToGoal({required Object goal}) => 'Tambah Tabungan ke ${goal}';
+	@override String get contributionAmount => 'Jumlah tabungan';
+	@override String get fromAccount => 'Dari akun';
+	@override String get sourceAccount => 'Akun sumber';
+	@override String get contributions => 'Riwayat tabungan';
+	@override String get noContributionsYet => 'Belum ada tabungan — tambahkan setoran pertama Anda.';
+	@override String contributionNote({required Object goal}) => 'Setoran · ${goal}';
+	@override String withdrawalNote({required Object goal}) => 'Penarikan · ${goal}';
+	@override String get selectSourceAccount => 'Pilih dompet atau bank sumber dana';
+	@override String insufficientBalance({required Object account, required Object balance}) => 'Jumlah ini melebihi saldo ${account} (${balance}).';
+	@override String get currentSaved => 'Terkumpul';
+	@override String get remainingAmount => 'Sisa';
+	@override String get targetReached => 'Target tercapai';
+	@override String goalOverfundedBy({required Object amount}) => 'Melebihi target ${amount}';
+	@override String get linkedPocket => 'Kantong tertaut';
+	@override String get withdrawSavings => 'Tarik Tabungan';
+	@override String withdrawFromGoal({required Object goal}) => 'Tarik dari ${goal}';
+	@override String get withdrawalAmount => 'Jumlah penarikan';
+	@override String get toAccount => 'Ke akun';
 }
 
 // Path: lock
@@ -648,6 +668,8 @@ class _Translations$reports$id extends Translations$reports$en {
 	@override String get netFlow => 'Arus bersih';
 	@override String get moneyIn => 'Uang masuk';
 	@override String get moneyOut => 'Uang keluar';
+	@override String get moneyFlowDiagram => 'Aliran Uang';
+	@override String get moneyFlowHint => 'Bagaimana uang mengalir pada periode ini';
 }
 
 // Path: settings
@@ -1301,6 +1323,26 @@ extension on TranslationsId {
 			'goals.targetAmountGreaterThanZero' => 'Jumlah target harus lebih besar dari 0',
 			'goals.saveChanges' => 'Simpan Perubahan',
 			'goals.targetDateLabel' => 'Tanggal Target',
+			'goals.addSavings' => 'Tambah Tabungan',
+			'goals.addSavingsToGoal' => ({required Object goal}) => 'Tambah Tabungan ke ${goal}',
+			'goals.contributionAmount' => 'Jumlah tabungan',
+			'goals.fromAccount' => 'Dari akun',
+			'goals.sourceAccount' => 'Akun sumber',
+			'goals.contributions' => 'Riwayat tabungan',
+			'goals.noContributionsYet' => 'Belum ada tabungan — tambahkan setoran pertama Anda.',
+			'goals.contributionNote' => ({required Object goal}) => 'Setoran · ${goal}',
+			'goals.withdrawalNote' => ({required Object goal}) => 'Penarikan · ${goal}',
+			'goals.selectSourceAccount' => 'Pilih dompet atau bank sumber dana',
+			'goals.insufficientBalance' => ({required Object account, required Object balance}) => 'Jumlah ini melebihi saldo ${account} (${balance}).',
+			'goals.currentSaved' => 'Terkumpul',
+			'goals.remainingAmount' => 'Sisa',
+			'goals.targetReached' => 'Target tercapai',
+			'goals.goalOverfundedBy' => ({required Object amount}) => 'Melebihi target ${amount}',
+			'goals.linkedPocket' => 'Kantong tertaut',
+			'goals.withdrawSavings' => 'Tarik Tabungan',
+			'goals.withdrawFromGoal' => ({required Object goal}) => 'Tarik dari ${goal}',
+			'goals.withdrawalAmount' => 'Jumlah penarikan',
+			'goals.toAccount' => 'Ke akun',
 			'lock.confirmPin' => 'Konfirmasi PIN',
 			'lock.createPin' => 'Buat PIN',
 			'lock.pinsDoNotMatch' => 'PIN tidak cocok',
@@ -1451,9 +1493,13 @@ extension on TranslationsId {
 			'reports.netFlow' => 'Arus bersih',
 			'reports.moneyIn' => 'Uang masuk',
 			'reports.moneyOut' => 'Uang keluar',
+			'reports.moneyFlowDiagram' => 'Aliran Uang',
+			'reports.moneyFlowHint' => 'Bagaimana uang mengalir pada periode ini',
 			'settings.title' => 'Pengaturan',
 			'settings.preferences' => 'Preferensi',
 			'settings.baseCurrency' => 'Mata Uang Utama',
+			_ => null,
+		} ?? switch (path) {
 			'settings.theme' => 'Tema',
 			'settings.language' => 'Bahasa',
 			'settings.numberFormat' => 'Format Angka',
@@ -1476,8 +1522,6 @@ extension on TranslationsId {
 			'settings.clearOld' => 'Hapus Transaksi Lama',
 			'settings.clearOldDesc' => 'Hapus transaksi lebih dari 1 tahun',
 			'settings.resetData' => 'Reset Data',
-			_ => null,
-		} ?? switch (path) {
 			'settings.resetDataDesc' => 'Hapus semua data aplikasi lokal',
 			'settings.support' => 'Bantuan',
 			'settings.faq' => 'FAQ',

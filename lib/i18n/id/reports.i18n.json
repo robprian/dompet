@@ -67,5 +67,7 @@
   "monthly": "Bulanan",
   "netFlow": "Arus bersih",
   "moneyIn": "Uang masuk",
-  "moneyOut": "Uang keluar"
+  "moneyOut": "Uang keluar",
+  "moneyFlowDiagram": "Aliran Uang",
+  "moneyFlowHint": "Bagaimana uang mengalir pada periode ini"
 }

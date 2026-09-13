@@ -67,5 +67,7 @@
   "monthly": "Monthly",
   "netFlow": "Net flow",
   "moneyIn": "Money in",
-  "moneyOut": "Money out"
+  "moneyOut": "Money out",
+  "moneyFlowDiagram": "Money Flow",
+  "moneyFlowHint": "How money moved this period"
 }

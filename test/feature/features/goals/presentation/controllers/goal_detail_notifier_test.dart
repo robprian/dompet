@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/core/enums.dart';
 import 'package:dompet/core/error/failure.dart';
 import 'package:dompet/core/error/result.dart';
+import 'package:dompet/features/accounts/data/account_repository_impl.dart';
+import 'package:dompet/features/accounts/domain/account_model.dart';
 import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:dompet/features/goals/presentation/controllers/goal_detail_notifier.dart';
 import 'package:dompet/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:dompet/features/transactions/data/transaction_repository_impl.dart';
 import 'package:dompet/features/transactions/domain/i_transaction_repository.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:dompet/i18n/strings.g.dart';
@@ -141,14 +145,68 @@ void main() {
       addTearDown(c.dispose);
 
       final sub = c.listen(goalTransactionsProvider(dummyGoal), (_, __) {});
-
       final res = await c.read(goalTransactionsProvider(dummyGoal).future);
+      sub.close();
       expect(res, isEmpty);
+    });
+
+    test('goalContributions classifies incoming, outgoing, and derives names', () async {
+      final now = DateTime.now().toUtc();
+      TransactionModel transfer(String id, String from, String? to, String note) => TransactionModel(
+        id: id,
+        accountId: from,
+        destinationAccountId: to,
+        type: TransactionType.transfer,
+        amount: 500,
+        transactionDate: now,
+        createdAt: now,
+        updatedAt: now,
+        note: note,
+        items: const [],
+      );
+      final fakeTxRepo = _FakeTransactionRepo(
+        transfers: [
+          transfer('t-in', 'wallet', 'a1', 'Contribution · Test'),
+          transfer('t-out', 'a1', 'wallet', 'Withdrawal · Test'),
+        ],
+      );
+      final c = ProviderContainer(
+        overrides: [
+          transactionRepositoryProvider.overrideWith((ref) => fakeTxRepo),
+          accountsStreamProvider.overrideWith((ref) => Stream.value([_account('wallet', 'Wallet')])),
+        ],
+      );
+      addTearDown(c.dispose);
+
+      final sub = c.listen(goalContributionsProvider(dummyGoal), (_, __) {});
+      final res = await c.read(goalContributionsProvider(dummyGoal).future);
+      sub.close();
+      expect(res, hasLength(2));
+      expect(
+        res.where((r) => r.isIncoming),
+        hasLength(1),
+      );
+      expect(res.firstWhere((r) => r.isIncoming).counterpartyName, 'Wallet');
+      expect(res.firstWhere((r) => !r.isIncoming).counterpartyName, 'Wallet');
     });
   });
 }
 
+AccountModel _account(String id, String name) => AccountModel(
+  id: id,
+  name: name,
+  type: AccountType.assets,
+  balance: 1000,
+  isActive: true,
+  createdAt: DateTime(2024),
+  updatedAt: DateTime(2024),
+);
+
 class _FakeTransactionRepo implements ITransactionRepository {
+  _FakeTransactionRepo({this.transfers = const []});
+
+  final List<TransactionModel> transfers;
+
   @override
   Stream<Result<List<TransactionModel>, Failure>> watchTransactions({
     DateTime? startDate,
@@ -163,6 +221,9 @@ class _FakeTransactionRepo implements ITransactionRepository {
     Set<String>? recurringIds,
     int? limit,
   }) {
+    if (types?.length == 1 && types!.contains(TransactionType.transfer)) {
+      return Stream.value(Success(transfers));
+    }
     return Stream.value(const Success(<TransactionModel>[]));
   }
 

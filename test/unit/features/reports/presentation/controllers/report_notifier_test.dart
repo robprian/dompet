@@ -46,6 +46,7 @@ void main() {
         overrides: [
           recentTransactionsStreamProvider.overrideWith((ref) => Stream.value([])),
           categoriesStreamProvider.overrideWith((ref) => Stream.value([])),
+          accountsStreamProvider.overrideWith((ref) => Stream.value([])),
           budgetRepositoryProvider.overrideWithValue(mockBudget),
           if (mockExcelExport != null) excelExportServiceProvider.overrideWithValue(mockExcelExport),
         ],

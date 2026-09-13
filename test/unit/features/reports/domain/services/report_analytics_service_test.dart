@@ -159,5 +159,50 @@ void main() {
       expect(data.trendPoints[1].expense, 300);
       expect(data.trendPoints[4].expense, 200);
     });
+    test('money flow links income to accounts to uses', () {
+      final txs = [
+        createTx(now, TransactionType.income, 1000, categoryId: 'c3'),
+        createTx(now, TransactionType.expense, 300, categoryId: 'c1'),
+      ];
+      final data = ReportAnalyticsService.calculate(
+        txs,
+        categories,
+        ReportPeriod.thisMonth,
+        accountNames: const {'a1': 'Wallet'},
+      );
+
+      expect(data.moneyFlow.hasData, isTrue);
+      expect(data.moneyFlow.accountNodes.map((n) => n.label), contains('Wallet'));
+      expect(data.moneyFlow.totalInflow, 1000);
+      expect(data.moneyFlow.totalOutflow, 300);
+      expect(data.moneyFlow.netBalance, 700);
+    });
+
+    test('goal contributions count as savings, never as expense', () {
+      final contribution = TransactionModel(
+        id: 'transfer-1',
+        accountId: 'a1',
+        destinationAccountId: 'goal-pocket',
+        type: TransactionType.transfer,
+        amount: 250,
+        transactionDate: now,
+        createdAt: now,
+        updatedAt: now,
+        note: 'Contribution · Beli NMAX',
+        items: const [],
+      );
+      final data = ReportAnalyticsService.calculate(
+        [contribution],
+        categories,
+        ReportPeriod.thisMonth,
+        accountNames: const {'a1': 'Wallet', 'goal-pocket': 'Goal: NMAX'},
+      );
+
+      expect(data.summary.totalExpense, 0);
+      expect(data.moneyFlow.expenseNodes.map((n) => n.id), contains('__savings__'));
+      final savingsNode = data.moneyFlow.expenseNodes.firstWhere((n) => n.id == '__savings__');
+      expect(savingsNode.amount, 250);
+      expect(data.moneyFlow.totalOutflow, 250);
+    });
   });
 }

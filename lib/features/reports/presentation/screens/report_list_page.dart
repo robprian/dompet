@@ -2,6 +2,7 @@ import 'package:dompet/features/reports/presentation/controllers/report_notifier
 import 'package:dompet/features/reports/presentation/widgets/report_budget_utilization.dart';
 import 'package:dompet/features/reports/presentation/widgets/report_cashflow_chart.dart';
 import 'package:dompet/features/reports/presentation/widgets/report_category_chart.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_money_flow_diagram.dart';
 import 'package:dompet/features/reports/presentation/widgets/report_period_selector.dart';
 import 'package:dompet/features/reports/presentation/widgets/report_spending_allocation.dart';
 import 'package:dompet/features/reports/presentation/widgets/report_summary_card.dart';
@@ -87,7 +88,16 @@ class ReportListPage extends ConsumerWidget {
                                     .slideY(begin: 0.05, end: 0),
                                 const SizedBox(height: 20),
 
-                                // 3. Top Categories
+                                // 3. Money Flow Diagram
+                                DompetSectionLabel(title: t.moneyFlowDiagram),
+                                const SizedBox(height: 8),
+                                const ReportMoneyFlowDiagram()
+                                    .animate()
+                                    .fade(duration: 350.ms, delay: 75.ms)
+                                    .slideY(begin: 0.05, end: 0),
+                                const SizedBox(height: 20),
+
+                                // 4. Top Categories
                                 DompetSectionLabel(title: t.topCategories),
                                 const SizedBox(height: 8),
                                 const ReportCategoryChart()

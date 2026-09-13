@@ -1098,6 +1098,66 @@ class Translations$goals$en {
 
 	/// en: 'Target Date'
 	String get targetDateLabel => 'Target Date';
+
+	/// en: 'Add Savings'
+	String get addSavings => 'Add Savings';
+
+	/// en: 'Add Savings to {{goal}}'
+	String addSavingsToGoal({required Object goal}) => 'Add Savings to ${goal}';
+
+	/// en: 'Savings amount'
+	String get contributionAmount => 'Savings amount';
+
+	/// en: 'From account'
+	String get fromAccount => 'From account';
+
+	/// en: 'Source account'
+	String get sourceAccount => 'Source account';
+
+	/// en: 'Savings history'
+	String get contributions => 'Savings history';
+
+	/// en: 'No savings yet — add your first contribution.'
+	String get noContributionsYet => 'No savings yet — add your first contribution.';
+
+	/// en: 'Contribution · {{goal}}'
+	String contributionNote({required Object goal}) => 'Contribution · ${goal}';
+
+	/// en: 'Withdrawal · {{goal}}'
+	String withdrawalNote({required Object goal}) => 'Withdrawal · ${goal}';
+
+	/// en: 'Choose the wallet or bank to save from'
+	String get selectSourceAccount => 'Choose the wallet or bank to save from';
+
+	/// en: 'This amount exceeds the balance of {{account}} ({{balance}}).'
+	String insufficientBalance({required Object account, required Object balance}) => 'This amount exceeds the balance of ${account} (${balance}).';
+
+	/// en: 'Current saved'
+	String get currentSaved => 'Current saved';
+
+	/// en: 'Remaining'
+	String get remainingAmount => 'Remaining';
+
+	/// en: 'Target reached'
+	String get targetReached => 'Target reached';
+
+	/// en: 'Overfunded by {{amount}}'
+	String goalOverfundedBy({required Object amount}) => 'Overfunded by ${amount}';
+
+	/// en: 'Linked pocket'
+	String get linkedPocket => 'Linked pocket';
+
+	/// en: 'Withdraw Savings'
+	String get withdrawSavings => 'Withdraw Savings';
+
+	/// en: 'Take back from {{goal}}'
+	String withdrawFromGoal({required Object goal}) => 'Take back from ${goal}';
+
+	/// en: 'Withdrawal amount'
+	String get withdrawalAmount => 'Withdrawal amount';
+
+	/// en: 'To account'
+	String get toAccount => 'To account';
 }
 
 // Path: lock
@@ -1584,6 +1644,12 @@ class Translations$reports$en {
 
 	/// en: 'Money out'
 	String get moneyOut => 'Money out';
+
+	/// en: 'Money Flow'
+	String get moneyFlowDiagram => 'Money Flow';
+
+	/// en: 'How money moved this period'
+	String get moneyFlowHint => 'How money moved this period';
 }
 
 // Path: settings
@@ -2741,6 +2807,26 @@ extension on Translations {
 			'goals.targetAmountGreaterThanZero' => 'Target amount must be greater than 0',
 			'goals.saveChanges' => 'Save Changes',
 			'goals.targetDateLabel' => 'Target Date',
+			'goals.addSavings' => 'Add Savings',
+			'goals.addSavingsToGoal' => ({required Object goal}) => 'Add Savings to ${goal}',
+			'goals.contributionAmount' => 'Savings amount',
+			'goals.fromAccount' => 'From account',
+			'goals.sourceAccount' => 'Source account',
+			'goals.contributions' => 'Savings history',
+			'goals.noContributionsYet' => 'No savings yet — add your first contribution.',
+			'goals.contributionNote' => ({required Object goal}) => 'Contribution · ${goal}',
+			'goals.withdrawalNote' => ({required Object goal}) => 'Withdrawal · ${goal}',
+			'goals.selectSourceAccount' => 'Choose the wallet or bank to save from',
+			'goals.insufficientBalance' => ({required Object account, required Object balance}) => 'This amount exceeds the balance of ${account} (${balance}).',
+			'goals.currentSaved' => 'Current saved',
+			'goals.remainingAmount' => 'Remaining',
+			'goals.targetReached' => 'Target reached',
+			'goals.goalOverfundedBy' => ({required Object amount}) => 'Overfunded by ${amount}',
+			'goals.linkedPocket' => 'Linked pocket',
+			'goals.withdrawSavings' => 'Withdraw Savings',
+			'goals.withdrawFromGoal' => ({required Object goal}) => 'Take back from ${goal}',
+			'goals.withdrawalAmount' => 'Withdrawal amount',
+			'goals.toAccount' => 'To account',
 			'lock.confirmPin' => 'Confirm PIN',
 			'lock.createPin' => 'Create PIN',
 			'lock.pinsDoNotMatch' => 'PINs do not match',
@@ -2891,9 +2977,13 @@ extension on Translations {
 			'reports.netFlow' => 'Net flow',
 			'reports.moneyIn' => 'Money in',
 			'reports.moneyOut' => 'Money out',
+			'reports.moneyFlowDiagram' => 'Money Flow',
+			'reports.moneyFlowHint' => 'How money moved this period',
 			'settings.title' => 'Settings',
 			'settings.preferences' => 'Preferences',
 			'settings.baseCurrency' => 'Base Currency',
+			_ => null,
+		} ?? switch (path) {
 			'settings.theme' => 'Theme',
 			'settings.language' => 'Language',
 			'settings.numberFormat' => 'Number Format',
@@ -2916,8 +3006,6 @@ extension on Translations {
 			'settings.clearOld' => 'Clear Old Transactions',
 			'settings.clearOldDesc' => 'Remove transactions older than 1 year',
 			'settings.resetData' => 'Reset Data',
-			_ => null,
-		} ?? switch (path) {
 			'settings.resetDataDesc' => 'Erase all app data locally',
 			'settings.support' => 'Support',
 			'settings.faq' => 'FAQ',

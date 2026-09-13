@@ -74,18 +74,11 @@ class _FakeCategoryListNotifier extends CategoryListNotifier {
 
 class _FakeGoalDetailNotifier extends GoalDetailNotifier {
   bool deleted = false;
-  bool fulfilled = false;
 
   @override
   Future<bool> deleteGoal(BuildContext context, GoalModel goal, {required int currentBalance}) async {
     deleted = true;
     return false; // Prevent actual navigation pop in test
-  }
-
-  @override
-  Future<bool> fulfillGoal(BuildContext context, GoalModel goal) async {
-    fulfilled = true;
-    return true;
   }
 }
 
@@ -117,6 +110,7 @@ void main() {
         goalProvider.overrideWith(() => _FakeGoalNotifier(goals)),
         dashboardProvider.overrideWith(() => _FakeDashboardNotifier(dashboardState)),
         goalTransactionsProvider.overrideWith((ref, goal) => Stream.value(txs ?? [])),
+        goalContributionsProvider.overrideWith((ref, goal) => Stream.value(const [])),
         accountListProvider.overrideWith(() => _FakeAccountListNotifier()),
         categoryListProvider.overrideWith(() => _FakeCategoryListNotifier()),
         goalDetailProvider.overrideWith(() => fakeGoalDetailNotifier),
@@ -139,7 +133,7 @@ void main() {
       expect(find.byType(FCircularProgress), findsOneWidget);
     });
 
-    testWidgets('displays goal details', (tester) async {
+    testWidgets('displays goal details and savings CTA', (tester) async {
       final g = _goal('g1', 'Test Goal', 1000, accountId: 'a1');
       final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 500)]);
 
@@ -148,29 +142,29 @@ void main() {
 
       expect(find.text('Test Goal'), findsOneWidget);
       expect(find.text('50% of target'), findsOneWidget);
-      expect(find.text('TRANSACTIONS'), findsOneWidget);
-      expect(find.text('No transactions found for this goal.'), findsOneWidget);
+      expect(find.text('SAVINGS HISTORY'), findsOneWidget);
+      expect(find.text('Add Savings'), findsOneWidget);
+      expect(find.text('No savings yet — add your first contribution.'), findsOneWidget);
     });
 
-    testWidgets('shows Fulfill Goal button when fully funded', (tester) async {
+    testWidgets('shows Add Savings CTA for active goals', (tester) async {
       final g = _goal('g1', 'Funded Goal', 1000, accountId: 'a1');
       final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 1000)]);
 
       await tester.pumpWidget(wrapGoalDetail('g1', [g], dash));
       await tester.pumpAndSettle();
 
-      final fulfillBtn = find.text('Fulfill Goal (Spend)');
-      expect(fulfillBtn, findsOneWidget);
+      expect(find.text('Add Savings'), findsOneWidget);
     });
 
-    testWidgets('does not show Fulfill Goal button if not fully funded', (tester) async {
-      final g = _goal('g1', 'Funded Goal', 1000, accountId: 'a1');
-      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 999)]);
+    testWidgets('hides Add Savings CTA for completed goals', (tester) async {
+      final g = _goal('g1', 'Done Goal', 1000, accountId: 'a1', status: GoalStatus.completed);
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 1000)]);
 
       await tester.pumpWidget(wrapGoalDetail('g1', [g], dash));
       await tester.pumpAndSettle();
 
-      expect(find.text('Fulfill Goal (Spend)'), findsNothing);
+      expect(find.text('Add Savings'), findsNothing);
     });
 
     testWidgets('tapping delete icon calls deleteGoal on notifier', (tester) async {
@@ -188,20 +182,18 @@ void main() {
       expect(mockGoalDetailNotifier.deleted, isTrue);
     });
 
-    testWidgets('tapping fulfill calls fulfillGoal on notifier', (tester) async {
+    testWidgets('tapping Add Savings opens the contribution sheet', (tester) async {
       final g = _goal('g1', 'Test Goal', 1000, accountId: 'a1');
-      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 1000)]);
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 1000), _acc('w2', 2000)]);
 
-      final mockGoalDetailNotifier = _FakeGoalDetailNotifier();
-      await tester.pumpWidget(wrapGoalDetail('g1', [g], dash, mockNotifier: mockGoalDetailNotifier));
+      await tester.pumpWidget(wrapGoalDetail('g1', [g], dash));
       await tester.pumpAndSettle();
 
-      final fulfillBtn = find.text('Fulfill Goal (Spend)');
-      await tester.ensureVisible(fulfillBtn);
-      await tester.tap(fulfillBtn);
+      await tester.ensureVisible(find.byKey(const Key('goal-add-savings-button')));
+      await tester.tap(find.byKey(const Key('goal-add-savings-button')));
       await tester.pumpAndSettle();
 
-      expect(mockGoalDetailNotifier.fulfilled, isTrue);
+      expect(find.text('Add Savings to Test Goal'), findsOneWidget);
     });
   });
 }
