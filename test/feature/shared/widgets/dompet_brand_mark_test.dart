@@ -22,9 +22,9 @@ void main() {
 
     testWidgets('respects the configured size', (t) async {
       await t.pumpWidget(wrap(const DompetBrandMark(size: 64)));
-      final container = t.widget<Container>(find.byType(Container));
-      expect(container.constraints?.maxWidth, 64);
-      expect(container.constraints?.maxHeight, 64);
+      final image = t.widget<Image>(find.byType(Image));
+      expect(image.width, 64);
+      expect(image.height, 64);
     });
   });
 }

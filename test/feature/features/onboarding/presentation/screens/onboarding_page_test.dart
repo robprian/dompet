@@ -59,7 +59,7 @@ void main() {
     await tester.pumpWidget(createWidgetUnderTest());
     await tester.pumpAndSettle();
 
-    expect(find.text('Choose Your Base Currency'), findsWidgets);
+    expect(find.text('Choose your currency'), findsWidgets);
     expect(find.text('US Dollar'), findsOneWidget);
   });
 }
