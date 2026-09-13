@@ -206,7 +206,7 @@ final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotif
   }
 }
 
-String _$goalDetailNotifierHash() => r'35b0a48b1428b929610e6a82e30310b5baebec24';
+String _$goalDetailNotifierHash() => r'5d590a89c3dde272640d757b88d3f3a8ece2fbb5';
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 
