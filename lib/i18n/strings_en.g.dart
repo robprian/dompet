@@ -1171,11 +1171,11 @@ class Translations$onboarding$en {
 	/// en: 'Continue with selected currency'
 	String get continueWithCurrency => 'Continue with selected currency';
 
-	/// en: 'Choose Your Base Currency'
-	String get chooseYourBaseCurrency => 'Choose Your Base Currency';
+	/// en: 'Choose your currency'
+	String get chooseYourBaseCurrency => 'Choose your currency';
 
-	/// en: 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.'
-	String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.';
+	/// en: 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.'
+	String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.';
 }
 
 // Path: recurring
@@ -1530,6 +1530,27 @@ class Translations$reports$en {
 
 	/// en: 'Failed to export Excel file'
 	String get exportExcelError => 'Failed to export Excel file';
+
+	/// en: 'Detail'
+	String get granularity => 'Detail';
+
+	/// en: 'Daily'
+	String get daily => 'Daily';
+
+	/// en: 'Weekly'
+	String get weekly => 'Weekly';
+
+	/// en: 'Monthly'
+	String get monthly => 'Monthly';
+
+	/// en: 'Net flow'
+	String get netFlow => 'Net flow';
+
+	/// en: 'Money in'
+	String get moneyIn => 'Money in';
+
+	/// en: 'Money out'
+	String get moneyOut => 'Money out';
 }
 
 // Path: settings
@@ -1711,11 +1732,11 @@ class Translations$settings$en {
 	/// en: 'Community Edition'
 	String get communityEdition => 'Community Edition';
 
-	/// en: 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.'
-	String get aboutDescription => 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.';
+	/// en: 'A private, offline-first personal finance manager. All data stays on your device.'
+	String get aboutDescription => 'A private, offline-first personal finance manager. All data stays on your device.';
 
-	/// en: '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID'
-	String get copyright => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID';
+	/// en: '© 2026 Dompet contributors'
+	String get copyright => '© 2026 Dompet contributors';
 
 	/// en: 'No Results Found'
 	String get noResultsFound => 'No Results Found';
@@ -1959,6 +1980,21 @@ class Translations$settings$en {
 
 	/// en: 'Uses an external API. Review what data is shared.'
 	String get aiExternalDescription => 'Uses an external API. Review what data is shared.';
+
+	/// en: 'Test connection'
+	String get aiTestConnection => 'Test connection';
+
+	/// en: 'Testing connection…'
+	String get aiTesting => 'Testing connection…';
+
+	/// en: 'Connection successful'
+	String get aiTestSuccess => 'Connection successful';
+
+	/// en: 'Connection failed. Check the URL, model, and API key.'
+	String get aiTestFailed => 'Connection failed. Check the URL, model, and API key.';
+
+	/// en: 'Base URL looks invalid. It should start with http:// or https://.'
+	String get aiInvalidUrl => 'Base URL looks invalid. It should start with http:// or https://.';
 }
 
 // Path: shared
@@ -2690,8 +2726,8 @@ extension on Translations {
 			'lock.temporarilyLocked' => 'Temporarily locked',
 			'lock.authenticateReason' => 'Authenticate to access Dompet',
 			'onboarding.continueWithCurrency' => 'Continue with selected currency',
-			'onboarding.chooseYourBaseCurrency' => 'Choose Your Base Currency',
-			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',
+			'onboarding.chooseYourBaseCurrency' => 'Choose your currency',
+			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.',
 			'recurring.addSchedule' => 'Add Schedule',
 			'recurring.transactionDetails' => 'Transaction Details',
 			'recurring.amount' => 'Amount',
@@ -2804,6 +2840,13 @@ extension on Translations {
 			'reports.exportExcel' => 'Export to Excel',
 			'reports.exportExcelSuccess' => 'Excel exported successfully',
 			'reports.exportExcelError' => 'Failed to export Excel file',
+			'reports.granularity' => 'Detail',
+			'reports.daily' => 'Daily',
+			'reports.weekly' => 'Weekly',
+			'reports.monthly' => 'Monthly',
+			'reports.netFlow' => 'Net flow',
+			'reports.moneyIn' => 'Money in',
+			'reports.moneyOut' => 'Money out',
 			'settings.title' => 'Settings',
 			'settings.preferences' => 'Preferences',
 			'settings.baseCurrency' => 'Base Currency',
@@ -2840,6 +2883,8 @@ extension on Translations {
 			'settings.themeDark' => 'Dark',
 			'settings.selectLanguage' => 'Select Language',
 			'settings.oldTransactionsCleared' => 'Old transactions cleared successfully',
+			_ => null,
+		} ?? switch (path) {
 			'settings.appDataReset' => 'App data reset successfully',
 			'settings.failedToExportLogs' => 'Failed to export logs',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} taps away from a surprise...',
@@ -2847,8 +2892,6 @@ extension on Translations {
 			'settings.selectCurrency' => 'Select Currency',
 			'settings.openSourceLicenses' => 'Open Source Licenses',
 			'settings.helpIssues' => 'Help & Issues',
-			_ => null,
-		} ?? switch (path) {
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Terms of Service',
@@ -2863,8 +2906,8 @@ extension on Translations {
 			'settings.errorLoadingContent' => 'Error loading content',
 			'settings.noLicensesFound' => 'No licenses found',
 			'settings.communityEdition' => 'Community Edition',
-			'settings.aboutDescription' => 'A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.',
-			'settings.copyright' => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID',
+			'settings.aboutDescription' => 'A private, offline-first personal finance manager. All data stays on your device.',
+			'settings.copyright' => '© 2026 Dompet contributors',
 			'settings.noResultsFound' => 'No Results Found',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',
 			'settings.notSet' => 'Not Set',
@@ -2946,6 +2989,11 @@ extension on Translations {
 			'settings.aiProviderSelection' => 'Choose your AI provider',
 			'settings.aiLocalDescription' => 'All processing happens on your device. No data leaves.',
 			'settings.aiExternalDescription' => 'Uses an external API. Review what data is shared.',
+			'settings.aiTestConnection' => 'Test connection',
+			'settings.aiTesting' => 'Testing connection…',
+			'settings.aiTestSuccess' => 'Connection successful',
+			'settings.aiTestFailed' => 'Connection failed. Check the URL, model, and API key.',
+			'settings.aiInvalidUrl' => 'Base URL looks invalid. It should start with http:// or https://.',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',

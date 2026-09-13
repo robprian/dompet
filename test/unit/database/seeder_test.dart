@@ -11,7 +11,7 @@ void main() {
   tearDown(() async => db.close());
 
   group('DatabaseSeeder', () {
-    test('seed creates 6 accounts and 24 categories', () async {
+    test('seed creates accounts and the expanded default categories', () async {
       await DatabaseSeeder.seed(db, overrideSeedDummyData: true);
       final accounts = await db.select(db.accounts).get();
       expect(accounts.length, 8);
@@ -33,9 +33,9 @@ void main() {
       expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 750000); // Updated to match actual seeder data
 
       final categories = await db.select(db.categories).get();
-      expect(categories.length, 24);
-      expect(categories.where((c) => c.type == CategoryType.expense).length, 21);
-      expect(categories.where((c) => c.type == CategoryType.income).length, 3);
+      expect(categories.length, 50);
+      expect(categories.where((c) => c.type == CategoryType.expense).length, 44);
+      expect(categories.where((c) => c.type == CategoryType.income).length, 6);
     });
 
     test('seed categories have correct icons and colors for sub-categories', () async {

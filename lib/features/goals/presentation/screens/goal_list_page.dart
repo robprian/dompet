@@ -125,43 +125,51 @@ class _GoalContent extends ConsumerWidget {
     final pastGoals = viewState.pastGoals;
     final displayedGoals = filterIndex == 0 ? activeGoals : pastGoals;
 
-    return SingleChildScrollView(
+    return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GoalSummaryCard(totalGoals: activeGoals.length).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      slivers: [
+        SliverToBoxAdapter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              DompetSectionLabel(title: context.t.dashboard.goals),
-              Builder(
-                builder: (context) => GestureDetector(
-                  key: const Key('goal-add-button'),
-                  onTap: () => GoalFormSheet.show(context),
-                  behavior: HitTestBehavior.opaque,
-                  child: Row(
-                    children: [
-                      Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
-                      const SizedBox(width: 4),
-                      Text(
-                        t.goals.addGoal,
-                        style: context.theme.typography.bodySecondary.copyWith(
-                          color: context.theme.colors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
+              GoalSummaryCard(totalGoals: activeGoals.length)
+                  .animate()
+                  .fade(duration: 300.ms)
+                  .slideY(begin: 0.05, end: 0),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DompetSectionLabel(title: context.t.dashboard.goals),
+                  Builder(
+                    builder: (context) => GestureDetector(
+                      key: const Key('goal-add-button'),
+                      onTap: () => GoalFormSheet.show(context),
+                      behavior: HitTestBehavior.opaque,
+                      child: Row(
+                        children: [
+                          Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
+                          const SizedBox(width: 4),
+                          Text(
+                            t.goals.addGoal,
+                            style: context.theme.typography.bodySecondary.copyWith(
+                              color: context.theme.colors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                ],
+              ).animate().fade(duration: 300.ms, delay: 80.ms).slideY(begin: 0.05, end: 0),
+              const SizedBox(height: 8),
             ],
-          ).animate().fade(duration: 300.ms, delay: 80.ms).slideY(begin: 0.05, end: 0),
-          const SizedBox(height: 8),
-          if (displayedGoals.isEmpty)
-            Builder(
+          ),
+        ),
+        if (displayedGoals.isEmpty)
+          SliverToBoxAdapter(
+            child: Builder(
               builder: (context) => filterIndex == 0
                   ? DompetEmptyView(
                       icon: FPhosphorIcons.piggyBank,
@@ -176,27 +184,22 @@ class _GoalContent extends ConsumerWidget {
                       title: t.goals.noCompletedGoalsYet,
                       subtitle: t.goals.completedGoalsWillAppearHere,
                     ),
-            ).animate().fade(duration: 300.ms, delay: 120.ms)
-          else
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: displayedGoals.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  final delay = (80 + index * 50).clamp(0, 320);
-                  return GoalCard(state: displayedGoals[index])
-                      .animate()
-                      .fade(duration: 280.ms, delay: delay.ms)
-                      .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
-                },
-              ),
-            ),
-        ],
-      ),
+            ).animate().fade(duration: 300.ms, delay: 120.ms),
+          )
+        else
+          SliverList.separated(
+            itemCount: displayedGoals.length,
+            separatorBuilder: (_, _) => const SizedBox(height: 10),
+            itemBuilder: (context, index) {
+              final delay = (80 + index * 50).clamp(0, 320);
+              return GoalCard(state: displayedGoals[index])
+                  .animate()
+                  .fade(duration: 280.ms, delay: delay.ms)
+                  .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
+            },
+          ),
+        const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
+      ],
     );
   }
 }

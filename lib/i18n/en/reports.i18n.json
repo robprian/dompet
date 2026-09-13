@@ -60,5 +60,12 @@
   "prevPeriod": "prev period",
   "exportExcel": "Export to Excel",
   "exportExcelSuccess": "Excel exported successfully",
-  "exportExcelError": "Failed to export Excel file"
+  "exportExcelError": "Failed to export Excel file",
+  "granularity": "Detail",
+  "daily": "Daily",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "netFlow": "Net flow",
+  "moneyIn": "Money in",
+  "moneyOut": "Money out"
 }

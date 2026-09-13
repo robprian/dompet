@@ -134,5 +134,24 @@ void main() {
       final data = ReportAnalyticsService.calculate(txs, categories, ReportPeriod.last6Months);
       expect(data.trendPoints.length, 6);
     });
+
+    test('daily granularity buckets money flow per day', () {
+      final txs = [
+        createTx(DateTime(now.year, now.month, 2, 10), TransactionType.income, 1000),
+        createTx(DateTime(now.year, now.month, 2, 11), TransactionType.expense, 300),
+        createTx(DateTime(now.year, now.month, 5, 12), TransactionType.expense, 200),
+      ];
+      final data = ReportAnalyticsService.calculate(
+        txs,
+        categories,
+        ReportPeriod.thisMonth,
+        granularity: TrendGranularity.daily,
+      );
+
+      expect(data.trendPoints.length, 31);
+      expect(data.trendPoints[1].income, 1000);
+      expect(data.trendPoints[1].expense, 300);
+      expect(data.trendPoints[4].expense, 200);
+    });
   });
 }

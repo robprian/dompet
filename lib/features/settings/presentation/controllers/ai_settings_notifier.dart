@@ -21,6 +21,7 @@ class AISettingsNotifier extends Notifier<AIProviderSettings> {
 
   Future<void> _load() async {
     final settings = await ref.read(aiSettingsRepositoryProvider).loadSettings();
+    if (!ref.mounted) return;
     state = settings;
   }
 
@@ -75,6 +76,38 @@ class AISettingsNotifier extends Notifier<AIProviderSettings> {
     final updated = state.copyWith(explicitConsentGiven: true);
     await ref.read(aiSettingsRepositoryProvider).saveSettings(updated);
     state = updated;
+  }
+
+  /// Tests connectivity for a draft provider config without persisting it.
+  /// Returns true when the provider answers its `/models` probe in time.
+  /// [createProvider] is injectable so QA tests can supply a fake probe.
+  Future<bool> testConnection({
+    String? baseUrl,
+    String? model,
+    String? apiKey,
+    String? providerId,
+    AdvisorProvider Function(ProviderConfig config)? createProvider,
+  }) async {
+    final current = state;
+    final id = providerId ?? current.providerId;
+    if (id == 'local-rules') return true;
+    final config = ProviderConfig(
+      id: id,
+      baseUrl:
+          (baseUrl?.trim().isNotEmpty ?? false ? baseUrl!.trim() : null) ??
+          current.baseUrl ??
+          ProviderConfig.defaultBaseUrls[id],
+      apiKey: (apiKey?.trim().isNotEmpty ?? false ? apiKey!.trim() : null) ?? current.apiKey ?? '',
+      model:
+          (model?.trim().isNotEmpty ?? false ? model!.trim() : null) ??
+          current.model ??
+          ProviderConfig.defaultModels[id],
+      temperature: current.temperature,
+      maxTokens: current.maxTokens,
+      displayName: current.displayName,
+    );
+    final provider = (createProvider ?? const AdvisorProviderRegistry().createProvider)(config);
+    return provider.isAvailable();
   }
 
   /// Resets to local-only mode.

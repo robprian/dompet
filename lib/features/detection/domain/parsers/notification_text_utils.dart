@@ -18,16 +18,23 @@ String normalizeText(String input) {
 /// Extracts the integer rupiah amount from a notification string.
 ///
 /// Returns null when no credible "Rp …" amount is present. Supports:
-/// `Rp25.000`, `Rp 1.500.000,00`, `IDR 25.000`, `Rp. 250.000`.
+/// `Rp25.000`, `Rp 1.500.000,00`, `IDR 25.000`, `Rp. 250.000`, and bare
+/// thousands-separated amounts such as `25.000` or `1.500.000` used by
+/// QRIS and wallet notifications that omit the currency prefix.
 int? extractAmount(String text) {
   final t = normalizeText(text);
   final prefixed = RegExp(r'(?:rp|idr)\s*\.?\s*(\d{1,3}(?:[.,]\d{3})+|\d+)').firstMatch(t);
-  final raw = prefixed?.group(1);
+  final raw = prefixed?.group(1) ?? _bareAmount(t);
   if (raw == null) return null;
   final digits = raw.replaceAll(RegExp(r'[^\d]'), '');
   final value = int.tryParse(digits);
   if (value == null || value <= 0) return null;
   return value;
+}
+
+String? _bareAmount(String normalized) {
+  final match = RegExp(r'(?:^|\s)(\d{1,3}(?:\.\d{3})+)(?:\s|$)').firstMatch(normalized);
+  return match?.group(1);
 }
 
 /// True when [text] contains rupiah currency phrasing.

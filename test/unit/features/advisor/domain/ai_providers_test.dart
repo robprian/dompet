@@ -11,6 +11,7 @@ import 'package:dompet/features/debts/domain/debt_model.dart';
 import 'package:dompet/features/goals/domain/goal_model.dart';
 import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 
 final _now = DateTime.now();
 
@@ -145,7 +146,43 @@ void main() {
       );
       expect(await provider.isAvailable(), isFalse);
     });
+
+    test('ping returns true when the models endpoint answers 200', () async {
+      final provider = OpenAICompatibleProvider(
+        config: const OpenAICompatibleConfig(
+          baseUrl: 'https://example.com/v1',
+          apiKey: 'test-key',
+          model: 'test-model',
+        ),
+        httpClient: _FakeHttpClient(statusCode: 200),
+      );
+      expect(await provider.ping(), isTrue);
+    });
+
+    test('ping returns false on non-200 responses', () async {
+      final provider = OpenAICompatibleProvider(
+        config: const OpenAICompatibleConfig(
+          baseUrl: 'https://example.com/v1',
+          apiKey: 'test-key',
+          model: 'test-model',
+        ),
+        httpClient: _FakeHttpClient(statusCode: 401),
+      );
+      expect(await provider.ping(), isFalse);
+    });
   });
+}
+
+class _FakeHttpClient extends http.BaseClient {
+  _FakeHttpClient({required this.statusCode});
+
+  final int statusCode;
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    expect(request.url.path, endsWith('/models'));
+    return http.StreamedResponse(const Stream.empty(), statusCode);
+  }
 }
 
 AdvisorContext _buildContext() {

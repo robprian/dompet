@@ -109,13 +109,16 @@ class _FakeSettingsNotifier extends Notifier<SettingsState> implements SettingsN
   Future<void> setThemeMode(String mode) async {}
 
   @override
-  Future<void> setBaseCurrency(String currencyId) async {}
+  Future<bool> setBaseCurrency(String currencyId) async => true;
 
   @override
   Future<void> setLanguage(String language) async {}
 
   @override
   Future<void> setNumberFormat(String numberFormat) async {}
+
+  @override
+  Future<void> retryLoading() async {}
 
   @override
   Future<List<CurrencyModel>> getAvailableCurrencies() async => [];

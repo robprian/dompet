@@ -31,16 +31,26 @@ class AccountGrid extends ConsumerWidget {
           }
         },
         builder: (children) {
-          return GridView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              mainAxisSpacing: 12,
-              childAspectRatio: 2.35,
-            ),
-            children: children,
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              final columns = constraints.maxWidth >= 760
+                  ? 3
+                  : constraints.maxWidth >= 390
+                  ? 2
+                  : 1;
+              return GridView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: columns,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: columns == 1 ? 2.35 : 1.28,
+                ),
+                children: children,
+              );
+            },
           );
         },
         children: aggregates.map((aggregate) {

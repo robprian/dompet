@@ -30,6 +30,8 @@ class AISettingsSheet extends HookConsumerWidget {
     final apiKeyController = useTextEditingController(text: settings.apiKey ?? '');
     final displayNameController = useTextEditingController(text: settings.displayName ?? '');
     final providerId = useState(settings.providerId);
+    final connectionState = useState<_ConnectionState>(_ConnectionState.idle);
+    final connectionError = useState<String?>(null);
 
     void saveConfig() {
       notifier.updateConfig(
@@ -99,6 +101,47 @@ class AISettingsSheet extends HookConsumerWidget {
                   onPress: saveConfig,
                   child: Text(context.t.common.save),
                 ),
+                const SizedBox(height: 8),
+                FButton(
+                  variant: FButtonVariant.outline,
+                  onPress: connectionState.value == _ConnectionState.testing
+                      ? null
+                      : () async {
+                          final url = baseUrlController.text.trim();
+                          if (settings.providerId != 'local-rules' &&
+                              url.isNotEmpty &&
+                              !(url.startsWith('http://') || url.startsWith('https://'))) {
+                            connectionError.value = context.t.settings.aiInvalidUrl;
+                            connectionState.value = _ConnectionState.failed;
+                            return;
+                          }
+                          connectionError.value = null;
+                          connectionState.value = _ConnectionState.testing;
+                          final ok = await notifier.testConnection(
+                            baseUrl: url.isEmpty ? null : url,
+                            model: modelController.text.trim().isEmpty ? null : modelController.text.trim(),
+                            apiKey: apiKeyController.text.trim().isEmpty ? null : apiKeyController.text.trim(),
+                          );
+                          if (!context.mounted) return;
+                          connectionError.value = ok ? null : context.t.settings.aiTestFailed;
+                          connectionState.value = ok ? _ConnectionState.success : _ConnectionState.failed;
+                        },
+                  child: Text(
+                    connectionState.value == _ConnectionState.testing
+                        ? context.t.settings.aiTesting
+                        : context.t.settings.aiTestConnection,
+                  ),
+                ),
+                if (connectionState.value == _ConnectionState.success) ...[
+                  const SizedBox(height: 8),
+                  _ConnectionNote(text: context.t.settings.aiTestSuccess, isError: false),
+                ] else if (connectionState.value == _ConnectionState.failed) ...[
+                  const SizedBox(height: 8),
+                  _ConnectionNote(
+                    text: connectionError.value ?? context.t.settings.aiTestFailed,
+                    isError: true,
+                  ),
+                ],
               ],
 
               const SizedBox(height: 16),
@@ -177,5 +220,32 @@ class AISettingsSheet extends HookConsumerWidget {
     if (confirmed != true) {
       await notifier.selectProvider('local-rules');
     }
+  }
+}
+
+enum _ConnectionState { idle, testing, success, failed }
+
+class _ConnectionNote extends StatelessWidget {
+  const _ConnectionNote({required this.text, required this.isError});
+
+  final String text;
+  final bool isError;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    final color = isError ? theme.colors.error : theme.colors.app.success;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Text(
+        text,
+        style: theme.typography.bodySecondary.copyWith(color: color),
+      ),
+    );
   }
 }

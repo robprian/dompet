@@ -56,8 +56,8 @@
   "errorLoadingContent": "Error loading content",
   "noLicensesFound": "No licenses found",
   "communityEdition": "Community Edition",
-  "aboutDescription": "A private, offline-first personal finance manager. All data stays on your device. Built on top of the open-source Poka CE codebase.",
-  "copyright": "© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID",
+  "aboutDescription": "A private, offline-first personal finance manager. All data stays on your device.",
+  "copyright": "© 2026 Dompet contributors",
   "noResultsFound": "No Results Found",
   "weCouldntFindAnyCurrencyMatching": "We couldn't find any currency matching \"{search}\".",
   "notSet": "Not Set",
@@ -138,5 +138,10 @@
   "aiResetToLocal": "Reset to Local Mode",
   "aiProviderSelection": "Choose your AI provider",
   "aiLocalDescription": "All processing happens on your device. No data leaves.",
-  "aiExternalDescription": "Uses an external API. Review what data is shared."
+  "aiExternalDescription": "Uses an external API. Review what data is shared.",
+  "aiTestConnection": "Test connection",
+  "aiTesting": "Testing connection…",
+  "aiTestSuccess": "Connection successful",
+  "aiTestFailed": "Connection failed. Check the URL, model, and API key.",
+  "aiInvalidUrl": "Base URL looks invalid. It should start with http:// or https://."
 }

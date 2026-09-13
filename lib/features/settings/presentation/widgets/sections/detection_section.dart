@@ -47,38 +47,22 @@ class DetectionSection extends ConsumerWidget {
             ),
             SettingsMenuItem(
               title: context.t.settings.enableDetection,
-              subtitle: context.t.settings.enableDetectionDesc,
+              subtitle: settings.autoImportEnabled
+                  ? context.t.settings.autoImportDesc
+                  : context.t.settings.salaryDetectionDesc,
               icon: FPhosphorIcons.eye,
               trailing: DompetSwitch(
                 value: settings.enabled,
                 onChange: (value) => ref.read(detectionSettingsProvider.notifier).setEnabled(value: value),
               ),
             ),
-            SettingsMenuItem(
-              title: context.t.settings.autoImport,
-              subtitle: context.t.settings.autoImportDesc,
-              icon: FPhosphorIcons.arrowCircleDown,
-              trailing: DompetSwitch(
-                value: settings.autoImportEnabled,
-                onChange: (value) => ref.read(detectionSettingsProvider.notifier).setAutoImportEnabled(value: value),
+            if (settings.enabled)
+              SettingsMenuItem(
+                title: context.t.settings.autoImport,
+                subtitle: '${(settings.autoImportThreshold * 100).round()}%',
+                icon: FPhosphorIcons.gauge,
+                onTap: () => DetectionThresholdSheet.show(context, settings.autoImportThreshold),
               ),
-            ),
-            SettingsMenuItem(
-              title: context.t.settings.detectionThreshold,
-              subtitle: '${(settings.autoImportThreshold * 100).round()}%',
-              icon: FPhosphorIcons.gauge,
-              onTap: () => DetectionThresholdSheet.show(context, settings.autoImportThreshold),
-            ),
-            SettingsMenuItem(
-              title: context.t.settings.salaryDetected,
-              subtitle: context.t.settings.salaryDetectionDesc,
-              icon: FPhosphorIcons.bank,
-              trailing: DompetSwitch(
-                value: settings.salaryDetectionEnabled,
-                onChange: (value) =>
-                    ref.read(detectionSettingsProvider.notifier).setSalaryDetectionEnabled(value: value),
-              ),
-            ),
           ],
         );
       },

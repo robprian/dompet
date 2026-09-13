@@ -7,6 +7,7 @@ import 'package:dompet/features/transactions/domain/transaction_model.dart';
 import 'package:dompet/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:dompet/features/transactions/presentation/widgets/filter/transaction_filter_sheet.dart';
 import 'package:dompet/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
+import 'package:dompet/features/transactions/presentation/widgets/list/transaction_calendar_grid.dart';
 import 'package:dompet/features/transactions/presentation/widgets/list/transaction_list_summary_card.dart';
 import 'package:dompet/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:dompet/i18n/strings.g.dart';
@@ -30,6 +31,7 @@ class TransactionListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(transactionListNotifierProvider);
     final notifier = ref.read(transactionListNotifierProvider.notifier);
+    final showCalendar = useState(false);
 
     final isSearchVisible = useState(state.filter.searchQuery.isNotEmpty);
     final searchController = useTextEditingController(text: state.filter.searchQuery);
@@ -99,6 +101,24 @@ class TransactionListPage extends HookConsumerWidget {
                   ),
           ),
           suffixes: [
+            // Calendar button — toggles the full-month calendar.
+            GestureDetector(
+              onTap: () {
+                showCalendar.value = !showCalendar.value;
+                if (showCalendar.value) {
+                  notifier.setViewMode(TransactionViewMode.month);
+                }
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Icon(
+                  FPhosphorIcons.calendarDots,
+                  size: 22,
+                  color: showCalendar.value ? context.theme.colors.primary : context.theme.colors.foreground,
+                ),
+              ),
+            ),
             // Search button
             GestureDetector(
               onTap: () {
@@ -193,6 +213,27 @@ class TransactionListPage extends HookConsumerWidget {
                       child: TransactionListSummaryCard(state: state),
                     ),
                     const SliverToBoxAdapter(child: SizedBox(height: 20)),
+
+                    // ── 1b. Full-month calendar with per-day totals ─────────
+                    if (showCalendar.value)
+                      SliverToBoxAdapter(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            TransactionCalendarGrid(
+                              focusedDate: state.focusedDate,
+                              transactions: state.transactions,
+                              selectedDate: state.viewMode == TransactionViewMode.day ? state.focusedDate : null,
+                              onSelectDate: (date) {
+                                notifier
+                                  ..setViewMode(TransactionViewMode.day)
+                                  ..jumpToDate(date);
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
 
                     // ── 2. Sticky: view-mode chips + date navigator ────────
                     SliverPersistentHeader(

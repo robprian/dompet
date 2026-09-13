@@ -71,6 +71,23 @@ void main() {
     expect(transactions.first.type, TransactionType.expense);
   });
 
+  test('QRIS without a currency prefix still auto-imports', () async {
+    final outcome = await service.handle(payload('QRIS 25.000 di KOPI ABC berhasil'));
+
+    expect(outcome.type, ImportOutcomeType.imported);
+    expect(outcome.amount, 25000);
+    expect(await totalBalance(), -25000);
+  });
+
+  test('transfers stay in the review queue to protect balances', () async {
+    final outcome = await service.handle(
+      payload('Pemindahan dana Rp500.000 ke BCA 1234567890 berhasil'),
+    );
+
+    expect(outcome.type, ImportOutcomeType.review);
+    expect(await totalBalance(), 0);
+  });
+
   test('duplicate notifications are rejected without double import', () async {
     final first = await service.handle(payload('Pembayaran QRIS Rp25.000 di KOPI ABC berhasil'));
     expect(first.type, ImportOutcomeType.imported);

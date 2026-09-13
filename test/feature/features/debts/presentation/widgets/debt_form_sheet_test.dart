@@ -89,7 +89,13 @@ void main() {
     note: 'dinner',
   );
 
-  Widget buildWidget({DebtModel? initialDebt}) {
+  Widget buildWidget({
+    DebtModel? initialDebt,
+    String? initialAccountId,
+    String? initialCategoryId,
+    String? initialPersonName,
+    int? initialAmount,
+  }) {
     return ProviderScope(
       overrides: [
         debtRepositoryProvider.overrideWithValue(mockDebtRepo),
@@ -107,7 +113,15 @@ void main() {
             child: FToaster(child: child!),
           ),
           home: Scaffold(
-            body: SingleChildScrollView(child: DebtFormSheet(initialDebt: initialDebt)),
+            body: SingleChildScrollView(
+              child: DebtFormSheet(
+                initialDebt: initialDebt,
+                initialAccountId: initialAccountId,
+                initialCategoryId: initialCategoryId,
+                initialPersonName: initialPersonName,
+                initialAmount: initialAmount,
+              ),
+            ),
           ),
         ),
       ),

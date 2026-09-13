@@ -1,6 +1,7 @@
 import 'package:dompet/core/extensions/num_extension.dart';
 import 'package:dompet/features/reports/domain/services/report_analytics_service.dart';
 import 'package:dompet/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:dompet/features/reports/presentation/widgets/report_cashflow_detail_sheet.dart';
 import 'package:dompet/i18n/strings.g.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -64,6 +65,7 @@ class ReportCashflowChart extends ConsumerWidget {
                   incomeColor: incomeColor,
                   expenseColor: expenseColor,
                   theme: theme,
+                  onPointTap: (point) => ReportCashflowDetailSheet.show(context, point),
                 ),
               ),
           ],
@@ -81,12 +83,14 @@ class _CashflowBarChart extends StatelessWidget {
     required this.incomeColor,
     required this.expenseColor,
     required this.theme,
+    required this.onPointTap,
   });
 
   final List<ReportTrendPoint> points;
   final Color incomeColor;
   final Color expenseColor;
   final FThemeData theme;
+  final ValueChanged<ReportTrendPoint> onPointTap;
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +104,12 @@ class _CashflowBarChart extends StatelessWidget {
         minY: 0,
         barTouchData: BarTouchData(
           enabled: true,
+          touchCallback: (event, response) {
+            if (event is FlTapUpEvent && response?.spot != null) {
+              final index = response!.spot!.touchedBarGroupIndex;
+              if (index >= 0 && index < points.length) onPointTap(points[index]);
+            }
+          },
           touchTooltipData: BarTouchTooltipData(
             getTooltipColor: (_) => theme.colors.card,
             tooltipBorder: BorderSide(color: theme.colors.border),

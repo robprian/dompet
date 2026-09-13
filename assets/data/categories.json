@@ -204,11 +204,225 @@
     "sort": 3
   },
   {
-    "id": "01a031e6-4383-7f2e-a030-3254111cad6c",
-    "name": "Transfer",
-    "type": "transfer",
-    "icon": "arrows-left-right",
+    "id": "019f3dd6-0000-7000-8000-000000000001",
+    "name": "Education",
+    "type": "expense",
+    "icon": "graduation_cap",
+    "color": "#3B82F6",
+    "sort": 7,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000002",
+        "name": "Tuition & Courses",
+        "type": "expense",
+        "icon": "student",
+        "color": "#3B82F6",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000003",
+        "name": "Books & Supplies",
+        "type": "expense",
+        "icon": "books",
+        "color": "#3B82F6",
+        "sort": 2
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000004",
+    "name": "Personal Care",
+    "type": "expense",
+    "icon": "sparkle",
+    "color": "#EC4899",
+    "sort": 8,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000005",
+        "name": "Hair & Beauty",
+        "type": "expense",
+        "icon": "scissors",
+        "color": "#EC4899",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000006",
+        "name": "Toiletries",
+        "type": "expense",
+        "icon": "shower",
+        "color": "#EC4899",
+        "sort": 2
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000007",
+    "name": "Family",
+    "type": "expense",
+    "icon": "users",
+    "color": "#F97316",
+    "sort": 9,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000008",
+        "name": "Childcare",
+        "type": "expense",
+        "icon": "baby",
+        "color": "#F97316",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000009",
+        "name": "Family Support",
+        "type": "expense",
+        "icon": "hand_heart",
+        "color": "#F97316",
+        "sort": 2
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-00000000000a",
+    "name": "Pets",
+    "type": "expense",
+    "icon": "paw_print",
+    "color": "#14B8A6",
+    "sort": 10,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-00000000000b",
+        "name": "Pet Food & Supplies",
+        "type": "expense",
+        "icon": "dog",
+        "color": "#14B8A6",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-00000000000c",
+        "name": "Veterinary Care",
+        "type": "expense",
+        "icon": "first_aid",
+        "color": "#14B8A6",
+        "sort": 2
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-00000000000d",
+    "name": "Travel",
+    "type": "expense",
+    "icon": "suitcase_rolling",
+    "color": "#8B5CF6",
+    "sort": 11,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-00000000000e",
+        "name": "Flights & Tickets",
+        "type": "expense",
+        "icon": "airplane",
+        "color": "#8B5CF6",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-00000000000f",
+        "name": "Accommodation",
+        "type": "expense",
+        "icon": "bed",
+        "color": "#8B5CF6",
+        "sort": 2
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000010",
+        "name": "Sightseeing",
+        "type": "expense",
+        "icon": "map_pin",
+        "color": "#8B5CF6",
+        "sort": 3
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000011",
+    "name": "Gifts & Donations",
+    "type": "expense",
+    "icon": "gift",
+    "color": "#EC4899",
+    "sort": 12,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000012",
+        "name": "Presents",
+        "type": "expense",
+        "icon": "gift",
+        "color": "#EC4899",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000013",
+        "name": "Charity & Donations",
+        "type": "expense",
+        "icon": "hand_heart",
+        "color": "#EC4899",
+        "sort": 2
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000014",
+    "name": "Insurance & Fees",
+    "type": "expense",
+    "icon": "shield_check",
     "color": "#64748B",
-    "sort": 1
+    "sort": 13,
+    "children": [
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000015",
+        "name": "Insurance Premiums",
+        "type": "expense",
+        "icon": "shield_check",
+        "color": "#64748B",
+        "sort": 1
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000016",
+        "name": "Bank & Service Fees",
+        "type": "expense",
+        "icon": "receipt",
+        "color": "#64748B",
+        "sort": 2
+      },
+      {
+        "id": "019f3dd6-0000-7000-8000-000000000017",
+        "name": "Taxes",
+        "type": "expense",
+        "icon": "scales",
+        "color": "#64748B",
+        "sort": 3
+      }
+    ]
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000018",
+    "name": "Freelance",
+    "type": "income",
+    "icon": "laptop",
+    "color": "#22C55E",
+    "sort": 4
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-000000000019",
+    "name": "Refunds & Reimbursements",
+    "type": "income",
+    "icon": "arrow_uturn_left",
+    "color": "#22C55E",
+    "sort": 5
+  },
+  {
+    "id": "019f3dd6-0000-7000-8000-00000000001a",
+    "name": "Gifts Received",
+    "type": "income",
+    "icon": "gift",
+    "color": "#22C55E",
+    "sort": 6
   }
 ]

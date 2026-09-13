@@ -126,6 +126,8 @@ class IconUtil {
         'invoice': FPhosphorIcons.invoice,
         'calculator': FPhosphorIcons.calculator,
         'scales': FPhosphorIcons.scales,
+        'shield_check': FPhosphorIcons.shieldCheck,
+        'arrow_uturn_left': FPhosphorIcons.arrowUUpLeft,
         'hand_coins': FPhosphorIcons.handCoins,
         'trend_up': FPhosphorIcons.trendUp,
         'trend_down': FPhosphorIcons.trendDown,
@@ -194,6 +196,7 @@ class IconUtil {
       name: 'Housing & Utilities',
       icons: {
         'house': FPhosphorIcons.house,
+        'key': FPhosphorIcons.key,
         'house_line': FPhosphorIcons.houseLine,
         'building': FPhosphorIcons.building,
         'building_apartment': FPhosphorIcons.buildingApartment,
@@ -219,6 +222,8 @@ class IconUtil {
       name: 'Health & Wellness',
       icons: {
         'first_aid': FPhosphorIcons.firstAid,
+        'sparkle': FPhosphorIcons.sparkle,
+        'scissors': FPhosphorIcons.scissors,
         'pill': FPhosphorIcons.pill,
         'heart_beat': FPhosphorIcons.heartbeat,
         'syringe': FPhosphorIcons.syringe,
@@ -254,6 +259,7 @@ class IconUtil {
       icons: {
         'game_controller': FPhosphorIcons.gameController,
         'film_strip': FPhosphorIcons.filmStrip,
+        'monitor_play': FPhosphorIcons.monitorPlay,
         'music_notes': FPhosphorIcons.musicNotes,
         'headphones': FPhosphorIcons.headphones,
         'barbell': FPhosphorIcons.barbell,
@@ -277,6 +283,7 @@ class IconUtil {
       name: 'Technology & Work',
       icons: {
         'laptop': FPhosphorIcons.laptop,
+        'devices': FPhosphorIcons.devices,
         'desktop': FPhosphorIcons.desktop,
         'device_mobile': FPhosphorIcons.deviceMobile,
         'briefcase': FPhosphorIcons.briefcase,
@@ -296,6 +303,7 @@ class IconUtil {
       name: 'Family & Pets',
       icons: {
         'users': FPhosphorIcons.users,
+        'hand_heart': FPhosphorIcons.handHeart,
         'user': FPhosphorIcons.user,
         'paw_print': FPhosphorIcons.pawPrint,
         'cat': FPhosphorIcons.cat,
@@ -341,10 +349,9 @@ class IconUtil {
 
   /// Looks up an icon by its identifier [name], falling back to a wallet icon if not found.
   static IconData getIcon(String? name) {
-    if (name == null || !availableIcons.containsKey(name)) {
-      return FPhosphorIcons.wallet;
-    }
-    return availableIcons[name]!;
+    final normalized = name?.trim().toLowerCase().replaceAll('-', '_');
+    final key = normalized == 'tshirt' ? 't_shirt' : normalized;
+    return availableIcons[key] ?? FPhosphorIcons.wallet;
   }
 
   /// Returns a short brand mark for known bank and e-wallet identifiers.

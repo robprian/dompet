@@ -32,10 +32,15 @@ class DetectionNotificationService {
   }
 
   /// Processes one payload and returns the local outcome.
+  /// Never throws: notification events must not crash the host app.
   Future<ImportOutcome> process(NotificationPayload payload) async {
-    final outcome = await importService.handle(payload);
-    await onProcessed?.call(outcome);
-    return outcome;
+    try {
+      final outcome = await importService.handle(payload);
+      await onProcessed?.call(outcome);
+      return outcome;
+    } on Object catch (_) {
+      return const ImportOutcome(type: ImportOutcomeType.discarded);
+    }
   }
 
   /// Requests Android notification access settings.

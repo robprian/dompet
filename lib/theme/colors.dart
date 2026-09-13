@@ -90,8 +90,8 @@ final FColors darkColors = FColors(
   systemOverlayStyle: .light,
   // Deeper scrim for dark-mode overlays.
   barrier: const Color(0x80000000),
-  // Slate-950 (#020617) — ultra-dark neutral, premium and easy on eyes.
-  background: TWind.slate950,
+  // #05070B canvas — ultra-dark premium surface, easy on eyes.
+  background: const Color(0xFF05070B),
   // Slate-100 foreground — crisp (~19:1 on slate-950).
   foreground: const Color(0xFFF1F5F9),
   // #5560D6 reads well on slate-950 (~4.6:1 — WCAG AA).
@@ -110,7 +110,7 @@ final FColors darkColors = FColors(
   error: TWind.red500,
   errorForeground: TWind.white,
   // Slate-900 card — one visible step above slate-950 background.
-  card: TWind.slate950,
+  card: TWind.slate900,
   // Slate-700 border — clearly delineates surfaces without harshness.
   border: TWind.slate700,
   extensions: const [

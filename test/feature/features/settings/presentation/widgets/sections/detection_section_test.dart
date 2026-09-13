@@ -108,7 +108,6 @@ void main() {
     expect(find.text('Notification access'), findsOneWidget);
     expect(find.text('Enable notification detection'), findsOneWidget);
     expect(find.text('Auto-import high confidence'), findsOneWidget);
-    expect(find.text('Auto-import threshold'), findsOneWidget);
   });
 
   testWidgets('toggling detection persists the setting', (tester) async {
@@ -117,7 +116,7 @@ void main() {
     await tester.pumpAndSettle();
 
     final switches = find.byType(FSwitch);
-    expect(switches, findsNWidgets(3));
+    expect(switches, findsOneWidget);
     await tester.tap(switches.first);
     await tester.pumpAndSettle();
 

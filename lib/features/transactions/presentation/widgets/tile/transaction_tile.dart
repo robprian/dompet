@@ -203,8 +203,9 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     final destAccLabel = destAccount?.name;
     final destAccColor = destAccount?.color?.toColor() ?? theme.colors.primary;
 
-    // ── Time string ────────────────────────────────────────────────────────
+    // ── Date/time string ───────────────────────────────────────────────────
     final timeStr = isSubItem ? null : transaction.transactionDate.toFormattedTime();
+    final dateStr = isSubItem ? null : transaction.transactionDate.toRelativeDateString();
 
     final Widget baseTile = GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -235,6 +236,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
           destAccColor: destAccColor,
           isTransfer: transaction.type == TransactionType.transfer,
           timeStr: timeStr,
+          dateStr: dateStr,
           note: !hasMultipleItems ? (transaction.items.firstOrNull?.note ?? transaction.note) : transaction.note,
           allocation: !hasMultipleItems ? transaction.items.firstOrNull?.allocation : null,
           hasDebt: transaction.debtId != null,

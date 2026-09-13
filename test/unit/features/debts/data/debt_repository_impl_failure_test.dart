@@ -1,5 +1,7 @@
 // Tests exception-to-Failure translation of DebtRepositoryImpl by mocking
 // its DAO to throw, covering every defensive catch branch.
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dompet/core/enums.dart';
@@ -17,6 +19,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MockDebtsDao dao;
   late DebtRepositoryImpl repository;
+  late db.AppDatabase database;
 
   setUpAll(() {
     registerFallbackValue(const db.DebtsCompanion());
@@ -24,10 +27,31 @@ void main() {
     registerFallbackValue(const db.TransactionItemsCompanion());
   });
 
-  setUp(() {
+  setUp(() async {
+    database = db.AppDatabase(connection: NativeDatabase.memory());
     dao = MockDebtsDao();
+    when(() => dao.attachedDatabase).thenReturn(database);
     repository = DebtRepositoryImpl(dao);
+    await database.accountsDao.insertAccount(
+      db.AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets),
+    );
+    await database.categoriesDao.insertCategory(
+      db.CategoriesCompanion.insert(id: const Value('cat1'), name: 'Income', type: CategoryType.income),
+    );
+    await database.debtsDao.insertDebt(
+      db.DebtsCompanion.insert(
+        id: const Value('debt-1'),
+        personName: 'Budi',
+        type: DebtType.debt,
+        amount: 500000,
+        remainingAmount: 500000,
+        status: DebtStatus.active,
+      ),
+    );
+    when(() => dao.getDebt(any())).thenAnswer((_) => database.debtsDao.getDebt('debt-1'));
   });
+
+  tearDown(() => database.close());
 
   test('getDebts returns DatabaseFailure when DAO throws', () async {
     when(() => dao.getAllDebts()).thenThrow(Exception('boom'));

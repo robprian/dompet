@@ -82,10 +82,16 @@ class DebtForm extends _$DebtForm {
   void setPersonName(String name) => state = state.copyWith(personName: name);
 
   /// Sets whether this record is a debt (borrowed) or loan (lent).
-  void setType(DebtType type) => state = state.copyWith(type: type);
+  void setType(DebtType type) {
+    if (state.initialDebt != null) return;
+    state = state.copyWith(type: type);
+  }
 
   /// Sets the principal amount in the smallest currency unit.
-  void setAmount(int amount) => state = state.copyWith(amount: amount);
+  void setAmount(int amount) {
+    if (state.initialDebt != null) return;
+    state = state.copyWith(amount: amount);
+  }
 
   /// Sets the current settlement status (active or paid).
   void setStatus(DebtStatus status) => state = state.copyWith(status: status);
@@ -98,12 +104,17 @@ class DebtForm extends _$DebtForm {
 
   /// Validates and saves the debt record, creating the bound financial transaction on creation.
   Future<void> save() async {
+    if (state.isSaving || state.isSuccess) return;
     if (state.personName.trim().isEmpty) {
       state = state.copyWith(error: t.debts.personNameCannotBeEmpty, isSaving: false);
       return;
     }
     if (state.amount <= 0) {
       state = state.copyWith(error: t.debts.amountGreaterThanZero, isSaving: false);
+      return;
+    }
+    if (state.initialDebt == null && (state.accountId.trim().isEmpty || state.categoryId.trim().isEmpty)) {
+      state = state.copyWith(error: t.debts.selectCategoryAndAccount);
       return;
     }
     state = state.copyWith(

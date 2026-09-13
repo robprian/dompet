@@ -24,6 +24,7 @@ class TransactionTileContent extends StatelessWidget {
     this.destAccLabel,
     this.destAccColor,
     this.timeStr,
+    this.dateStr,
     this.note,
     this.allocation,
     this.hasDebt = false,
@@ -45,6 +46,7 @@ class TransactionTileContent extends StatelessWidget {
   final Color? destAccColor;
   final bool isTransfer;
   final String? timeStr;
+  final String? dateStr;
   final String? note;
   final TransactionAllocation? allocation;
   final bool hasDebt;
@@ -106,7 +108,7 @@ class TransactionTileContent extends StatelessWidget {
           ],
         ),
 
-        // Row 2: Account & Time
+        // Row 2: Account & Date/Time
         if (accLabel != null || timeStr != null) ...[
           const SizedBox(height: 2),
           Row(
@@ -151,10 +153,10 @@ class TransactionTileContent extends StatelessWidget {
                       )
                     : const SizedBox.shrink(),
               ),
-              if (timeStr != null) ...[
+              if (timeStr != null || dateStr != null) ...[
                 const SizedBox(width: 8),
                 Text(
-                  timeStr!,
+                  [if (dateStr != null) dateStr, if (timeStr != null) timeStr].join(' · '),
                   style: theme.typography.caption.copyWith(
                     color: theme.colors.mutedForeground,
                   ),

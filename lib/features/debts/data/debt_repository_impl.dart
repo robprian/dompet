@@ -7,6 +7,7 @@ import 'package:dompet/database/daos/debts_dao.dart';
 import 'package:dompet/database/database.dart' as db;
 import 'package:dompet/features/debts/domain/debt_model.dart';
 import 'package:dompet/features/debts/domain/i_debt_repository.dart';
+import 'package:dompet/i18n/strings.g.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
@@ -67,49 +68,68 @@ class DebtRepositoryImpl implements IDebtRepository {
   /// Creates a debt/loan record and simultaneously generates its corresponding initial disbursement transaction.
   @override
   Future<Result<void, Failure>> createDebt(DebtModel model, String accountId, String categoryId) async {
+    if (model.personName.trim().isEmpty) {
+      return ErrorResult(ValidationFailure(t.debts.personNameCannotBeEmpty));
+    }
+    if (model.amount <= 0) {
+      return ErrorResult(ValidationFailure(t.debts.amountGreaterThanZero));
+    }
+    if (model.remainingAmount != model.amount || model.status != DebtStatus.active) {
+      return const ErrorResult(ValidationFailure('New debt must be active with the full principal remaining'));
+    }
+    if (accountId.trim().isEmpty || categoryId.trim().isEmpty) {
+      return ErrorResult(ValidationFailure(t.debts.selectCategoryAndAccount));
+    }
     try {
-      final now = DateTimeUtils.nowUtc();
-      final isDebt = model.type == DebtType.debt;
+      return await _dao.attachedDatabase.transaction(() async {
+        final account = await _dao.attachedDatabase.accountsDao.getAccount(accountId);
+        final category = await _dao.attachedDatabase.categoriesDao.getCategory(categoryId);
+        if (account == null || !account.isActive || category == null || !category.isActive) {
+          return ErrorResult<void, Failure>(ValidationFailure(t.debts.selectCategoryAndAccount));
+        }
+        final now = DateTimeUtils.nowUtc();
+        final isDebt = model.type == DebtType.debt;
 
-      final transactionId = const Uuid().v7();
+        final transactionId = const Uuid().v7();
 
-      // Cash flow binding: Debts print an income transaction (borrowed funds added to wallet),
-      // while Loans print an expense transaction (lent funds deducted from wallet)
-      final txHeader = db.TransactionsCompanion.insert(
-        id: Value(transactionId),
-        accountId: accountId,
-        type: isDebt ? TransactionType.income : TransactionType.expense,
-        amount: model.amount,
-        transactionDate: now,
-        debtId: Value(model.id),
-        note: Value(isDebt ? 'Borrowed from ${model.personName}' : 'Lent to ${model.personName}'),
-        createdAt: Value(now),
-        updatedAt: Value(now),
-      );
+        // Cash flow binding: Debts print an income transaction (borrowed funds added to wallet),
+        // while Loans print an expense transaction (lent funds deducted from wallet)
+        final txHeader = db.TransactionsCompanion.insert(
+          id: Value(transactionId),
+          accountId: accountId,
+          type: isDebt ? TransactionType.income : TransactionType.expense,
+          amount: model.amount,
+          transactionDate: now,
+          debtId: Value(model.id),
+          note: Value(isDebt ? 'Borrowed from ${model.personName}' : 'Lent to ${model.personName}'),
+          createdAt: Value(now),
+          updatedAt: Value(now),
+        );
 
-      final txItem = db.TransactionItemsCompanion.insert(
-        transactionId: transactionId,
-        categoryId: Value(categoryId),
-        amount: model.amount,
-        createdAt: Value(now),
-        updatedAt: Value(now),
-      );
+        final txItem = db.TransactionItemsCompanion.insert(
+          transactionId: transactionId,
+          categoryId: Value(categoryId),
+          amount: model.amount,
+          createdAt: Value(now),
+          updatedAt: Value(now),
+        );
 
-      final debt = db.DebtsCompanion.insert(
-        id: Value(model.id),
-        personName: model.personName,
-        type: model.type,
-        amount: model.amount,
-        remainingAmount: model.remainingAmount,
-        status: model.status,
-        dueDate: Value(model.dueDate?.toUtc()),
-        note: Value(model.note),
-        createdAt: Value(model.createdAt.toUtc()),
-        updatedAt: Value(model.updatedAt.toUtc()),
-      );
+        final debt = db.DebtsCompanion.insert(
+          id: Value(model.id),
+          personName: model.personName.trim(),
+          type: model.type,
+          amount: model.amount,
+          remainingAmount: model.remainingAmount,
+          status: model.status,
+          dueDate: Value(model.dueDate?.toUtc()),
+          note: Value(model.note),
+          createdAt: Value(model.createdAt.toUtc()),
+          updatedAt: Value(model.updatedAt.toUtc()),
+        );
 
-      await _dao.insertDebtWithTransaction(debt, txHeader, txItem);
-      return const Success(null);
+        await _dao.insertDebtWithTransaction(debt, txHeader, txItem);
+        return const Success<void, Failure>(null);
+      });
     } on Exception catch (e, st) {
       talker.handle(e, st, 'DebtRepositoryImpl.createDebt');
       return ErrorResult(DatabaseFailure(e.toString()));
@@ -119,21 +139,41 @@ class DebtRepositoryImpl implements IDebtRepository {
   /// Updates debt record metadata such as due date, person name, or notes.
   @override
   Future<Result<void, Failure>> updateDebt(DebtModel model) async {
+    if (model.personName.trim().isEmpty) {
+      return ErrorResult(ValidationFailure(t.debts.personNameCannotBeEmpty));
+    }
+    if (model.amount <= 0) {
+      return ErrorResult(ValidationFailure(t.debts.amountGreaterThanZero));
+    }
+    if (model.remainingAmount < 0 ||
+        model.remainingAmount > model.amount ||
+        (model.status == DebtStatus.paid) != (model.remainingAmount == 0)) {
+      return const ErrorResult(ValidationFailure('Invalid remaining debt amount or status'));
+    }
     try {
-      await _dao.updateDebt(
-        db.DebtsCompanion(
-          id: Value(model.id),
-          personName: Value(model.personName),
-          type: Value(model.type),
-          amount: Value(model.amount),
-          remainingAmount: Value(model.remainingAmount),
-          status: Value(model.status),
-          dueDate: Value(model.dueDate?.toUtc()),
-          note: Value(model.note),
-          updatedAt: Value(DateTimeUtils.nowUtc()),
-        ),
-      );
-      return const Success(null);
+      return await _dao.attachedDatabase.transaction(() async {
+        final existing = await _dao.getDebt(model.id);
+        if (existing == null) {
+          return const ErrorResult<void, Failure>(ValidationFailure('Debt not found'));
+        }
+        if (model.amount != existing.amount || model.type != existing.type) {
+          return const ErrorResult<void, Failure>(ValidationFailure('Debt principal and type cannot be changed'));
+        }
+        await _dao.updateDebt(
+          db.DebtsCompanion(
+            id: Value(model.id),
+            personName: Value(model.personName.trim()),
+            type: Value(model.type),
+            amount: Value(model.amount),
+            remainingAmount: Value(model.remainingAmount),
+            status: Value(model.status),
+            dueDate: Value(model.dueDate?.toUtc()),
+            note: Value(model.note),
+            updatedAt: Value(DateTimeUtils.nowUtc()),
+          ),
+        );
+        return const Success<void, Failure>(null);
+      });
     } on Exception catch (e, st) {
       talker.handle(e, st, 'DebtRepositoryImpl.updateDebt');
       return ErrorResult(DatabaseFailure(e.toString()));

@@ -34,7 +34,7 @@ void main() {
     personName: 'Person $id',
     type: DebtType.debt,
     amount: 100000,
-    remainingAmount: 50000,
+    remainingAmount: 100000,
     status: status,
     createdAt: now,
     updatedAt: now,
@@ -50,7 +50,8 @@ void main() {
 
   test('getActiveDebts filters paid', () async {
     await repo.createDebt(mk('d1', DebtStatus.active), 'acc1', 'cat1');
-    await repo.createDebt(mk('d2', DebtStatus.paid), 'acc1', 'cat1');
+    await repo.createDebt(mk('d2', DebtStatus.active), 'acc1', 'cat1');
+    await repo.updateDebt(mk('d2', DebtStatus.paid).copyWith(remainingAmount: 0));
     final res = await repo.getActiveDebts();
     res.fold((v) => expect(v.length, 1), (e) => fail('fail'));
   });
@@ -70,7 +71,7 @@ void main() {
     final updated = DebtModel(
       id: 'd1',
       personName: 'Updated',
-      type: DebtType.loan,
+      type: DebtType.debt,
       amount: 100000,
       remainingAmount: 0,
       status: DebtStatus.paid,
@@ -112,6 +113,84 @@ void main() {
       expect(v.dueDate!.toUtc(), due.toUtc());
       expect(v.note, 'note');
     }, (e) => fail('fail'));
+  });
+
+  for (final (accountId, categoryId) in [
+    ('', 'cat1'),
+    ('acc1', ''),
+    ('   ', 'cat1'),
+    ('missing', 'cat1'),
+    ('acc1', 'missing'),
+  ]) {
+    test('createDebt rejects missing binding $accountId / $categoryId without writes', () async {
+      final result = await repo.createDebt(mk('d1', DebtStatus.active), accountId, categoryId);
+      expect(result, isA<ErrorResult<void, Failure>>().having((r) => r.error, 'error', isA<ValidationFailure>()));
+      expect(await db.debtsDao.getAllDebts(), isEmpty);
+      expect(await db.select(db.transactions).get(), isEmpty);
+      expect(await db.select(db.transactionItems).get(), isEmpty);
+      expect((await db.accountsDao.getAccount('acc1'))!.balance, 0);
+    });
+  }
+
+  for (final inactiveAccount in [true, false]) {
+    test('createDebt rejects inactive ${inactiveAccount ? 'account' : 'category'}', () async {
+      if (inactiveAccount) {
+        await db.accountsDao.deactivateAccount('acc1');
+      } else {
+        await db.categoriesDao.toggleCategoryActiveStatus('cat1', isActive: false);
+      }
+      final result = await repo.createDebt(mk('d1', DebtStatus.active), 'acc1', 'cat1');
+      expect(result, isA<ErrorResult<void, Failure>>().having((r) => r.error, 'error', isA<ValidationFailure>()));
+      expect(await db.debtsDao.getAllDebts(), isEmpty);
+      expect(await db.select(db.transactions).get(), isEmpty);
+    });
+  }
+
+  test('createDebt validates name, principal and initial accounting state', () async {
+    final original = mk('d1', DebtStatus.active);
+    for (final model in [
+      original.copyWith(personName: '   '),
+      original.copyWith(amount: 0),
+      original.copyWith(amount: -1),
+      original.copyWith(remainingAmount: 50000),
+      original.copyWith(status: DebtStatus.paid),
+    ]) {
+      final result = await repo.createDebt(model, 'acc1', 'cat1');
+      expect(result, isA<ErrorResult<void, Failure>>().having((r) => r.error, 'error', isA<ValidationFailure>()));
+    }
+    expect(await db.debtsDao.getAllDebts(), isEmpty);
+    expect(await db.select(db.transactions).get(), isEmpty);
+  });
+
+  test('updateDebt rejects principal and type changes without changing accounting', () async {
+    final original = mk('d1', DebtStatus.active);
+    expect(await repo.createDebt(original, 'acc1', 'cat1'), isA<Success<void, Failure>>());
+    for (final model in [original.copyWith(amount: 200000), original.copyWith(type: DebtType.loan)]) {
+      final result = await repo.updateDebt(model);
+      expect(result, isA<ErrorResult<void, Failure>>().having((r) => r.error, 'error', isA<ValidationFailure>()));
+    }
+    final debt = (await db.debtsDao.getDebt('d1'))!;
+    expect(debt.amount, 100000);
+    expect(debt.remainingAmount, 100000);
+    expect(debt.type, DebtType.debt);
+    expect((await db.select(db.transactions).getSingle()).amount, 100000);
+    expect((await db.select(db.transactionItems).getSingle()).amount, 100000);
+    expect((await db.accountsDao.getAccount('acc1'))!.balance, 100000);
+  });
+
+  test('updateDebt validates metadata and missing record', () async {
+    final original = mk('d1', DebtStatus.active);
+    for (final model in [
+      original,
+      original.copyWith(personName: ' '),
+      original.copyWith(amount: 0),
+      original.copyWith(remainingAmount: -1),
+      original.copyWith(remainingAmount: 100001),
+      original.copyWith(status: DebtStatus.paid),
+    ]) {
+      final result = await repo.updateDebt(model);
+      expect(result, isA<ErrorResult<void, Failure>>().having((r) => r.error, 'error', isA<ValidationFailure>()));
+    }
   });
 
   test('createDebt creates income transaction for DebtType.debt', () async {

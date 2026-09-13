@@ -192,6 +192,7 @@ class DebtFormSheet extends HookConsumerWidget {
             const SizedBox(height: 12),
             DompetMoneyField(
               controller: amountController,
+              enabled: !isEditing,
               label: Text(t.debts.principalAmount),
               hint: '0',
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -207,7 +208,9 @@ class DebtFormSheet extends HookConsumerWidget {
               FormField<String>(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 initialValue: state.categoryId.isEmpty ? null : state.categoryId,
-                validator: (value) => (value == null || value.isEmpty) ? t.debts.selectCategoryAndAccount : null,
+                validator: (_) => state.accountId.trim().isEmpty || state.categoryId.trim().isEmpty
+                    ? t.debts.selectCategoryAndAccount
+                    : null,
                 builder: (fieldState) => FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.debts.transactionBinding),
@@ -238,7 +241,10 @@ class DebtFormSheet extends HookConsumerWidget {
                           hasValue: selectedAccount != null,
                           onTap: () async {
                             final acc = await DompetPocketSelector.show(context, accounts: accounts);
-                            if (acc != null) notifier.setAccountId(acc.id);
+                            if (acc != null) {
+                              notifier.setAccountId(acc.id);
+                              fieldState.didChange(ref.read(debtFormProvider).categoryId);
+                            }
                           },
                         ),
                       ],

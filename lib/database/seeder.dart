@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:dompet/core/config.dart';
 import 'package:dompet/core/enums.dart';
+import 'package:dompet/core/utils/logger.dart';
 import 'package:dompet/database/database.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -761,33 +762,74 @@ class DatabaseSeeder {
     if (existing.isNotEmpty) return;
 
     try {
-      final raw = await rootBundle
-          .loadString('assets/data/categories.json')
-          .catchError((_) => rootBundle.loadString('packages/dompet/assets/data/categories.json'));
-      final decoded = jsonDecode(raw) as List<dynamic>;
-      final rows = decoded.cast<Map<String, dynamic>>();
-
-      final companions = <CategoriesCompanion>[];
-      for (final row in rows) {
-        final parent = _categoryFromJson(row);
-        if (parent != null) companions.add(parent);
-
-        final children = row['children'] as List<dynamic>? ?? const [];
-        for (final child in children) {
-          final childCompanion = _categoryFromJson(child as Map<String, dynamic>, parentId: row['id'] as String);
-          if (childCompanion != null) companions.add(childCompanion);
-        }
-      }
-
-      await db.batch((batch) => batch.insertAllOnConflictUpdate(db.categories, companions));
-    } on Exception catch (_) {
-      // Gracefully ignore missing assets
+      await addDefaultCategories(db);
+    } on Object catch (error, stackTrace) {
+      talker.error('DatabaseSeeder._seedCategories', error, stackTrace);
     }
   }
 
-  static CategoriesCompanion? _categoryFromJson(Map<String, dynamic> row, {String? parentId}) {
+  static Future<int> addDefaultCategories(AppDatabase db) async {
+    final raw = await rootBundle
+        .loadString('assets/data/categories.json')
+        .catchError((Object _) => rootBundle.loadString('packages/dompet/assets/data/categories.json'));
+    final rows = jsonDecode(raw) as List<Object?>;
+    final defaults = <CategoriesCompanion>[];
+    for (final entry in rows) {
+      final row = entry! as Map<String, Object?>;
+      final parent = _categoryFromJson(row);
+      if (parent == null) continue;
+      defaults.add(parent);
+      final children = row['children'] as List<Object?>? ?? const <Object?>[];
+      for (final child in children) {
+        final category = _categoryFromJson(
+          child! as Map<String, Object?>,
+          parentId: parent.id.value,
+        );
+        if (category == null || category.type.value != parent.type.value) {
+          throw StateError('Invalid default category type');
+        }
+        defaults.add(category);
+      }
+    }
+    if (defaults.map((row) => row.id.value).toSet().length != defaults.length) {
+      throw StateError('Duplicate default category ID');
+    }
+
+    return db.transaction(() async {
+      final existing = await db.select(db.categories).get();
+      final byId = <String, Category>{for (final Category row in existing) row.id: row};
+      final lastSort = <(CategoryType, String?), int>{};
+      for (final row in existing) {
+        final group = (row.type, row.parentId);
+        lastSort[group] = math.max(lastSort[group] ?? -1, row.sort);
+      }
+      var added = 0;
+      for (final row in defaults) {
+        if (byId.containsKey(row.id.value)) continue;
+        final parentId = row.parentId.value;
+        if (parentId != null) {
+          final parent = byId[parentId];
+          if (parent == null || !parent.isActive || parent.parentId != null || parent.type != row.type.value) {
+            continue;
+          }
+        }
+        final group = (row.type.value, parentId);
+        final int sort = math.max(row.sort.value, (lastSort[group] ?? -1) + 1);
+        final inserted = await db.into(db.categories).insertReturning(row.copyWith(sort: Value(sort)));
+        byId[inserted.id] = inserted;
+        lastSort[group] = sort;
+        if (parentId != null) {
+          await db.categoriesDao.syncSubCategoryToAccounts(parentId, inserted.id);
+        }
+        added++;
+      }
+      return added;
+    });
+  }
+
+  static CategoriesCompanion? _categoryFromJson(Map<String, Object?> row, {String? parentId}) {
     CategoryType type;
-    switch (row['type'] as String) {
+    switch (row['type']! as String) {
       case 'income':
         type = CategoryType.income;
       case 'expense':
@@ -796,11 +838,20 @@ class DatabaseSeeder {
         return null; // Skip unsupported types
     }
 
+    final id = row['id']! as String;
+    final name = row['name']! as String;
+    final sort = row['sort']! as int;
+    if (!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$').hasMatch(id) ||
+        name.trim().isEmpty ||
+        sort < 0) {
+      throw StateError('Invalid default category');
+    }
     return CategoriesCompanion.insert(
-      id: Value(row['id'] as String),
+      id: Value(id),
       parentId: Value(parentId),
-      name: row['name'] as String,
+      name: name,
       type: type,
+      sort: Value(sort),
       icon: Value(row['icon'] as String?),
       color: Value(row['color'] as String?),
     );

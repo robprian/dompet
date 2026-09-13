@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ReportState {
 
- ReportPeriod get period; DateTime? get customDateStart; DateTime? get customDateEnd; ReportData get data; List<BudgetModel> get budgets; bool get isLoading;
+ ReportPeriod get period; TrendGranularity get granularity; DateTime? get customDateStart; DateTime? get customDateEnd; ReportData get data; List<BudgetModel> get budgets; bool get isLoading;
 /// Create a copy of ReportState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $ReportStateCopyWith<ReportState> get copyWith => _$ReportStateCopyWithImpl<Repo
 @override
 bool operator ==(Object other) {
   final _this = this as ReportState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportState&&(identical(other.period, _this.period) || other.period == _this.period)&&(identical(other.customDateStart, _this.customDateStart) || other.customDateStart == _this.customDateStart)&&(identical(other.customDateEnd, _this.customDateEnd) || other.customDateEnd == _this.customDateEnd)&&(identical(other.data, _this.data) || other.data == _this.data)&&const DeepCollectionEquality().equals(other.budgets, _this.budgets)&&(identical(other.isLoading, _this.isLoading) || other.isLoading == _this.isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportState&&(identical(other.period, _this.period) || other.period == _this.period)&&(identical(other.granularity, _this.granularity) || other.granularity == _this.granularity)&&(identical(other.customDateStart, _this.customDateStart) || other.customDateStart == _this.customDateStart)&&(identical(other.customDateEnd, _this.customDateEnd) || other.customDateEnd == _this.customDateEnd)&&(identical(other.data, _this.data) || other.data == _this.data)&&const DeepCollectionEquality().equals(other.budgets, _this.budgets)&&(identical(other.isLoading, _this.isLoading) || other.isLoading == _this.isLoading));
 }
 
 
 @override
 int get hashCode {
   final _this = this as ReportState;
-  return Object.hash(runtimeType,_this.period,_this.customDateStart,_this.customDateEnd,_this.data,const DeepCollectionEquality().hash(_this.budgets),_this.isLoading);
+  return Object.hash(runtimeType,_this.period,_this.granularity,_this.customDateStart,_this.customDateEnd,_this.data,const DeepCollectionEquality().hash(_this.budgets),_this.isLoading);
 }
 
 @override
 String toString() {
   final _this = this as ReportState;
-  return 'ReportState(period: ${_this.period}, customDateStart: ${_this.customDateStart}, customDateEnd: ${_this.customDateEnd}, data: ${_this.data}, budgets: ${_this.budgets}, isLoading: ${_this.isLoading})';
+  return 'ReportState(period: ${_this.period}, granularity: ${_this.granularity}, customDateStart: ${_this.customDateStart}, customDateEnd: ${_this.customDateEnd}, data: ${_this.data}, budgets: ${_this.budgets}, isLoading: ${_this.isLoading})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $ReportStateCopyWith<$Res>  {
   factory $ReportStateCopyWith(ReportState value, $Res Function(ReportState) _then) = _$ReportStateCopyWithImpl;
 @useResult
 $Res call({
- ReportPeriod period, DateTime? customDateStart, DateTime? customDateEnd, ReportData data, List<BudgetModel> budgets, bool isLoading
+ ReportPeriod period, TrendGranularity granularity, DateTime? customDateStart, DateTime? customDateEnd, ReportData data, List<BudgetModel> budgets, bool isLoading
 });
 
 
@@ -68,10 +68,11 @@ class _$ReportStateCopyWithImpl<$Res>
 
 /// Create a copy of ReportState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? period = null,Object? customDateStart = freezed,Object? customDateEnd = freezed,Object? data = null,Object? budgets = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? period = null,Object? granularity = null,Object? customDateStart = freezed,Object? customDateEnd = freezed,Object? data = null,Object? budgets = null,Object? isLoading = null,}) {
   return _then(ReportState(
 period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
-as ReportPeriod,customDateStart: freezed == customDateStart ? _self.customDateStart : customDateStart // ignore: cast_nullable_to_non_nullable
+as ReportPeriod,granularity: null == granularity ? _self.granularity : granularity // ignore: cast_nullable_to_non_nullable
+as TrendGranularity,customDateStart: freezed == customDateStart ? _self.customDateStart : customDateStart // ignore: cast_nullable_to_non_nullable
 as DateTime?,customDateEnd: freezed == customDateEnd ? _self.customDateEnd : customDateEnd // ignore: cast_nullable_to_non_nullable
 as DateTime?,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as ReportData,budgets: null == budgets ? _self.budgets : budgets // ignore: cast_nullable_to_non_nullable
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ReportPeriod period,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ReportPeriod period,  TrendGranularity granularity,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReportState() when $default != null:
-return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
+return $default(_that.period,_that.granularity,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.dat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ReportPeriod period,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ReportPeriod period,  TrendGranularity granularity,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)  $default,) {final _that = this;
 switch (_that) {
 case _ReportState():
-return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
+return $default(_that.period,_that.granularity,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.dat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ReportPeriod period,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ReportPeriod period,  TrendGranularity granularity,  DateTime? customDateStart,  DateTime? customDateEnd,  ReportData data,  List<BudgetModel> budgets,  bool isLoading)?  $default,) {final _that = this;
 switch (_that) {
 case _ReportState() when $default != null:
-return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
+return $default(_that.period,_that.granularity,_that.customDateStart,_that.customDateEnd,_that.data,_that.budgets,_that.isLoading);case _:
   return null;
 
 }
@@ -217,10 +218,11 @@ return $default(_that.period,_that.customDateStart,_that.customDateEnd,_that.dat
 
 
 class _ReportState extends ReportState {
-  const _ReportState({this.period = ReportPeriod.thisMonth, this.customDateStart, this.customDateEnd, this.data = const ReportData(),  List<BudgetModel> budgets = const [], this.isLoading = true}): _budgets = budgets,super._();
+  const _ReportState({this.period = ReportPeriod.thisMonth, this.granularity = TrendGranularity.weekly, this.customDateStart, this.customDateEnd, this.data = const ReportData(),  List<BudgetModel> budgets = const [], this.isLoading = true}): _budgets = budgets,super._();
   
 
 @override@JsonKey() final  ReportPeriod period;
+@override@JsonKey() final  TrendGranularity granularity;
 @override final  DateTime? customDateStart;
 @override final  DateTime? customDateEnd;
 @override@JsonKey() final  ReportData data;
@@ -243,18 +245,18 @@ _$ReportStateCopyWith<_ReportState> get copyWith => __$ReportStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportState&&(identical(other.period, period) || other.period == period)&&(identical(other.customDateStart, customDateStart) || other.customDateStart == customDateStart)&&(identical(other.customDateEnd, customDateEnd) || other.customDateEnd == customDateEnd)&&(identical(other.data, data) || other.data == data)&&const DeepCollectionEquality().equals(other.budgets, _budgets)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportState&&(identical(other.period, period) || other.period == period)&&(identical(other.granularity, granularity) || other.granularity == granularity)&&(identical(other.customDateStart, customDateStart) || other.customDateStart == customDateStart)&&(identical(other.customDateEnd, customDateEnd) || other.customDateEnd == customDateEnd)&&(identical(other.data, data) || other.data == data)&&const DeepCollectionEquality().equals(other.budgets, _budgets)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,period,customDateStart,customDateEnd,data,const DeepCollectionEquality().hash(_budgets),isLoading);
+    return Object.hash(runtimeType,period,granularity,customDateStart,customDateEnd,data,const DeepCollectionEquality().hash(_budgets),isLoading);
 }
 
 @override
 String toString() {
-    return 'ReportState(period: $period, customDateStart: $customDateStart, customDateEnd: $customDateEnd, data: $data, budgets: $budgets, isLoading: $isLoading)';
+    return 'ReportState(period: $period, granularity: $granularity, customDateStart: $customDateStart, customDateEnd: $customDateEnd, data: $data, budgets: $budgets, isLoading: $isLoading)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$ReportStateCopyWith<$Res> implements $ReportStateCopyWith
   factory _$ReportStateCopyWith(_ReportState value, $Res Function(_ReportState) _then) = __$ReportStateCopyWithImpl;
 @override @useResult
 $Res call({
- ReportPeriod period, DateTime? customDateStart, DateTime? customDateEnd, ReportData data, List<BudgetModel> budgets, bool isLoading
+ ReportPeriod period, TrendGranularity granularity, DateTime? customDateStart, DateTime? customDateEnd, ReportData data, List<BudgetModel> budgets, bool isLoading
 });
 
 
@@ -282,10 +284,11 @@ class __$ReportStateCopyWithImpl<$Res>
 
 /// Create a copy of ReportState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? period = null,Object? customDateStart = freezed,Object? customDateEnd = freezed,Object? data = null,Object? budgets = null,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? period = null,Object? granularity = null,Object? customDateStart = freezed,Object? customDateEnd = freezed,Object? data = null,Object? budgets = null,Object? isLoading = null,}) {
   return _then(_ReportState(
 period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
-as ReportPeriod,customDateStart: freezed == customDateStart ? _self.customDateStart : customDateStart // ignore: cast_nullable_to_non_nullable
+as ReportPeriod,granularity: null == granularity ? _self.granularity : granularity // ignore: cast_nullable_to_non_nullable
+as TrendGranularity,customDateStart: freezed == customDateStart ? _self.customDateStart : customDateStart // ignore: cast_nullable_to_non_nullable
 as DateTime?,customDateEnd: freezed == customDateEnd ? _self.customDateEnd : customDateEnd // ignore: cast_nullable_to_non_nullable
 as DateTime?,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as ReportData,budgets: null == budgets ? _self._budgets : budgets // ignore: cast_nullable_to_non_nullable

@@ -1,4 +1,3 @@
-import 'package:dompet/features/settings/domain/ai_provider_settings.dart';
 import 'package:dompet/features/settings/presentation/controllers/ai_settings_notifier.dart';
 import 'package:dompet/features/settings/presentation/widgets/sections/ai_settings_sheet.dart';
 import 'package:dompet/features/settings/presentation/widgets/settings_menu_item.dart';
@@ -26,22 +25,8 @@ class AISection extends ConsumerWidget {
       items: [
         SettingsMenuItem(
           title: context.t.settings.aiProvider,
-          subtitle: providerName,
+          subtitle: '$providerName · $status',
           icon: FPhosphorIcons.robot,
-          onTap: () => AISettingsSheet.show(context),
-        ),
-        SettingsMenuItem(
-          title: context.t.settings.aiStatus,
-          subtitle: status,
-          icon: FPhosphorIcons.heartbeat,
-          onTap: () => AISettingsSheet.show(context),
-        ),
-        SettingsMenuItem(
-          title: context.t.settings.aiPrivacyMode,
-          subtitle: aiSettings.privacyMode == PrivacyMode.strict
-              ? context.t.settings.aiPrivacyStrict
-              : context.t.settings.aiPrivacyExternal,
-          icon: FPhosphorIcons.shieldCheck,
           onTap: () => AISettingsSheet.show(context),
         ),
       ],

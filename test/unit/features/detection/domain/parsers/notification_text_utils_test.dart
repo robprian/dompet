@@ -20,6 +20,11 @@ void main() {
       expect(extractAmount('Rp750000 terkirim'), 750000);
     });
 
+    test('parses QRIS amounts that omit the currency prefix', () {
+      expect(extractAmount('QRIS 25.000 berhasil'), 25000);
+      expect(extractAmount('Pembayaran 1.500.000 sukses'), 1500000);
+    });
+
     test('returns null when no amount is present', () {
       expect(extractAmount('Transaksi berhasil tanpa nominal'), isNull);
     });

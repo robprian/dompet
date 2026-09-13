@@ -13,6 +13,7 @@ class ReportPeriodSelector extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(reportProvider.select((s) => s.period));
+    final granularity = ref.watch(reportProvider.select((s) => s.granularity));
     final t = context.t.reports;
 
     final periods = [
@@ -22,31 +23,66 @@ class ReportPeriodSelector extends ConsumerWidget {
       (ReportPeriod.last6Months, t.last6Months),
       (ReportPeriod.custom, t.custom),
     ];
+    final granularities = [
+      (TrendGranularity.daily, t.daily),
+      (TrendGranularity.weekly, t.weekly),
+      (TrendGranularity.monthly, t.monthly),
+    ];
 
-    return SizedBox(
-      height: 30,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: periods.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final (period, label) = periods[index];
-          final isSelected = selected == period;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 30,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: periods.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 8),
+            itemBuilder: (context, index) {
+              final (period, label) = periods[index];
+              final isSelected = selected == period;
 
-          return _PeriodChip(
-            label: label,
-            isSelected: isSelected,
-            onTap: () {
-              if (period == ReportPeriod.custom) {
-                _showCustomRangePicker(context, ref);
-              } else {
-                ref.read(reportProvider.notifier).setPeriod(period);
-              }
+              return _PeriodChip(
+                label: label,
+                isSelected: isSelected,
+                onTap: () {
+                  if (period == ReportPeriod.custom) {
+                    _showCustomRangePicker(context, ref);
+                  } else {
+                    ref.read(reportProvider.notifier).setPeriod(period);
+                  }
+                },
+              );
             },
-          );
-        },
-      ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Text(
+                t.granularity,
+                style: context.theme.typography.caption.copyWith(
+                  color: context.theme.colors.mutedForeground,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 8),
+              for (var i = 0; i < granularities.length; i++) ...[
+                _PeriodChip(
+                  label: granularities[i].$2,
+                  isSelected: granularity == granularities[i].$1,
+                  onTap: () => ref.read(reportProvider.notifier).setGranularity(granularities[i].$1),
+                ),
+                if (i < granularities.length - 1) const SizedBox(width: 8),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 

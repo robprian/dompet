@@ -43,7 +43,7 @@ final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, Rep
   }
 }
 
-String _$reportNotifierHash() => r'c55f07b57ed13c4bf6da67594e084e895a1ca326';
+String _$reportNotifierHash() => r'6e45fbec67384a9bcb0ba6b338edfc335bd19d29';
 
 /// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
 

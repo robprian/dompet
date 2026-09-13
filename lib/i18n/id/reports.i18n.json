@@ -60,5 +60,12 @@
   "prevPeriod": "periode lalu",
   "exportExcel": "Ekspor ke Excel",
   "exportExcelSuccess": "Berhasil mengekspor ke Excel",
-  "exportExcelError": "Gagal mengekspor file Excel"
+  "exportExcelError": "Gagal mengekspor file Excel",
+  "granularity": "Rincian",
+  "daily": "Harian",
+  "weekly": "Mingguan",
+  "monthly": "Bulanan",
+  "netFlow": "Arus bersih",
+  "moneyIn": "Uang masuk",
+  "moneyOut": "Uang keluar"
 }

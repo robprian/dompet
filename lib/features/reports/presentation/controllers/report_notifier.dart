@@ -22,6 +22,7 @@ part 'report_notifier.g.dart';
 abstract class ReportState with _$ReportState {
   const factory ReportState({
     @Default(ReportPeriod.thisMonth) ReportPeriod period,
+    @Default(TrendGranularity.weekly) TrendGranularity granularity,
     DateTime? customDateStart,
     DateTime? customDateEnd,
     @Default(ReportData()) ReportData data,
@@ -51,6 +52,7 @@ class ReportNotifier extends _$ReportNotifier {
   /// Tracks selected period as a field so it survives reactive rebuilds
   /// without accessing [state] (which is uninitialized during first [build]).
   ReportPeriod _period = ReportPeriod.thisMonth;
+  TrendGranularity _granularity = TrendGranularity.weekly;
   DateTime? _customStart;
   DateTime? _customEnd;
 
@@ -77,10 +79,12 @@ class ReportNotifier extends _$ReportNotifier {
       _period,
       customStart: _customStart,
       customEnd: _customEnd,
+      granularity: _granularity,
     );
 
     return ReportState(
       period: _period,
+      granularity: _granularity,
       customDateStart: _customStart,
       customDateEnd: _customEnd,
       data: reportData,
@@ -99,9 +103,16 @@ class ReportNotifier extends _$ReportNotifier {
     ref.invalidateSelf();
   }
 
+  /// Changes the trend granularity and triggers a reactive rebuild.
+  void setGranularity(TrendGranularity granularity) {
+    _granularity = granularity;
+    ref.invalidateSelf();
+  }
+
   /// Applies a custom date range and switches to the custom period.
   void setCustomRange(DateTime start, DateTime end) {
     _period = ReportPeriod.custom;
+    _granularity = TrendGranularity.daily;
     _customStart = start;
     _customEnd = end;
     ref.invalidateSelf();

@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:dompet/app/providers/repository_providers.dart';
 import 'package:dompet/app/router/router.dart';
+import 'package:dompet/app/shell/startup_gate.dart';
 import 'package:dompet/core/services/quick_actions_service.dart';
+import 'package:dompet/core/utils/logger.dart';
+import 'package:dompet/database/seeder.dart';
 import 'package:dompet/features/backup/domain/backup_reminder_service.dart';
 import 'package:dompet/features/debts/domain/debt_alert_service_provider.dart';
 import 'package:dompet/features/settings/presentation/controllers/settings_notifier.dart';
@@ -43,6 +48,17 @@ class DompetApp extends HookConsumerWidget {
     }, [lang]);
 
     useEffect(() {
+      // Backfill newly shipped default categories on existing installs.
+      unawaited(
+        DatabaseSeeder.addDefaultCategories(ref.read(databaseProvider)).catchError((
+          Object error,
+          StackTrace stackTrace,
+        ) {
+          talker.error('Category catalog backfill failed', error, stackTrace);
+          return 0;
+        }),
+      );
+
       // Run debt alerts check on startup
       ref.read(debtAlertServiceProvider).checkAlerts();
 
@@ -77,7 +93,11 @@ class DompetApp extends HookConsumerWidget {
         darkTheme: darkTheme.toApproximateMaterialTheme(),
         builder: (context, child) => FTheme(
           data: Theme.brightnessOf(context) == Brightness.light ? lightTheme : darkTheme,
-          child: FToaster(child: FTooltipGroup(child: child!)),
+          child: FToaster(
+            child: FTooltipGroup(
+              child: StartupGate(child: child!),
+            ),
+          ),
         ),
         routerConfig: router,
       ),

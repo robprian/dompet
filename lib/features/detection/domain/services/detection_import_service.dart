@@ -88,8 +88,8 @@ class DetectionImportService {
       return const ImportOutcome(type: ImportOutcomeType.duplicate);
     }
 
-    final salaryAssessment = await _assessSalary(candidate);
-    final categoryResolution = await _resolveCategory(candidate);
+    final salaryAssessment = await _assessSalary(candidate, policy: policy);
+    final categoryResolution = await _resolveCategory(candidate) ?? await _defaultCategory(candidate);
     final now = DateTime.now().toUtc();
 
     final detectionId = _uuid.v7();
@@ -112,7 +112,7 @@ class DetectionImportService {
       categoryId: categoryResolution?.categoryId,
     );
 
-    if (policy.shouldAutoImport(candidate.confidence)) {
+    if (policy.shouldAutoImport(candidate.confidence) && candidate.type != DetectionTransactionType.transfer) {
       final account = await _pickDefaultAccount();
       if (account != null) {
         final imported = await _autoImport(
@@ -215,7 +215,10 @@ class DetectionImportService {
 
     final inference = _categoryEngine.infer(party);
     if (inference != null) {
-      final match = await _findCategoryByName(inference.label);
+      final match = await _findCategoryByName(
+        inference.label,
+        type: candidate.type == DetectionTransactionType.income ? CategoryType.income : CategoryType.expense,
+      );
       if (match != null) {
         return (categoryId: match.id, confidence: inference.confidence);
       }
@@ -231,7 +234,7 @@ class DetectionImportService {
     };
   }
 
-  Future<CategoryModel?> _findCategoryByName(String label) async {
+  Future<CategoryModel?> _findCategoryByName(String label, {required CategoryType type}) async {
     final result = await _categoryRepository.getCategories();
     final categories = switch (result) {
       Success(value: final data) => data,
@@ -239,15 +242,32 @@ class DetectionImportService {
     };
     final normalized = normalizeText(label);
     for (final category in categories) {
-      if (category.type == CategoryType.expense && normalizeText(category.name) == normalized) {
+      if (category.type == type && normalizeText(category.name) == normalized) {
         return category;
       }
     }
     return null;
   }
 
-  Future<SalaryAssessment> _assessSalary(TransactionCandidate candidate) async {
-    if (candidate.type != DetectionTransactionType.income) {
+  /// Falls back to a well-known catalog category so QRIS/bank receipts always
+  /// attach a sensible category instead of staying uncategorized.
+  Future<({String? categoryId, double confidence})?> _defaultCategory(TransactionCandidate candidate) async {
+    final type = candidate.type == DetectionTransactionType.income ? CategoryType.income : CategoryType.expense;
+    final label = switch ((candidate.type, candidate.method)) {
+      (DetectionTransactionType.income, _) => 'Salary',
+      (_, PaymentMethod.qris) => 'Restaurant',
+      _ => 'Shopping',
+    };
+    final match = await _findCategoryByName(label, type: type);
+    if (match == null) return null;
+    return (categoryId: match.id, confidence: 0.6);
+  }
+
+  Future<SalaryAssessment> _assessSalary(
+    TransactionCandidate candidate, {
+    required DetectionPolicy policy,
+  }) async {
+    if (candidate.type != DetectionTransactionType.income || !policy.salaryDetectionEnabled) {
       return const SalaryAssessment(score: 0, reason: 'not_income');
     }
     final history = await _salaryHistory();

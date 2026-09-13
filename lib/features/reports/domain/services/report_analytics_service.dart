@@ -9,6 +9,9 @@ import 'package:dompet/features/transactions/domain/transaction_model.dart';
 /// Represents the period type for reports filtering.
 enum ReportPeriod { thisMonth, lastMonth, last3Months, last6Months, custom }
 
+/// Time-bucket granularity for the money-flow trend diagram.
+enum TrendGranularity { daily, weekly, monthly }
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Domain data classes
 // ─────────────────────────────────────────────────────────────────────────────
@@ -151,6 +154,7 @@ class ReportAnalyticsService {
     ReportPeriod period, {
     DateTime? customStart,
     DateTime? customEnd,
+    TrendGranularity granularity = TrendGranularity.weekly,
   }) {
     final now = DateTime.now();
 
@@ -248,7 +252,7 @@ class ReportAnalyticsService {
     }).toList()..sort((a, b) => b.amount.compareTo(a.amount));
 
     // ── Trend ─────────────────────────────────────────────────────────────────
-    final trendPoints = _buildTrend(txs, period, start);
+    final trendPoints = _buildTrend(txs, period, start, granularity: granularity);
 
     // ── Budget allocation ──────────────────────────────────────────────────────
     final budgetAllocation = ReportBudgetAllocation(
@@ -313,13 +317,51 @@ class ReportAnalyticsService {
   static List<ReportTrendPoint> _buildTrend(
     List<TransactionModel> txs,
     ReportPeriod period,
-    DateTime start,
-  ) {
-    if (period == ReportPeriod.thisMonth || period == ReportPeriod.lastMonth || period == ReportPeriod.custom) {
-      return _buildWeeklyTrend(txs, start);
+    DateTime start, {
+    TrendGranularity granularity = TrendGranularity.weekly,
+  }) {
+    if (granularity == TrendGranularity.daily) return _buildDailyTrend(txs, start);
+    if (granularity == TrendGranularity.monthly ||
+        period == ReportPeriod.last3Months ||
+        period == ReportPeriod.last6Months) {
+      final months = period == ReportPeriod.last3Months ? 3 : 6;
+      return _buildMonthlyTrend(txs, start, months);
     }
-    final months = period == ReportPeriod.last3Months ? 3 : 6;
-    return _buildMonthlyTrend(txs, start, months);
+    return _buildWeeklyTrend(txs, start);
+  }
+
+  /// Builds a per-day money-flow trend starting at [start] for 31 buckets.
+  static List<ReportTrendPoint> _buildDailyTrend(List<TransactionModel> txs, DateTime start) {
+    final buckets = List.generate(31, (_) => (income: 0.0, expense: 0.0));
+    for (final tx in txs) {
+      final d = tx.transactionDate.toLocal();
+      final dayOffset = DateTime(
+        d.year,
+        d.month,
+        d.day,
+      ).difference(DateTime(start.year, start.month, start.day)).inDays;
+      if (dayOffset < 0 || dayOffset >= 31) continue;
+      if (tx.type == TransactionType.income) {
+        buckets[dayOffset] = (income: buckets[dayOffset].income + tx.amount, expense: buckets[dayOffset].expense);
+      }
+      if (tx.type == TransactionType.expense) {
+        buckets[dayOffset] = (income: buckets[dayOffset].income, expense: buckets[dayOffset].expense + tx.amount);
+      }
+    }
+
+    final maxExp = buckets.map((b) => b.expense).fold<double>(0, (a, b) => a > b ? a : b);
+    final maxInc = buckets.map((b) => b.income).fold<double>(0, (a, b) => a > b ? a : b);
+
+    return List.generate(
+      31,
+      (i) => ReportTrendPoint(
+        label: '${i + 1}',
+        income: buckets[i].income,
+        expense: buckets[i].expense,
+        normalizedExpense: maxExp > 0 ? buckets[i].expense / maxExp : 0,
+        normalizedIncome: maxInc > 0 ? buckets[i].income / maxInc : 0,
+      ),
+    );
   }
 
   static List<ReportTrendPoint> _buildWeeklyTrend(

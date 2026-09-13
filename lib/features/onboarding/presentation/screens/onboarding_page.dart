@@ -7,6 +7,7 @@ import 'package:dompet/shared/widgets/dompet_brand_mark.dart';
 import 'package:dompet/shared/widgets/dompet_header.dart';
 import 'package:dompet/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,87 +19,80 @@ class OnboardingPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final selectedCurrency = useState<CurrencyModel?>(null);
+    final isSaving = useState(false);
 
     final availableCurrenciesFuture = useFuture(
       useMemoized(() => ref.read(settingsProvider.notifier).getAvailableCurrencies()),
     );
     final currencies = availableCurrenciesFuture.data ?? <CurrencyModel>[];
+    final content = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FCard(
+          child: Padding(
+            padding: EdgeInsets.all(theme.style.app.lg),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const DompetBrandMark(size: 56, animated: true),
+                SizedBox(width: theme.style.app.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(t.onboarding.chooseYourBaseCurrency, style: theme.typography.titleCard),
+                      SizedBox(height: theme.style.app.xs),
+                      Text(
+                        t
+                            .onboarding
+                            .thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings,
+                        style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Expanded(
+          child: availableCurrenciesFuture.hasError
+              ? Center(child: Text(availableCurrenciesFuture.error.toString()))
+              : currencies.isEmpty
+              ? const Center(child: FCircularProgress())
+              : CurrencySearchList(
+                  currencies: currencies,
+                  selectedCurrency: selectedCurrency.value,
+                  onSelect: (currency) => selectedCurrency.value = currency,
+                ),
+        ),
+        const SizedBox(height: 12),
+        FButton(
+          onPress: selectedCurrency.value == null || isSaving.value
+              ? null
+              : () async {
+                  isSaving.value = true;
+                  final saved = await ref.read(settingsProvider.notifier).setBaseCurrency(selectedCurrency.value!.id);
+                  if (!context.mounted) return;
+                  isSaving.value = false;
+                  if (saved) const DashboardRoute().go(context);
+                },
+          child: isSaving.value ? const FCircularProgress() : Text(t.onboarding.continueWithCurrency),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
 
     return FScaffold(
       header: DompetHeader(
-        leading: const DompetBrandMark(size: 40),
+        leading: const DompetBrandMark(size: 40, animated: true),
         subtitle: t.app.name,
         title: t.onboarding.chooseYourBaseCurrency,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          FCard(
-            child: Padding(
-              padding: EdgeInsets.all(theme.style.app.lg),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: theme.colors.primary.withValues(alpha: 0.12),
-                      borderRadius: theme.style.borderRadius.lg,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(theme.style.app.sm),
-                      child: Icon(
-                        FPhosphorIcons.currencyCircleDollar,
-                        color: theme.colors.primary,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: theme.style.app.md),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          t.onboarding.chooseYourBaseCurrency,
-                          style: theme.typography.titleCard,
-                        ),
-                        SizedBox(height: theme.style.app.xs),
-                        Text(
-                          t
-                              .onboarding
-                              .thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings,
-                          style: context.theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: CurrencySearchList(
-              currencies: currencies,
-              selectedCurrency: selectedCurrency.value,
-              onSelect: (currency) => selectedCurrency.value = currency,
-            ),
-          ),
-          const SizedBox(height: 12),
-          FButton(
-            onPress: selectedCurrency.value == null
-                ? null
-                : () async {
-                    await ref.read(settingsProvider.notifier).setBaseCurrency(selectedCurrency.value!.id);
-                    if (context.mounted) {
-                      const DashboardRoute().go(context);
-                    }
-                  },
-            child: Text(t.onboarding.continueWithCurrency),
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
+      child: MediaQuery.disableAnimationsOf(context)
+          ? content
+          : content.animate().fadeIn(duration: 420.ms).slideY(begin: 0.04, end: 0, curve: Curves.easeOutCubic),
     );
   }
 }

@@ -498,8 +498,8 @@ class _Translations$onboarding$id extends Translations$onboarding$en {
 
 	// Translations
 	@override String get continueWithCurrency => 'Lanjutkan dengan mata uang pilihan';
-	@override String get chooseYourBaseCurrency => 'Pilih Mata Uang Utama Anda';
-	@override String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.';
+	@override String get chooseYourBaseCurrency => 'Pilih mata uang Anda';
+	@override String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari.';
 }
 
 // Path: recurring
@@ -630,6 +630,13 @@ class _Translations$reports$id extends Translations$reports$en {
 	@override String get exportExcel => 'Ekspor ke Excel';
 	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
 	@override String get exportExcelError => 'Gagal mengekspor file Excel';
+	@override String get granularity => 'Rincian';
+	@override String get daily => 'Harian';
+	@override String get weekly => 'Mingguan';
+	@override String get monthly => 'Bulanan';
+	@override String get netFlow => 'Arus bersih';
+	@override String get moneyIn => 'Uang masuk';
+	@override String get moneyOut => 'Uang keluar';
 }
 
 // Path: settings
@@ -696,8 +703,8 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get errorLoadingContent => 'Gagal memuat konten';
 	@override String get noLicensesFound => 'Lisensi tidak ditemukan';
 	@override String get communityEdition => 'Edisi Komunitas';
-	@override String get aboutDescription => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda. Dibangun di atas basis kode open-source Poka CE.';
-	@override String get copyright => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID';
+	@override String get aboutDescription => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda.';
+	@override String get copyright => '© 2026 Kontributor Dompet';
 	@override String get noResultsFound => 'Tidak Ada Hasil';
 	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".';
 	@override String get notSet => 'Belum Diatur';
@@ -772,6 +779,11 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get aiModel => 'Model';
 	@override String get aiApiKey => 'Kunci API';
 	@override String get aiDisplayName => 'Nama Penyedia';
+	@override String get aiTestConnection => 'Uji koneksi';
+	@override String get aiTesting => 'Menguji koneksi…';
+	@override String get aiTestSuccess => 'Koneksi berhasil';
+	@override String get aiTestFailed => 'Koneksi gagal. Periksa URL, model, dan API key.';
+	@override String get aiInvalidUrl => 'URL dasar tampak tidak valid. Harus diawali http:// atau https://.';
 	@override String get aiPrivacyNotice => 'Pemberitahuan Privasi';
 	@override String get aiPrivacyWarning => 'Menggunakan penyedia AI eksternal dapat mengirim informasi keuangan terpilih keluar dari perangkat ini. Data keuangan Anda tetap di perangkat dalam mode Lokal.';
 	@override String get aiContinue => 'Lanjutkan';
@@ -1296,8 +1308,8 @@ extension on TranslationsId {
 			'lock.temporarilyLocked' => 'Terkunci sementara',
 			'lock.authenticateReason' => 'Autentikasi untuk mengakses Dompet',
 			'onboarding.continueWithCurrency' => 'Lanjutkan dengan mata uang pilihan',
-			'onboarding.chooseYourBaseCurrency' => 'Pilih Mata Uang Utama Anda',
-			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',
+			'onboarding.chooseYourBaseCurrency' => 'Pilih mata uang Anda',
+			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari.',
 			'recurring.addSchedule' => 'Tambah Jadwal',
 			'recurring.transactionDetails' => 'Detail Transaksi',
 			'recurring.amount' => 'Jumlah',
@@ -1410,6 +1422,13 @@ extension on TranslationsId {
 			'reports.exportExcel' => 'Ekspor ke Excel',
 			'reports.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
 			'reports.exportExcelError' => 'Gagal mengekspor file Excel',
+			'reports.granularity' => 'Rincian',
+			'reports.daily' => 'Harian',
+			'reports.weekly' => 'Mingguan',
+			'reports.monthly' => 'Bulanan',
+			'reports.netFlow' => 'Arus bersih',
+			'reports.moneyIn' => 'Uang masuk',
+			'reports.moneyOut' => 'Uang keluar',
 			'settings.title' => 'Pengaturan',
 			'settings.preferences' => 'Preferensi',
 			'settings.baseCurrency' => 'Mata Uang Utama',
@@ -1446,6 +1465,8 @@ extension on TranslationsId {
 			'settings.themeDark' => 'Gelap',
 			'settings.selectLanguage' => 'Pilih Bahasa',
 			'settings.oldTransactionsCleared' => 'Transaksi lama berhasil dibersihkan',
+			_ => null,
+		} ?? switch (path) {
 			'settings.appDataReset' => 'Data aplikasi berhasil direset',
 			'settings.failedToExportLogs' => 'Gagal mengekspor log',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} ketukan lagi dari sebuah kejutan...',
@@ -1453,8 +1474,6 @@ extension on TranslationsId {
 			'settings.selectCurrency' => 'Pilih Mata Uang',
 			'settings.openSourceLicenses' => 'Lisensi Open Source',
 			'settings.helpIssues' => 'Bantuan & Masalah',
-			_ => null,
-		} ?? switch (path) {
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Syarat Layanan',
@@ -1469,8 +1488,8 @@ extension on TranslationsId {
 			'settings.errorLoadingContent' => 'Gagal memuat konten',
 			'settings.noLicensesFound' => 'Lisensi tidak ditemukan',
 			'settings.communityEdition' => 'Edisi Komunitas',
-			'settings.aboutDescription' => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda. Dibangun di atas basis kode open-source Poka CE.',
-			'settings.copyright' => '© 2026 Dompet contributors · Built on Poka CE (Apache 2.0) by Octopy ID',
+			'settings.aboutDescription' => 'Pengelola keuangan pribadi yang 100% offline. Semua data tetap berada di perangkat Anda.',
+			'settings.copyright' => '© 2026 Kontributor Dompet',
 			'settings.noResultsFound' => 'Tidak Ada Hasil',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".',
 			'settings.notSet' => 'Belum Diatur',
@@ -1545,6 +1564,11 @@ extension on TranslationsId {
 			'settings.aiModel' => 'Model',
 			'settings.aiApiKey' => 'Kunci API',
 			'settings.aiDisplayName' => 'Nama Penyedia',
+			'settings.aiTestConnection' => 'Uji koneksi',
+			'settings.aiTesting' => 'Menguji koneksi…',
+			'settings.aiTestSuccess' => 'Koneksi berhasil',
+			'settings.aiTestFailed' => 'Koneksi gagal. Periksa URL, model, dan API key.',
+			'settings.aiInvalidUrl' => 'URL dasar tampak tidak valid. Harus diawali http:// atau https://.',
 			'settings.aiPrivacyNotice' => 'Pemberitahuan Privasi',
 			'settings.aiPrivacyWarning' => 'Menggunakan penyedia AI eksternal dapat mengirim informasi keuangan terpilih keluar dari perangkat ini. Data keuangan Anda tetap di perangkat dalam mode Lokal.',
 			'settings.aiContinue' => 'Lanjutkan',

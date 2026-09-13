@@ -171,7 +171,7 @@ class _FakeSettingsNotifier extends SettingsNotifier {
   Future<void> setLanguage(String language) async {}
 
   @override
-  Future<void> setBaseCurrency(String currencyId) async {}
+  Future<bool> setBaseCurrency(String currencyId) async => true;
 
   @override
   Future<List<CurrencyModel>> getAvailableCurrencies() async => [];

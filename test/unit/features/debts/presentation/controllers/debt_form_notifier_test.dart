@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -92,6 +94,102 @@ void main() {
       n.setAmount(0);
       await n.save();
       expect(container.read(debtFormProvider).error, 'Amount must be greater than 0');
+    });
+
+    for (final (accountId, categoryId) in [('', ''), ('', 'c1'), ('a1', ''), ('   ', 'c1'), ('a1', '   ')]) {
+      test('save rejects missing binding $accountId / $categoryId', () async {
+        final container = createContainer();
+        final notifier = container.read(debtFormProvider.notifier);
+        notifier.init(
+          null,
+          initialPersonName: 'Alice',
+          initialAmount: 1000,
+          initialAccountId: accountId,
+          initialCategoryId: categoryId,
+        );
+        await notifier.save();
+        final state = container.read(debtFormProvider);
+        expect(state.error, 'Please select a category and account');
+        expect(state.isSaving, false);
+        expect(state.isSuccess, false);
+        verifyNever(() => mockRepo.createDebt(any(), any(), any()));
+      });
+    }
+
+    test('save uses prefilled bindings without setter calls', () async {
+      final container = createContainer();
+      final notifier = container.read(debtFormProvider.notifier);
+      notifier.init(
+        null,
+        initialPersonName: ' Alice ',
+        initialAmount: 1000,
+        initialAccountId: 'a1',
+        initialCategoryId: 'c1',
+      );
+      await notifier.save();
+      final model = verify(() => mockRepo.createDebt(captureAny(), 'a1', 'c1')).captured.single as DebtModel;
+      expect(model.personName, 'Alice');
+      expect(model.amount, 1000);
+      expect(model.remainingAmount, 1000);
+      expect(container.read(debtFormProvider).isSuccess, true);
+    });
+
+    test('concurrent and repeated successful submits create only once', () async {
+      final pending = Completer<Result<void, Failure>>();
+      when(() => mockRepo.createDebt(any(), any(), any())).thenAnswer((_) => pending.future);
+      final container = createContainer();
+      final notifier = container.read(debtFormProvider.notifier);
+      notifier.init(
+        null,
+        initialPersonName: 'Alice',
+        initialAmount: 1000,
+        initialAccountId: 'a1',
+        initialCategoryId: 'c1',
+      );
+      final first = notifier.save();
+      await notifier.save();
+      expect(container.read(debtFormProvider).isSaving, true);
+      pending.complete(const Success(null));
+      await first;
+      await notifier.save();
+      expect(container.read(debtFormProvider).isSaving, false);
+      verify(() => mockRepo.createDebt(any(), 'a1', 'c1')).called(1);
+    });
+
+    test('failed submit can retry', () async {
+      final container = createContainer();
+      final notifier = container.read(debtFormProvider.notifier);
+      notifier.init(
+        null,
+        initialPersonName: 'Alice',
+        initialAmount: 1000,
+        initialAccountId: 'a1',
+        initialCategoryId: 'c1',
+      );
+      when(() => mockRepo.createDebt(any(), any(), any()))
+          .thenAnswer((_) async => const ErrorResult(DatabaseFailure('fail')));
+      await notifier.save();
+      when(() => mockRepo.createDebt(any(), any(), any())).thenAnswer((_) async => const Success(null));
+      await notifier.save();
+      expect(container.read(debtFormProvider).isSuccess, true);
+      expect(container.read(debtFormProvider).error, isNull);
+      verify(() => mockRepo.createDebt(any(), 'a1', 'c1')).called(2);
+    });
+
+    test('editing preserves principal, type and remaining without bindings', () async {
+      final container = createContainer();
+      final notifier = container.read(debtFormProvider.notifier);
+      notifier.init(sample().copyWith(remainingAmount: 500));
+      notifier.setAmount(2000);
+      notifier.setType(DebtType.loan);
+      notifier.setPersonName('Updated');
+      await notifier.save();
+      final model = verify(() => mockRepo.updateDebt(captureAny())).captured.single as DebtModel;
+      expect(model.personName, 'Updated');
+      expect(model.amount, 1000);
+      expect(model.type, DebtType.debt);
+      expect(model.remainingAmount, 500);
+      verifyNever(() => mockRepo.createDebt(any(), any(), any()));
     });
 
     test('save create success', () async {

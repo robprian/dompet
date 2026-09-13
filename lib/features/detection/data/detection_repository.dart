@@ -1,3 +1,4 @@
+import 'package:dompet/core/utils/logger.dart';
 import 'package:dompet/database/daos/detection_dao.dart';
 import 'package:dompet/database/database.dart' as db;
 import 'package:dompet/features/detection/domain/detection_enums.dart';
@@ -29,27 +30,31 @@ class DetectionRepository implements IDetectionRepository {
 
   @override
   Future<void> saveCandidate(TransactionDetectionModel model) async {
-    await dao.insertDetection(
-      db.TransactionDetectionsCompanion.insert(
-        id: Value(model.id),
-        sourcePackage: model.sourcePackage,
-        type: model.type,
-        amount: model.amount,
-        merchant: Value(model.merchant),
-        counterparty: Value(model.counterparty),
-        referenceId: Value(model.referenceId),
-        accountId: Value(model.accountId),
-        categoryId: Value(model.categoryId),
-        confidence: model.confidence,
-        confidenceTier: model.confidenceTier,
-        method: model.method,
-        parserVersion: model.parserVersion,
-        status: Value(model.status),
-        fingerprint: model.fingerprint,
-        occurredAt: model.occurredAt.toUtc(),
-        createdAt: Value(model.createdAt.toUtc()),
-      ),
-    );
+    try {
+      await dao.insertDetection(
+        db.TransactionDetectionsCompanion.insert(
+          id: Value(model.id),
+          sourcePackage: model.sourcePackage,
+          type: model.type,
+          amount: model.amount,
+          merchant: Value(model.merchant),
+          counterparty: Value(model.counterparty),
+          referenceId: Value(model.referenceId),
+          accountId: Value(model.accountId),
+          categoryId: Value(model.categoryId),
+          confidence: model.confidence,
+          confidenceTier: model.confidenceTier,
+          method: model.method,
+          parserVersion: model.parserVersion,
+          status: Value(model.status),
+          fingerprint: model.fingerprint,
+          occurredAt: model.occurredAt.toUtc(),
+          createdAt: Value(model.createdAt.toUtc()),
+        ),
+      );
+    } on Exception catch (error, stackTrace) {
+      talker.error('DetectionRepository.saveCandidate', error, stackTrace);
+    }
   }
 
   @override

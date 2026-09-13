@@ -106,7 +106,10 @@ class OpenAICompatibleProvider implements AdvisorProvider {
   }
 
   @override
-  Future<bool> isAvailable() async {
+  Future<bool> isAvailable() => ping();
+
+  /// Pings the provider's model endpoint to verify URL, key, and reachability.
+  Future<bool> ping() async {
     try {
       final response = await _client
           .get(
