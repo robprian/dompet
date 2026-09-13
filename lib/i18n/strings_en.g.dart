@@ -1176,6 +1176,39 @@ class Translations$onboarding$en {
 
 	/// en: 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.'
 	String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.';
+
+	/// en: 'Your money. Your own space.'
+	String get welcomeTitle => 'Your money.\nYour own space.';
+
+	/// en: 'A clearer picture of your finances, without giving up your privacy.'
+	String get welcomeDescription => 'A clearer picture of your finances, without giving up your privacy.';
+
+	/// en: 'Private by design'
+	String get privateTitle => 'Private by design';
+
+	/// en: 'Your financial records stay on this device. No account or bank connection required.'
+	String get privateDescription => 'Your financial records stay on this device. No account or bank connection required.';
+
+	/// en: 'Ready, even offline'
+	String get offlineTitle => 'Ready, even offline';
+
+	/// en: 'Track spending and organize your money without an internet connection.'
+	String get offlineDescription => 'Track spending and organize your money without an internet connection.';
+
+	/// en: 'Small steps, more clarity'
+	String get clarityTitle => 'Small steps, more clarity';
+
+	/// en: 'Bring accounts, everyday spending, and savings goals into one place.'
+	String get clarityDescription => 'Bring accounts, everyday spending, and savings goals into one place.';
+
+	/// en: 'Let's get started'
+	String get getStarted => 'Let\'s get started';
+
+	/// en: 'Currencies could not be loaded.'
+	String get currenciesFailed => 'Currencies could not be loaded.';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
 }
 
 // Path: recurring
@@ -2728,6 +2761,17 @@ extension on Translations {
 			'onboarding.continueWithCurrency' => 'Continue with selected currency',
 			'onboarding.chooseYourBaseCurrency' => 'Choose your currency',
 			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.',
+			'onboarding.welcomeTitle' => 'Your money.\nYour own space.',
+			'onboarding.welcomeDescription' => 'A clearer picture of your finances, without giving up your privacy.',
+			'onboarding.privateTitle' => 'Private by design',
+			'onboarding.privateDescription' => 'Your financial records stay on this device. No account or bank connection required.',
+			'onboarding.offlineTitle' => 'Ready, even offline',
+			'onboarding.offlineDescription' => 'Track spending and organize your money without an internet connection.',
+			'onboarding.clarityTitle' => 'Small steps, more clarity',
+			'onboarding.clarityDescription' => 'Bring accounts, everyday spending, and savings goals into one place.',
+			'onboarding.getStarted' => 'Let\'s get started',
+			'onboarding.currenciesFailed' => 'Currencies could not be loaded.',
+			'onboarding.retry' => 'Try again',
 			'recurring.addSchedule' => 'Add Schedule',
 			'recurring.transactionDetails' => 'Transaction Details',
 			'recurring.amount' => 'Amount',
@@ -2872,6 +2916,8 @@ extension on Translations {
 			'settings.clearOld' => 'Clear Old Transactions',
 			'settings.clearOldDesc' => 'Remove transactions older than 1 year',
 			'settings.resetData' => 'Reset Data',
+			_ => null,
+		} ?? switch (path) {
 			'settings.resetDataDesc' => 'Erase all app data locally',
 			'settings.support' => 'Support',
 			'settings.faq' => 'FAQ',
@@ -2883,8 +2929,6 @@ extension on Translations {
 			'settings.themeDark' => 'Dark',
 			'settings.selectLanguage' => 'Select Language',
 			'settings.oldTransactionsCleared' => 'Old transactions cleared successfully',
-			_ => null,
-		} ?? switch (path) {
 			'settings.appDataReset' => 'App data reset successfully',
 			'settings.failedToExportLogs' => 'Failed to export logs',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} taps away from a surprise...',

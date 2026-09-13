@@ -500,6 +500,17 @@ class _Translations$onboarding$id extends Translations$onboarding$en {
 	@override String get continueWithCurrency => 'Lanjutkan dengan mata uang pilihan';
 	@override String get chooseYourBaseCurrency => 'Pilih mata uang Anda';
 	@override String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari.';
+	@override String get welcomeTitle => 'Uang Anda.\nRuang milik Anda.';
+	@override String get welcomeDescription => 'Pahami keuangan dengan lebih jelas, tanpa mengorbankan privasi.';
+	@override String get privateTitle => 'Privasi sejak awal';
+	@override String get privateDescription => 'Catatan keuangan tetap di perangkat ini. Tanpa perlu mendaftar atau menghubungkan bank.';
+	@override String get offlineTitle => 'Siap, bahkan tanpa internet';
+	@override String get offlineDescription => 'Catat pengeluaran dan atur uang tanpa koneksi internet.';
+	@override String get clarityTitle => 'Langkah kecil, makin terarah';
+	@override String get clarityDescription => 'Satukan akun, pengeluaran harian, dan tujuan tabungan di satu tempat.';
+	@override String get getStarted => 'Mari mulai';
+	@override String get currenciesFailed => 'Gagal memuat daftar mata uang.';
+	@override String get retry => 'Coba lagi';
 }
 
 // Path: recurring
@@ -1310,6 +1321,17 @@ extension on TranslationsId {
 			'onboarding.continueWithCurrency' => 'Lanjutkan dengan mata uang pilihan',
 			'onboarding.chooseYourBaseCurrency' => 'Pilih mata uang Anda',
 			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari.',
+			'onboarding.welcomeTitle' => 'Uang Anda.\nRuang milik Anda.',
+			'onboarding.welcomeDescription' => 'Pahami keuangan dengan lebih jelas, tanpa mengorbankan privasi.',
+			'onboarding.privateTitle' => 'Privasi sejak awal',
+			'onboarding.privateDescription' => 'Catatan keuangan tetap di perangkat ini. Tanpa perlu mendaftar atau menghubungkan bank.',
+			'onboarding.offlineTitle' => 'Siap, bahkan tanpa internet',
+			'onboarding.offlineDescription' => 'Catat pengeluaran dan atur uang tanpa koneksi internet.',
+			'onboarding.clarityTitle' => 'Langkah kecil, makin terarah',
+			'onboarding.clarityDescription' => 'Satukan akun, pengeluaran harian, dan tujuan tabungan di satu tempat.',
+			'onboarding.getStarted' => 'Mari mulai',
+			'onboarding.currenciesFailed' => 'Gagal memuat daftar mata uang.',
+			'onboarding.retry' => 'Coba lagi',
 			'recurring.addSchedule' => 'Tambah Jadwal',
 			'recurring.transactionDetails' => 'Detail Transaksi',
 			'recurring.amount' => 'Jumlah',
@@ -1454,6 +1476,8 @@ extension on TranslationsId {
 			'settings.clearOld' => 'Hapus Transaksi Lama',
 			'settings.clearOldDesc' => 'Hapus transaksi lebih dari 1 tahun',
 			'settings.resetData' => 'Reset Data',
+			_ => null,
+		} ?? switch (path) {
 			'settings.resetDataDesc' => 'Hapus semua data aplikasi lokal',
 			'settings.support' => 'Bantuan',
 			'settings.faq' => 'FAQ',
@@ -1465,8 +1489,6 @@ extension on TranslationsId {
 			'settings.themeDark' => 'Gelap',
 			'settings.selectLanguage' => 'Pilih Bahasa',
 			'settings.oldTransactionsCleared' => 'Transaksi lama berhasil dibersihkan',
-			_ => null,
-		} ?? switch (path) {
 			'settings.appDataReset' => 'Data aplikasi berhasil direset',
 			'settings.failedToExportLogs' => 'Gagal mengekspor log',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} ketukan lagi dari sebuah kejutan...',

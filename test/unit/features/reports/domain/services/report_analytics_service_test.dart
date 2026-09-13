@@ -109,7 +109,9 @@ void main() {
       expect(data.budgetAllocation.need, 300.0);
       expect(data.budgetAllocation.want, 200.0);
 
-      expect(data.trendPoints.length, 4); // 4 weeks
+      expect(data.trendPoints.length, greaterThanOrEqualTo(4)); // weeks in a month
+      final weeklyExpense = data.trendPoints.fold<double>(0, (sum, point) => sum + point.expense);
+      expect(weeklyExpense, 500.0);
     });
 
     test('calculate last3Months', () {
@@ -136,6 +138,8 @@ void main() {
     });
 
     test('daily granularity buckets money flow per day', () {
+      final start = DateTime(now.year, now.month, 1);
+      final end = DateTime(now.year, now.month, 5, 23, 59, 59);
       final txs = [
         createTx(DateTime(now.year, now.month, 2, 10), TransactionType.income, 1000),
         createTx(DateTime(now.year, now.month, 2, 11), TransactionType.expense, 300),
@@ -144,11 +148,13 @@ void main() {
       final data = ReportAnalyticsService.calculate(
         txs,
         categories,
-        ReportPeriod.thisMonth,
+        ReportPeriod.custom,
+        customStart: start,
+        customEnd: end,
         granularity: TrendGranularity.daily,
       );
 
-      expect(data.trendPoints.length, 31);
+      expect(data.trendPoints.length, 5);
       expect(data.trendPoints[1].income, 1000);
       expect(data.trendPoints[1].expense, 300);
       expect(data.trendPoints[4].expense, 200);

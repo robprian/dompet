@@ -55,8 +55,14 @@ void main() {
     );
   }
 
-  testWidgets('OnboardingPage renders correctly and shows currencies', (tester) async {
+  testWidgets('OnboardingPage starts on welcome and reaches currency step', (tester) async {
     await tester.pumpWidget(createWidgetUnderTest());
+    await tester.pumpAndSettle();
+
+    expect(find.text('Your money.\nYour own space.'), findsWidgets);
+    expect(find.text("Let's get started"), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('onboarding-get-started')));
     await tester.pumpAndSettle();
 
     expect(find.text('Choose your currency'), findsWidgets);

@@ -1,5 +1,16 @@
 {
   "continueWithCurrency": "Lanjutkan dengan mata uang pilihan",
   "chooseYourBaseCurrency": "Pilih mata uang Anda",
-  "thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings": "Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari."
+  "thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings": "Satu mata uang untuk semua akun, kantong, dan transaksi. Pilih mata uang yang Anda gunakan sehari-hari.",
+  "welcomeTitle": "Uang Anda.\nRuang milik Anda.",
+  "welcomeDescription": "Pahami keuangan dengan lebih jelas, tanpa mengorbankan privasi.",
+  "privateTitle": "Privasi sejak awal",
+  "privateDescription": "Catatan keuangan tetap di perangkat ini. Tanpa perlu mendaftar atau menghubungkan bank.",
+  "offlineTitle": "Siap, bahkan tanpa internet",
+  "offlineDescription": "Catat pengeluaran dan atur uang tanpa koneksi internet.",
+  "clarityTitle": "Langkah kecil, makin terarah",
+  "clarityDescription": "Satukan akun, pengeluaran harian, dan tujuan tabungan di satu tempat.",
+  "getStarted": "Mari mulai",
+  "currenciesFailed": "Gagal memuat daftar mata uang.",
+  "retry": "Coba lagi"
 }

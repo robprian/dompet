@@ -1,5 +1,16 @@
 {
   "continueWithCurrency": "Continue with selected currency",
   "chooseYourBaseCurrency": "Choose your currency",
-  "thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings": "One currency for all your accounts, pockets, and transactions. Choose the currency you use every day."
+  "thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings": "One currency for all your accounts, pockets, and transactions. Choose the currency you use every day.",
+  "welcomeTitle": "Your money.\nYour own space.",
+  "welcomeDescription": "A clearer picture of your finances, without giving up your privacy.",
+  "privateTitle": "Private by design",
+  "privateDescription": "Your financial records stay on this device. No account or bank connection required.",
+  "offlineTitle": "Ready, even offline",
+  "offlineDescription": "Track spending and organize your money without an internet connection.",
+  "clarityTitle": "Small steps, more clarity",
+  "clarityDescription": "Bring accounts, everyday spending, and savings goals into one place.",
+  "getStarted": "Let's get started",
+  "currenciesFailed": "Currencies could not be loaded.",
+  "retry": "Try again"
 }

@@ -252,7 +252,7 @@ class ReportAnalyticsService {
     }).toList()..sort((a, b) => b.amount.compareTo(a.amount));
 
     // ── Trend ─────────────────────────────────────────────────────────────────
-    final trendPoints = _buildTrend(txs, period, start, granularity: granularity);
+    final trendPoints = _buildTrend(txs, period, start, end, granularity: granularity);
 
     // ── Budget allocation ──────────────────────────────────────────────────────
     final budgetAllocation = ReportBudgetAllocation(
@@ -317,30 +317,32 @@ class ReportAnalyticsService {
   static List<ReportTrendPoint> _buildTrend(
     List<TransactionModel> txs,
     ReportPeriod period,
-    DateTime start, {
+    DateTime start,
+    DateTime end, {
     TrendGranularity granularity = TrendGranularity.weekly,
   }) {
-    if (granularity == TrendGranularity.daily) return _buildDailyTrend(txs, start);
+    if (granularity == TrendGranularity.daily) return _buildDailyTrend(txs, start, end);
     if (granularity == TrendGranularity.monthly ||
         period == ReportPeriod.last3Months ||
         period == ReportPeriod.last6Months) {
       final months = period == ReportPeriod.last3Months ? 3 : 6;
       return _buildMonthlyTrend(txs, start, months);
     }
-    return _buildWeeklyTrend(txs, start);
+    return _buildWeeklyTrend(txs, start, end);
   }
 
-  /// Builds a per-day money-flow trend starting at [start] for 31 buckets.
-  static List<ReportTrendPoint> _buildDailyTrend(List<TransactionModel> txs, DateTime start) {
-    final buckets = List.generate(31, (_) => (income: 0.0, expense: 0.0));
+  /// Builds a per-day money-flow trend across the whole active window.
+  static List<ReportTrendPoint> _buildDailyTrend(List<TransactionModel> txs, DateTime start, DateTime end) {
+    final first = DateTime(start.year, start.month, start.day);
+    final last = DateTime(end.year, end.month, end.day);
+    final dayCount = last.difference(first).inDays + 1;
+    if (dayCount <= 0) return const [];
+    final buckets = List.generate(dayCount, (_) => (income: 0.0, expense: 0.0));
+
     for (final tx in txs) {
       final d = tx.transactionDate.toLocal();
-      final dayOffset = DateTime(
-        d.year,
-        d.month,
-        d.day,
-      ).difference(DateTime(start.year, start.month, start.day)).inDays;
-      if (dayOffset < 0 || dayOffset >= 31) continue;
+      final dayOffset = DateTime(d.year, d.month, d.day).difference(first).inDays;
+      if (dayOffset < 0 || dayOffset >= dayCount) continue;
       if (tx.type == TransactionType.income) {
         buckets[dayOffset] = (income: buckets[dayOffset].income + tx.amount, expense: buckets[dayOffset].expense);
       }
@@ -353,9 +355,9 @@ class ReportAnalyticsService {
     final maxInc = buckets.map((b) => b.income).fold<double>(0, (a, b) => a > b ? a : b);
 
     return List.generate(
-      31,
+      dayCount,
       (i) => ReportTrendPoint(
-        label: '${i + 1}',
+        label: '${first.add(Duration(days: i)).day}',
         income: buckets[i].income,
         expense: buckets[i].expense,
         normalizedExpense: maxExp > 0 ? buckets[i].expense / maxExp : 0,
@@ -367,12 +369,19 @@ class ReportAnalyticsService {
   static List<ReportTrendPoint> _buildWeeklyTrend(
     List<TransactionModel> txs,
     DateTime start,
+    DateTime end,
   ) {
-    final buckets = List.generate(4, (_) => (income: 0.0, expense: 0.0));
+    final first = DateTime(start.year, start.month, start.day);
+    final last = DateTime(end.year, end.month, end.day);
+    final weekCount = ((last.difference(first).inDays) ~/ 7) + 1;
+    if (weekCount <= 0) return const [];
+    final buckets = List.generate(weekCount, (_) => (income: 0.0, expense: 0.0));
     for (final tx in txs) {
       final d = tx.transactionDate.toLocal();
-      final dayOffset = d.difference(start).inDays;
-      final week = (dayOffset ~/ 7).clamp(0, 3);
+      final dayOffset = DateTime(d.year, d.month, d.day).difference(first).inDays;
+      if (dayOffset < 0) continue;
+      final week = dayOffset ~/ 7;
+      if (week < 0 || week >= weekCount) continue;
       if (tx.type == TransactionType.income) {
         buckets[week] = (income: buckets[week].income + tx.amount, expense: buckets[week].expense);
       }
@@ -383,12 +392,11 @@ class ReportAnalyticsService {
 
     final maxExp = buckets.map((b) => b.expense).fold<double>(0, (a, b) => a > b ? a : b);
     final maxInc = buckets.map((b) => b.income).fold<double>(0, (a, b) => a > b ? a : b);
-    final labels = ['W1', 'W2', 'W3', 'W4'];
 
     return List.generate(
-      4,
+      weekCount,
       (i) => ReportTrendPoint(
-        label: labels[i],
+        label: 'W${i + 1}',
         income: buckets[i].income,
         expense: buckets[i].expense,
         normalizedExpense: maxExp > 0 ? buckets[i].expense / maxExp : 0,
